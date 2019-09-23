@@ -1,7 +1,9 @@
 <?php
-include_once("controller/Menu.php");
-$title = "LeMangaFR | ";
-$pageRepertory = "view/frontend/";
+include_once("../utils/utils_bdd.php");
+
+
+$title = "Plongée | ";
+$pageRepertory = "../view/";
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
     if  (!file_exists($pageRepertory.strtolower($page).".php")) $page = "Error_404";
@@ -14,7 +16,7 @@ if (isset($_GET["page"])) {
 <html lang="fr">
 <body>
 <head>
-    <?php include_once($pageRepertory."head.php"); ?>
+    <?php include_once($pageRepertory."head.html"); ?>
     <title><?php echo $title ?></title>
 </head>
 <header>
@@ -24,8 +26,9 @@ if (isset($_GET["page"])) {
     <?php include_once($pageRepertory.strtolower($page).".php"); ?>
 </main>
 <footer class="page-footer white z-depth-3">
-    <?php include_once($pageRepertory."footer.php"); ?>
+    <?php include_once($pageRepertory."footer.html"); ?>
 </footer>
+    <?php include_once($pageRepertory."javascripts.html"); ?>
 </body>
 </html>
 
