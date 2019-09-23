@@ -28,3 +28,5 @@ if (isset($_GET["page"])) {
 </footer>
 </body>
 </html>
+
+<?php
