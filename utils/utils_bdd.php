@@ -1,20 +1,6 @@
 <?php
 
-
-// E.Porcq  pdo_oracle.php  11/10/2016
-
-/*  Exemple
-	$db_username = "ETU000";
-	$db_password = "ETU000";
-	//$db = "oci:dbname=info;charset=AL32UTF8"; // fonctionne si tnsname.ora est complet (base UTF8)
-	//$db = "oci:dbname=info;charset=WE8ISO8859P15"; // fonctionne si tnsname.ora est complet
-	$db = fabriquerChaineConnex(); // plus général (fonctionne toujours)
-
-	$conn = ConnecterPDO($db,$db_username,$db_password);
-*/
-
-//---------------------------------------------------------------------------------------------
-class maBDD extends PDO
+class DataBase extends PDO
 {
 
     private $conn; // contiendra l'objet PDO
@@ -80,20 +66,20 @@ class maBDD extends PDO
     }
 
     //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO1($conn, $sql, &$tab)
+    function LireDonneesPDO1($sql, &$tab)
     {
         $i = 0;
-        foreach ($conn->query($sql, PDO::FETCH_ASSOC) as $ligne) // ici que ça se gère pour les lignes ou colonne
+        foreach ($this->conn->query($sql, PDO::FETCH_ASSOC) as $ligne) // ici que ça se gère pour les lignes ou colonne
             $tab[$i++] = $ligne;
         $nbLignes = $i;
         return $nbLignes;
     }
 
     //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO2($conn, $sql, &$tab)
+    function LireDonneesPDO2($sql, &$tab)
     {
         $i = 0;
-        $cur = $conn->query($sql);
+        $cur = $this->conn->query($sql);
         while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
             $tab[$i++] = $ligne;
         $nbLignes = $i;
@@ -101,9 +87,9 @@ class maBDD extends PDO
     }
 
     //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO3($conn, $sql, &$tab)
+    function LireDonneesPDO3($sql, &$tab)
     {
-        $cur = $conn->query($sql);
+        $cur = $this->conn->query($sql);
         $tab = $cur->fetchall(PDO::FETCH_ASSOC);
         return count($tab);
     }
@@ -111,7 +97,7 @@ class maBDD extends PDO
     //---------------------------------------------------------------------------------------------
     function LireDonneesPDOPreparee($cur, &$tab)
     {
-        $res = $cur->execute();
+        $res = $this->cur->execute();
         $tab = $cur->fetchall(PDO::FETCH_ASSOC);
         return count($tab);
     }
@@ -122,9 +108,9 @@ class maBDD extends PDO
 //---------------------------------------------------------------------------------------------
 function fabriquerChaineConnexPDO()
 {
-    $hote = 'spartacus.iutc3.unicaen.fr';
+    $hote = 'localhost';
     $port = '1521'; // port par défaut
-    $service = 'info.iutc3.unicaen.fr';
+    $service = 'localhost';
 
     $db =
         "oci:dbname=(DESCRIPTION =
@@ -171,6 +157,7 @@ function AfficherDonnee1($tab,$nbLignes)
     }
     echo "$nbLignes Lignes lues<br />\n";
 }
+
 //---------------------------------------------------------------------------------------------
 function AfficherDonnee2($tab)
 {

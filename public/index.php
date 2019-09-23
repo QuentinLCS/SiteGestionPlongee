@@ -1,6 +1,12 @@
 <?php
 include_once("../utils/utils_bdd.php");
 
+$db_username = 'root';
+$db_password = '';
+$db_connect = fabriquerChaineConnexPDO();
+
+$db = new DataBase($db_connect ,$db_username,$db_password);
+$db->OuvrirConnexionPDO($db_connect, $db_username, $db_password);
 
 $title = "Plongée | ";
 $pageRepertory = "../view/";
