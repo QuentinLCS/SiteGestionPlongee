@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter une Plongée</title>
+</head>
+<body>
+<form name="newPlongee" action="Controller/NewPlongee.php" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Nouvelle Plongée</legend>
+        <label for="date">Date : </label><input name="date" id="date" type="date" required><br>
+        <label for="periode">Période de la Journée : </label>
+        <select name="periode" id="periode">
+            <option value="matin" selected>Matin</option>
+            <option value="apres_midi">Après Midi</option>
+            <option value="soir">Soir</option>
+        </select><br>
+        <label for="site"></label>Site : <input name="site" id="site" type="text" required><br>
+        <label for="embarcation">Embarcation :</label>
+        <select name="embarcation" id="embarcation">
+            <option value="Beclem" selected>Beclem</option>
+            <option value="Estelenn">Estelenn</option>
+        </select><br>
+        <label for="effectifP">Effectif de Plongeur : </label><input type="text" name="effectifP" id="effectifP" required><br>
+        <label for="effectifB">Effectif sur Bateau : </label><input type="text" name="effectifB" id="effectifB" required><br>
+        <label for="directeur">Directeur de Plongée : </label><input type="text" name="directeur" id="directeur" required><br>
+        <label for="securite">Sécurité de Surface : </label><input type="text" name="securite" id="securite" required><br>
+        <input type="submit" name="EN" id="EN" value="Ajouter">
+        <input type="submit" name="CO" id="CO" value="Nouvelle Palanquée">
+    </fieldset>
+</form>
+
+</body>
+</html>
