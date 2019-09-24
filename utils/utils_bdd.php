@@ -2,7 +2,6 @@
 
 class DataBase extends PDO
 {
-
     private $conn; // contiendra l'objet PDO
 
     function __construct($dsn, $username = null, $passwd = null, $options = null)
@@ -14,33 +13,30 @@ class DataBase extends PDO
         }
     }
 
-    function OuvrirConnexionPDO($db, $db_username, $db_password)
+    function OuvrirConnexionPDO($db,$db_username,$db_password)
     {
-        try {
-            $this->conn = new PDO($db, $db_username, $db_password);
+        try
+        {
+            $this->conn = new PDO($db,$db_username,$db_password);
             $res = true;
-        } catch (PDOException $erreur) {
+        }
+        catch (PDOException $erreur)
+        {
             echo $erreur->getMessage();
         }
-        return $this->conn;
+        return $res;
     }
-
-    //---------------------------------------------------------------------------------------------
     function majDonneesPDO($sql)
     {
-        $stmt = $this->conn->exec($sql);
-        return $stmt;
+        $res = $this->conn->exec($sql);
+        return $res;
     }
-
-    //---------------------------------------------------------------------------------------------
     function preparerRequetePDO($sql)
     {
         $cur = $this->conn->prepare($sql);
         return $cur;
     }
-
-    //---------------------------------------------------------------------------------------------
-    function ajouterParamPDO($cur, $param, $contenu, $type = 'texte', $taille = 0) // fonctionne avec preparerRequete
+    function ajouterParamPDO($cur,$param,$contenu,$type='texte',$taille=0) // fonctionne avec preparerRequete
     {
         // Sur Oracle, on peut tout passer sans préciser le type. Sur MySQL ???
         //	if ($type == 'nombre')
@@ -50,56 +46,44 @@ class DataBase extends PDO
         $cur->bindParam($param, $contenu);
         return $cur;
     }
-
-    //---------------------------------------------------------------------------------------------
     function majDonneesPrepareesPDO($cur) // fonctionne avec ajouterParam
     {
         $res = $cur->execute();
         return $res;
     }
-
-    //---------------------------------------------------------------------------------------------
-    function majDonneesPrepareesTabPDO($cur, $tab) // fonctionne directement après preparerRequete
+    function majDonneesPrepareesTabPDO($cur,$tab) // fonctionne directement après preparerRequete
     {
         $res = $cur->execute($tab);
         return $res;
     }
-
-    //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO1($sql, &$tab)
+    function LireDonneesPDO1($sql,&$tab)
     {
-        $i = 0;
-        foreach ($this->conn->query($sql, PDO::FETCH_ASSOC) as $ligne) // ici que ça se gère pour les lignes ou colonne
+        $i=0;
+        foreach  ($this->conn->query($sql,PDO::FETCH_ASSOC) as $ligne)
             $tab[$i++] = $ligne;
         $nbLignes = $i;
         return $nbLignes;
     }
-
-    //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO2($sql, &$tab)
+    function LireDonneesPDO2($sql,&$tab)
     {
-        $i = 0;
+        $i=0;
         $cur = $this->conn->query($sql);
         while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
             $tab[$i++] = $ligne;
         $nbLignes = $i;
         return $nbLignes;
     }
-
-    //---------------------------------------------------------------------------------------------
-    function LireDonneesPDO3($sql, &$tab)
+    function LireDonneesPDO3($sql,&$tab)
     {
         $cur = $this->conn->query($sql);
         $tab = $cur->fetchall(PDO::FETCH_ASSOC);
         return count($tab);
     }
-
-    //---------------------------------------------------------------------------------------------
-    function LireDonneesPDOPreparee($cur, &$tab)
+    function LireDonneesPDOPreparee($cur)
     {
-        $res = $this->cur->execute();
+        $res = $cur->execute();
         $tab = $cur->fetchall(PDO::FETCH_ASSOC);
-        return count($tab);
+        return $tab;
     }
 }
 
@@ -109,8 +93,8 @@ class DataBase extends PDO
 function fabriquerChaineConnexPDO()
 {
     $hote = 'localhost';
-    $port = '1521'; // port par défaut
-    $service = 'localhost';
+    $port = '1521';
+    $service = '';
 
     $db =
         "oci:dbname=(DESCRIPTION =
