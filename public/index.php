@@ -10,13 +10,11 @@ $db_connect = 'mysql:host=localhost;dbname=projetphp';
 $db = new DataBase($db_connect ,$db_username, $db_password);
 $dbIsConnected = $db->OuvrirConnexionPDO($db_connect, $db_username, $db_password);
 
-if ($dbIsConnected) {
-
     $title = 'Plongée | ';
     $pageRepertory = '../view/';
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
-        if (!file_exists($pageRepertory . strtolower($page) . ".php")) $page = "Error_404";
+        if (!file_exists('../controller/'. strtolower($page) . ".php")) $page = "Error_404";
         $title = $title . $page;
     } else {
         $page = 'home';
@@ -43,4 +41,3 @@ if ($dbIsConnected) {
     </html>
 
     <?php
-}
