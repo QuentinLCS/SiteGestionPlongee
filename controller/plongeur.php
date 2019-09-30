@@ -24,7 +24,7 @@
       echo  "<td>$val</td>";
 
      }
-     echo '<td><a href="" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier la publications"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+     echo '<td><a href="/ProjetPlongee2A/public/?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier la publications"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
      }  ?>
     </tbody>
 </table>
