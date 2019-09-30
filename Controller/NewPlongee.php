@@ -1,6 +1,12 @@
 <?php
 
-if (empty($_POST)) {
+include ("../View/NewPlongeeForm.html");
+
+if (!empty($_POST)) {
+
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
 
     $erreur = false;
     if (isset($_POST["date"])) {
@@ -51,8 +57,18 @@ if (empty($_POST)) {
         $erreur = true;
     }
 
-
 }
-if ($erreur == true) {
 
+function verifierText($text) {
+    if (isset($_POST["$text"]))
+        echo $_POST["$text"];
+}
+
+function VerifierSelect ($pa, $n) {
+    if (isset($_POST[$pa]))
+    {
+        if ($_POST[$pa] == $n) {
+            echo "selected";
+        }
+    }
 }
