@@ -1,6 +1,18 @@
 <?php
 
-include ("../View/NewPlongeeForm.html");
+include("../View/Plongee/NewPlongeeForm.html");
+include_once("../utils/utils_bdd.php");
+
+
+
+// Insertion complete
+//INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)
+// VALUES ('2019-10-09', 'm', '1', 'Beclem', '1', '1', '3', '3', '2')
+
+//Num DIR
+//SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = 'Carré' AND `PER_PRENOM` = 'Quentin'
+//$sql  = 'SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = \'Carré\' AND `PER_PRENOM` = \'Quentin\'';
+
 
 if (!empty($_POST)) {
 
@@ -46,7 +58,9 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST["directeur"]) && $_POST["directeur"] != "") {
-        $directeur = $_POST["directeur"];
+        $directeur = explode(" ",$_POST["directeur"]);
+        $directeurNom = $directeur[0];
+        $directeurPrenom = $directeur[1];
     } else {
         $erreur = true;
     }
@@ -55,6 +69,13 @@ if (!empty($_POST)) {
         $securite = $_POST["securite"];
     } else {
         $erreur = true;
+    }
+
+    if (!$erreur) {
+        $sql  = "SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$directeurNom."' AND `PER_PRENOM` = '".$directeurPrenom."'";
+        $db->LireDonneesPDO1($sql, $res);
+        $directeurNum = $res[0];
+        echo $directeurNum;
     }
 
 }
