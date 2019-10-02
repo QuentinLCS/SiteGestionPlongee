@@ -1,6 +1,6 @@
 <?php
 
-include("../View/Plongee/NewPlongeeForm.html");
+include("../view/Plongee/NewPlongeeForm.html");
 include_once("../utils/utils_bdd.php");
 
 
