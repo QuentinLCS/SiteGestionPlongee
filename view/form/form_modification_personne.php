@@ -13,8 +13,8 @@
 <?php
     if ( isset($_POST['submit']) ) {
         if ( !empty($_POST['nom']) && !empty($_POST['prenom']) ) {
-            $nom = $_POST['nom'];
-            $prenom = $_POST['prenom'];
+            $nom = strtoupper($_POST['nom']);
+            $prenom = ucfirst($_POST['prenom']);
 
             $db->LireDonneesPDO2("SELECT * FROM PLO_PERSONNE", $personnes);
 
