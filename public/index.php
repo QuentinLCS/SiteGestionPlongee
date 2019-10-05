@@ -31,20 +31,20 @@ mb_internal_encoding("UTF-8");
     ?>
     <html lang="fr">
         <body>
-        <head>
-            <?php include_once($pageRepertory . 'head.html'); ?>
-            <title><?php echo $title ?></title>
-        </head>
-        <header>
-            <?php include_once($pageRepertory . 'navbar.php'); ?>
-        </header>
-        <main class="valign-wrapper">
-            <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
-        </main>
-        <footer class="page-footer white">
-            <?php include_once($pageRepertory . 'footer.html'); ?>
-        </footer>
-        <script type="text/javascript" src="assets/js/main.js"></script>
+            <head>
+                <?php include_once($pageRepertory . 'head.html'); ?>
+                <title><?php echo $title ?></title>
+            </head>
+            <header>
+                <?php include_once($pageRepertory . 'navbar.php'); ?>
+            </header>
+            <main class="valign-wrapper">
+                <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
+            </main>
+            <footer class="page-footer white">
+                <?php include_once($pageRepertory . 'footer.html'); ?>
+            </footer>
+            <script type="text/javascript" src="assets/js/main.js"></script>
         </body>
     </html>
 
