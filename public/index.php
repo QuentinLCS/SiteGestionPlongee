@@ -40,8 +40,8 @@ mb_internal_encoding("UTF-8");
         </header>
         <main class="valign-wrapper">
             <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
-        </main>²²
-        <footer class="page-footer white z-depth-3">
+        </main>
+        <footer class="page-footer white">
             <?php include_once($pageRepertory . 'footer.html'); ?>
         </footer>
         <script type="text/javascript" src="assets/js/main.js"></script>
