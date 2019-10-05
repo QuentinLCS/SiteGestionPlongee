@@ -18,12 +18,13 @@ function enleverCaracteresSpeciaux($text)
         '/Ç/' => 'C',
         '/ñ/' => 'n',
         '/Ñ/' => 'N',
-        //'//' => '-', // conversion d'un tiret UTF-8 en un tiret simple
         '/\[\]/u' => ' ', // guillemet simple
         '/[«»]/u' => ' ', // guillemet double
         '/ /' => ' ', // espace insécable (équiv. à 0x160)
         'œ' => 'oe',
-        'æ' => 'ae'
+        'æ' => 'ae',
+        'Œ' => 'OE',
+        'Æ' => 'AE',
     );
 
     return preg_replace(array_keys($utf8), array_values($utf8), $text);
