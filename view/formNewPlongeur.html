@@ -1,19 +1,18 @@
+<body>
 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-    <label>Nom : <input type="text" id="nom" name="nom" placeholder="Saisir le nom"></label>
-    <label>Prenom : <input type="text" id="prenom" name="prenom" placeholder="Saisir le prenom"></label>
-    <label>
-        <select id="competence" name="competence">
-            <?php
-                    $req="select * from PLO_APTITUDE";
-                    $tab = [];
-                    $db->LireDonneesPDO2($req,$tab);
-                    foreach($tab as $value)
-                    {
-                        echo "<option>".$value['APT_LIBELLE']."</option>";
-                    }
-            ?>
-        </select>
-    </label>
+    <label for="nom">Nom : </label><input type="text" id="nom" name="nom" placeholder="Saisir le nom"><br><br>
+    <label for="prenom">Prenom : </label><input type="text" id="prenom" name="prenom" placeholder="Saisir le prenom"><br><br>
+    <select id="competence" name="competence">
+        <?php
+                $req="select * from PLO_APTITUDE";
+                $tab = [];
+                $db->LireDonneesPDO2($req,$tab);
+                foreach($tab as $value)
+                {
+                    echo "<option>".$value['APT_LIBELLE']."</option>";
+                }
+        ?>
+    </select><br><br>
     <Button class="waves-effect waves-light btn" type="submit">Enregistrer</Button>
 </form>
-<script type="text/javascript" src="assets/js/personne_entree.js"></script>
+</body>
