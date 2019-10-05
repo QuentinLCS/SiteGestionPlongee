@@ -38,9 +38,9 @@ mb_internal_encoding("UTF-8");
         <header>
             <?php include_once($pageRepertory . 'navbar.php'); ?>
         </header>
-        <main>
+        <main class="valign-wrapper">
             <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
-        </main>
+        </main>²²
         <footer class="page-footer white z-depth-3">
             <?php include_once($pageRepertory . 'footer.html'); ?>
         </footer>
