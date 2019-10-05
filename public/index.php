@@ -44,7 +44,7 @@ mb_internal_encoding("UTF-8");
         <footer class="page-footer white z-depth-3">
             <?php include_once($pageRepertory . 'footer.html'); ?>
         </footer>
-        <?php include_once($pageRepertory . 'javascripts.html'); ?>
+        <script type="text/javascript" src="assets/js/main.js"></script>
         </body>
     </html>
 
