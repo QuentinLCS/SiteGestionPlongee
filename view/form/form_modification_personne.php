@@ -23,6 +23,7 @@
     <button class="btn" name="submit">MODIFIER</button>
 </form>
 
+<script type="text/javascript" src="assets/js/personne_entree.js"></script>
 <?php
     include_once('../model/Traitement.php');
 

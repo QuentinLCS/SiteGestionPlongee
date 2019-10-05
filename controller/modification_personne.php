@@ -9,7 +9,3 @@ $db->LireDonneesPDO2($sql, $aptitudes);
 include_once('../view/form/form_modification_personne.php');
 ?>
 
-    <script>
-        <?php include_once('../public/assets/js/personne_entree.js'); ?>
-    </script>
-
