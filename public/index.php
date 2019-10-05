@@ -1,5 +1,5 @@
 <?php
-include_once('../utils/utils_bdd.php');
+include_once('../model/utils_bdd.php');
 
 /*
 $db_username = 'pphp2a16';
