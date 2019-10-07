@@ -1,3 +1,3 @@
 <?php
 
-include_once('../view/error_404.html');
+include_once('../view/global/error_404.html');

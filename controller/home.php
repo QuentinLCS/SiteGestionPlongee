@@ -1,15 +1,9 @@
 <?php
+include_once('../model/global/global_requetes.php');
 
-$sql = 'SELECT count(*) as nb FROM plo_palanquee';
-$db->LireDonneesPDO2($sql, $nbPalanquees);
+countAll($db, 'plo_personne', $nbPersonnes);
+countAll($db, 'plo_personne', $nbPlongeurs);
+countAll($db, 'plo_personne', $nbSites);
+countAll($db, 'plo_personne', $nbPlongees);
 
-$sql = 'SELECT count(*) as nb FROM plo_plongeur';
-$db->LireDonneesPDO2($sql, $nbPlongeurs);
-
-$sql = 'SELECT count(*) as nb FROM plo_aptitude';
-$db->LireDonneesPDO2($sql, $nbAptitudes);
-
-$sql = 'SELECT count(*) as nb FROM plo_plongee';
-$db->LireDonneesPDO2($sql, $nbPlongees);
-
-include_once('../view/home.html');
+include_once('../view/home/home.html');

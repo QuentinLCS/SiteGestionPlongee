@@ -26,8 +26,8 @@
       echo  "<td>$val</td>";
 
      }
-        echo '<td><a href="?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a>';
-        include('../view/form/suppression_personne.php');
+        echo '<td><a href="?page=plongeur_edit&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a>';
+        include('../view/plongeur/plongeur_removeform.php');
         echo '</td></tr>';
     }  ?>
     </tbody>
