@@ -74,7 +74,6 @@ if (!empty($_POST)) {
         $sql  = "SELECT PER_NUM FROM PLO_PERSONNE WHERE PER_NOM = '".$directeurNom."' AND PER_PRENOM = '".$directeurPrenom."'";
         $db->LireDonneesPDO1($sql, $res);
         $directeurNum = intval($res[0],10) ;
-        print_r($directeur);
         var_dump($directeurNum);
 
         $sql  = "SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$securiteNom."' AND `PER_PRENOM` = '".$securitePrenom."'";
