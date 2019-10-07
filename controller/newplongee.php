@@ -71,28 +71,23 @@ if (!empty($_POST)) {
     }
 
     if (!$erreur) {
-        $sql  = "SELECT PER_NUM FROM PLO_PERSONNE WHERE PER_NOM = '$directeurNom' AND PER_PRENOM = '$directeurPrenom'";
+        $sql  = "SELECT PER_NUM as num FROM PLO_PERSONNE WHERE PER_NOM = '$directeurNom' AND PER_PRENOM = '$directeurPrenom'";
         $db->LireDonneesPDO1($sql, $res);
-        print_r($res);
-        $directeurNum = intval($res[0],10) ;
-        var_dump($directeurNum);
+        $directeurNum = intval($res[0]['num'],10) ;
 
-        $sql  = "SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$securiteNom."' AND `PER_PRENOM` = '".$securitePrenom."'";
+        $sql  = "SELECT `PER_NUM` as num FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$securiteNom."' AND `PER_PRENOM` = '".$securitePrenom."'";
         $db->LireDonneesPDO1($sql, $res);
-        $securiteNum = intval($res[0],10) ;
-        var_dump($securiteNum);
+        $securiteNum = intval($res[0]['num'],10) ;
 
-        $sql  = "SELECT `SIT_NUM` FROM `SITE` WHERE `SIT_NOM` = '".$site."'";
+        $sql  = "SELECT `SIT_NUM` as num FROM `SITE` WHERE `SIT_NOM` = '".$site."'";
         $db->LireDonneesPDO1($sql, $res);
-        $siteNum = intval($res[0],10) ;
-        var_dump($siteNum);
+        $siteNum = intval($res[0]['num'],10) ;
 
-        $sql = "SELECT EMB_NUM FROM PLO_EMBARCATION WHERE EMB_NOM = '$embarcation'";
+        $sql = "SELECT EMB_NUM as num FROM PLO_EMBARCATION WHERE EMB_NOM = '$embarcation'";
         $db->LireDonneesPDO1($sql, $res);
-        $embNum =intval($res[0],10) ;
-        var_dump($embNum);
+        $embNum =intval($res[0]['num'],10) ;
 
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES (STR_TO_DATE($date, '%d/%m/%Y'), $periode, $siteNum, $embNum, $directeurNum, $securiteNum, $effectifP, $effectifB, 0)";
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU) VALUES (STR_TO_DATE($date, '%d/%m/%Y'), $periode, $siteNum, $embNum, $directeurNum, $securiteNum, $effectifP, $effectifB)";
         $resu = $db->majDonneesPDO($sql);
         var_dump($resu);
     }
