@@ -15,14 +15,14 @@
                 foreach ($value as $val){
                     echo  '<td class="center">'.$val.'</td>';
                 }
-                echo '<td><a href="?page=modification_personne&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+                echo '<td><a href="?page=site_show&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
             }
         ?>
         </tbody>
     </table>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=newPalanquee">
+        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=new_site">
             <i class="large material-icons">edit</i>
         </a>
     </div>
