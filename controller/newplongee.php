@@ -71,8 +71,9 @@ if (!empty($_POST)) {
     }
 
     if (!$erreur) {
-        $sql  = "SELECT PER_NUM FROM PLO_PERSONNE WHERE PER_NOM = '".$directeurNom."' AND PER_PRENOM = '".$directeurPrenom."'";
+        $sql  = "SELECT PER_NUM FROM PLO_PERSONNE WHERE PER_NOM = '$directeurNom' AND PER_PRENOM = '$directeurPrenom'";
         $db->LireDonneesPDO1($sql, $res);
+        print_r($res);
         $directeurNum = intval($res[0],10) ;
         var_dump($directeurNum);
 
@@ -86,7 +87,7 @@ if (!empty($_POST)) {
         $siteNum = intval($res[0],10) ;
         var_dump($siteNum);
 
-        $sql = "SELECT `EMB_NUM` FROM `PLO_EMBARCATION` WHERE `EMB_NOM` = '".$embarcation."'";
+        $sql = "SELECT EMB_NUM FROM PLO_EMBARCATION WHERE EMB_NOM = '$embarcation'";
         $db->LireDonneesPDO1($sql, $res);
         $embNum =intval($res[0],10) ;
         var_dump($embNum);
