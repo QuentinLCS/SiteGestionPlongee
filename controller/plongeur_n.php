@@ -1,5 +1,5 @@
 <?php
-    include('../view/formNewPlongeur.html');
+    include('../view/plongeur/plongeur_addform.html');
     if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&&isset($_POST['competence']))
     {
         $tab2=[];

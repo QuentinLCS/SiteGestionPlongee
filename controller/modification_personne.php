@@ -6,10 +6,10 @@ $db->LireDonneesPDO2($sql, $utilisateur);
 $sql = 'SELECT * FROM PLO_APTITUDE';
 $db->LireDonneesPDO2($sql, $aptitudes);
 
-include_once('../view/form/form_modification_personne.php');
+include_once('../view/plongeur/plongeur_editform.html');
 
 
-include_once('../model/Traitement.php');
+include_once('../model/plongeur/plongeur_verifications.php');
 
 if ( isset($_POST['submit']) ) {
     if ( !empty($_POST['nom']) && !empty($_POST['prenom']) ) {
@@ -36,7 +36,7 @@ if ( isset($_POST['submit']) ) {
             $db->majDonneesPrepareesPDO($cur);
             $cur = $db->preparerRequetePDO("UPDATE PLO_PLONGEUR SET APT_CODE = '$aptitude' WHERE PER_NUM = '$id'");
             $db->majDonneesPrepareesPDO($cur);
-            header("Location: ../public/?page=plongeur");
+            header("Location: ?page=plongeur");
         } else
             echo "Personne déjà enregistrée.";
     }

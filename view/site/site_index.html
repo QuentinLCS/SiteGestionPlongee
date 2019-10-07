@@ -1,0 +1,29 @@
+<section class="container center">
+    <h3>Liste des plongées</h3>
+    <table class="striped">
+        <thead>
+        <tr>
+            <th class="center">Numéro</th>
+            <th class="center">Nom</th>
+            <th class="center">Localisation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach($allSites as $key=>$value){
+            echo "<tr>";
+                foreach ($value as $val){
+                    echo  '<td class="center">'.$val.'</td>';
+                }
+                echo '<td><a href="?page=modification_personne&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+            }
+        ?>
+        </tbody>
+    </table>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=newPalanquee">
+            <i class="large material-icons">edit</i>
+        </a>
+    </div>
+</section>
