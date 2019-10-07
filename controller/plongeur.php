@@ -4,11 +4,13 @@
 <div>Liste des plongeurs</div>
 <table>
     <thead>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Aptitude</th>
-        <th>Gestion</th>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Aptitude</th>
+            <th>Gestion</th>
+        </tr>
     </thead>
     <tbody>
     <?php

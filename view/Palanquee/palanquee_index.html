@@ -1,0 +1,36 @@
+<section>
+    <h3>Liste des palanquees</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Période</th>
+                <th>Num</th>
+                <th>Profondeur</th>
+                <th>Duree</th>
+                <th>Heure Immersion</th>
+                <th>Heure Sortie</th>
+                <th>Profondeur réelle</th>
+                <th>Durée fond</th>
+                <th>Gestion</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach($allPalanquees as $key=>$value){
+                echo "<tr>";
+                    foreach ($value as $val){
+                        echo  "<td>$val</td>";
+                    }
+                echo '<td><a href="?page=modification_personne&id='.$value['PAL_NUM'].'&date='.$value['PLO_DATE'].'&periode='.$value['PLO_MATIN_APRESMIDI'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+            }
+        ?>
+        </tbody>
+    </table>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=newPalanquee">
+            <i class="large material-icons">edit</i>
+        </a>
+    </div>
+</section>
