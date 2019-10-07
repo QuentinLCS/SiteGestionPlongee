@@ -1,17 +1,18 @@
 <?php
-include_once('../model/utils_bdd.php');
+include_once('../model/utils/utils_bdd.php');
 
-
+/*
 $db_username = 'pphp2a16';
 $db_password = 'Ohwie1shaeshohga';
 $db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
+*/
 
-/*
 $db_username = 'root';
 $db_password = '';
 $db_connect = 'mysql:host=localhost;dbname=projetphp';
 //$db_connect = fabriquerChaineConnexPDO();
-*/
+
+
 $db = new DataBase($db_connect ,$db_username, $db_password);
 $dbIsConnected = $db->OuvrirConnexionPDO($db_connect, $db_username, $db_password);
 echo '<meta charset="utf-8" />';
@@ -19,7 +20,7 @@ mb_internal_encoding("UTF-8");
 
 
     $title = 'Plongée | ';
-    $pageRepertory = '../view/';
+    $pageRepertory = '../view/global/';
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         if (!file_exists('../controller/'. strtolower($page) . ".php")) $page = "Error_404";
@@ -36,7 +37,7 @@ mb_internal_encoding("UTF-8");
                 <title><?php echo $title ?></title>
             </head>
             <header>
-                <?php include_once($pageRepertory . 'navbar.php'); ?>
+                <?php include_once($pageRepertory . 'navbar.html'); ?>
             </header>
             <main class="valign-wrapper">
                 <?php include_once('../controller/' . strtolower($page) . '.php'); ?>

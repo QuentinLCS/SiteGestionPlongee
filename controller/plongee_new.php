@@ -1,6 +1,6 @@
 <?php
 
-include("../view/Plongee/NewPlongeeForm.html");
+include("../view/plongee/plongee_addform.html");
 
 // Insertion complete
 //INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)

@@ -1,7 +1,9 @@
 <?php
-include_once('../view/home.html');
+include_once('../model/global/global_requetes.php');
 
-$req = 'SELECT * FROM plo_personne';
-$db->LireDonneesPDO2($req, $tab);
-echo '<pre>';
-print_r($tab);
+countAll($db, 'plo_personne', $nbPersonnes);
+countAll($db, 'plo_personne', $nbPlongeurs);
+countAll($db, 'plo_personne', $nbSites);
+countAll($db, 'plo_personne', $nbPlongees);
+
+include_once('../view/home/home.html');
