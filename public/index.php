@@ -2,9 +2,9 @@
 include_once('../utils/utils_bdd.php');
 
 
-$db_username = 'root';
-$db_password = '';
-$db_connect = 'mysql:host=localhost;dbname=projetphp';
+$db_username = 'pphp2a16';
+$db_password = 'Ohwie1shaeshohga';
+$db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
 //$db_connect = fabriquerChaineConnexPDO();
 
 $db = new DataBase($db_connect ,$db_username, $db_password);
