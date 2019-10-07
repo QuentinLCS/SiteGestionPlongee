@@ -43,13 +43,13 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
-        $effectifP = $_POST["effectifP"];
+        $effectifP = intval($_POST["effectifP"], 10) ;
     } else {
         $erreur = true;
     }
 
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
-        $effectifB = $_POST["effectifB"];
+        $effectifB = intval($_POST["effectifB"],10) ;
     } else {
         $erreur = true;
     }
