@@ -26,13 +26,15 @@
       echo  "<td>$val</td>";
 
      }
-     echo '<td><a href="?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-     }  ?>
+        echo '<td><a href="?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a>';
+        include('../view/form/suppression_personne.php');
+        echo '</td></tr>';
+    }  ?>
     </tbody>
 </table>
 
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue modal-trigger pulse" href="/ProjetPlongee2A/public/?page=formNewPlongeur">
+    <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=formNewPlongeur">
         <i class="large material-icons">edit</i>
     </a>
 </div>
