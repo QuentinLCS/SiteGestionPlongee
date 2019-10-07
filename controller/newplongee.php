@@ -1,9 +1,6 @@
 <?php
 
 include("../view/Plongee/NewPlongeeForm.html");
-include_once("../utils/utils_bdd.php");
-
-
 
 // Insertion complete
 //INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)
@@ -46,19 +43,19 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
-        $effectifP = $_POST["effectifP"];
+        $effectifP = intval($_POST["effectifP"], 10) ;
     } else {
         $erreur = true;
     }
 
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
-        $effectifB = $_POST["effectifB"];
+        $effectifB = intval($_POST["effectifB"],10) ;
     } else {
         $erreur = true;
     }
 
     if (isset($_POST["directeur"]) && $_POST["directeur"] != "") {
-        $directeur = explode(" ",$_POST["directeur"]);
+        $directeur = explode(" ",$_POST["directeur"],2);
         $directeurNom = $directeur[0];
         $directeurPrenom = $directeur[1];
     } else {
@@ -66,16 +63,33 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST["securite"]) && $_POST["securite"] != "") {
-        $securite = $_POST["securite"];
+        $securite = explode(" ",$_POST["securite"],2);
+        $securiteNom = $securite[0];
+        $securitePrenom = $securite[1];
     } else {
         $erreur = true;
     }
 
     if (!$erreur) {
-        $sql  = "SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$directeurNom."' AND `PER_PRENOM` = '".$directeurPrenom."'";
+        $sql  = "SELECT PER_NUM as num FROM PLO_PERSONNE WHERE PER_NOM = '$directeurNom' AND PER_PRENOM = '$directeurPrenom'";
         $db->LireDonneesPDO1($sql, $res);
-        $directeurNum = $res[0];
-        echo $directeurNum;
+        $directeurNum = intval($res[0]['num'],10) ;
+
+        $sql  = "SELECT `PER_NUM` as num FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$securiteNom."' AND `PER_PRENOM` = '".$securitePrenom."'";
+        $db->LireDonneesPDO1($sql, $res);
+        $securiteNum = intval($res[0]['num'],10) ;
+
+        $sql  = "SELECT `SIT_NUM` as num FROM `SITE` WHERE `SIT_NOM` = '".$site."'";
+        $db->LireDonneesPDO1($sql, $res);
+        $siteNum = intval($res[0]['num'],10) ;
+
+        $sql = "SELECT EMB_NUM as num FROM PLO_EMBARCATION WHERE EMB_NOM = '$embarcation'";
+        $db->LireDonneesPDO1($sql, $res);
+        $embNum =intval($res[0]['num'],10) ;
+
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU) VALUES (STR_TO_DATE(".$date.", '%d/%m/%Y'),'".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.")";
+        $resu = $db->majDonneesPDO($sql);
+        var_dump($resu);
     }
 
 }
