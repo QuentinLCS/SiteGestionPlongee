@@ -32,7 +32,7 @@
 </table>
 
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue modal-trigger" href="/ProjetPlongee2A/public/?page=formNewPlongeur">
+    <a class="btn-floating btn-large blue modal-trigger pulse" href="/ProjetPlongee2A/public/?page=formNewPlongeur">
         <i class="large material-icons">edit</i>
     </a>
 </div>
