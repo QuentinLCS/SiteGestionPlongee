@@ -1,9 +1,6 @@
 <?php
 
 include("../view/Plongee/NewPlongeeForm.html");
-include_once("../utils/utils_bdd.php");
-
-
 
 // Insertion complete
 //INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)
@@ -73,7 +70,7 @@ if (!empty($_POST)) {
 
     if (!$erreur) {
         $sql  = "SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$directeurNom."' AND `PER_PRENOM` = '".$directeurPrenom."'";
-        $db->LireDonneesPDO1($sql, $res);
+        $this->db->LireDonneesPDO1($sql, $res);
         $directeurNum = $res[0];
         echo $directeurNum;
     }
