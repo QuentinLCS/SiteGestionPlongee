@@ -24,9 +24,11 @@
       echo  "<td>$val</td>";
 
      }
-     echo '<td><a href="/ProjetPlongee2A/public/?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a>';
-        include('../view/form/suppression_personne.php');
-        echo '</td></tr>';
+<<<<<<<<< Temporary merge branch 1
+     echo '<td><a href="/ProjetPlongee2A/public/?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier la publications"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+=========
+     echo '<td><a href="/ProjetPlongee2A/public/?page=modification_personne&id='.$value["PER_NUM"].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
+>>>>>>>>> Temporary merge branch 2
      }  ?>
     </tbody>
 </table>

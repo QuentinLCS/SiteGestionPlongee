@@ -1,9 +1,15 @@
 <?php
-include_once('../utils/utils_bdd.php');
+include_once('../model/utils_bdd.php');
 
+/*
 $db_username = 'pphp2a16';
 $db_password = 'Ohwie1shaeshohga';
 $db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
+*/
+
+$db_username = 'root';
+$db_password = '';
+$db_connect = 'mysql:host=localhost;dbname=projetphp';
 //$db_connect = fabriquerChaineConnexPDO();
 
 $db = new DataBase($db_connect ,$db_username, $db_password);
@@ -25,20 +31,20 @@ mb_internal_encoding("UTF-8");
     ?>
     <html lang="fr">
         <body>
-        <head>
-            <?php include_once($pageRepertory . 'head.html'); ?>
-            <title><?php echo $title ?></title>
-        </head>
-        <header>
-            <?php include_once($pageRepertory . 'navbar.php'); ?>
-        </header>
-        <main>
-            <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
-        </main>
-        <footer class="page-footer white z-depth-3">
-            <?php include_once($pageRepertory . 'footer.html'); ?>
-        </footer>
-        <?php include_once($pageRepertory . 'javascripts.html'); ?>
+            <head>
+                <?php include_once($pageRepertory . 'head.html'); ?>
+                <title><?php echo $title ?></title>
+            </head>
+            <header>
+                <?php include_once($pageRepertory . 'navbar.php'); ?>
+            </header>
+            <main class="valign-wrapper">
+                <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
+            </main>
+            <footer class="page-footer white">
+                <?php include_once($pageRepertory . 'footer.html'); ?>
+            </footer>
+            <script type="text/javascript" src="assets/js/main.js"></script>
         </body>
     </html>
 
