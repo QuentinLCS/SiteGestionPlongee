@@ -87,7 +87,7 @@ if (!empty($_POST)) {
         $db->LireDonneesPDO1($sql, $res);
         $embNum =intval($res[0]['num'],10) ;
 
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU) VALUES (STR_TO_DATE($date, '%d/%m/%Y'), $periode, $siteNum, $embNum, $directeurNum, $securiteNum, $effectifP, $effectifB)";
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU) VALUES (STR_TO_DATE(".$date.", '%d/%m/%Y'),'".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.")";
         $resu = $db->majDonneesPDO($sql);
         var_dump($resu);
     }
