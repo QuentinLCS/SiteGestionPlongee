@@ -31,11 +31,11 @@ mb_internal_encoding("UTF-8");
     }
     ?>
     <html lang="fr">
+        <head>
+            <?php include_once($pageRepertory . 'head.html'); ?>
+            <title><?php echo $title ?></title>
+        </head>
         <body>
-            <head>
-                <?php include_once($pageRepertory . 'head.html'); ?>
-                <title><?php echo $title ?></title>
-            </head>
             <header>
                 <?php include_once($pageRepertory . 'navbar.html'); ?>
             </header>
