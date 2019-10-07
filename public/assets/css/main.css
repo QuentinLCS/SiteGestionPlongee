@@ -11,3 +11,7 @@ main {
 nav div.nav-wrapper > ul > li > a {
     margin-left: 5px;
 }
+
+.borderless {
+    border-bottom: none;
+}
