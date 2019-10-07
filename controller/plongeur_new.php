@@ -1,5 +1,5 @@
 <?php
-    include('../view/formNewPlongeur.html');
+    include('../view/plongeur/plongeur_addform.html');
     if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&&isset($_POST['competence']))
     {
         $req6="select PER_NOM, PER_PRENOM from PLO_PERSONNE where PER_NOM like ('".$_POST['nom']."') and PER_PRENOM like ('".$_POST['prenom']."')";

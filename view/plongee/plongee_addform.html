@@ -1,0 +1,24 @@
+<form name="newPlongee" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Nouvelle Plongée</legend>
+        <label for="date">Date : </label><input name="date" id="date" type="date" required><br>
+        <label for="periode">Période de la Journée : </label>
+        <select name="periode" id="periode">
+            <option value="m" <?php VerifierSelect("periode","matin")?>>Matin</option>
+            <option value="a" <?php VerifierSelect("periode","apres_midi")?>>Après Midi</option>
+            <option value="s" <?php VerifierSelect("periode","soir")?>>Soir</option>
+        </select><br>
+        <label for="site"></label>Site : <input name="site" id="site" type="text" value="<?php verifierText('site') ?>" required><br>
+        <label for="embarcation">Embarcation :</label>
+        <select name="embarcation" id="embarcation">
+            <option value="Beclem" <?php VerifierSelect("embarcation","Beclem")?>>Beclem</option>
+            <option value="Estelenn" <?php VerifierSelect("embarcation","Estelenn")?>>Estelenn</option>
+        </select><br>
+        <label for="effectifP">Effectif de Plongeur : </label><input type="text" name="effectifP" id="effectifP" value="<?php verifierText('effectifP') ?>" required><br>
+        <label for="effectifB">Effectif sur Bateau : </label><input type="text" name="effectifB" id="effectifB" value="<?php verifierText('effectifB') ?>" required><br>
+        <label for="directeur">Directeur de Plongée : </label><input type="text" name="directeur" id="directeur" value="<?php verifierText('directeur') ?>" required><br>
+        <label for="securite">Sécurité de Surface : </label><input type="text" name="securite" id="securite" value="<?php verifierText('securite') ?>" required><br>
+        <input type="submit" name="EN" id="EN" value="Ajouter">
+        <input type="submit" name="CO" id="CO" value="Nouvelle Palanquée">
+    </fieldset>
+</form>
