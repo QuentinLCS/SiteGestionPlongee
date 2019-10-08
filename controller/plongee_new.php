@@ -1,14 +1,14 @@
 <?php
 
+    $sql = "SELECT * FROM PLO_PERSONNE JOIN PLO_DIRECTEUR USING(PER_NUM)";
+    $numDir = $db->LireDonneesPDO1($sql, $listDir);
+
+    $sql = "SELECT * FROM PLO_PERSONNE JOIN PLO_SECURITE_DE_SURFACE USING(PER_NUM)";
+    $numSecu = $db->LireDonneesPDO1($sql, $listSecu);
+
 include("../view/plongee/plongee_addform.html");
 
 if (!empty($_POST)) {
-
-    /*
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-    */
 
     $erreur = false;
     if (isset($_POST["date"])) {
@@ -102,5 +102,16 @@ function VerifierSelect ($pa, $n) {
         if ($_POST[$pa] == $n) {
             echo "selected";
         }
+    }
+}
+
+function remplirOptionNom($tab,$nbLignes)
+{
+    for ($i=0;$i<$nbLignes;$i++)
+    {
+        $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
+        $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
+        echo '<option value="'.$tab[$i]["PER_NOM"].' '.$tab[$i]["PER_PRENOM"].'">'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
+        echo '</option>';
     }
 }

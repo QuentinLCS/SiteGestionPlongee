@@ -15,35 +15,13 @@
             <option value="Estelenn" <?php VerifierSelect("embarcation","Estelenn")?>>Estelenn</option>
         </select><br>
         <label for="effectifP">Effectif de Plongeur : </label><input type="text" name="effectifP" id="effectifP" value="<?php verifierText('effectifP') ?>" required><br>
+
         <label for="effectifB">Effectif sur Bateau : </label><input type="text" name="effectifB" id="effectifB" value="<?php verifierText('effectifB') ?>" required><br>
-        <label for="directeur">Directeur de Plongée : </label><input type="text" name="directeur" id="directeur" value="<?php verifierText('directeur') ?>" required><br>
-        <label for="securite">Sécurité de Surface : </label><input type="text" name="securite" id="securite" value="<?php verifierText('securite') ?>" required><br>
+        <label for="directeur">Directeur de Plongée : </label>
+        <select name="directeur" id="directeur"><?php remplirOptionNom($listDir,$numDir) ?> </select>
+        <label for="securite">Sécurité de Surface : </label>
+        <select name="securite" id="securite"> <?php remplirOptionNom($listSecu,$numSecu) ?> </select>
         <input type="submit" name="EN" id="EN" value="Ajouter">
         <input type="submit" name="CO" id="CO" value="Nouvelle Palanquée">
     </fieldset>
 </form>
-
-<script>
-    function chargerDonnee(val)
-    {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'plongee_search_directeur.php?val='+val,true);
-        var Lire = function()
-        {
-            if (xhr.readyState === 4 && xhr.status === 200)
-            {
-                document.getElementById('resultat').innerHTML = '<span>' + xhr.responseText + '</span>';
-            }
-        }
-        xhr.addEventListener("readystatechange", Lire, false);
-        xhr.send(null);
-    }
-
-    var elt1 = document.getElementById('directeur');
-
-    var maFonction1 = function()
-    {
-        chargerDonnee(elt1.value);
-    };
-    res2 = elt1.addEventListener('keyup', maFonction1, false);
-</script>
