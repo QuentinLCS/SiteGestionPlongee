@@ -1,10 +1,12 @@
 <?php
     include('../view/plongeur/plongeur_addform.html');
+    //include('../public/assets/php/memo_personne.php');
     if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&&isset($_POST['competence']))
     {
         $req6="select PER_NOM, PER_PRENOM from PLO_PERSONNE where PER_NOM like ('".$_POST['nom']."') and PER_PRENOM like ('".$_POST['prenom']."')"; //verification de l'existance de la personne dans la base de données
         $db->LireDonneesPDO2($req6,$tab4);
-        if($tab4[0]['PER_NOM']!=null || $tab4[0]['PER_PRENOM']!=null)
+        //TODO : faire la vérification si un plongeur est désactivé
+          if($tab4[0]['PER_NOM']!=null || $tab4[0]['PER_PRENOM']!=null)
         {
             echo '<p>Utilisateur déjà existant !</p>';
         }
@@ -18,7 +20,20 @@
             $nbColonnes++;
             $req2 = "INSERT INTO PLO_PERSONNE(PER_NUM,PER_NOM,PER_PRENOM) VALUES (".$nbColonnes.",'". $_POST['nom']."','".$_POST['prenom']."')"; //insertion de la personne dans la base de données
             $req4 = "INSERT INTO PLO_PLONGEUR(PER_NUM, APT_CODE) VALUES (".$nbColonnes.",".$code.")"; // insertion du plongeur dans la base de données
-            $db->majDonneesPDO($req2);
-            $db->majDonneesPDO($req4);
+            if($db->majDonneesPDO($req2))
+            {
+                echo "<p>Nouvelle personne rentrée !</p><br>";
+            }
+            if($db->majDonneesPDO($req4))
+            {
+                echo "<p>Nouveau plongeur rentré !</p><br>";
+            }
+        }
+    }
+    function verifierEntree($champ)
+    {
+        if($_POST["$champ"]!=null)
+        {
+            echo $_POST["$champ"];
         }
     }
