@@ -22,3 +22,28 @@
         <input type="submit" name="CO" id="CO" value="Nouvelle Palanquée">
     </fieldset>
 </form>
+
+<script>
+    function chargerDonnee(val)
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'plongee_search_directeur.php?val='+val,true);
+        var Lire = function()
+        {
+            if (xhr.readyState === 4 && xhr.status === 200)
+            {
+                document.getElementById('resultat').innerHTML = '<span>' + xhr.responseText + '</span>';
+            }
+        }
+        xhr.addEventListener("readystatechange", Lire, false);
+        xhr.send(null);
+    }
+
+    var elt1 = document.getElementById('directeur');
+
+    var maFonction1 = function()
+    {
+        chargerDonnee(elt1.value);
+    };
+    res2 = elt1.addEventListener('keyup', maFonction1, false);
+</script>
