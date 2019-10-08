@@ -2,20 +2,13 @@
 
 include("../view/plongee/plongee_addform.html");
 
-// Insertion complete
-//INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)
-// VALUES ('2019-10-09', 'm', '1', 'Beclem', '1', '1', '3', '3', '2')
-
-//Num DIR
-//SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = 'Carré' AND `PER_PRENOM` = 'Quentin'
-//$sql  = 'SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = \'Carré\' AND `PER_PRENOM` = \'Quentin\'';
-
-
 if (!empty($_POST)) {
 
+    /*
     echo "<pre>";
     print_r($_POST);
     echo "</pre>";
+    */
 
     $erreur = false;
     if (isset($_POST["date"])) {
@@ -88,7 +81,12 @@ if (!empty($_POST)) {
         $embNum =intval($res[0]['num'],10) ;
 
         $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
-        $db->majDonneesPDO($sql);
+        $yes = $db->majDonneesPDO($sql);
+        if ($yes == 1) {
+            echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
+        } else {
+            echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
+        }
     }
 
 }

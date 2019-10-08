@@ -1,7 +1,7 @@
 <form name="newPlongee" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Nouvelle Plongée</legend>
-        <label for="date">Date : </label><input name="date" id="date" type="date" required><br>
+        <label for="date">Date : </label><input name="date" id="date" type="date" value="<?php verifierText('date') ?>" required><br>
         <label for="periode">Période de la Journée : </label>
         <select name="periode" id="periode">
             <option value="m" <?php VerifierSelect("periode","matin")?>>Matin</option>
