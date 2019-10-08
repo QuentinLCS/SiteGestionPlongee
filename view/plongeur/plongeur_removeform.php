@@ -1,6 +1,6 @@
-<form method="post" action="<?php $_SERVER["PHP_SELF"] ?>" style="display: inline-block;" class="no-padding">
+<form method="post" action="<?php $_SERVER["PHP_SELF"] ?>" name="<?php echo $value["PER_NUM"] ?>" style="display: inline-block;" class="no-padding">
     <input type="hidden" value="<?php echo $value["PER_NUM"] ?>">
-    <button type="submit" name="<?php echo $value["PER_NUM"] ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer"><i class="material-icons white-text">delete</i></button>
+    <button type="submit" onclick="ConfirmerSuppression(<?php echo $value["PER_NUM"] ?>)" name="<?php echo $value["PER_NUM"] ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer"><i class="material-icons white-text">delete</i></button>
 </form>
 <?php
     $idUti = $value["PER_NUM"];
