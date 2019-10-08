@@ -3,6 +3,8 @@
     <button type="submit" onclick="ConfirmerSuppression(<?php echo $value["PER_NUM"] ?>)" name="<?php echo $value["PER_NUM"] ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer"><i class="material-icons white-text">delete</i></button>
 </form>
 <?php
+//faut mettre ça ailleurs
+//faire une fonction php je pense ->
     $idUti = $value["PER_NUM"];
     if(isset($_POST[$idUti])) {
 
