@@ -54,11 +54,15 @@ if (!empty($_POST)) {
     //Récupère l'effactif de plongeur depuis le formulaire
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
         $effectifP = intval($_POST["effectifP"], 10) ;
+    } else {
+        $effectifP = null;
     }
 
     //Récupère l'effactif sur le bateau depuis le formulaire
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
         $effectifB = intval($_POST["effectifB"],10) ;
+    } else {
+        $effectifB = null;
     }
 
     //Récupère le num du directeur depuis le formulaire
@@ -96,7 +100,7 @@ if (!empty($_POST)) {
         }
 
         if ($envoyer == "Nouvelle Palanquée") {
-            echo "<script type='text/javascript'>document.location.replace('?page=plongee_show&date=".$date."&periode=".$periode."');</script>";
+            echo "<script type='text/javascript'>document.location.replace('?page=palanquee_new&date=".$date."&periode=".$periode."');</script>";
         }
 
     }
