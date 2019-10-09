@@ -91,15 +91,15 @@ if (!empty($_POST)) {
         $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
         $yes = $db->majDonneesPDO($sql);
 
-        if ($envoyer == "Nouvelle Palanquée") {
-            header("Location: ?page=plongee_show&date='.$date.'&periode='.$periode.'");
-        }
-
         //Affiche une notification si l'ajout est réussi ou non
         if ($yes == 1) {
             echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
         } else {
             echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
+        }
+
+        if ($envoyer == "Nouvelle Palanquée") {
+            echo "<script type='text/javascript'>document.location.replace('?page=plongee_show&date=".$date."&periode=".$periode."');</script>";
         }
 
     }
