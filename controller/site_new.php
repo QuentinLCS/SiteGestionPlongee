@@ -13,11 +13,13 @@ if ( isset($_POST['submit']) ) {
         $idSite = $nbSites+1; //incremente le numero du site automatiquement
 
         $i=0;
-        if ($nom != $tab[0]['SIT_NOM'] || $localisation != $tab[0]['SIT_LOCALISATION'])
+        if ($nom != $tab[0]['SIT_NOM'] || $localisation != $tab[0]['SIT_LOCALISATION'] )
             while (($nom != $tab[$i]['SIT_NOM'] || $localisation != $tab[$i]['SIT_LOCALISATION']) && ++$i < $nbSites);
+        else if($nom == $tab[0]['SIT_NOM'] && $localisation == $tab[0]['SIT_LOCALISATION'] )
+            $i=0;
         else
             $i = $nbSites;
-        //Marche sauf pour le premier site NORMAL
+        //Marche mais pas beau -> peut mieux faire
 
 
         if($i==$nbSites) {
