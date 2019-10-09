@@ -15,9 +15,9 @@
         <label for="effectifP">Effectif de Plongeur : </label><input type="text" name="effectifP" id="effectifP" value="<?php verifierText('effectifP') ?>" required><br>
         <label for="effectifB">Effectif sur Bateau : </label><input type="text" name="effectifB" id="effectifB" value="<?php verifierText('effectifB') ?>" required><br>
         <label for="directeur">Directeur de Plongée : </label> <br>
-        <select name="directeur" id="directeur"><?php remplirOptionNom($listDir,$numDir) ?> </select> <br>
+        <select name="directeur" id="directeur"><?php remplirOptionNom($listDir,$numDir,"directeur") ?> </select> <br>
         <label for="securite">Sécurité de Surface : </label> <br>
-        <select name="securite" id="securite"> <?php remplirOptionNom($listSecu,$numSecu) ?> </select> <br>
+        <select name="securite" id="securite"> <?php remplirOptionNom($listSecu,$numSecu,"securite") ?> </select> <br>
         <input type="submit" name="EN" id="EN" value="Ajouter">
         <input type="submit" name="CO" id="CO" value="Nouvelle Palanquée">
     </fieldset>

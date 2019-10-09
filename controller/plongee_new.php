@@ -39,7 +39,7 @@ if (!empty($_POST)) {
 
     //Récupère le numéro du Site depuis le formulaire
     if (isset($_POST["site"]) && $_POST["site"] != "") {
-        $site = $_POST["site"];
+        $siteNum = intval($_POST["site"],10) ;
     } else {
         $erreur = true;
     }
@@ -95,7 +95,7 @@ if (!empty($_POST)) {
         $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
         $yes = $db->majDonneesPDO($sql);
 
-        //Affiche une mtofication si l'ajout est réussi ou non
+        //Affiche une notification si l'ajout est réussi ou non
         if ($yes == 1) {
             echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
         } else {
@@ -122,7 +122,7 @@ function VerifierSelect ($pa, $n) {
 }
 
 //Rempli un élement select avec les informations de la base de donnée sur les personnes
-function remplirOptionNom($tab,$nbLignes)
+function remplirOptionNom($tab,$nbLignes,$id)
 {
     for ($i=0;$i<$nbLignes;$i++)
     {
@@ -130,7 +130,8 @@ function remplirOptionNom($tab,$nbLignes)
         $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
         $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
         //On insère une ligne option  entre les balises select
-        echo '<option value="'.$tab[$i]["PER_NUM"].'">'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
+        //VerifierSelect("'.$id.'", "'.$tab[$i]["PER_NUM"].'")s
+        echo '<option value="'.$tab[$i]["PER_NUM"].'" >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
         echo '</option>';
     }
 }
