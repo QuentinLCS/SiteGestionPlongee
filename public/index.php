@@ -9,7 +9,7 @@ $db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
 
 $db_username = 'root';
 $db_password = '';
-$db_connect = 'mysql:host=localhost;dbname=projetphp';
+$db_connect = 'mysql:host=localhost;dbname=projetphp;charset=UTF8';
 //$db_connect = fabriquerChaineConnexPDO();
 
 
@@ -34,6 +34,7 @@ mb_internal_encoding("UTF-8");
         <head>
             <?php include_once($pageRepertory . 'head.html'); ?>
             <title><?php echo $title ?></title>
+            <meta charset="utf-8">
         </head>
         <body>
             <header>
