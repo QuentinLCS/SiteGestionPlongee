@@ -7,6 +7,7 @@ $db_password = 'Ohwie1shaeshohga';
 $db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
 */
 
+
 $db_username = 'root';
 $db_password = '';
 $db_connect = 'mysql:host=localhost;dbname=projetphp';

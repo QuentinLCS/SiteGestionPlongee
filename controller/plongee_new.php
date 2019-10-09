@@ -1,109 +1,158 @@
 <?php
 
+    //Récupère tous les Directeurs et leur nombre
+    $sql = "SELECT * FROM PLO_PERSONNE JOIN PLO_DIRECTEUR USING(PER_NUM)";
+    $numDir = $db->LireDonneesPDO1($sql, $listDir);
+
+    //Récupère tous les personne en Sécurité de Surface et leur nombre
+    $sql = "SELECT * FROM PLO_PERSONNE JOIN PLO_SECURITE_DE_SURFACE USING(PER_NUM)";
+    $numSecu = $db->LireDonneesPDO1($sql, $listSecu);
+
+    //Récupère tous les embarcations et leur nombre
+    $sql = "SELECT * FROM PLO_EMBARCATION";
+    $numEmb = $db->LireDonneesPDO1($sql, $listEmb);
+
+    //Récupère tous les sites et leur nombre
+    $sql = "SELECT * FROM PLO_SITE";
+    $numSite = $db->LireDonneesPDO1($sql, $listSite);
+
 include("../view/plongee/plongee_addform.html");
-
-// Insertion complete
-//INSERT INTO `PLO_PLONGEE` (`PLO_DATE`, `PLO_MATIN_APRESMIDI`, `SIT_NUM`, `EMB_NUM`, `PER_NUM_DIR`, `PER_NUM_SECU`, `PLO_EFFECTIF_PLONGEURS`, `PLO_EFFECTIF_BATEAU`, `PLO_NB_PALANQUEES`)
-// VALUES ('2019-10-09', 'm', '1', 'Beclem', '1', '1', '3', '3', '2')
-
-//Num DIR
-//SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = 'Carré' AND `PER_PRENOM` = 'Quentin'
-//$sql  = 'SELECT `PER_NUM` FROM `PLO_PERSONNE` WHERE `PER_NOM` = \'Carré\' AND `PER_PRENOM` = \'Quentin\'';
-
 
 if (!empty($_POST)) {
 
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-
+    //Si il manque des informations
     $erreur = false;
+
+    //Récupère la date depuis le formulaire
     if (isset($_POST["date"])) {
         $date = $_POST["date"];
     } else {
         $erreur = true;
     }
 
+    //Récupère le code de la periode depuis le formulaire
     if (isset($_POST["periode"])) {
         $periode = ($_POST["periode"]);
     } else {
         $erreur = true;
     }
 
+    //Récupère le numéro du Site depuis le formulaire
     if (isset($_POST["site"]) && $_POST["site"] != "") {
-        $site = $_POST["site"];
+        $siteNum = intval($_POST["site"],10) ;
     } else {
         $erreur = true;
     }
 
+    //Récupère le numéro de l'embarcation depuis le formulaire
     if (isset($_POST["embarcation"])) {
-        $embarcation = $_POST["embarcation"];
+        $embNum = intval($_POST["embarcation"],10) ;
     } else {
         $erreur = true;
     }
 
+    //Récupère l'effactif de plongeur depuis le formulaire
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
         $effectifP = intval($_POST["effectifP"], 10) ;
     } else {
         $erreur = true;
     }
 
+    //Récupère l'effactif sur le bateau depuis le formulaire
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
         $effectifB = intval($_POST["effectifB"],10) ;
     } else {
         $erreur = true;
     }
 
-    if (isset($_POST["directeur"]) && $_POST["directeur"] != "") {
+    //Récupère le num du directeur depuis le formulaire
+    if (isset($_POST["directeur"])) {
+        $directeurNum = intval($_POST["directeur"],10);
+        /*
         $directeur = explode(" ",$_POST["directeur"],2);
         $directeurNom = $directeur[0];
         $directeurPrenom = $directeur[1];
+        */
     } else {
         $erreur = true;
     }
 
-    if (isset($_POST["securite"]) && $_POST["securite"] != "") {
+    //Récupère le num de l'agent de sécurité depuis le formulaire
+    if (isset($_POST["securite"])) {
+        $securiteNum = intval($_POST["securite"],10);
+        /*
         $securite = explode(" ",$_POST["securite"],2);
         $securiteNom = $securite[0];
         $securitePrenom = $securite[1];
+        */
     } else {
         $erreur = true;
     }
 
     if (!$erreur) {
-        $sql  = "SELECT PER_NUM as num FROM PLO_PERSONNE WHERE PER_NOM = '$directeurNom' AND PER_PRENOM = '$directeurPrenom'";
-        $db->LireDonneesPDO1($sql, $res);
-        $directeurNum = intval($res[0]['num'],10) ;
 
-        $sql  = "SELECT `PER_NUM` as num FROM `PLO_PERSONNE` WHERE `PER_NOM` = '".$securiteNom."' AND `PER_PRENOM` = '".$securitePrenom."'";
-        $db->LireDonneesPDO1($sql, $res);
-        $securiteNum = intval($res[0]['num'],10) ;
+        //Ajoute une nouvelle Plongee dans la Base de Donnée
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
+        $yes = $db->majDonneesPDO($sql);
 
-        $sql  = "SELECT `SIT_NUM` as num FROM `SITE` WHERE `SIT_NOM` = '".$site."'";
-        $db->LireDonneesPDO1($sql, $res);
-        $siteNum = intval($res[0]['num'],10) ;
-
-        $sql = "SELECT EMB_NUM as num FROM PLO_EMBARCATION WHERE EMB_NOM = '$embarcation'";
-        $db->LireDonneesPDO1($sql, $res);
-        $embNum =intval($res[0]['num'],10) ;
-
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU) VALUES (STR_TO_DATE(".$date.", '%d/%m/%Y'),'".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.")";
-        $resu = $db->majDonneesPDO($sql);
-        var_dump($resu);
+        //Affiche une notification si l'ajout est réussi ou non
+        if ($yes == 1) {
+            echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
+        } else {
+            echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
+        }
     }
 
 }
 
+//Vérifie si un élément texte a déjà été envoyé
 function verifierText($text) {
     if (isset($_POST["$text"]))
         echo $_POST["$text"];
 }
 
+//Vérifie si un élément select a déjà été envoyé
 function VerifierSelect ($pa, $n) {
     if (isset($_POST[$pa]))
     {
         if ($_POST[$pa] == $n) {
             echo "selected";
         }
+    }
+}
+
+//Rempli un élement select avec les informations de la base de donnée sur les personnes
+function remplirOptionNom($tab,$nbLignes,$id)
+{
+    for ($i=0;$i<$nbLignes;$i++)
+    {
+        //On encode le texte reçu en UTF-8 pour les accents
+        $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
+        $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
+        //On insère une ligne option  entre les balises select
+        echo '<option value="'.$tab[$i]["PER_NUM"].'" '.VerifierSelect($id,$tab[$i]["PER_NUM"]).' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
+        echo '</option>';
+    }
+}
+
+//Rempli un élement select avec les informations de la base de donnée sur les embarcation
+function remplirOptionEmb($tab,$nbLignes)
+{
+    for ($i=0;$i<$nbLignes;$i++)
+    {
+        $tab[$i]["EMB_NOM"] = utf8_encode($tab[$i]["EMB_NOM"]);
+        echo '<option value="'.$tab[$i]["EMB_NUM"].'">'.$tab[$i]['EMB_NOM'];
+        echo '</option>';
+    }
+}
+
+//Rempli un élement select avec les informations de la base de donnée sur les sites
+function remplirOptionSite($tab,$nbLignes)
+{
+    for ($i=0;$i<$nbLignes;$i++)
+    {
+        $tab[$i]["SIT_NOM"] = utf8_encode($tab[$i]["SIT_NOM"]);
+        echo '<option value="'.$tab[$i]["SIT_NUM"].'">'.$tab[$i]['SIT_NOM'];
+        echo '</option>';
     }
 }

@@ -72,3 +72,11 @@ function jointure($sql, $nomTable) {
     }
     return $sql;
 }
+
+function deleteSimple($db,$nomTable,$col,$arg){
+    $req = 'DELETE FROM '.$nomTable.' WHERE '.$col.' = '.$arg;
+
+    $cur = $db->preparerRequetePDO($req);
+
+    $db->majDonneesPrepareesPDO($cur);
+}
