@@ -5,7 +5,7 @@
     <title>Ajouter une Palanquée</title>
 </head>
 <body>
-<form name="newPlongee" action="" method="post" enctype="multipart/form-data">
+<form name="newPlongee" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Nouvelle Palanquée</legend>
         <label for="heureD">Heure de Départ : </label><input type="time" name="heureD" id="heureD" required><br>
@@ -14,7 +14,7 @@
         <label for="tempsR">Temps Réalisé : </label><input type="time" name="tempsR" id="tempsR" required><br><br>
         <label for="profondeurP">Profondeur Prévue : </label><input type="text" name="profondeurP" id="profondeurP" required><br>
         <label for="profondeurR">Profondeur Réalisée : </label><input type="text" name="profondeurR" id="profondeurR" required><br><br>
-        <label>Plongeurs</label><br>
+        <label for="plongeur">Plongeurs</label><br>
         <select name="plongeur" id="plongeur"></select> <br>
 
 

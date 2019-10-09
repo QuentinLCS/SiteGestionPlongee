@@ -6,84 +6,72 @@ if (!empty($_POST)) {
 
     //Si il manque des informations
     $erreur = false;
+    print_r($_POST);
 
-    //Récupère la date depuis le formulaire
-    if (isset($_POST["date"])) {
-        $date = $_POST["date"];
+    //Récupère la date depuis l'url
+    if (isset($_GET["date"])) {
+        $date = $_GET["date"];
     } else {
         $erreur = true;
     }
 
-    //Récupère le code de la periode depuis le formulaire
-    if (isset($_POST["periode"])) {
-        $periode = ($_POST["periode"]);
+    //Récupère la période depuis l'url
+    if (isset($_GET["periode"])) {
+        $periode = $_GET["periode"];
     } else {
         $erreur = true;
     }
 
-    //Récupère le numéro du Site depuis le formulaire
-    if (isset($_POST["site"]) && $_POST["site"] != "") {
-        $site = $_POST["site"];
-    } else {
-        $erreur = true;
+
+    //Récupère l'heure de départ depuis le formulaire
+    if (isset($_POST["heureD"])) {
+        $heureD = $_POST["heureD"];
     }
 
-    //Récupère le numéro de l'embarcation depuis le formulaire
-    if (isset($_POST["embarcation"])) {
-        $embNum = intval($_POST["embarcation"],10) ;
-    } else {
-        $erreur = true;
+    //Récupère l'heure de retour depuis le formulaire
+    if (isset($_POST["heureA"])) {
+        $heureA = $_POST["heureA"];
     }
 
-    //Récupère l'effactif de plongeur depuis le formulaire
-    if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
-        $effectifP = intval($_POST["effectifP"], 10) ;
-    } else {
-        $erreur = true;
+    //Récupère le temps prévu de départ depuis le formulaire
+    if (isset($_POST["tempsP"])) {
+        $tempsP = $_POST["tempsP"];
     }
 
-    //Récupère l'effactif sur le bateau depuis le formulaire
-    if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
-        $effectifB = intval($_POST["effectifB"],10) ;
-    } else {
-        $erreur = true;
+    //Récupère le temps realisé de départ depuis le formulaire
+    if (isset($_POST["tempsR"])) {
+        $tempsR = $_POST["tempsR"];
     }
 
-    //Récupère le num du directeur depuis le formulaire
-    if (isset($_POST["directeur"])) {
-        $directeurNum = intval($_POST["directeur"],10);
-        /*
-        $directeur = explode(" ",$_POST["directeur"],2);
-        $directeurNom = $directeur[0];
-        $directeurPrenom = $directeur[1];
-        */
-    } else {
-        $erreur = true;
+    //Récupère la profondeur prévue sur le bateau depuis le formulaire
+    if (isset($_POST["profondeurP"]) && $_POST["profondeurP"] != "") {
+        $profondeurP = floatval($_POST["profondeurP"]) ;
     }
 
-    //Récupère le num de l'agent de sécurité depuis le formulaire
-    if (isset($_POST["securite"])) {
-        $securiteNum = intval($_POST["securite"],10);
-        /*
-        $securite = explode(" ",$_POST["securite"],2);
-        $securiteNom = $securite[0];
-        $securitePrenom = $securite[1];
-        */
-    } else {
-        $erreur = true;
+    //Récupère la profondeur prévue sur le bateau depuis le formulaire
+    if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "") {
+        $profondeurR = floatval($_POST["profondeurR"]) ;
     }
+
+
+    //Récupère le num du plongeur depuis le formulaire
+    if (isset($_POST["plongeur"])) {
+        $plongeur = intval($_POST["plongeur"],10);
+    }
+
 
     if (!$erreur) {
 
         //Ajoute une nouvelle Plongee dans la Base de Donnée
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
+        $sql = "INSERT INTO PLO_PALANQUEE (PLO_DATE, PLO_MATIN_APRESMIDI, PAL_NUM, PAL_PROFONDEUR_MAX, PAL_DUREE_MAX, PAL_HEURE_IMMERSION, PAL_HEURE_SORTIE_EAU, PAL_PROFONDEUR_REELLE, PAL_DUREE_FOND)"
+            ."VALUES ('".$date."', '".$periode."', '1', '.$profondeurP.', '.$profondeurR.', '".$heureD."', '".$heureA."', '.$profondeurR.', '.$tempsR.')";
         $yes = $db->majDonneesPDO($sql);
 
         //Affiche une mtofication si l'ajout est réussi ou non
         if ($yes == 1) {
-            echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
+            echo "<script>M.toast({html: 'La Palanquée à bien été ajoutée'})</script>";
         } else {
-            echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
+            echo "<script>M.toast({html: 'La Palanquée na pas pu être ajoutée'})</script>";
         }
     }
 

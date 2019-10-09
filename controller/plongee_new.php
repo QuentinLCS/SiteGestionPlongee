@@ -54,15 +54,11 @@ if (!empty($_POST)) {
     //Récupère l'effactif de plongeur depuis le formulaire
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
         $effectifP = intval($_POST["effectifP"], 10) ;
-    } else {
-        $erreur = true;
     }
 
     //Récupère l'effactif sur le bateau depuis le formulaire
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
         $effectifB = intval($_POST["effectifB"],10) ;
-    } else {
-        $erreur = true;
     }
 
     //Récupère le num du directeur depuis le formulaire
@@ -88,7 +84,8 @@ if (!empty($_POST)) {
     if (!$erreur) {
 
         //Ajoute une nouvelle Plongee dans la Base de Donnée
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES)"
+            ." VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
         $yes = $db->majDonneesPDO($sql);
 
         //Affiche une notification si l'ajout est réussi ou non
