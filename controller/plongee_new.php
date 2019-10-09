@@ -55,24 +55,19 @@ if (!empty($_POST)) {
     if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
         $effectifP = intval($_POST["effectifP"], 10) ;
     } else {
-        $erreur = true;
+        $effectifP = null;
     }
 
     //Récupère l'effactif sur le bateau depuis le formulaire
     if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
         $effectifB = intval($_POST["effectifB"],10) ;
     } else {
-        $erreur = true;
+        $effectifB = null;
     }
 
     //Récupère le num du directeur depuis le formulaire
     if (isset($_POST["directeur"])) {
         $directeurNum = intval($_POST["directeur"],10);
-        /*
-        $directeur = explode(" ",$_POST["directeur"],2);
-        $directeurNom = $directeur[0];
-        $directeurPrenom = $directeur[1];
-        */
     } else {
         $erreur = true;
     }
@@ -80,11 +75,12 @@ if (!empty($_POST)) {
     //Récupère le num de l'agent de sécurité depuis le formulaire
     if (isset($_POST["securite"])) {
         $securiteNum = intval($_POST["securite"],10);
-        /*
-        $securite = explode(" ",$_POST["securite"],2);
-        $securiteNom = $securite[0];
-        $securitePrenom = $securite[1];
-        */
+    } else {
+        $erreur = true;
+    }
+
+    if (isset($_POST["EN"])) {
+        $envoyer = $_POST["EN"];
     } else {
         $erreur = true;
     }
@@ -92,7 +88,8 @@ if (!empty($_POST)) {
     if (!$erreur) {
 
         //Ajoute une nouvelle Plongee dans la Base de Donnée
-        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
+        $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES)"
+            ." VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
         $yes = $db->majDonneesPDO($sql);
 
         //Affiche une notification si l'ajout est réussi ou non
@@ -101,6 +98,11 @@ if (!empty($_POST)) {
         } else {
             echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
         }
+
+        if ($envoyer == "Nouvelle Palanquée") {
+            echo "<script type='text/javascript'>document.location.replace('?page=palanquee_new&date=".$date."&periode=".$periode."');</script>";
+        }
+
     }
 
 }
@@ -130,29 +132,34 @@ function remplirOptionNom($tab,$nbLignes,$id)
         $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
         $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
         //On insère une ligne option  entre les balises select
-        echo '<option value="'.$tab[$i]["PER_NUM"].'" '.VerifierSelect($id,$tab[$i]["PER_NUM"]).' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
-        echo '</option>';
+        echo '<option value="'.$tab[$i]["PER_NUM"].'" ';
+        VerifierSelect($id,$tab[$i]["PER_NUM"]);
+        echo' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'].'</option>';
     }
 }
 
 //Rempli un élement select avec les informations de la base de donnée sur les embarcation
-function remplirOptionEmb($tab,$nbLignes)
+function remplirOptionEmb($tab,$nbLignes, $id)
 {
     for ($i=0;$i<$nbLignes;$i++)
     {
         $tab[$i]["EMB_NOM"] = utf8_encode($tab[$i]["EMB_NOM"]);
-        echo '<option value="'.$tab[$i]["EMB_NUM"].'">'.$tab[$i]['EMB_NOM'];
+        echo '<option value="'.$tab[$i]["EMB_NUM"].'"';
+        VerifierSelect($id,$tab[$i]["EMB_NUM"]);
+        echo '>'.$tab[$i]['EMB_NOM'];
         echo '</option>';
     }
 }
 
 //Rempli un élement select avec les informations de la base de donnée sur les sites
-function remplirOptionSite($tab,$nbLignes)
+function remplirOptionSite($tab,$nbLignes, $id)
 {
     for ($i=0;$i<$nbLignes;$i++)
     {
         $tab[$i]["SIT_NOM"] = utf8_encode($tab[$i]["SIT_NOM"]);
-        echo '<option value="'.$tab[$i]["SIT_NUM"].'">'.$tab[$i]['SIT_NOM'];
+        echo '<option value="'.$tab[$i]["SIT_NUM"].'"';
+        VerifierSelect($id,$tab[$i]["SIT_NUM"]);
+        echo '>'.$tab[$i]['SIT_NOM'];
         echo '</option>';
     }
 }
