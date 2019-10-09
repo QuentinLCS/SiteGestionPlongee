@@ -68,11 +68,6 @@ if (!empty($_POST)) {
     //Récupère le num du directeur depuis le formulaire
     if (isset($_POST["directeur"])) {
         $directeurNum = intval($_POST["directeur"],10);
-        /*
-        $directeur = explode(" ",$_POST["directeur"],2);
-        $directeurNom = $directeur[0];
-        $directeurPrenom = $directeur[1];
-        */
     } else {
         $erreur = true;
     }
@@ -80,11 +75,12 @@ if (!empty($_POST)) {
     //Récupère le num de l'agent de sécurité depuis le formulaire
     if (isset($_POST["securite"])) {
         $securiteNum = intval($_POST["securite"],10);
-        /*
-        $securite = explode(" ",$_POST["securite"],2);
-        $securiteNom = $securite[0];
-        $securitePrenom = $securite[1];
-        */
+    } else {
+        $erreur = true;
+    }
+
+    if (isset($_POST["EN"])) {
+        $envoyer = $_POST["EN"];
     } else {
         $erreur = true;
     }
@@ -95,12 +91,17 @@ if (!empty($_POST)) {
         $sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MATIN_APRESMIDI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES) VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
         $yes = $db->majDonneesPDO($sql);
 
+        if ($envoyer == "Nouvelle Palanquée") {
+            header("Location: ?page=plongee_show&date='.$date.'&periode='.$periode.'");
+        }
+
         //Affiche une notification si l'ajout est réussi ou non
         if ($yes == 1) {
             echo "<script>M.toast({html: 'Votre Plongée à bien été ajoutée'})</script>";
         } else {
             echo "<script>M.toast({html: 'Votre Plongée na pas pu être ajoutée'})</script>";
         }
+
     }
 
 }
