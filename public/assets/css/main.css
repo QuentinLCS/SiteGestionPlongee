@@ -15,3 +15,7 @@ nav div.nav-wrapper > ul > li > a {
 .borderless {
     border-bottom: none;
 }
+
+.rounded {
+    border-radius: 10px;
+}

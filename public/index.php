@@ -40,7 +40,7 @@ mb_internal_encoding("UTF-8");
             <header>
                 <?php include_once($pageRepertory . 'navbar.html'); ?>
             </header>
-            <main class="valign-wrapper">
+            <main>
                 <?php include_once('../controller/' . strtolower($page) . '.php'); ?>
             </main>
             <footer class="page-footer white">
