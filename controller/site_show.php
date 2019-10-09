@@ -3,7 +3,7 @@
 $sql = 'SELECT * FROM PLO_SITE WHERE SIT_NUM = '. $_GET['id'];
 $db->LireDonneesPDO2($sql,$site);
 
-$sql2= 'SELECT SIT_NOM FROM PLO_SITE';
+$sql2= 'SELECT * FROM PLO_SITE';
 $db->LireDonneesPDO2($sql2,$sites);
 $nbSites=count($sites);
 
@@ -17,10 +17,12 @@ if ( isset($_POST['submit']) ) {
 
         $i=0;
 
+
         if ($nom != $site[0]['SIT_NOM'] || $localisation != $site[0]['SIT_LOCALISATION'])
             while (($nom != $sites[$i]['SIT_NOM'] || $localisation != $sites[$i]['SIT_LOCALISATION']) && ++$i < $nbSites);
         else
             $i = $nbSites;
+
 
         if($i==$nbSites) {
             $req = "UPDATE PLO_SITE SET SIT_NOM ='$nom', SIT_LOCALISATION = '$localisation' WHERE SIT_NUM =" . $siteID;
@@ -29,7 +31,7 @@ if ( isset($_POST['submit']) ) {
             header("Location: ?page=site");
         }
         else{
-            echo "nope";
+            echo "Ce site est déjà enregistré";
         }
     }
 }
