@@ -130,29 +130,34 @@ function remplirOptionNom($tab,$nbLignes,$id)
         $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
         $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
         //On insère une ligne option  entre les balises select
-        echo '<option value="'.$tab[$i]["PER_NUM"].'" '.VerifierSelect($id,$tab[$i]["PER_NUM"]).' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
-        echo '</option>';
+        echo '<option value="'.$tab[$i]["PER_NUM"].'" ';
+        VerifierSelect($id,$tab[$i]["PER_NUM"]);
+        echo' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'].'</option>';
     }
 }
 
 //Rempli un élement select avec les informations de la base de donnée sur les embarcation
-function remplirOptionEmb($tab,$nbLignes)
+function remplirOptionEmb($tab,$nbLignes, $id)
 {
     for ($i=0;$i<$nbLignes;$i++)
     {
         $tab[$i]["EMB_NOM"] = utf8_encode($tab[$i]["EMB_NOM"]);
-        echo '<option value="'.$tab[$i]["EMB_NUM"].'">'.$tab[$i]['EMB_NOM'];
+        echo '<option value="'.$tab[$i]["EMB_NUM"].'"';
+        VerifierSelect($id,$tab[$i]["EMB_NUM"]);
+        echo '>'.$tab[$i]['EMB_NOM'];
         echo '</option>';
     }
 }
 
 //Rempli un élement select avec les informations de la base de donnée sur les sites
-function remplirOptionSite($tab,$nbLignes)
+function remplirOptionSite($tab,$nbLignes, $id)
 {
     for ($i=0;$i<$nbLignes;$i++)
     {
         $tab[$i]["SIT_NOM"] = utf8_encode($tab[$i]["SIT_NOM"]);
-        echo '<option value="'.$tab[$i]["SIT_NUM"].'">'.$tab[$i]['SIT_NOM'];
+        echo '<option value="'.$tab[$i]["SIT_NUM"].'"';
+        VerifierSelect($id,$tab[$i]["SIT_NUM"]);
+        echo '>'.$tab[$i]['SIT_NOM'];
         echo '</option>';
     }
 }
