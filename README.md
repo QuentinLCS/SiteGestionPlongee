@@ -57,12 +57,12 @@ doubles tirets sont interdits.
 ##Troisième partie : Saisies des autres données
 > L'objectif est de réaliser un ou plusieurs formulaires de mise à jour des tables du tour de PLO.
 #### PLO_PLONGEE
-- [ ] La saisie d’une nouvelle plongee doit être la plus simple possible (un seul formulaire)
+- [x] La saisie d’une nouvelle plongee doit être la plus simple possible (un seul formulaire)
 - [ ] On peut afficher et corriger une plongée
 - [ ] On peut supprimer une plongée mais un message de confirmation est nécessaire pour une plongée de
 moins d’un an
 - [ ] On peut créer directement les palanquées après la création d’une plongée
-- [ ] Toutes les données sont obligatoires
+- [x] Toutes les données sont obligatoires
 - [ ] [on peut créer un pdf]
 #### PLO_PALANQUEE et PLO_CONCERNER
 - [ ] Pour ajouter une palanquée, il faut sélectionner une plongée
