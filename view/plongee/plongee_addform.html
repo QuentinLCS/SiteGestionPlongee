@@ -4,9 +4,9 @@
         <label for="date">Date : </label><input name="date" id="date" type="date" value="<?php verifierText('date') ?>" required><br>
         <label for="periode">Période de la Journée : </label>
         <select name="periode" id="periode">
-            <option value="m" <?php VerifierSelect("periode","matin")?>>Matin</option>
-            <option value="a" <?php VerifierSelect("periode","apres_midi")?>>Après Midi</option>
-            <option value="s" <?php VerifierSelect("periode","soir")?>>Soir</option>
+            <option value="m" <?php VerifierSelect("periode","m")?>>Matin</option>
+            <option value="a" <?php VerifierSelect("periode","a")?>>Après Midi</option>
+            <option value="s" <?php VerifierSelect("periode","s")?>>Soir</option>
         </select><br>
         <label for="site">Site :</label> <br>
         <select name="site" id="site"><?php remplirOptionSite($listSite,$numSite) ?></select> <br>

@@ -130,8 +130,7 @@ function remplirOptionNom($tab,$nbLignes,$id)
         $tab[$i]["PER_NOM"] = utf8_encode($tab[$i]["PER_NOM"]);
         $tab[$i]["PER_PRENOM"] = utf8_encode($tab[$i]["PER_PRENOM"]);
         //On insère une ligne option  entre les balises select
-        //VerifierSelect("'.$id.'", "'.$tab[$i]["PER_NUM"].'")s
-        echo '<option value="'.$tab[$i]["PER_NUM"].'" >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
+        echo '<option value="'.$tab[$i]["PER_NUM"].'" '.VerifierSelect($id,$tab[$i]["PER_NUM"]).' >'.$tab[$i]['PER_NOM'].' '.$tab[$i]['PER_PRENOM'];
         echo '</option>';
     }
 }
