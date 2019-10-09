@@ -5,11 +5,12 @@
     {
         $req6="select PER_NOM, PER_PRENOM,PER_ACTIVE from PLO_PERSONNE where PER_NOM like ('".$_POST['nom']."') and PER_PRENOM like ('".$_POST['prenom']."')"; //verification de l'existance de la personne dans la base de données
         $db->LireDonneesPDO2($req6,$tab4);
+        //TODO : faire la vérification si un plongeur est désactivé
           if($tab4[0]['PER_NOM']!=null || $tab4[0]['PER_PRENOM']!=null)
             {
                 if(intval($tab4[0]['PER_ACTIVE'],10)==0)
                 {
-                    echo "<p>cette personne existe déjà mais elle est désactivée !</p>";
+                    echo "<p>cette personne existe déjà mais elle est désactivée, voulez-vous la réactiver ?</p>";
                 }
                 else
                 {
@@ -34,6 +35,7 @@
             {
                 echo "<p>Nouveau plongeur rentré !</p><br>";
             }
+            header("Location:?page=");
         }
     }
     function verifierEntree($champ)
