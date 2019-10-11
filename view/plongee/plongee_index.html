@@ -1,32 +1,47 @@
 <section class="container center">
     <h3>Liste des plongées</h3>
-    <table class="striped">
-        <thead>
-        <tr>
-            <th class="center">Date</th>
-            <th class="center">Période</th>
-            <th class="center">Site</th>
-            <th class="center">Embarcation</th>
-            <th class="center">Directeur</th>
-            <th class="center">Sécurité</th>
-            <th class="center">NbPlongeurs</th>
-            <th class="center">NbBateaux</th>
-            <th class="center">NbPalanquees</th>
-            <th class="center">Gestion</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="autocomplete-input" class="search">
+                    <label for="autocomplete-input">Recherchez avec mot clé...</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th class="center">Date</th>
+                    <th class="center">Période</th>
+                    <th class="center">Site</th>
+                    <th class="center">Embarcation</th>
+                    <th class="center">Directeur</th>
+                    <th class="center">Sécurité</th>
+                    <th class="center">NbPlongeurs</th>
+                    <th class="center">NbBateaux</th>
+                    <th class="center">NbPalanquees</th>
+                    <th class="center">Gestion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
             foreach($allPlongees as $key=>$value){
                 echo "<tr>";
-                foreach ($value as $val){
+                    foreach ($value as $val){
                     echo  '<td class="center">'.$val.'</td>';
+                    }
+                    echo '<td><a href="?page=plongee_show&date='.$value['PLO_DATE'].'&periode='.$value['PLO_MATIN_APRESMIDI'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
                 }
-                echo '<td><a href="?page=plongee_show&date='.$value['PLO_DATE'].'&periode='.$value['PLO_MATIN_APRESMIDI'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-            }
-        ?>
-        </tbody>
-    </table>
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=plongee_new">
@@ -34,3 +49,4 @@
         </a>
     </div>
 </section>
+<script type="text/javascript" src="assets/js/searchBar.js"></script>

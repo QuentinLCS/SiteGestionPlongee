@@ -2,9 +2,7 @@
 include_once('../model/global/global_requetes.php');
 
 getOne($db, [
-    'PLO_PLONGEE' => [
-
-    ],
+    'PLO_PLONGEE' => [],
     'PLO_SITE' => [
         ['SIT_NUM']
     ],
