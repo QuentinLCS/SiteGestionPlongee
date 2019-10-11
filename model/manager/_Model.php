@@ -3,12 +3,12 @@
 
 abstract class _Model
 {
-    protected function getAll($table, &$sortie) {
-        DataBase::$db->LireDonneesPDO2('SELECT * FROM '.$table, $sortie);
+    protected function getAll($table, $entity, &$sortie) {
+        DataBase::$db->LireDonnees('SELECT * FROM '.$table, $entity, $sortie);
     }
 
-    protected function countAll($table, &$sortie) {
-        DataBase::$db->LireDonneesPDO2('SELECT COUNT(*) as nb FROM '.$table, $sortie);
+    protected function countAll($table, $entity, &$sortie) {
+        DataBase::$db->LireDonnees('SELECT COUNT(*) as nb FROM '.$table, $entity, $sortie);
     }
 
     /*

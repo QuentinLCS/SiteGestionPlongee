@@ -20,6 +20,7 @@ class AccueilController extends _ControllerClass
      */
     private $view;
 
+
     /**
      * AccueilController constructor.
      * @param $url

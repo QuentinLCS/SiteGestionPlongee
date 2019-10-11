@@ -6,17 +6,6 @@
  */
 abstract class _ControllerClass
 {
-    /**
-     * Manager des aptitudes afin de récupérer les info.s dans la BDD.
-     * @var AptitudeManager
-     */
-    private $aptitudeManager;
-
-    /**
-     * Chemin vers la vue.
-     * @var string
-     */
-    private $view;
 
 
     /**
