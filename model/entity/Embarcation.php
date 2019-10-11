@@ -16,13 +16,11 @@ class Embarcation
     }
 
     /**
-     * @param mixed $emb_nom
-     * @return Embarcation
+     * @param mixed $emb_num
      */
-    public function setEmbNom($emb_nom)
+    public function setEmbNum($emb_num)
     {
-        $this->emb_nom = $emb_nom;
-        return $this;
+        $this->emb_num = $emb_num;
     }
 
     /**
@@ -32,6 +30,16 @@ class Embarcation
     {
         return $this->emb_nom;
     }
+
+    /**
+     * @param mixed $emb_nom
+     */
+    public function setEmbNom($emb_nom)
+    {
+        $this->emb_nom = $emb_nom;
+    }
+
+
 
 
 }

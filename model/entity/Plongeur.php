@@ -17,12 +17,10 @@ class Plongeur
 
     /**
      * @param mixed $per_num
-     * @return Plongeur
      */
     public function setPerNum($per_num)
     {
         $this->per_num = $per_num;
-        return $this;
     }
 
     /**
@@ -35,13 +33,12 @@ class Plongeur
 
     /**
      * @param mixed $apt_code
-     * @return Plongeur
      */
     public function setAptCode($apt_code)
     {
         $this->apt_code = $apt_code;
-        return $this;
     }
+
 
 
 }

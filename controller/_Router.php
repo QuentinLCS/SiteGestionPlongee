@@ -1,20 +1,22 @@
 <?php
 
+require_once('view/View.php');
 
-class Router
+class _Router
 {
     private $_controller;
     private $_view;
 
     /**
      * @return mixed
+     * @throws Exception
      */
     public function routeRequest()
     {
         try
         {
             spl_autoload_register(function($class){
-                if (strpos($class, 'Manager') !== false || $class == '_Model')
+                if (strpos($class, 'Manager') !== false)
                     $path = 'model/manager/';
                 else
                     $path = 'model/entity/';
@@ -32,7 +34,7 @@ class Router
 
                 $controller = ucfirst(strtolower($url[0]));
                 $controllerClass = $controller.'Controller';
-                $controllerFile = 'Controller/'.$controllerClass.'.php';
+                $controllerFile = 'controller/'.$controllerClass.'.php';
 
                 if (file_exists($controllerFile))
                 {
@@ -51,7 +53,9 @@ class Router
         catch (Exception $e)
         {
             $errorMessage = $e->getMessage();
-            require_once('view/global/error_404.html');
+            $this->_view = new View('global/error');
+            $this->_view->generate(['errorMessage' => $errorMessage]);
+
         }
     }
 }

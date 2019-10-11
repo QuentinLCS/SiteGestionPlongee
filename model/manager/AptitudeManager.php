@@ -1,5 +1,6 @@
 <?php
 
+require_once('_Model.php');
 
 class AptitudeManager extends _Model
 {
