@@ -1,13 +1,19 @@
 <?php
 
+require_once('_Entity.php');
 
-class Site
+class Site extends _Entity
 {
     private $sit_num;
 
     private $sit_nom;
 
     private $sit_localisation;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
 
     /**
      * @return mixed

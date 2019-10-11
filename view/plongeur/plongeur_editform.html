@@ -4,25 +4,30 @@
     </p>
 
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+
         <label>
             Nom
-            <input type="text" id="nom" name="nom" value="<?php echo $utilisateur[0]['PER_NOM'] ?>">
+            <input type="text" id="nom" name="nom" value="<?= $plongeur[0]->getPersonne()[0]->getPerNom() ?>">
         </label>
+
         <label>
             Prénom
-            <input type="text" id="prenom" name="prenom" value="<?php echo $utilisateur[0]['PER_PRENOM'] ?>">
+            <input type="text" id="prenom" name="prenom" value="<?= $plongeur[0]->getPersonne()[0]->getPerPrenom() ?>">
         </label>
+
         <label>
+
             <select name="aptitude" id="aptitude">
                 <?php
-                foreach ($aptitudes as $aptitude)
-                    echo '<option value="'. $aptitude['APT_CODE'] .'" '. ($aptitude['APT_CODE'] == $utilisateur[0]['APT_CODE'] ? 'selected' : '') .'>'. $aptitude['APT_LIBELLE'] .'</option>';
+                    foreach ($allAptitudes as $aptitude) {
+                        echo '<option value="'. $aptitude->getAptCode() .'" '. ($aptitude->getAptCode() == $plongeur[0]->getAptCode() ? 'selected' : '') .'>'. $aptitude->getAptLibelle() .'</option>';
+                    }
                 ?>
-
             </select>
         </label>
+
         <button class="btn" name="submit">MODIFIER</button>
     </form>
 </div>
 
-<script type="text/javascript" src="assets/js/personne_entree.js"></script>
+<script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>

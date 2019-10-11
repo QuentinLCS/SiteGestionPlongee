@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <?php include_once('global/head.html'); ?>
-    <title><?= $title ?></title>
-    <meta charset="utf-8">
-</head>
-<body>
-<header>
-    <?php include_once('global/navbar.html'); ?>
-</header>
-<main>
-    <a href="<?= URL ?>"></a>
-    <?= $content ?>
-</main>
-<footer class="page-footer white">
-    <?php include_once('global/footer.html'); ?>
-</footer>
-<script type="text/javascript" src="public/assets/js/main.js"></script>
-</body>
+    <head>
+        <?php include_once('global/head.html'); ?>
+        <title><?= $title ?></title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <?php include_once('global/navbar.html'); ?>
+        </header>
+        <main>
+            <?= $content ?>
+        </main>
+        <footer class="page-footer white">
+            <?php include_once('global/footer.html'); ?>
+        </footer>
+        <script type="text/javascript" src="/public/assets/js/main.js"></script>
+    </body>
 </html>

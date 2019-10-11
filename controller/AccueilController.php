@@ -9,16 +9,25 @@ require_once('_ControllerClass.php');
 class AccueilController extends _ControllerClass
 {
     /**
-     * Manager des aptitudes afin de récupérer les info.s dans la BDD.
      * @var AptitudeManager
      */
-    private $aptitudeManager;
+    private $personneManager;
 
     /**
-     * Chemin vers la vue.
-     * @var string
+     * @var PlongeurManager
      */
-    private $view;
+    private $plongeurManager;
+
+    /**
+     * @var PlongeeManager
+     */
+    private $plongeeManager;
+
+    /**
+     * @var siteManager
+     */
+    private $siteManager;
+
 
 
     /**
@@ -28,6 +37,11 @@ class AccueilController extends _ControllerClass
      */
     public function __construct($url)
     {
+        $this->personneManager = new PersonneManager();
+        $this->plongeurManager = new PlongeurManager();
+        $this->plongeeManager = new PlongeeManager();
+        $this->siteManager = new siteManager();
+
         parent::__construct($url);
     }
 
@@ -37,10 +51,13 @@ class AccueilController extends _ControllerClass
      */
     public function index()
     {
-        $this->aptitudeManager = new AptitudeManager();
-        $this->aptitudeManager->getAptitudes($aptitudes);
 
-        $this->view = new View('home/home');
-        $this->view->generate(['articles' => $aptitudes]);
+
+        (new View('home/home'))->generate([
+            'nbPersonnes' => $this->personneManager->countAll(),
+            'nbPlongeurs' => $this->plongeurManager->countAll(),
+            'nbPlongees' => $this->plongeeManager->countAll(),
+            'nbSites' => $this->siteManager->countAll()
+            ]);
     }
 }

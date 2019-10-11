@@ -15,9 +15,12 @@ abstract class _ControllerClass
      */
     public function __construct($url)
     {
-        if (isset($url) && count($url) > 1)
+        $urlSize = count($url);
+        if (isset($url) && $urlSize > 3)
             throw new Exception('Page introuvable');
-        else
+        else if ($urlSize == 1)
             $this->index();
+
+        return $urlSize;
     }
 }
