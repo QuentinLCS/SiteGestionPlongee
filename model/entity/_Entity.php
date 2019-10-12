@@ -5,7 +5,6 @@ abstract class _Entity
 {
     public function __construct(array $data)
     {
-
         foreach ($data as $key=>$value) {
 
             $tab = null; $method = null;

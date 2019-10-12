@@ -55,11 +55,27 @@ class Plongeur extends _Entity
         $this->apt_code = $apt_code;
     }
 
-    public function getPersonne() {
-        return $this->personne;
+    /**
+     * @param mixed $aptitude
+     */
+    public function setAptitude($aptitude)
+    {
+        $this->aptitude = $aptitude;
     }
 
     public function getAptitude() {
         return $this->aptitude;
+    }
+
+    /**
+     * @param mixed $personne
+     */
+    public function setPersonne($personne)
+    {
+        $this->personne = $personne;
+    }
+
+    public function getPersonne() {
+        return $this->personne;
     }
 }

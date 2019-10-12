@@ -22,7 +22,7 @@ class PlongeeManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
-    public function update($object)
+    public function update($object, $add = false)
     {
         // TODO: Implement update() method.
     }

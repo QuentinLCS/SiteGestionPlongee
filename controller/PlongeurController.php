@@ -61,41 +61,82 @@ class PlongeurController extends _ControllerClass
 
     private function add()
     {
-        if ( isset($_POST['submit']) ) {
-            $plongeur = new Plongeur($_POST);
-            $this->verification($plongeur);
+        if ( isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude']) ) {
 
-        }
-    }
+            if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude'])) {
+                $nom = strtoupper($_POST['nom']);
+                $prenom = ucfirst($_POST['prenom']);
 
-    private function verification($plongeur)
-    {
-        if ( !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude']) ) {
-            $nom = strtoupper($_POST['nom']);
-            $prenom = ucfirst($_POST['prenom']);
-            $aptitude = $_POST['aptitude'];
+                $plongeur[] = new Plongeur([]);
+                $personne[] = new Personne([]);
 
-            $personnes = $this->personneManager->getAll();
+                $personne[0]->setPerNom($nom);
+                $personne[0]->setPerPrenom($prenom);
 
-            $nbPersonnes = count($personnes);
-
-            $i = 0;
-
-            // Si le prénom ou le nom a été modifié
-            if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom())
-                while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
-            else
-                $i = $nbPersonnes;
+                $plongeur[0]->setPersonne($personne);
 
 
-            if ($i == $nbPersonnes) {
-                $plongeur[0]->getPersonne()[0]->setPerNom($nom);
-                $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
-                $plongeur[0]->setAptCode($aptitude);
-                $this->plongeurManager->update($plongeur);
-                header("Location: plongeur");
+
+                $this->verification($plongeur, true);
+
             } else
-                echo 'Personne déjà enregistrée.';
+                echo 'Tous les champs ne sont pas remplis.';
+
         }
     }
+
+    private function verification($plongeur, $add = false)
+    {
+        if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
+
+                if ($add || (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude']))) {
+                    $nom = strtoupper($_POST['nom']);
+                    $prenom = ucfirst($_POST['prenom']);
+                    $aptitude = $_POST['aptitude'];
+
+
+                    $personnes = $this->personneManager->getAll();
+
+                    $nbPersonnes = count($personnes);
+
+                    $i = 0;
+
+                    // Si le prénom ou le nom a été modifié
+                    if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom() || $add)
+                        while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
+                    else
+                        $i = $nbPersonnes;
+
+                    if ($i == $nbPersonnes) {
+                        $plongeur[0]->getPersonne()[0]->setPerNom($nom);
+                        $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
+
+                        echo "apt_code = $aptitude";
+
+                        $aptitudeObject = $this->aptitudeManager->getOne(['APT_CODE' => $aptitude]);
+
+
+                        var_dump($plongeur);
+
+                        var_dump($aptitudeObject);
+
+                        if (!is_null($aptitudeObject))
+                            if ($add)
+                                $plongeur[0]->setAptitude($aptitudeObject);
+                            else
+                                $plongeur[0]->setAptCode($aptitude);
+
+                        var_dump($plongeur);
+
+                        $this->plongeurManager->update($plongeur, $add);
+
+                        //header("Location: plongeur");
+                    } else
+                        echo 'Personne déjà enregistrée.';
+                } else
+                    echo 'Tous les champs ne sont pas remplis.';
+
+        }
+    }
+
 }

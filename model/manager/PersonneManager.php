@@ -22,8 +22,11 @@ class PersonneManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
-    public function update($object)
+    public function update($object, $add = false)
     {
-        DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
+        if ($add)
+            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (PER_NOM, PER_PRENOM) VALUES ('".$object[0]->getPerNom()."', '".$object[0]->getPerPrenom()."')");
+        else
+            DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
     }
 }

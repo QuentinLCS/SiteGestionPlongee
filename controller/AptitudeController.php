@@ -53,7 +53,10 @@ class AptitudeController extends _ControllerClass
 
     private function add()
     {
-        // Ajout d'une plongee
+        if ( isset($_POST['submit']) ) {
+            $aptitude = new Aptitude($_POST);
+            $this->verification($aptitude);
+        }
     }
 
     private function verification($aptitude)

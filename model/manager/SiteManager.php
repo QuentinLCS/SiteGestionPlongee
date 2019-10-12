@@ -22,7 +22,7 @@ class SiteManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
-    public function update($object)
+    public function update($object, $add = false)
     {
         DataBase::$db->majDonnees("UPDATE ".self::$table." SET SIT_NOM = '".$object[0]->getSitNom()."', SIT_LOCALISATION = '".$object[0]->getSitLocalisation()."' WHERE SIT_NUM = '".$object[0]->getSitNum()."'");
     }
