@@ -7,9 +7,37 @@ class PlongeurManager extends _Model
     public static $entity = 'PLONGEUR';
     public static $table = 'PLO_PLONGEUR';
 
+    private $personneManager;
+
+    public function __construct()
+    {
+        $this->personneManager = new PersonneManager();
+    }
+
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);
+    }
+
+    public function getSearchResult($search)
+    {
+        $personnes = $this->personneManager->getSearchResult($search);
+
+        $nbPersonnes = count($personnes);
+
+        if ($nbPersonnes > 0) {
+            $sql = 'SELECT * FROM ' . self::$table . ' WHERE PER_NUM IN (';
+
+            $i = 0;
+
+            foreach ($personnes as $personne) {
+                $sql .= $personne->getPerNum() . (++$i < $nbPersonnes ? ',' : ')');
+            }
+
+            return DataBase::$db->LireDonnees($sql, self::$entity);
+        }
+
+         return [];
     }
 
     public function countAll()

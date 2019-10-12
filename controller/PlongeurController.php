@@ -33,10 +33,21 @@ class PlongeurController extends _ControllerClass
     {
         $this->add();
 
+        $searchedPlongeurs = null;
+
+        if ( isset($_POST['search']) )
+            if (!empty($_POST['searchNom'])) {
+                $searchedPlongeurs = $this->plongeurManager->getSearchResult($_POST['searchNom']);
+            }
+
+
+
+
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
-            'allInactives' => $this->personneManager->getAllInactives()
+            'allInactives' => $this->personneManager->getAllInactives(),
+            'searchedPlongeurs' => $searchedPlongeurs
         ]);
     }
 

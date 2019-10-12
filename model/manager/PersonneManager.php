@@ -16,6 +16,11 @@ class PersonneManager extends _Model
         return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table." WHERE PER_ACTIVE = '0'", self::$entity);
     }
 
+    public function getSearchResult($search)
+    {
+        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table." WHERE PER_NOM LIKE '".$search."%'", self::$entity);
+    }
+
     public function countAll()
     {
         return parent::_countAll(self::$table);
