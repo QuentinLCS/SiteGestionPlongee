@@ -1,11 +1,27 @@
 <?php
 
+require_once('_Entity.php');
 
-class Plongeur
+class Plongeur extends _Entity
 {
     private $per_num;
 
     private $apt_code;
+
+    private $personne;
+
+    private $aptitude;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $personneManager = new PersonneManager();
+        $aptitudeManager = new AptitudeManager();
+
+        $this->personne = $personneManager->getOne(['PER_NUM' => $this->per_num]);
+        $this->aptitude = $aptitudeManager->getOne(['APT_CODE' => $this->apt_code]);
+    }
 
     /**
      * @return mixed
@@ -39,6 +55,11 @@ class Plongeur
         $this->apt_code = $apt_code;
     }
 
+    public function getPersonne() {
+        return $this->personne;
+    }
 
-
+    public function getAptitude() {
+        return $this->aptitude;
+    }
 }

@@ -1,11 +1,17 @@
 <?php
 
+require_once('_Entity.php');
 
-class Embarcation
+class Embarcation extends _Entity
 {
     private $emb_num;
 
     private $emb_nom;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
 
     /**
      * @return mixed

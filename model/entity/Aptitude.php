@@ -1,7 +1,8 @@
 <?php
 
+require_once('_Entity.php');
 
-class Aptitude
+class Aptitude extends _Entity
 {
     private $apt_code;
 
@@ -14,11 +15,7 @@ class Aptitude
      */
     public function __construct(array $data)
     {
-        foreach ($data as $key=>$value) {
-            $method = 'set'.ucfirst($key);
-            if(method_exists($this, $method))
-                $method($value);
-        }
+        parent::__construct($data);
     }
 
 

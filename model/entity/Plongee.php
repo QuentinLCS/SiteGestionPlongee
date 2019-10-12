@@ -1,7 +1,8 @@
 <?php
 
+require_once('_Entity.php');
 
-class Plongee
+class Plongee extends _Entity
 {
     private $plo_date;
 
@@ -22,6 +23,11 @@ class Plongee
     private $plo_nb_palanquees;
 
     private $plo_etat;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
 
     /**
      * @return mixed

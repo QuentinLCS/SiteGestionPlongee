@@ -3,16 +3,27 @@
 
 abstract class _Model
 {
-    protected function getAll($table, &$sortie) {
-        DataBase::$db->LireDonneesPDO2('SELECT * FROM '.$table, $sortie);
+
+    protected function _getAll($table, $entity) {
+        return DataBase::$db->LireDonnees('SELECT * FROM '.$table, $entity);
     }
 
-    protected function countAll($table, &$sortie) {
-        DataBase::$db->LireDonneesPDO2('SELECT COUNT(*) as nb FROM '.$table, $sortie);
+    protected function _countAll($table) {
+        return DataBase::$db->LireDonnees('SELECT COUNT(*) as nb FROM '.$table);
     }
 
-    /*
-     * public function get($table, $id, &$sortie) {
-        DataBase::$db->LireDonneesPDO2('SELECT * FROM '.$table.' WHERE ', $sortie);
-    }*/
+    protected function _getOne($table, $id, $entity) {
+        $requete = 'SELECT * FROM '.$table.' WHERE ';
+        $i = count($id);
+
+        foreach ($id as $key=>$value)
+            $requete .= "$key = '$value'".(--$i > 0 ? ' AND ' : ';');
+
+        return DataBase::$db->LireDonnees($requete, $entity);
+    }
+
+    public abstract function getAll();
+    public abstract function countAll();
+    public abstract function getOne(array $id);
+    public abstract function update($object);
 }

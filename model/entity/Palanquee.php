@@ -1,7 +1,8 @@
 <?php
 
+require_once('_Entity.php');
 
-class Palanquee
+class Palanquee extends _Entity
 {
     private $plo_date;
 
@@ -20,6 +21,11 @@ class Palanquee
     private $pal_profondeur_reelle;
 
     private $pal_duree_fond;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
 
     /**
      * @return mixed

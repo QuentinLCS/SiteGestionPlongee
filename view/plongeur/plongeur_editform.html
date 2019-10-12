@@ -1,28 +1,43 @@
-<div>
-    <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+<section class="white z-depth-4 rounded center">
+    <div class="container">
+        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
 
-    </p>
+        </p>
 
-    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-        <label>
-            Nom
-            <input type="text" id="nom" name="nom" value="<?php echo $utilisateur[0]['PER_NOM'] ?>">
-        </label>
-        <label>
-            Prénom
-            <input type="text" id="prenom" name="prenom" value="<?php echo $utilisateur[0]['PER_PRENOM'] ?>">
-        </label>
-        <label>
-            <select name="aptitude" id="aptitude">
-                <?php
-                foreach ($aptitudes as $aptitude)
-                    echo '<option value="'. $aptitude['APT_CODE'] .'" '. ($aptitude['APT_CODE'] == $utilisateur[0]['APT_CODE'] ? 'selected' : '') .'>'. $aptitude['APT_LIBELLE'] .'</option>';
-                ?>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
 
-            </select>
-        </label>
-        <button class="btn" name="submit">MODIFIER</button>
-    </form>
-</div>
+            <div class="row">
+                <label class="col s6">
+                    Nom
+                    <input type="text" id="nom" name="nom" value="<?= $plongeur[0]->getPersonne()[0]->getPerNom() ?>" autofocus>
+                </label>
+    
+                <label class="col s6">
+                    Prénom
+                    <input type="text" id="prenom" name="prenom" value="<?= $plongeur[0]->getPersonne()[0]->getPerPrenom() ?>">
+                </label>
+            </div>
 
-<script type="text/javascript" src="assets/js/personne_entree.js"></script>
+            <div class="row">
+                <label class="col s12">
+
+                    <select name="aptitude" id="aptitude">
+                        <?php
+                        foreach ($allAptitudes as $aptitude) {
+                            echo '<option value="'. $aptitude->getAptCode() .'" '. ($aptitude->getAptCode() == $plongeur[0]->getAptCode() ? 'selected' : '') .'>'. $aptitude->getAptLibelle() .'</option>';
+                        }
+                        ?>
+                    </select>
+                </label>
+            </div>
+
+            <div class="row">
+                <button class="btn yellow darken-4 waves-effect waves-light col s12 margin-bottom" name="submit">MODIFIER</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>

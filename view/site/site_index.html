@@ -2,22 +2,23 @@
     <h3>Liste des sites</h3>
     <table class="striped">
         <thead>
-        <tr>
-            <th class="center">Numéro</th>
-            <th class="center">Nom</th>
-            <th class="center">Localisation</th>
-        </tr>
+            <tr>
+                <th class="center">Numéro</th>
+                <th class="center">Nom</th>
+                <th class="center">Localisation</th>
+            </tr>
         </thead>
+
         <tbody>
-        <?php
-            foreach($allSites as $key=>$value){
-            echo "<tr>";
-                foreach ($value as $val){
-                    echo  '<td class="center">'.$val.'</td>';
+            <?php
+                foreach($allSites as $key=>$value){
+                    echo "<tr>";
+                    foreach ($value as $val){
+                        echo  '<td class="center">'.$val.'</td>';
+                    }
+                    echo '<td><a href="?page=site_show&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
                 }
-                echo '<td><a href="?page=site_show&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-            }
-        ?>
+            ?>
         </tbody>
     </table>
 

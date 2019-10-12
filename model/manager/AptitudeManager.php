@@ -4,20 +4,31 @@ require_once('_Model.php');
 
 class AptitudeManager extends _Model
 {
-    private $table;
+    public static $entity = 'APTITUDE';
+    public static $table = 'PLO_APTITUDE';
 
     public function __construct()
     {
-        $this->table = 'PLO_APTITUDE';
+        // Actions à la création de l'entité.
     }
 
-    public function getAptitudes(&$sortie)
+    public function getAll()
     {
-        parent::getAll($this->table, $sortie);
+        return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function countAptitudes(&$sortie)
+    public function countAll()
     {
-        parent::countAll('PLO_APTITUDE', $sortie);
+        return parent::_countAll(self::$table);
+    }
+
+    public function getOne(array $id)
+    {
+        return parent::_getOne(self::$table, $id, self::$entity);
+    }
+
+    public function update($object)
+    {
+        // TODO: Implement update() method.
     }
 }
