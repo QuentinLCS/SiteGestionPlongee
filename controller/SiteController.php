@@ -94,7 +94,7 @@ class SiteController extends _ControllerClass
             $nbSites = count($sites);
 
             $i =0;
-    var_dump($nom);
+
             while (($nom != $sites[$i]->getSitNom() || $localisation != $sites[$i]->getSitLocalisation()) && ++$i < $nbSites) ;
 
             if ($i == $nbSites) {
