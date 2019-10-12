@@ -4,11 +4,11 @@ require_once('_ControllerClass.php');
 
 class PlongeeController extends _ControllerClass
 {
-    private $plongeeManagers;
+    private $plongeeManager;
 
     public function __construct($url)
     {
-        $this->plongeeManagers = new PlongeeManager();
+        $this->plongeeManager = new PlongeeManager();
 
         $urlSize = parent::__construct($url);
 
@@ -28,7 +28,7 @@ class PlongeeController extends _ControllerClass
         $this->add();
 
         (new View('plongee/plongee_index'))->generate([
-            'allPlongees' => $this->plongeeManagers->getAll()
+            'allPlongees' => $this->plongeeManager->getAll()
         ]);
     }
 
@@ -37,7 +37,7 @@ class PlongeeController extends _ControllerClass
         if (!isset($_GET['plo_date']) || !isset($_GET['plo_matin_apresmidi']))
             header('location: plongee');
 
-        $plongee = $this->plongeeManagers->getOne([
+        $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MATIN_APRESMIDI' => $_GET['plo_matin_apresmidi']]);
 
@@ -54,15 +54,11 @@ class PlongeeController extends _ControllerClass
 
     private function add()
     {
-        if ( isset($_POST['submit']) ) {
-            $plongeur = new Plongeur($_POST);
-            $this->verification($plongeur);
-
-        }
+        // Ajout d'une plongee
     }
 
     private function verification($plongeur)
     {
-        // Fonction de vérification d'une plongée, utile ?
+        header('location: /plongee');
     }
 }

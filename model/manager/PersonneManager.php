@@ -7,11 +7,6 @@ class PersonneManager extends _Model
     public static $entity = 'PERSONNE';
     public static $table = 'PLO_PERSONNE';
 
-    public function __construct()
-    {
-        // Actions à la création de l'entité.
-    }
-
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);

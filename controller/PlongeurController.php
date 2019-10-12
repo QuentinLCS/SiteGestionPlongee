@@ -83,7 +83,7 @@ class PlongeurController extends _ControllerClass
 
             // Si le prénom ou le nom a été modifié
             if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom())
-                while (($nom != $personnes[$i]->GetPerNom() || $prenom != $personnes[$i]->GetPerPrenom()) && ++$i < $nbPersonnes) ;
+                while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
             else
                 $i = $nbPersonnes;
 

@@ -1,29 +1,35 @@
-<section class="container center">
-    <h3>Liste des palanquees</h3>
-    <table class="striped">
-        <thead>
+<?php $this->_title = 'Sub\'Alligator | Plongée'; ?>
+
+<section class="white z-depth-4 rounded center">
+    <div class="container">
+        <h3>Liste des Aptitudes</h3>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th class="center">Code</th>
+                    <th class="center">Libelle</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <?php foreach($allAptitudes as $aptitude): ?>
             <tr>
-                <th class="center">Code</th>
-                <th class="center">Libelle</th>
+                <td class="center"><?= $aptitude->getAptCode() ?></td>
+                <td class="center"><?= $aptitude->getAptLibelle() ?></td>
+                <td class="center">
+                    <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                        <i class="material-icons white-text">remove_red_eye</i>
+                    </a>
+                </td>
             </tr>
-        </thead>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
 
-        <tbody>
-            <?php
-                foreach($allAptitudes as $key=>$value){
-                    echo "<tr>";
-                    foreach ($value as $val){
-                        echo  '<td class="center">'.$val.'</td>';
-                    }
-                    echo '<td><a href="?page=aptitude_edit&id='.$value['APT_CODE'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-                }
-            ?>
-        </tbody>
-    </table>
-
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=aptitude_new">
-            <i class="large material-icons">edit</i>
-        </a>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     </div>
 </section>

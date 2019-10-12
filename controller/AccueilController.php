@@ -29,6 +29,8 @@ class AccueilController extends _ControllerClass
     private $siteManager;
 
 
+    private $aptitudeManager;
+
 
     /**
      * AccueilController constructor.
@@ -40,7 +42,8 @@ class AccueilController extends _ControllerClass
         $this->personneManager = new PersonneManager();
         $this->plongeurManager = new PlongeurManager();
         $this->plongeeManager = new PlongeeManager();
-        $this->siteManager = new siteManager();
+        $this->siteManager = new SiteManager();
+        $this->aptitudeManager = new AptitudeManager();
 
         parent::__construct($url);
     }
@@ -57,7 +60,8 @@ class AccueilController extends _ControllerClass
             'nbPersonnes' => $this->personneManager->countAll(),
             'nbPlongeurs' => $this->plongeurManager->countAll(),
             'nbPlongees' => $this->plongeeManager->countAll(),
-            'nbSites' => $this->siteManager->countAll()
+            'nbSites' => $this->siteManager->countAll(),
+            'nbAptitudes' => $this->aptitudeManager->countAll()
             ]);
     }
 }
