@@ -1,40 +1,52 @@
 <?php $this->_title = 'Sub\'Alligator | Site'; ?>
 
-<section class="container center">
-    <h3>Liste des sites</h3>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th class="center">Numéro</th>
-                <th class="center">Nom</th>
-                <th class="center">Localisation</th>
-                <th class="center">Gestion</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <?php foreach($allSites as $site): ?>
+<section class="white z-depth-4 rounded center">
+    <div class="container">
+        <h3>Liste des sites</h3>
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input" class="search">
+                        <label for="autocomplete-input">Recherchez avec mot clé...</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="striped">
+            <thead>
                 <tr>
-                    <td class="center"><?= $site->getSitNum() ?></td>
-                    <td class="center"><?= $site->getSitNom() ?></td>
-                    <td class="center"><?= $site->getSitLocalisation() ?></td>
-                    <td class="center">
-                        <a href="site/edit/&sit_num=<?= $site->getSitNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
-                            <i class="material-icons white-text">remove_red_eye</i>
-                        </a>
-                    </td>
+                    <th class="center">Numéro</th>
+                    <th class="center">Nom</th>
+                    <th class="center">Localisation</th>
+                    <th class="center">Gestion</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
 
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
-            <i class="large material-icons">add</i>
-        </a>
+            <tbody>
+                <?php foreach($allSites as $site): ?>
+                    <tr>
+                        <td class="center"><?= $site->getSitNum() ?></td>
+                        <td class="center"><?= $site->getSitNom() ?></td>
+                        <td class="center"><?= $site->getSitLocalisation() ?></td>
+                        <td class="center">
+                            <a href="site/edit/&sit_num=<?= $site->getSitNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                                <i class="material-icons white-text">remove_red_eye</i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+
+        <?php require_once('site_addform.html') ?>
     </div>
-
-    <?php require_once('site_addform.html') ?>
-
 </section>
-<script type="text/javascript" src="assets/js/searchBar.js"></script>
+<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>
