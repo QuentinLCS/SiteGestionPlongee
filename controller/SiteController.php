@@ -31,8 +31,8 @@ class SiteController extends _ControllerClass
     public function add()
     {
         if ( isset($_POST['submit']) ) {
-            $site = new Site($_POST);
-            $this->verification($site);
+
+            $this->verificationCreation();
         }
     }
 
@@ -49,7 +49,7 @@ class SiteController extends _ControllerClass
             header('location: '.URL.'/plongeur');
 
         if ( isset($_POST['submit']) )
-            $this->verification($site);
+            $this->verificationModif($site);
 
         (new View('site/site_show/site_show_index'))->generate([
             'site' => $site
@@ -59,7 +59,7 @@ class SiteController extends _ControllerClass
     /**
      * @return SiteManager
      */
-    public function verification($site)
+    public function verificationModif($site)
     {
         if ( !empty($_POST['nom']) && !empty($_POST['localisation']) ) {
             $nom = $_POST['nom'];
@@ -79,6 +79,32 @@ class SiteController extends _ControllerClass
                 $site[0]->setSitNom($nom);
                 $site[0]->setSitLocalisation($localisation);
                 $this->siteManager->update($site);
+                header('location: '.URL.'/site');
+            } else
+                echo 'Site déjà enregistrée.';
+        }
+    }
+
+    public function verificationCreation()
+    {
+        if ( !empty($_POST['nom']) && !empty($_POST['localisation']) ) {
+            $nom = $_POST['nom'];
+            $localisation = $_POST['localisation'];
+            $sites = $this->siteManager->getAll();
+            $nbSites = count($sites);
+
+            $i =0;
+    var_dump($nom);
+            while (($nom != $sites[$i]->getSitNom() || $localisation != $sites[$i]->getSitLocalisation()) && ++$i < $nbSites) ;
+
+            if ($i == $nbSites) {
+                $data = array(
+                    'SIT_NUM'  => ($nbSites+1),
+                    'SIT_NOM' => $nom,
+                    'SIT_LOCALISATION' => $localisation
+                );
+                $site = new Site($data);
+                $this->siteManager->add($site);
                 header('location: '.URL.'/site');
             } else
                 echo 'Site déjà enregistrée.';
