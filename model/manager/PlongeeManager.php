@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class PlongeeManager extends _Model
 {
-    public static $entity = 'PLONGEE';
+    public static $entity = 'Plongee';
     public static $table = 'PLO_PLONGEE';
 
     public function getAll()

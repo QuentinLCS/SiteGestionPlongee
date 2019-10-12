@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class PersonneManager extends _Model
 {
-    public static $entity = 'PERSONNE';
+    public static $entity = 'Personne';
     public static $table = 'PLO_PERSONNE';
 
     public function getAll()

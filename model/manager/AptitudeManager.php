@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class AptitudeManager extends _Model
 {
-    public static $entity = 'APTITUDE';
+    public static $entity = 'Aptitude';
     public static $table = 'PLO_APTITUDE';
 
     public function getAll()

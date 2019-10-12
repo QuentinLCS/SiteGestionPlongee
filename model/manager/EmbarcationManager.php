@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class EmbarcationManager extends _Model
 {
-    public static $entity = 'EMBARCATION';
+    public static $entity = 'Embarcation';
     public static $table = 'PLO_EMBARCATION';
 
     public function getAll()

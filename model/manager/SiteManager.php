@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class SiteManager extends _Model
 {
-    public static $entity = 'SITE';
+    public static $entity = 'Site';
     public static $table = 'PLO_SITE';
 
     public function getAll()
