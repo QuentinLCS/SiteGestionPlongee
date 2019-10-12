@@ -1,24 +1,67 @@
 <?php
 
+require_once('view/View.php');
+require_once('_ControllerClass.php');
 
-class AccueilController
+/**
+ * Class AccueilController
+ */
+class AccueilController extends _ControllerClass
 {
-    private $aptitudeManager;
-    private $view;
+    /**
+     * @var AptitudeManager
+     */
+    private $personneManager;
 
+    /**
+     * @var PlongeurManager
+     */
+    private $plongeurManager;
+
+    /**
+     * @var PlongeeManager
+     */
+    private $plongeeManager;
+
+    /**
+     * @var siteManager
+     */
+    private $siteManager;
+
+
+    private $aptitudeManager;
+
+
+    /**
+     * AccueilController constructor.
+     * @param $url
+     * @throws Exception
+     */
     public function __construct($url)
     {
-        if (isset($url) && count($url) > 1)
-            throw new Exception('Page introuvable');
-        else
-            $this->aptitudes();
+        $this->personneManager = new PersonneManager();
+        $this->plongeurManager = new PlongeurManager();
+        $this->plongeeManager = new PlongeeManager();
+        $this->siteManager = new SiteManager();
+        $this->aptitudeManager = new AptitudeManager();
+
+        parent::__construct($url);
     }
 
-    public function aptitudes()
+    /**
+     * Fonction chargée au chargement de la page.
+     * @throws Exception
+     */
+    public function index()
     {
-        $this->aptitudeManager = new AptitudeManager();
-        $this->aptitudeManager->getAptitudes($aptitudes);
 
-        require_once('view/home/home.html');
+
+        (new View('home/home'))->generate([
+            'nbPersonnes' => $this->personneManager->countAll(),
+            'nbPlongeurs' => $this->plongeurManager->countAll(),
+            'nbPlongees' => $this->plongeeManager->countAll(),
+            'nbSites' => $this->siteManager->countAll(),
+            'nbAptitudes' => $this->aptitudeManager->countAll()
+            ]);
     }
 }

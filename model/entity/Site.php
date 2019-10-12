@@ -1,13 +1,19 @@
 <?php
 
+require_once('_Entity.php');
 
-class Site
+class Site extends _Entity
 {
     private $sit_num;
 
     private $sit_nom;
 
     private $sit_localisation;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
 
     /**
      * @return mixed
@@ -19,12 +25,10 @@ class Site
 
     /**
      * @param mixed $sit_num
-     * @return Site
      */
     public function setSitNum($sit_num)
     {
         $this->sit_num = $sit_num;
-        return $this;
     }
 
     /**
@@ -37,12 +41,10 @@ class Site
 
     /**
      * @param mixed $sit_nom
-     * @return Site
      */
     public function setSitNom($sit_nom)
     {
         $this->sit_nom = $sit_nom;
-        return $this;
     }
 
     /**
@@ -55,13 +57,12 @@ class Site
 
     /**
      * @param mixed $sit_localisation
-     * @return Site
      */
     public function setSitLocalisation($sit_localisation)
     {
         $this->sit_localisation = $sit_localisation;
-        return $this;
     }
+
 
 
 }

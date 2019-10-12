@@ -1,28 +1,56 @@
-<section class="container center">
-    <h3>Liste des palanquees</h3>
-    <table class="striped">
-        <thead>
-        <tr>
-            <th class="center">Code</th>
-            <th class="center">Libelle</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-            foreach($allAptitudes as $key=>$value){
-        echo "<tr>";
-            foreach ($value as $val){
-            echo  '<td class="center">'.$val.'</td>';
-            }
-            echo '<td><a href="?page=aptitude_edit&id='.$value['APT_CODE'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-        }
-        ?>
-        </tbody>
-    </table>
+<?php $this->_title = 'Sub\'Alligator | Plongée'; ?>
 
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=aptitude_new">
-            <i class="large material-icons">edit</i>
-        </a>
+<section class="white z-depth-4 rounded center">
+    <div class="container">
+        <h3>Liste des Aptitudes</h3>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="autocomplete-input" class="search">
+                <label for="autocomplete-input">Recherchez avec mot clé...</label>
+            </div>
+        </div>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th class="center">Code</th>
+                    <th class="center">Libelle</th>
+                    <th class="center">Gestion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <?php foreach($allAptitudes as $aptitude): ?>
+            <tr>
+                <td class="center"><?= $aptitude->getAptCode() ?></td>
+                <td class="center"><?= $aptitude->getAptLibelle() ?></td>
+                <td class="center">
+                    <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                        <i class="material-icons white-text">remove_red_eye</i>
+                    </a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+        $('input.search').autocomplete({
+            data: {
+                <?php
+                    foreach($allAptitudes as $aptitude)
+                        echo '"'.$aptitude->getAptLibelle().'" : null,';
+                ?>
+            },
+        });
+    });
+</script>

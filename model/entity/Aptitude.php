@@ -1,8 +1,11 @@
 <?php
 
+require_once('_Entity.php');
 
-class Aptitude
+class Aptitude extends _Entity
 {
+    private $old_apt_code;
+
     private $apt_code;
 
     private $apt_libelle;
@@ -14,11 +17,7 @@ class Aptitude
      */
     public function __construct(array $data)
     {
-        foreach ($data as $key=>$value) {
-            $method = 'set'.ucfirst($key);
-            if(method_exists($this, $method))
-                $method($value);
-        }
+        parent::__construct($data);
     }
 
 
@@ -30,10 +29,11 @@ class Aptitude
      */
     public function setAptCode($apt_code)
     {
-        $apt_code = (int) $apt_code;
-
-        if ($apt_code > 0)
+        if (is_string($apt_code))
             $this->apt_code = $apt_code;
+
+        if (!isset($this->old_apt_code))
+            $this->old_apt_code = $apt_code;
 
     }
 
@@ -56,6 +56,14 @@ class Aptitude
     public function getAptCode()
     {
         return $this->apt_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldAptCode()
+    {
+        return $this->old_apt_code;
     }
 
     /**

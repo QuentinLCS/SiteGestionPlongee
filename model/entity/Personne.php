@@ -1,7 +1,8 @@
 <?php
 
+require_once('_Entity.php');
 
-class Personne
+class Personne extends _Entity
 {
     private $per_num;
 
@@ -13,6 +14,12 @@ class Personne
 
     private $per_date_certify_med;
 
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return mixed
      */
@@ -23,12 +30,10 @@ class Personne
 
     /**
      * @param mixed $per_num
-     * @return Personne
      */
     public function setPerNum($per_num)
     {
         $this->per_num = $per_num;
-        return $this;
     }
 
     /**
@@ -41,12 +46,10 @@ class Personne
 
     /**
      * @param mixed $per_nom
-     * @return Personne
      */
     public function setPerNom($per_nom)
     {
         $this->per_nom = $per_nom;
-        return $this;
     }
 
     /**
@@ -59,12 +62,10 @@ class Personne
 
     /**
      * @param mixed $per_prenom
-     * @return Personne
      */
     public function setPerPrenom($per_prenom)
     {
         $this->per_prenom = $per_prenom;
-        return $this;
     }
 
     /**
@@ -77,12 +78,10 @@ class Personne
 
     /**
      * @param mixed $per_active
-     * @return Personne
      */
     public function setPerActive($per_active)
     {
         $this->per_active = $per_active;
-        return $this;
     }
 
     /**
@@ -95,12 +94,39 @@ class Personne
 
     /**
      * @param mixed $per_date_certify_med
-     * @return Personne
      */
     public function setPerDateCertifyMed($per_date_certify_med)
     {
         $this->per_date_certify_med = $per_date_certify_med;
-        return $this;
+    }
+
+    private function enleverCaracteresSpeciaux($text)
+    {
+        $utf8 = array(
+            '/[áàâãªä]/u' => 'a',
+            '/[ÁÀÂÃÄ]/u' => 'A',
+            '/[ÍÌÎÏ]/u' => 'I',
+            '/[íìîï]/u' => 'i',
+            '/[éèêë]/u' => 'e',
+            '/[ÉÈÊË]/u' => 'E',
+            '/[óòôõºö]/u' => 'o',
+            '/[ÓÒÔÕÖ]/u' => 'O',
+            '/[úùûü]/u' => 'u',
+            '/[ÚÙÛÜ]/u' => 'U',
+            '/ç/' => 'c',
+            '/Ç/' => 'C',
+            '/ñ/' => 'n',
+            '/Ñ/' => 'N',
+            '/\[\]/u' => ' ', // guillemet simple
+            '/[«»]/u' => ' ', // guillemet double
+            '/ /' => ' ', // espace insécable (équiv. à 0x160)
+            '/œ/' => 'oe',
+            '/æ/' => 'ae',
+            '/Œ/' => 'OE',
+            '/Æ/' => 'AE',
+        );
+
+        return preg_replace(array_keys($utf8), array_values($utf8), $text);
     }
 
 

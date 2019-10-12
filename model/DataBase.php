@@ -30,11 +30,26 @@ class DataBase extends PDO
         }
         return $res;
     }
-    public function majDonneesPDO($sql)
+
+    public function majDonnees($sql)
     {
         $res = $this->conn->exec($sql);
+
         return $res;
     }
+
+    public function LireDonnees($sql, $entity = null)
+    {
+        $tab = [];
+        $cur = $this->conn->query($sql);
+        while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
+            $tab[] = (is_null($entity) ? $ligne : new $entity($ligne));
+
+
+        return $tab;
+    }
+
+    // -----
     public function preparerRequetePDO($sql)
     {
         $cur = $this->conn->prepare($sql);
@@ -60,6 +75,10 @@ class DataBase extends PDO
         $res = $cur->execute($tab);
         return $res;
     }
+
+
+
+
     public function LireDonneesPDO1($sql,&$tab)
     {
         $i=0;
@@ -68,15 +87,7 @@ class DataBase extends PDO
         $nbLignes = $i;
         return $nbLignes;
     }
-    public function LireDonneesPDO2($sql,&$tab)
-    {
-        $i=0;
-        $cur = $this->conn->query($sql);
-        while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
-            $tab[$i++] = $ligne;
-        $nbLignes = $i;
-        return $nbLignes;
-    }
+
     public function LireDonneesPDO3($sql,&$tab)
     {
         $cur = $this->conn->query($sql);

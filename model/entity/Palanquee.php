@@ -1,7 +1,8 @@
 <?php
 
+require_once('_Entity.php');
 
-class Palanquee
+class Palanquee extends _Entity
 {
     private $plo_date;
 
@@ -21,12 +22,25 @@ class Palanquee
 
     private $pal_duree_fond;
 
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return mixed
      */
     public function getPloDate()
     {
         return $this->plo_date;
+    }
+
+    /**
+     * @param mixed $plo_date
+     */
+    public function setPloDate($plo_date)
+    {
+        $this->plo_date = $plo_date;
     }
 
     /**
@@ -39,12 +53,10 @@ class Palanquee
 
     /**
      * @param mixed $plo_matin_apresmidi
-     * @return Palanquee
      */
     public function setPloMatinApresmidi($plo_matin_apresmidi)
     {
         $this->plo_matin_apresmidi = $plo_matin_apresmidi;
-        return $this;
     }
 
     /**
@@ -57,12 +69,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_num
-     * @return Palanquee
      */
     public function setPalNum($pal_num)
     {
         $this->pal_num = $pal_num;
-        return $this;
     }
 
     /**
@@ -75,12 +85,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_profondeur_max
-     * @return Palanquee
      */
     public function setPalProfondeurMax($pal_profondeur_max)
     {
         $this->pal_profondeur_max = $pal_profondeur_max;
-        return $this;
     }
 
     /**
@@ -93,12 +101,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_duree_max
-     * @return Palanquee
      */
     public function setPalDureeMax($pal_duree_max)
     {
         $this->pal_duree_max = $pal_duree_max;
-        return $this;
     }
 
     /**
@@ -111,12 +117,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_heure_immersion
-     * @return Palanquee
      */
     public function setPalHeureImmersion($pal_heure_immersion)
     {
         $this->pal_heure_immersion = $pal_heure_immersion;
-        return $this;
     }
 
     /**
@@ -129,12 +133,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_heure_sortie_eau
-     * @return Palanquee
      */
     public function setPalHeureSortieEau($pal_heure_sortie_eau)
     {
         $this->pal_heure_sortie_eau = $pal_heure_sortie_eau;
-        return $this;
     }
 
     /**
@@ -147,12 +149,10 @@ class Palanquee
 
     /**
      * @param mixed $pal_profondeur_reelle
-     * @return Palanquee
      */
     public function setPalProfondeurReelle($pal_profondeur_reelle)
     {
         $this->pal_profondeur_reelle = $pal_profondeur_reelle;
-        return $this;
     }
 
     /**
@@ -165,13 +165,12 @@ class Palanquee
 
     /**
      * @param mixed $pal_duree_fond
-     * @return Palanquee
      */
     public function setPalDureeFond($pal_duree_fond)
     {
         $this->pal_duree_fond = $pal_duree_fond;
-        return $this;
     }
+
 
 
 }

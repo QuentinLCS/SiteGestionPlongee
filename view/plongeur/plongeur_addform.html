@@ -1,19 +1,38 @@
-<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-    <label>Nom : <input type="text" id="nom" name="nom" placeholder="Saisir le nom" value="<?php verifierEntree('nom')?>"></label>
-    <label>Prenom : <input type="text" id="prenom" name="prenom" placeholder="Saisir le prenom" value="<?php verifierEntree('prenom')?>"></label>
-    <label>
-        <select id="competence" name="competence">
-            <?php
-                    $req="select * from PLO_APTITUDE";
-                    $tab = [];
-                    $db->LireDonneesPDO2($req,$tab);
-                    foreach($tab as $value)
-                    {
-                        echo "<option>".$value['APT_LIBELLE']."</option>";
-                    }
-            ?>
-        </select>
-    </label>
-    <Button class="waves-effect waves-light btn" type="submit" onclick="verifier()" >Enregistrer</Button>
-</form>
-<script type="text/javascript" src="assets/js/personne_entree.js"></script>
+<div id="ajouter" class="modal rounded">
+    <div class="modal-content center">
+        <h4>Ajouter un plongeur</h4>
+        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+
+        </p>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <label class="col s6">
+                    Nom
+                    <input type="text" id="nom" name="nom" autofocus>
+                </label>
+                <label class="col s6 margin-bottom">
+                    Prénom
+                    <input type="text" id="prenom" name="prenom">
+                </label>
+            </div>
+
+            <div class="row">
+                <label class="col s12 big-margin-bottom">
+                    <select name="aptitude" id="aptitude">
+                        <?php
+                            foreach ($allAptitudes as $aptitude) {
+                                echo '<option value="'. $aptitude->getAptCode() .'" >'. $aptitude->getAptLibelle() .'</option>';
+                            }
+                        ?>
+                    </select>
+                </label>
+            </div>
+
+            <div class="row">
+                <button class="btn blue waves-effect waves-light col s12" name="submit">CREER</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>

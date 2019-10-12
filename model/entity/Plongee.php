@@ -1,13 +1,14 @@
 <?php
 
+require_once('_Entity.php');
 
-class Plongee
+class Plongee extends _Entity
 {
     private $plo_date;
 
     private $plo_matin_apresmidi;
 
-    private $site_num;
+    private $sit_num;
 
     private $emb_num;
 
@@ -23,6 +24,19 @@ class Plongee
 
     private $plo_etat;
 
+    private $site;
+
+    private $siteManager;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->siteManager = new SiteManager();
+
+        $this->site = $this->siteManager->getOne(['SIT_NUM' => $this->sit_num]);
+    }
+
     /**
      * @return mixed
      */
@@ -33,12 +47,10 @@ class Plongee
 
     /**
      * @param mixed $plo_date
-     * @return Plongee
      */
     public function setPloDate($plo_date)
     {
         $this->plo_date = $plo_date;
-        return $this;
     }
 
     /**
@@ -51,30 +63,26 @@ class Plongee
 
     /**
      * @param mixed $plo_matin_apresmidi
-     * @return Plongee
      */
     public function setPloMatinApresmidi($plo_matin_apresmidi)
     {
         $this->plo_matin_apresmidi = $plo_matin_apresmidi;
-        return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getSiteNum()
+    public function getSitNum()
     {
-        return $this->site_num;
+        return $this->sit_num;
     }
 
     /**
-     * @param mixed $site_num
-     * @return Plongee
+     * @param $sit_num
      */
-    public function setSiteNum($site_num)
+    public function setSitNum($sit_num)
     {
-        $this->site_num = $site_num;
-        return $this;
+        $this->sit_num = $sit_num;
     }
 
     /**
@@ -87,12 +95,10 @@ class Plongee
 
     /**
      * @param mixed $emb_num
-     * @return Plongee
      */
     public function setEmbNum($emb_num)
     {
         $this->emb_num = $emb_num;
-        return $this;
     }
 
     /**
@@ -105,12 +111,10 @@ class Plongee
 
     /**
      * @param mixed $per_num_dir
-     * @return Plongee
      */
     public function setPerNumDir($per_num_dir)
     {
         $this->per_num_dir = $per_num_dir;
-        return $this;
     }
 
     /**
@@ -123,12 +127,10 @@ class Plongee
 
     /**
      * @param mixed $per_num_secu
-     * @return Plongee
      */
     public function setPerNumSecu($per_num_secu)
     {
         $this->per_num_secu = $per_num_secu;
-        return $this;
     }
 
     /**
@@ -141,12 +143,10 @@ class Plongee
 
     /**
      * @param mixed $plo_effectif_plongeurs
-     * @return Plongee
      */
     public function setPloEffectifPlongeurs($plo_effectif_plongeurs)
     {
         $this->plo_effectif_plongeurs = $plo_effectif_plongeurs;
-        return $this;
     }
 
     /**
@@ -159,12 +159,10 @@ class Plongee
 
     /**
      * @param mixed $plo_effectif_bateau
-     * @return Plongee
      */
     public function setPloEffectifBateau($plo_effectif_bateau)
     {
         $this->plo_effectif_bateau = $plo_effectif_bateau;
-        return $this;
     }
 
     /**
@@ -177,12 +175,10 @@ class Plongee
 
     /**
      * @param mixed $plo_nb_palanquees
-     * @return Plongee
      */
     public function setPloNbPalanquees($plo_nb_palanquees)
     {
         $this->plo_nb_palanquees = $plo_nb_palanquees;
-        return $this;
     }
 
     /**
@@ -195,13 +191,18 @@ class Plongee
 
     /**
      * @param mixed $plo_etat
-     * @return Plongee
      */
     public function setPloEtat($plo_etat)
     {
         $this->plo_etat = $plo_etat;
-        return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
 
 }

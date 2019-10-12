@@ -1,1 +1,24 @@
-addform
+<div id="ajouter" class="modal rounded">
+    <div class="modal-content center">
+        <h4>Ajouter un site</h4>
+
+
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <label class="col s12 margin-bottom">
+                    Nom
+                    <input type="text" id="nom" name="nom" value="">
+                </label>
+            </div>
+            <div class="row">
+                <label class="col s12 margin-bottom">
+                    Localisation
+                    <input type="text" id="localisation" name="localisation" value="">
+                </label>
+            </div>
+            <div class="row">
+                <button class="btn blue waves-effect waves-light col s12" name="submit">CREER</button>
+            </div>
+        </form>
+    </div>
+</div>
