@@ -1,52 +1,56 @@
-<section class="container center">
-    <h3>Liste des plongeurs</h3>
-    <div class="row">
-        <div class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" class="search">
-                    <label for="autocomplete-input">Recherchez avec mot clé...</label>
+<section class="white z-depth-4 rounded center">
+    <div class="container">
+        <h3>Liste des plongeurs</h3>
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input" class="search">
+                        <label for="autocomplete-input">Recherchez avec mot clé...</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <table class="striped">
-                <thead>
-                    <tr>
-                        <th class="center">ID</th>
-                        <th class="center">Nom</th>
-                        <th class="center">Prénom</th>
-                        <th class="center">Aptitude</th>
-                        <th class="center">Gestion</th>
-                    </tr>
-                </thead>
+        <div class="row">
+            <div class="col s12">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th class="center">ID</th>
+                            <th class="center">Nom</th>
+                            <th class="center">Prénom</th>
+                            <th class="center">Aptitude</th>
+                            <th class="center">Gestion</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <?php foreach($allPlongeurs as $plongeur): ?>
-                    <tr>
-                        <td class="center"><?= $plongeur->getPerNum() ?></td>
-                        <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
-                        <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
-                        <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
-                        <td class="center">
-                            <a href="plongeur/edit/&per_num=<?= $plongeur->getPerNum() ?>&apt_code=<?= $plongeur->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
-                                <i class="material-icons white-text">remove_red_eye</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    <tbody>
+                        <?php foreach($allPlongeurs as $plongeur): ?>
+                        <tr>
+                            <td class="center"><?= $plongeur->getPerNum() ?></td>
+                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
+                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
+                            <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
+                            <td class="center">
+                                <a href="plongeur/edit/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                                    <i class="material-icons white-text">remove_red_eye</i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="plongeur/add">
-            <i class="large material-icons">edit</i>
-        </a>
-    </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+
+        <?php require_once('plongeur_addform.html') ?>
+
 </section>
 <script type="text/javascript" src="assets/js/searchBar.js"></script>

@@ -2,6 +2,11 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #f5f5f5;
+    --main-orange-color: #FF9800;
+    --main-blue-color: #2196f3;
+    overflow-x: hidden;
+    text-align: justify;
 }
 
 main {
@@ -16,6 +21,129 @@ nav div.nav-wrapper > ul > li > a {
     border-bottom: none;
 }
 
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    display:block;
+    font-size: 0.7em;
+    position: relative;
+}
+
+.container {
+    padding: 10px 0 10px 0;
+}
+
+.small-opacity {
+    opacity: 25%;
+}
+
+.medium-opacity {
+    opacity: 50%;
+}
+
+.collapsible-header {
+    text-indent: 15px;
+}
+
+.big-margin-top {
+    margin-top: 100px;
+}
+
+.margin-top {
+    margin-top: 30px;
+}
+
+.small-margin-top {
+    margin-top: 15px;
+}
+
+.big-margin-bottom {
+    margin-bottom: 100px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.small-margin-bottom {
+    margin-bottom: 15px;
+}
+
+.margin-left {
+    margin-left: 30px;
+}
+
+.small-margin-left {
+    margin-left: 15px;
+}
+
+.margin-right {
+    margin-right: 30px;
+}
+
+.small-margin-right {
+    margin-right: 15px;
+}
+
+.collection {
+    border: none;
+    margin: 0;
+}
+
+.row {
+    margin: 0;
+}
+
 .rounded {
-    border-radius: 10px;
+    border-radius:10px;
+}
+
+.justify {
+    text-align: justify;
+}
+
+form {
+    padding: 40px 0 0 0;
+}
+
+form:not(.no-padding) button {
+    margin-top: 30px;
+}
+
+.modal-close{
+    position: absolute;
+    top:10px;
+    right:10px;
+    padding:0;
+    margin:0;
+}
+
+label {
+    text-align: left;
+    color: #929292;
+}
+
+input:focus + label {
+    color: #b5b5b5 !important;
+}
+
+input:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid var(--main-blue-color) !important;
+    box-shadow: 0 1px 0 0 var(--main-blue-color) !important;
+}
+
+input.valid {
+    border-bottom: 1px solid var(--main-blue-color);
+    box-shadow: 0 1px 0 0 var(--main-blue-color);
+}
+
+input.invalid {
+    border-bottom: 1px solid #b10900;
+    box-shadow: 0 1px 0 0 #b10900;
+}
+
+.prefix.active {
+    color: var(--main-blue-color);
+}
+
+input.dropdown-trigger + ul > li > span {
+    color : var(--main-blue-color) !important;
 }

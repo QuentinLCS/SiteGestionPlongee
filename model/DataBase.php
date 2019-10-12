@@ -40,6 +40,7 @@ class DataBase extends PDO
 
     public function LireDonnees($sql, $entity = null)
     {
+        $tab = null;
         $cur = $this->conn->query($sql);
         while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
             $tab[] = (is_null($entity) ? $ligne : new $entity($ligne));
