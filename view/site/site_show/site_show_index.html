@@ -6,11 +6,11 @@
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <label>
             Nom
-            <input type="text" id="nom" name="nom" value="<?php echo $site[0]['SIT_NOM'] ?>">
+            <input type="text" id="nom" name="nom" value="<?= $site[0]->getSitNom() ?>">
         </label>
         <label>
             Localisation
-            <input type="text" id="localisation" name="localisation" value="<?php echo $site[0]['SIT_LOCALISATION'] ?>">
+            <input type="text" id="localisation" name="localisation" value="<?= $site[0]->getSitLocalisation() ?>">
         </label>
         <button class="btn" name="submit">MODIFIER</button>
     </form>

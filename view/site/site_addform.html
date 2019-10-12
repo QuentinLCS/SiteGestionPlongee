@@ -1,17 +1,18 @@
-<div>
-    <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+<div id="ajouter" class="modal">
+    <div class="modal-content center">
+        <h4>Ajouter un site</h4>
 
-    </p>
 
-    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-        <label>
-            Nom
-            <input type="text" id="nom" name="nom" value="">
-        </label>
-        <label>
-            Localisation
-            <input type="text" id="localisation" name="localisation" value="">
-        </label>
-        <button class="btn" name="submit">ENREGISTRER</button>
-    </form>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <label>
+                Nom
+                <input type="text" id="nom" name="nom" value="">
+            </label>
+            <label>
+                Localisation
+                <input type="text" id="localisation" name="localisation" value="">
+            </label>
+            <button class="btn" name="submit">ENREGISTRER</button>
+        </form>
+    </div>
 </div>
