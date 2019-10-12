@@ -33,6 +33,8 @@ class PlongeurController extends _ControllerClass
     {
         $this->add();
 
+       // $this->delete();
+
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
             'allAptitudes' => $this->aptitudeManager->getAll()
@@ -84,7 +86,16 @@ class PlongeurController extends _ControllerClass
     }
 
     public function delete(){
+        if (!isset($_GET['per_num']))
+            header('location: plongeur');
 
+        $plongeur = $this->plongeurManager->getOne([
+            'PER_NUM' => $_GET['per_num']]);
+
+        if (is_null($plongeur))
+            header('location: plongeur');
+
+        $this->plongeurManager->delete($plongeur);
     }
 
     private function verification($plongeur, $add = false)

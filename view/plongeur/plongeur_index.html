@@ -35,10 +35,11 @@
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
                             <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             <td class="center">
-                                <a href="plongeur/edit/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                                <a href="plongeur/edit/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails du plongeur">
                                     <i class="material-icons white-text">remove_red_eye</i>
                                 </a>
-                               
+                                <?php include('plongeur_removeform.html'); ?>
+
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -54,6 +55,7 @@
         </div>
 
         <?php require_once('plongeur_addform.html') ?>
+
 
 </section>
 <script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>
