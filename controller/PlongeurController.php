@@ -33,7 +33,7 @@ class PlongeurController extends _ControllerClass
     {
         $this->add();
 
-       // $this->delete();
+        //k$this->delete();
 
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
@@ -95,7 +95,13 @@ class PlongeurController extends _ControllerClass
         if (is_null($plongeur))
             header('location: plongeur');
 
-        $this->plongeurManager->delete($plongeur);
+        if ( isset($_POST['submit']) )
+            $this->plongeurManager->delete($plongeur);
+
+        (new View('plongeur/plongeur_removeform'))->generate([
+            'plongeur' => $plongeur,
+        ]);
+
     }
 
     private function verification($plongeur, $add = false)
