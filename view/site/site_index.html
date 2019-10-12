@@ -8,25 +8,33 @@
                 <th class="center">Numéro</th>
                 <th class="center">Nom</th>
                 <th class="center">Localisation</th>
+                <th class="center">Gestion</th>
             </tr>
         </thead>
 
         <tbody>
-            <?php
-                foreach($allSites as $key=>$value){
-                    echo "<tr>";
-                    foreach ($value as $val){
-                        echo  '<td class="center">'.$val.'</td>';
-                    }
-                    echo '<td><a href="?page=site_show&id='.$value['SIT_NUM'].'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Modifier le plongeur"><i class="material-icons white-text">remove_red_eye</i></a></td></tr>';
-                }
-            ?>
+            <?php foreach($allSites as $site): ?>
+                <tr>
+                    <td class="center"><?= $site->getSitNum() ?></td>
+                    <td class="center"><?= $site->getSitNom() ?></td>
+                    <td class="center"><?= $site->getSitLocalisation() ?></td>
+                    <td class="center">
+                        <a href="site/edit/&sit_num=<?= $site->getSitNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                            <i class="material-icons white-text">remove_red_eye</i>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large blue modal-trigger pulse" href="?page=new_site">
-            <i class="large material-icons">edit</i>
+        <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+            <i class="large material-icons">add</i>
         </a>
     </div>
+
+    <?php require_once('site_addform.html') ?>
+
 </section>
+<script type="text/javascript" src="assets/js/searchBar.js"></script>

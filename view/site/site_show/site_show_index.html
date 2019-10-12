@@ -1,1 +1,17 @@
-show site
+<div>
+    <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+
+    </p>
+
+    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+        <label>
+            Nom
+            <input type="text" id="nom" name="nom" value="<?= $site[0]->getSitNom() ?>">
+        </label>
+        <label>
+            Localisation
+            <input type="text" id="localisation" name="localisation" value="<?= $site[0]->getSitLocalisation() ?>">
+        </label>
+        <button class="btn" name="submit">MODIFIER</button>
+    </form>
+</div>

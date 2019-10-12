@@ -24,6 +24,10 @@ class SiteManager extends _Model
 
     public function update($object, $add = false)
     {
-        // TODO: Implement update() method.
+        DataBase::$db->majDonnees("UPDATE ".self::$table." SET SIT_NOM = '".$object[0]->getSitNom()."', SIT_LOCALISATION = '".$object[0]->getSitLocalisation()."' WHERE SIT_NUM = '".$object[0]->getSitNum()."'");
+    }
+
+    public function add($object){
+        DataBase::$db->majDonnees("INSERT INTO ".self::$table." (SIT_NUM, SIT_NOM, SIT_LOCALISATION) VALUES (".$object->getSitNum().",'".$object->getSitNom()."','".$object->getSitLocalisation()."')");
     }
 }
