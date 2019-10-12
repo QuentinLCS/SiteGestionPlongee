@@ -24,11 +24,17 @@ class PlongeurManager extends _Model
 
     public function update($object, $add = false)
     {
-        (new PersonneManager())->update($object[0]->getPersonne(), $add);
+        $personneManager = new PersonneManager();
+        $personneManager->update($object[0]->getPersonne(), $add);
 
-        if ($add)
-            /*DataBase::$db->majDonnees(*/echo "INSERT INTO " . self::$table . " VALUES ('". $object[0]->getPerNum() ."','". $object[0]->getAptCode() . "')";//);
-        else
+        if ($add) {
+            $personne = $personneManager->getOne([
+                'PER_NOM' => $object[0]->getPersonne()[0]->getPerNom(),
+                'PER_PRENOM' => $object[0]->getPersonne()[0]->getPerPrenom(),
+                ]);
+
+            DataBase::$db->majDonnees("INSERT INTO " . self::$table . " VALUES ('" . $personne[0]->getPerNum() . "','" . $object[0]->getAptCode() . "')");
+        } else
             DataBase::$db->majDonnees("UPDATE " . self::$table . " SET APT_CODE = '" . $object[0]->getAptCode() . "' WHERE PER_NUM = '" . $object[0]->getPerNum() . "'");
 
     }
