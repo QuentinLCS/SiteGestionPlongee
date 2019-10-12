@@ -68,14 +68,12 @@ class PlongeurController extends _ControllerClass
                 $prenom = ucfirst($_POST['prenom']);
 
                 $plongeur[] = new Plongeur([]);
-                $personne[] = new Personne([]);
-
-                $personne[0]->setPerNom($nom);
-                $personne[0]->setPerPrenom($prenom);
+                $personne[] = new Personne([
+                    'PER_NOM' => $nom,
+                    'PER_PRENOM' => $prenom
+                ]);
 
                 $plongeur[0]->setPersonne($personne);
-
-
 
                 $this->verification($plongeur, true);
 
@@ -111,26 +109,16 @@ class PlongeurController extends _ControllerClass
                         $plongeur[0]->getPersonne()[0]->setPerNom($nom);
                         $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
 
-                        echo "apt_code = $aptitude";
-
                         $aptitudeObject = $this->aptitudeManager->getOne(['APT_CODE' => $aptitude]);
-
-
-                        var_dump($plongeur);
-
-                        var_dump($aptitudeObject);
 
                         if (!is_null($aptitudeObject))
                             if ($add)
                                 $plongeur[0]->setAptitude($aptitudeObject);
-                            else
-                                $plongeur[0]->setAptCode($aptitude);
-
-                        var_dump($plongeur);
+                            $plongeur[0]->setAptCode($aptitude);
 
                         $this->plongeurManager->update($plongeur, $add);
 
-                        //header("Location: plongeur");
+                        header("Location: /plongeur");
                     } else
                         echo 'Personne déjà enregistrée.';
                 } else
