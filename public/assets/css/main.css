@@ -147,3 +147,7 @@ input.invalid {
 input.dropdown-trigger + ul > li > span {
     color : var(--main-blue-color) !important;
 }
+
+input.dropdown-trigger + ul {
+    max-height: 200px;
+}

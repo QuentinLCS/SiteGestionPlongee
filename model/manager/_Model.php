@@ -25,5 +25,5 @@ abstract class _Model
     public abstract function getAll();
     public abstract function countAll();
     public abstract function getOne(array $id);
-    public abstract function update($object);
+    public abstract function update($object, $add = false);
 }

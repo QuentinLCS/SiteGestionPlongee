@@ -22,9 +22,14 @@ class PlongeurManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
-    public function update($object)
+    public function update($object, $add = false)
     {
-        DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
-        (new PersonneManager())->update($object[0]->getPersonne());
+        (new PersonneManager())->update($object[0]->getPersonne(), $add);
+
+        if ($add)
+            /*DataBase::$db->majDonnees(*/echo "INSERT INTO " . self::$table . " VALUES ('". $object[0]->getPerNum() ."','". $object[0]->getAptCode() . "')";//);
+        else
+            DataBase::$db->majDonnees("UPDATE " . self::$table . " SET APT_CODE = '" . $object[0]->getAptCode() . "' WHERE PER_NUM = '" . $object[0]->getPerNum() . "'");
+
     }
 }

@@ -29,9 +29,7 @@ class Aptitude extends _Entity
      */
     public function setAptCode($apt_code)
     {
-        $apt_code = (int) $apt_code;
-
-        if ($apt_code > 0)
+        if (is_string($apt_code))
             $this->apt_code = $apt_code;
 
         if (!isset($this->old_apt_code))

@@ -22,8 +22,11 @@ class AptitudeManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
-    public function update($object)
+    public function update($object, $add = false)
     {
-        DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
+        if ($add)
+            ;
+        else
+            DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
     }
 }
