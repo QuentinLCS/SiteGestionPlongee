@@ -1058,7 +1058,7 @@ var Component = function () {
   return Component;
 }();
 
-; // Required for Meteor package, the use of window prevents export by Meteor
+; // Required for Meteor manager, the use of window prevents export by Meteor
 (function (window) {
   if (window.Package) {
     M = {};
