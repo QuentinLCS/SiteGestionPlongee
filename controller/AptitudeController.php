@@ -25,7 +25,8 @@ class AptitudeController extends _ControllerClass
      */
     public function index()
     {
-        $this->add();
+        if (isset($_POST['submit']))
+            $this->add();
 
         (new View('aptitude/aptitude_index'))->generate([
             'allAptitudes' => $this->aptitudeManager->getAll()
@@ -78,7 +79,7 @@ class AptitudeController extends _ControllerClass
 
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
-                $aptitude[0]->setAptCode($libelle);
+                $aptitude[0]->setAptLibelle($libelle);
                 $this->aptitudeManager->update($aptitude);
                 header('location: /aptitude');
             } else
