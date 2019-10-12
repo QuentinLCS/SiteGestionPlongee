@@ -28,6 +28,6 @@ class SiteManager extends _Model
     }
 
     public function add($object){
-        DataBase::$db->majDonnees("INSERT INTO ".self::$table." (SIT_NUM, SIT_NOM, SIT_LOCALISATION) VALUES (".$object->getSitNum().",'".$object->getSitNom()."','".$object->getSitLocalisation()."')");
+        DataBase::$db->majDonnees("INSERT INTO ".self::$table." ( SIT_NOM, SIT_LOCALISATION) VALUES ('".$object->getSitNom()."','".$object->getSitLocalisation()."')");
     }
 }
