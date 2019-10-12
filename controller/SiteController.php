@@ -99,7 +99,6 @@ class SiteController extends _ControllerClass
 
             if ($i == $nbSites) {
                 $data = array(
-                    'SIT_NUM'  => ($nbSites+1),
                     'SIT_NOM' => $nom,
                     'SIT_LOCALISATION' => $localisation
                 );

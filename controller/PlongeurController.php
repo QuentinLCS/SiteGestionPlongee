@@ -42,6 +42,8 @@ class PlongeurController extends _ControllerClass
             }
 
 
+       // $this->delete();
+
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
@@ -94,6 +96,19 @@ class PlongeurController extends _ControllerClass
         }
     }
 
+    public function delete(){
+        if (!isset($_GET['per_num']))
+            header('location: plongeur');
+
+        $plongeur = $this->plongeurManager->getOne([
+            'PER_NUM' => $_GET['per_num']]);
+
+        if (is_null($plongeur))
+            header('location: plongeur');
+
+        $this->plongeurManager->delete($plongeur);
+    }
+
     private function verification($plongeur, $add = false)
     {
         if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
@@ -129,7 +144,7 @@ class PlongeurController extends _ControllerClass
 
                         $this->plongeurManager->update($plongeur, $add);
 
-                        header("Location: /plongeur");
+                        header('location: '.URL.'/plongeur');
                     } else
                         echo 'Personne déjà enregistrée.';
                 } else
