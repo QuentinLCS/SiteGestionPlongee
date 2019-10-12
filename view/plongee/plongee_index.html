@@ -53,4 +53,16 @@
 
     <?php //require_once('plongee_addform.html') ?>
 </section>
-<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('input.search').autocomplete({
+            data: {
+                <?php
+                    foreach($allPlongees as $plongee)
+                        echo '"'.$plongee->getPloDate().'" : null,';
+                ?>
+            },
+        });
+    });
+</script>

@@ -35,7 +35,8 @@ class PlongeurController extends _ControllerClass
 
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
-            'allAptitudes' => $this->aptitudeManager->getAll()
+            'allAptitudes' => $this->aptitudeManager->getAll(),
+            'allInactives' => $this->personneManager->getAllInactives()
         ]);
     }
 

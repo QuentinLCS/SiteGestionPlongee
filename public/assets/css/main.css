@@ -144,7 +144,7 @@ input.invalid {
     color: var(--main-blue-color);
 }
 
-input.dropdown-trigger + ul > li > span {
+ul.dropdown-content > li > span {
     color : var(--main-blue-color) !important;
 }
 

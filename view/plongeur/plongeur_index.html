@@ -53,6 +53,18 @@
         </div>
 
         <?php require_once('plongeur_addform.html') ?>
-
+    </div>
 </section>
-<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('input.search').autocomplete({
+            data: {
+                <?php
+                    foreach($allPlongeurs as $plongeur)
+                        echo '"'.$plongeur->getPersonne()[0]->getPerNom().' '.$plongeur->getPersonne()[0]->getPerPrenom().'" : null,';
+                ?>
+            },
+        });
+    });
+</script>

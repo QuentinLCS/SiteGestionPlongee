@@ -46,4 +46,15 @@
     </div>
 </section>
 
-<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>
+<script>
+    $(document).ready(function(){
+        $('input.search').autocomplete({
+            data: {
+                <?php
+                    foreach($allAptitudes as $aptitude)
+                        echo '"'.$aptitude->getAptLibelle().'" : null,';
+                ?>
+            },
+        });
+    });
+</script>

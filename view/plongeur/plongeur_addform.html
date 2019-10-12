@@ -20,9 +20,9 @@
                 <label class="col s12 big-margin-bottom">
                     <select name="aptitude" id="aptitude">
                         <?php
-                    foreach ($allAptitudes as $aptitude) {
-                        echo '<option value="'. $aptitude->getAptCode() .'" >'. $aptitude->getAptLibelle() .'</option>';
-                        }
+                            foreach ($allAptitudes as $aptitude) {
+                                echo '<option value="'. $aptitude->getAptCode() .'" >'. $aptitude->getAptLibelle() .'</option>';
+                            }
                         ?>
                     </select>
                 </label>

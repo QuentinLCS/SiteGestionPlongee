@@ -12,6 +12,10 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
+    public function getAllInactives() {
+        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table." WHERE PER_ACTIVE = '0'", self::$entity);
+    }
+
     public function countAll()
     {
         return parent::_countAll(self::$table);
