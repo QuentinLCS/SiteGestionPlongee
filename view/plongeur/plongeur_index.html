@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" class="search" name="searchNom">
+                    <input type="text" id="autocomplete-input" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" autofocus>
                     <label for="autocomplete-input">Rechercher un plongeur par son NOM...</label>
                 </div>
             </div>
-            <button name="search" class="hiddendiv">CREER</button>
+            <button name="search" id="search" class="hiddendiv">CREER</button>
         </form>
 
         <div class="row">
@@ -70,4 +70,4 @@
     });
 </script>
 
-
+<script type="text/javascript" src="/public/assets/js/searchBar.js"></script>

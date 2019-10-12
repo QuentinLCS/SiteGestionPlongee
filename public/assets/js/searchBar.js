@@ -1,2 +1,5 @@
+elt1 = document.getElementById('autocomplete-input');
 
-document.getElementById("search").submit();
+elt1.addEventListener('keyup', function () {
+   document.getElementById('search').click()
+}, false);

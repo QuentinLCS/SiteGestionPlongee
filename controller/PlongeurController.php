@@ -31,7 +31,8 @@ class PlongeurController extends _ControllerClass
      */
     public function index()
     {
-        $this->add();
+        if (isset($_POST['submit']))
+            $this->add();
 
         $searchedPlongeurs = null;
 
@@ -39,8 +40,6 @@ class PlongeurController extends _ControllerClass
             if (!empty($_POST['searchNom'])) {
                 $searchedPlongeurs = $this->plongeurManager->getSearchResult($_POST['searchNom']);
             }
-
-
 
 
         (new View('plongeur/plongeur_index'))->generate([
