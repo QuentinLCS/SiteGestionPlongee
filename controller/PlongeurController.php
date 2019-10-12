@@ -83,6 +83,10 @@ class PlongeurController extends _ControllerClass
         }
     }
 
+    public function delete(){
+
+    }
+
     private function verification($plongeur, $add = false)
     {
         if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
@@ -118,7 +122,7 @@ class PlongeurController extends _ControllerClass
 
                         $this->plongeurManager->update($plongeur, $add);
 
-                        header("Location: /plongeur");
+                        header('location: '.URL.'/plongeur');
                     } else
                         echo 'Personne déjà enregistrée.';
                 } else
