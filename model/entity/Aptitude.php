@@ -4,6 +4,8 @@ require_once('_Entity.php');
 
 class Aptitude extends _Entity
 {
+    private $old_apt_code;
+
     private $apt_code;
 
     private $apt_libelle;
@@ -32,6 +34,9 @@ class Aptitude extends _Entity
         if ($apt_code > 0)
             $this->apt_code = $apt_code;
 
+        if (!isset($this->old_apt_code))
+            $this->old_apt_code = $apt_code;
+
     }
 
     /**
@@ -53,6 +58,14 @@ class Aptitude extends _Entity
     public function getAptCode()
     {
         return $this->apt_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldAptCode()
+    {
+        return $this->old_apt_code;
     }
 
     /**

@@ -7,11 +7,6 @@ class SiteManager extends _Model
     public static $entity = 'SITE';
     public static $table = 'PLO_SITE';
 
-    public function __construct()
-    {
-        // Actions à la création de l'entité.
-    }
-
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);

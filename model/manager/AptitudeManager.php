@@ -7,11 +7,6 @@ class AptitudeManager extends _Model
     public static $entity = 'APTITUDE';
     public static $table = 'PLO_APTITUDE';
 
-    public function __construct()
-    {
-        // Actions à la création de l'entité.
-    }
-
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);
@@ -29,6 +24,6 @@ class AptitudeManager extends _Model
 
     public function update($object)
     {
-        // TODO: Implement update() method.
+        DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
     }
 }

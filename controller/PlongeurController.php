@@ -42,13 +42,13 @@ class PlongeurController extends _ControllerClass
     public function edit()
     {
         if (!isset($_GET['per_num']))
-            header('location: '.URL.'/plongeur');
+            header('location: plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
         if (is_null($plongeur))
-            header('location: '.URL.'/plongeur');
+            header('location: plongeur');
 
         if ( isset($_POST['submit']) )
             $this->verification($plongeur);
@@ -83,7 +83,7 @@ class PlongeurController extends _ControllerClass
 
             // Si le prénom ou le nom a été modifié
             if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom())
-                while (($nom != $personnes[$i]->GetPerNom() || $prenom != $personnes[$i]->GetPerPrenom()) && ++$i < $nbPersonnes) ;
+                while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
             else
                 $i = $nbPersonnes;
 
@@ -93,7 +93,7 @@ class PlongeurController extends _ControllerClass
                 $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
                 $plongeur[0]->setAptCode($aptitude);
                 $this->plongeurManager->update($plongeur);
-                header("Location: /plongeur");
+                header("Location: plongeur");
             } else
                 echo 'Personne déjà enregistrée.';
         }

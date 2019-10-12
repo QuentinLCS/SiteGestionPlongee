@@ -7,11 +7,6 @@ class PlongeurManager extends _Model
     public static $entity = 'PLONGEUR';
     public static $table = 'PLO_PLONGEUR';
 
-    public function __construct()
-    {
-        // Actions à la création de l'entité.
-    }
-
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);

@@ -13,7 +13,7 @@ abstract class _ControllerClass
      * @param $url
      * @throws Exception
      */
-    public function __construct($url)
+    protected function __construct($url)
     {
         $urlSize = count($url);
         if (isset($url) && $urlSize > 3)
@@ -23,4 +23,6 @@ abstract class _ControllerClass
 
         return $urlSize;
     }
+
+    public abstract function index();
 }

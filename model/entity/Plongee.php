@@ -8,7 +8,7 @@ class Plongee extends _Entity
 
     private $plo_matin_apresmidi;
 
-    private $site_num;
+    private $sit_num;
 
     private $emb_num;
 
@@ -24,9 +24,17 @@ class Plongee extends _Entity
 
     private $plo_etat;
 
+    private $site;
+
+    private $siteManager;
+
     public function __construct(array $data)
     {
         parent::__construct($data);
+
+        $this->siteManager = new SiteManager();
+
+        $this->site = $this->siteManager->getOne(['SIT_NUM' => $this->sit_num]);
     }
 
     /**
@@ -64,17 +72,17 @@ class Plongee extends _Entity
     /**
      * @return mixed
      */
-    public function getSiteNum()
+    public function getSitNum()
     {
-        return $this->site_num;
+        return $this->sit_num;
     }
 
     /**
-     * @param mixed $site_num
+     * @param $sit_num
      */
-    public function setSiteNum($site_num)
+    public function setSitNum($sit_num)
     {
-        $this->site_num = $site_num;
+        $this->sit_num = $sit_num;
     }
 
     /**
@@ -189,7 +197,12 @@ class Plongee extends _Entity
         $this->plo_etat = $plo_etat;
     }
 
-
-
+    /**
+     * @return mixed
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
 
 }
