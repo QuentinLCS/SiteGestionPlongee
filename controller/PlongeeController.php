@@ -75,6 +75,8 @@ class PlongeeController extends _ControllerClass
             'plongee' => $plongee,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteyr' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
         ]);
     }
 
