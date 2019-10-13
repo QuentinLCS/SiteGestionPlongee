@@ -6,17 +6,17 @@
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col xl4 m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search1" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" >
                     <label for="search1">Rechercher par NOM...</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col xl4 m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search2" class="search" name="searchPrenom" value="<?= (isset($_POST['searchPrenom']) ? $_POST['searchPrenom'] : '') ?>" >
                     <label for="search2">Rechercher par Prenom...</label>
                 </div>
-                <p class="col s4" style="line-height: 60px;">
+                <p class="col xl4 s12" style="line-height: 60px;">
                     <label>
                         <input type="checkbox" class="filled-in" name="searchInactive" <?= (isset($_POST['searchInactive']) ? 'checked' : '') ?>/>
                         <span>Afficher les inactifs</span>

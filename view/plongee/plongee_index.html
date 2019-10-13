@@ -5,11 +5,11 @@
         <h3>Liste des plongées</h3>
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding margin-top">
             <div class="row">
-                <div class="input-field col s5">
+                <div class="input-field col m5 s12">
                     <input type="text" class="datepicker" name="searchDate" id="search1" value="<?= (isset($_POST['searchDate']) ? $_POST['searchDate'] : '') ?>">
                     <label for="search1">Rechercher par DATE...</label>
                 </div>
-                <div class="input-field col s5 offset-s1">
+                <div class="input-field col m5 s12 offset-m1">
                     <select id="search2" name="searchPeriode">
                         <option value="" <?= (!isset($_POST['searchNom']) ? 'selected' : (is_empty($_POST['searchPeriode'])) ? 'selected' : '') ?>>Tous</option>
                         <option value="M" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'M') ? 'selected' : '') ?>>Matin</option>
@@ -17,7 +17,7 @@
                     </select>
                     <label for="search2">Matin ou Après-midi ?</label>
                 </div>
-                <button name="search" id="search" class="col s1 btn blue waves-effect waves-light" style="height: 60px"><i class="material-icons">send</i></button>
+                <button name="search" id="search" class="col m1 s12 btn blue waves-effect waves-light" style="height: 60px"><i class="material-icons">send</i></button>
             </div>
         </form>
         <div class="row">
