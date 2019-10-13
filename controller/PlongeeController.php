@@ -26,7 +26,7 @@ class PlongeeController extends _ControllerClass
     public function index()
     {
         $this->add();
-
+        var_dump($this->plongeeManager->getAll());
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll()
         ]);
@@ -34,12 +34,12 @@ class PlongeeController extends _ControllerClass
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_matin_apresmidi']))
+        if (!isset($_GET['plo_date']) || !isset($_GET['PLO_MAT_MID_SOI']))
             header('location: plongee');
 
         $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MATIN_APRESMIDI' => $_GET['plo_matin_apresmidi']]);
+            'PLO_MAT_MID_SOI' => $_GET['PLO_MAT_MID_SOI']]);
 
         if (is_null($plongee))
             header('location: plongee');
@@ -50,6 +50,11 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
         ]);
+    }
+
+    public function edit()
+    {
+
     }
 
     private function add()

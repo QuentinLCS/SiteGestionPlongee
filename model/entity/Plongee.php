@@ -6,7 +6,7 @@ class Plongee extends _Entity
 {
     private $plo_date;
 
-    private $plo_matin_apresmidi;
+    private $PLO_MAT_MID_SOI;
 
     private $sit_num;
 
@@ -58,15 +58,15 @@ class Plongee extends _Entity
      */
     public function getPloMatinApresmidi()
     {
-        return $this->plo_matin_apresmidi;
+        return $this->PLO_MAT_MID_SOI;
     }
 
     /**
-     * @param mixed $plo_matin_apresmidi
+     * @param mixed $PLO_MAT_MID_SOI
      */
-    public function setPloMatinApresmidi($plo_matin_apresmidi)
+    public function setPloMatinApresmidi($PLO_MAT_MID_SOI)
     {
-        $this->plo_matin_apresmidi = $plo_matin_apresmidi;
+        $this->PLO_MAT_MID_SOI = $PLO_MAT_MID_SOI;
     }
 
     /**

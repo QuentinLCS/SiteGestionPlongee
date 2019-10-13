@@ -20,7 +20,7 @@ getOne($db, [
     ]],
     [
         'PLO_DATE' => $_GET['date'],
-        'PLO_MATIN_APRESMIDI' => $_GET['periode']
+        'PLO_MAT_MID_SOI' => $_GET['periode']
     ],
     $plongee);
 
