@@ -28,6 +28,8 @@ class AptitudeController extends _ControllerClass
         if (isset($_POST['submit']))
             $this->add();
 
+        $searchedAptitudes = null;
+
         if ( isset($_POST['search']) ) {
 
             if (!empty($_POST['searchCode']))
