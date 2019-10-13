@@ -28,8 +28,22 @@ class AptitudeController extends _ControllerClass
         if (isset($_POST['submit']))
             $this->add();
 
+        if ( isset($_POST['search']) ) {
+
+            if (!empty($_POST['searchCode']))
+                $search['code'] = $_POST['searchCode'];
+
+            if (!empty($_POST['searchLibelle']))
+                $search['libelle'] = $_POST['searchLibelle'];
+
+            if (!empty($_POST['searchCode']) || !empty($_POST['searchLibelle']))
+                $searchedAptitudes = $this->aptitudeManager->getSearchResult($search);
+
+        }
+
         (new View('aptitude/aptitude_index'))->generate([
-            'allAptitudes' => $this->aptitudeManager->getAll()
+            'allAptitudes' => $this->aptitudeManager->getAll(),
+            'searchedAptitudes' => $searchedAptitudes
         ]);
     }
 

@@ -12,6 +12,20 @@ class PlongeeManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
+    public function getSearchResult($search)
+    {
+        $sql = 'SELECT * FROM '.self::$table.' WHERE ';
+        if (isset($search['date'])) {
+            $sql .= "PLO_DATE LIKE '" . $search['date'] . "%'";
+
+            if (isset($search['periode'])) $sql .= 'AND ';
+        }
+        if (isset($search['periode']))
+            $sql .= "PLO_MAT_MID_SOI LIKE '".$search['periode']."%'";
+
+        return  DataBase::$db->LireDonnees($sql, self::$entity);
+    }
+
     public function countAll()
     {
         return parent::_countAll(self::$table);

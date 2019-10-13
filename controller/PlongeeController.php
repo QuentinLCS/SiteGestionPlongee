@@ -25,10 +25,27 @@ class PlongeeController extends _ControllerClass
      */
     public function index()
     {
-        $this->add();
+        if (isset($_POST['submit']))
+            $this->add();
+
+        $searchedPlongees = null;
+
+        if ( isset($_POST['search']) ) {
+
+            if (!empty($_POST['searchDate']))
+                $search['date'] = $_POST['searchDate'];
+
+            if (!empty($_POST['searchPeriode']))
+                $search['periode'] = $_POST['searchPeriode'];
+
+            if (!empty($_POST['searchDate']) || !empty($_POST['searchPeriode']))
+                $searchedPlongees = $this->plongeeManager->getSearchResult($search);
+
+        }
 
         (new View('plongee/plongee_index'))->generate([
-            'allPlongees' => $this->plongeeManager->getAll()
+            'allPlongees' => $this->plongeeManager->getAll(),
+            'searchedPlongees' => $searchedPlongees
         ]);
     }
 

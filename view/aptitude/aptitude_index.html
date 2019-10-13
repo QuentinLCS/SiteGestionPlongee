@@ -3,13 +3,21 @@
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des Aptitudes</h3>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">search</i>
-                <input type="text" id="autocomplete-input" class="search">
-                <label for="autocomplete-input">Recherchez avec mot clé...</label>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" >
+                    <label for="search1">Rechercher par NOM...</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" >
+                    <label for="search2">Rechercher par Prenom...</label>
+                </div>
             </div>
-        </div>
+            <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
+        </form>
         <table class="striped">
             <thead>
                 <tr>
@@ -20,7 +28,7 @@
             </thead>
 
             <tbody>
-            <?php foreach($allAptitudes as $aptitude): ?>
+            <?php foreach((is_null($searchedAptitudes) ? $allAptitudes : $searchedAptitudes) as $aptitude): ?>
             <tr>
                 <td class="center"><?= $aptitude->getAptCode() ?></td>
                 <td class="center"><?= $aptitude->getAptLibelle() ?></td>
@@ -44,7 +52,16 @@
 
 <script>
     $(document).ready(function(){
-        $('input.search').autocomplete({
+        $('input#search1').autocomplete({
+            data: {
+                <?php
+                    foreach($allAptitudes as $aptitude)
+                        echo '"'.$aptitude->getAptCode().'" : null,';
+                ?>
+            },
+        });
+
+        $('input#search2').autocomplete({
             data: {
                 <?php
                     foreach($allAptitudes as $aptitude)
@@ -54,3 +71,5 @@
         });
     });
 </script>
+
+<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>

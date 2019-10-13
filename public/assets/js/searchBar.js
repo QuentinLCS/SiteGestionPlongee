@@ -1,5 +1,12 @@
-elt1 = document.getElementById('autocomplete-input');
+search1 = document.getElementById('search2');
+search2 = document.getElementById('search1');
 
-elt1.addEventListener('keyup', function () {
-   document.getElementById('search').click()
-}, false);
+search1.addEventListener('keyup', function (event) {sendForm(event);}, false);
+search2.addEventListener('keyup',function (event) {sendForm(event);}, false);
+
+
+function sendForm (event) {
+   if (event.keyCode >= 65 && event.keyCode <= 90) { // si une lettre est pressée uniquement
+      document.getElementById('search').click()
+   }
+}

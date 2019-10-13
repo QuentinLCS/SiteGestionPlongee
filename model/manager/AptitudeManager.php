@@ -12,6 +12,20 @@ class AptitudeManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
+    public function getSearchResult($search)
+    {
+        $sql = 'SELECT * FROM '.self::$table.' WHERE ';
+        if (isset($search['code'])) {
+            $sql .= "APT_CODE LIKE '" . $search['code'] . "%'";
+
+            if (isset($search['libelle'])) $sql .= 'AND ';
+        }
+        if (isset($search['libelle']))
+            $sql .= "APT_LIBELLE LIKE '".$search['libelle']."%'";
+
+        return  DataBase::$db->LireDonnees($sql, self::$entity);
+    }
+
     public function countAll()
     {
         return parent::_countAll(self::$table);

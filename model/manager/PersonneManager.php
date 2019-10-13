@@ -12,13 +12,24 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function getAllInactives() {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table." WHERE PER_ACTIVE = '0'", self::$entity);
-    }
-
     public function getSearchResult($search)
     {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table." WHERE PER_NOM LIKE '".$search."%'", self::$entity);
+        $sql = 'SELECT * FROM '.self::$table.' WHERE ';
+        if (isset($search['nom'])) {
+            $sql .= "PER_NOM LIKE '" . $search['nom'] . "%'";
+
+            if (isset($search['prenom']) || !isset($search['searchInactive'])) $sql .= 'AND ';
+        }
+        if (isset($search['prenom'])) {
+            $sql .= "PER_PRENOM LIKE '" . $search['prenom'] . "%'";
+
+            if (!isset($search['searchInactive'])) $sql .= 'AND ';
+        }
+
+        if (isset($search['inactive']))
+            $sql .= "PER_ACTIVE LIKE '%'";
+
+        return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
 
     public function countAll()

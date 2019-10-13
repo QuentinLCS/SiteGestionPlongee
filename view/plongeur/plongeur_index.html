@@ -6,13 +6,24 @@
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s4">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" autofocus>
-                    <label for="autocomplete-input">Rechercher un plongeur par son NOM...</label>
+                    <input type="text" id="search1" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" >
+                    <label for="search1">Rechercher par NOM...</label>
                 </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search2" class="search" name="searchPrenom" value="<?= (isset($_POST['searchPrenom']) ? $_POST['searchPrenom'] : '') ?>" >
+                    <label for="search2">Rechercher par Prenom...</label>
+                </div>
+                <p class="col s4" style="line-height: 60px;">
+                    <label>
+                        <input type="checkbox" class="filled-in" name="searchInactive" <?= (isset($_POST['searchInactive']) ? 'checked' : '') ?>/>
+                        <span>Afficher les inactifs</span>
+                    </label>
+                </p>
             </div>
-            <button name="search" id="search" class="hiddendiv">CREER</button>
+            <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
 
         <div class="row">
@@ -61,11 +72,20 @@
 
 <script>
     $(document).ready(function(){
-        $('input.search').autocomplete({
+        $('input#search1').autocomplete({
             data: {
                 <?php
                     foreach($allPlongeurs as $plongeur)
-                        echo '"'.$plongeur->getPersonne()[0]->getPerNom().' '.$plongeur->getPersonne()[0]->getPerPrenom().'" : null,';
+                        echo '"'.$plongeur->getPersonne()[0]->getPerNom().'" : null,';
+                ?>
+            },
+        });
+
+        $('input#search2').autocomplete({
+            data: {
+                <?php
+                    foreach($allPlongeurs as $plongeur)
+                        echo '"'.$plongeur->getPersonne()[0]->getPerPrenom().'" : null,';
                 ?>
             },
         });

@@ -36,10 +36,22 @@ class PlongeurController extends _ControllerClass
 
         $searchedPlongeurs = null;
 
-        if ( isset($_POST['search']) )
-            if (!empty($_POST['searchNom'])) {
-                $searchedPlongeurs = $this->plongeurManager->getSearchResult($_POST['searchNom']);
-            }
+        if ( isset($_POST['search']) ) {
+
+            if (!empty($_POST['searchNom']))
+                $search['nom'] = $_POST['searchNom'];
+
+            if (!empty($_POST['searchPrenom']))
+                $search['prenom'] = $_POST['searchPrenom'];
+
+            if (!isset($_POST['searchInactive']))
+                $search['inactive'] = '';
+
+            if (!empty($_POST['searchNom']) || !empty($_POST['searchPrenom']) || !isset($_POST['searchInactive']))
+                $searchedPlongeurs = $this->plongeurManager->getSearchResult($search);
+
+        }
+
 
 
        // $this->delete();
@@ -47,7 +59,6 @@ class PlongeurController extends _ControllerClass
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
-            'allInactives' => $this->personneManager->getAllInactives(),
             'searchedPlongeurs' => $searchedPlongeurs
         ]);
     }
