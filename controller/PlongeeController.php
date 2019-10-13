@@ -65,7 +65,7 @@ class PlongeeController extends _ControllerClass
             $this->verification($plongee);
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'plongee' => $plongee,
+            'plongee' => $plongee
         ]);
     }
 
