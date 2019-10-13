@@ -50,11 +50,14 @@ doubles tirets sont interdits.
 - [ ] d'afficher les infos [avec tris et sélections] ++
 - [ ] de modifier une donnée ~+
 - [ ] de supprimer une donnée ~
+
 #####Développer d'autres formulaires et peaufiner la présentation est une erreur si la page «Personne» est imparfaite !
+
 #####Conseils :
 - [ ] Privilégier le développement de nombreuses petites fonctions de traitement
 - [ ] Ne développer les formulaires que lorsque les traitements fonctionnent
 - [ ] Faire tester régulièrement l'application
+
 ##Troisième partie : Saisies des autres données
 > L'objectif est de réaliser un ou plusieurs formulaires de mise à jour des tables du tour de PLO.
 #### PLO_PLONGEE
