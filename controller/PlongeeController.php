@@ -5,10 +5,17 @@ require_once('_ControllerClass.php');
 class PlongeeController extends _ControllerClass
 {
     private $plongeeManager;
+    private $siteManager;
+    private $embarcationManager;
+    private $personneManager;
+
 
     public function __construct($url)
     {
         $this->plongeeManager = new PlongeeManager();
+        $this->siteManager = new SiteManager();
+        $this->embarcationManager =  new EmbarcationManager();
+        $this->personneManager = new PersonneManager();
 
         $urlSize = parent::__construct($url);
 
@@ -66,6 +73,8 @@ class PlongeeController extends _ControllerClass
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll(),
         ]);
     }
 
