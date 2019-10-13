@@ -1,5 +1,5 @@
 <section>
-    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatinApresmidi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
+    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
     <div class="white rounded z-depth-4 margin-bottom rounded">
         <div class="container">
             <?php var_dump($plongee) ?>
