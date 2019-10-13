@@ -52,13 +52,13 @@ class AptitudeController extends _ControllerClass
     public function edit()
     {
         if (!isset($_GET['apt_code']))
-            header('location: aptitude');
+            header('location: /aptitude');
 
         $aptitude = $this->aptitudeManager->getOne([
             'APT_CODE' => $_GET['apt_code']]);
 
         if (is_null($aptitude))
-            header('location: aptitude');
+            header('location: /aptitude');
 
         if ( isset($_POST['submit']) )
             $this->verification($aptitude);

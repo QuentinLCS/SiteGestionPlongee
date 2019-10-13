@@ -66,13 +66,13 @@ class PlongeurController extends _ControllerClass
     public function edit()
     {
         if (!isset($_GET['per_num']))
-            header('location: plongeur');
+            header('location: /plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
         if (is_null($plongeur))
-            header('location: plongeur');
+            header('location: /plongeur');
 
         if ( isset($_POST['submit']) )
             $this->verification($plongeur);

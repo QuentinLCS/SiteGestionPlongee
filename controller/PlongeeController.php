@@ -51,15 +51,15 @@ class PlongeeController extends _ControllerClass
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_matin_apresmidi']))
-            header('location: plongee');
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+            header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MATIN_APRESMIDI' => $_GET['plo_matin_apresmidi']]);
 
         if (is_null($plongee))
-            header('location: plongee');
+            header('location: /plongee');
 
         if ( isset($_POST['submit']) )
             $this->verification($plongee);
