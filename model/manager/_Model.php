@@ -17,8 +17,11 @@ abstract class _Model
         $i = count($id);
 
         foreach ($id as $key=>$value)
-            $requete .= "$key = '$value'".(--$i > 0 ? ' AND ' : ';');
-
+            if(!$value='')
+            {
+                $requete .= "$key = '$value'".(--$i > 0 ? ' AND ' : ';');
+            }
+        var_dump($requete);
         return DataBase::$db->LireDonnees($requete, $entity);
     }
 

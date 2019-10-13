@@ -56,7 +56,7 @@ class PlongeeController extends _ControllerClass
 
         $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MATIN_APRESMIDI' => $_GET['plo_matin_apresmidi']]);
+            'PLO_MATIN_APRESMIDI' => $_GET['plo_mat_mid_soi']]);
 
         if (is_null($plongee))
             header('location: /plongee');
@@ -67,6 +67,11 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
         ]);
+    }
+
+    private function edit()
+    {
+
     }
 
     private function add()
