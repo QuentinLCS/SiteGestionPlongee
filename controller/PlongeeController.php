@@ -22,6 +22,8 @@ class PlongeeController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'show')
                 $this->show();
+            else if($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
@@ -126,6 +128,28 @@ class PlongeeController extends _ControllerClass
         } else {
             echo 'Tous les champs ne sont pas remplis.';
         }
+    }
+
+    public function delete(){
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+            header('location: /plongee');
+
+        $plongee = $this->plongeeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
+
+
+        if (is_null($plongee))
+            header('location: /plongee');
+
+        if ( isset($_POST['submit']) ){
+            $this->plongeeManager->delete($plongee);
+            header('location: /plongee');
+        }
+
+        (new View('plongee/plongee_removeform'))->generate([
+            'plongee' => $plongee,
+        ]);
     }
 
     private function verification($plongeur)

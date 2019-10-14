@@ -46,10 +46,10 @@ class PlongeurController extends _ControllerClass
             if (!empty($_POST['searchPrenom']))
                 $search['prenom'] = $_POST['searchPrenom'];
 
-            if (!isset($_POST['searchInactive']))
+            if (isset($_POST['searchInactive']))
                 $search['inactive'] = '';
 
-            if (!empty($_POST['searchNom']) || !empty($_POST['searchPrenom']) || !isset($_POST['searchInactive']))
+            if (!empty($_POST['searchNom']) || !empty($_POST['searchPrenom']) || isset($_POST['searchInactive']))
                 $searchedPlongeurs = $this->plongeurManager->getSearchResult($search);
 
         }
