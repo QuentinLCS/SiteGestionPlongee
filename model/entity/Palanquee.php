@@ -6,7 +6,7 @@ class Palanquee extends _Entity
 {
     private $plo_date;
 
-    private $PLO_MAT_MID_SOI;
+    private $PloMatinApresmidi;
 
     private $pal_num;
 
@@ -48,15 +48,15 @@ class Palanquee extends _Entity
      */
     public function getPloMatinApresmidi()
     {
-        return $this->PLO_MAT_MID_SOI;
+        return $this->PloMatinApresmidi;
     }
 
     /**
-     * @param mixed $PLO_MAT_MID_SOI
+     * @param mixed $PloMatinApresmidi
      */
-    public function setPloMatinApresmidi($PLO_MAT_MID_SOI)
+    public function setPloMatinApresmidi($PloMatinApresmidi)
     {
-        $this->PLO_MAT_MID_SOI = $PLO_MAT_MID_SOI;
+        $this->PloMatinApresmidi = $PloMatinApresmidi;
     }
 
     /**
