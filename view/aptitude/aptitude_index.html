@@ -1,16 +1,16 @@
-<?php $this->_title = 'Sub\'Alligator | Plongée'; ?>
+<?php $this->_title = 'Sub\'Alligator | Aptitude'; ?>
 
 <section class="white z-depth-4 rounded center">
     <div class="container">
-        <h3>Liste des Aptitudes</h3>
+        <h3>Liste des Aptitudes<small>Affichés : <?= count((is_null($searchedAptitudes) ? $allAptitudes : $searchedAptitudes)) ?></small></h3>
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" >
                     <label for="search1">Rechercher par NOM...</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" >
                     <label for="search2">Rechercher par Prenom...</label>
