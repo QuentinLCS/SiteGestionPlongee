@@ -33,26 +33,48 @@ class PlongeurController extends _ControllerClass
      */
     public function index()
     {
-        $this->add();
+        if (isset($_POST['submit']))
+            $this->add();
+
+        $searchedPlongeurs = null;
+
+        if ( isset($_POST['search']) ) {
+
+            if (!empty($_POST['searchNom']))
+                $search['nom'] = $_POST['searchNom'];
+
+            if (!empty($_POST['searchPrenom']))
+                $search['prenom'] = $_POST['searchPrenom'];
+
+            if (!isset($_POST['searchInactive']))
+                $search['inactive'] = '';
+
+            if (!empty($_POST['searchNom']) || !empty($_POST['searchPrenom']) || !isset($_POST['searchInactive']))
+                $searchedPlongeurs = $this->plongeurManager->getSearchResult($search);
+
+        }
+
+
 
         //k$this->delete();
 
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAll(),
-            'allAptitudes' => $this->aptitudeManager->getAll()
+            'allAptitudes' => $this->aptitudeManager->getAll(),
+            'searchedPlongeurs' => $searchedPlongeurs
         ]);
     }
 
     public function edit()
     {
         if (!isset($_GET['per_num']))
-            header('location: plongeur');
+            header('location: /plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
         if (is_null($plongeur))
-            header('location: plongeur');
+            header('location: /plongeur');
 
         if ( isset($_POST['submit']) )
             $this->verification($plongeur);

@@ -3,17 +3,29 @@
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des plongeurs</h3>
-        <div class="row">
-            <div class="col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">search</i>
-                        <input type="text" id="autocomplete-input" class="search">
-                        <label for="autocomplete-input">Recherchez avec mot clé...</label>
-                    </div>
+
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search1" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" >
+                    <label for="search1">Rechercher par NOM...</label>
                 </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search2" class="search" name="searchPrenom" value="<?= (isset($_POST['searchPrenom']) ? $_POST['searchPrenom'] : '') ?>" >
+                    <label for="search2">Rechercher par Prenom...</label>
+                </div>
+                <p class="col s4" style="line-height: 60px;">
+                    <label>
+                        <input type="checkbox" class="filled-in" name="searchInactive" <?= (isset($_POST['searchInactive']) ? 'checked' : '') ?>/>
+                        <span>Afficher les inactifs</span>
+                    </label>
+                </p>
             </div>
-        </div>
+            <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
+        </form>
+
         <div class="row">
             <div class="col s12">
                 <table class="striped">
@@ -28,7 +40,7 @@
                     </thead>
 
                     <tbody>
-                        <?php foreach($allPlongeurs as $plongeur): ?>
+                        <?php foreach((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs) as $plongeur): ?>
                         <tr>
                             <td class="center"><?= $plongeur->getPerNum() ?></td>
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
@@ -57,7 +69,29 @@
         </div>
 
         <?php require_once('plongeur_addform.html') ?>
-
-
+    </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+        $('input#search1').autocomplete({
+            data: {
+                <?php
+                    foreach($allPlongeurs as $plongeur)
+                        echo '"'.$plongeur->getPersonne()[0]->getPerNom().'" : null,';
+                ?>
+            },
+        });
+
+        $('input#search2').autocomplete({
+            data: {
+                <?php
+                    foreach($allPlongeurs as $plongeur)
+                        echo '"'.$plongeur->getPersonne()[0]->getPerPrenom().'" : null,';
+                ?>
+            },
+        });
+    });
+</script>
+
 <script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>

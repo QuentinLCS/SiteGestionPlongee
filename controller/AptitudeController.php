@@ -25,23 +25,40 @@ class AptitudeController extends _ControllerClass
      */
     public function index()
     {
-        $this->add();
+        if (isset($_POST['submit']))
+            $this->add();
+
+        $searchedAptitudes = null;
+
+        if ( isset($_POST['search']) ) {
+
+            if (!empty($_POST['searchCode']))
+                $search['code'] = $_POST['searchCode'];
+
+            if (!empty($_POST['searchLibelle']))
+                $search['libelle'] = $_POST['searchLibelle'];
+
+            if (!empty($_POST['searchCode']) || !empty($_POST['searchLibelle']))
+                $searchedAptitudes = $this->aptitudeManager->getSearchResult($search);
+
+        }
 
         (new View('aptitude/aptitude_index'))->generate([
-            'allAptitudes' => $this->aptitudeManager->getAll()
+            'allAptitudes' => $this->aptitudeManager->getAll(),
+            'searchedAptitudes' => $searchedAptitudes
         ]);
     }
 
     public function edit()
     {
         if (!isset($_GET['apt_code']))
-            header('location: aptitude');
+            header('location: /aptitude');
 
         $aptitude = $this->aptitudeManager->getOne([
             'APT_CODE' => $_GET['apt_code']]);
 
         if (is_null($aptitude))
-            header('location: aptitude');
+            header('location: /aptitude');
 
         if ( isset($_POST['submit']) )
             $this->verification($aptitude);
@@ -78,7 +95,7 @@ class AptitudeController extends _ControllerClass
 
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
-                $aptitude[0]->setAptCode($libelle);
+                $aptitude[0]->setAptLibelle($libelle);
                 $this->aptitudeManager->update($aptitude);
                 header('location: /aptitude');
             } else

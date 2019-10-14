@@ -3,7 +3,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     background-color: #f5f5f5;
-    --main-orange-color: #FF9800;
+    --main-orange-color: #b10900;
     --main-blue-color: #2196f3;
     overflow-x: hidden;
     text-align: justify;
@@ -104,6 +104,7 @@ form {
     padding: 40px 0 0 0;
 }
 
+
 form:not(.no-padding) button {
     margin-top: 30px;
 }
@@ -144,10 +145,41 @@ input.invalid {
     color: var(--main-blue-color);
 }
 
-input.dropdown-trigger + ul > li > span {
+ul.dropdown-content > li > span {
     color : var(--main-blue-color) !important;
 }
 
 input.dropdown-trigger + ul {
     max-height: 200px;
+}
+
+.datepicker-calendar-container {
+    background-color: #ebebeb;
+    color: #37474f;
+}
+.datepicker-controls, .datepicker-day-button:active, .datepicker-day-button:focus {
+    background-color: #b5b5b5;
+}
+.datepicker-date-display, .month-next:active, .month-prev:active, .month-next:focus, .month-prev:focus {
+    background-color: #989898;
+}
+
+.is-selected .datepicker-day-button {
+    background-color: var(--main-blue-color);
+}
+
+.confirmation-btns .datepicker-done, .dropdown-content .selected span {
+    color: var(--main-blue-color);
+}
+.confirmation-btns .datepicker-cancel {
+    color: var(--main-orange-color);
+}
+
+ul.autocomplete-content span.highlight {
+    color: #2196F3;
+    font-weight: bold;
+}
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid #2196F3;
+    background-color: #2196F3;
 }

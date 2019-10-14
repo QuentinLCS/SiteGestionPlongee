@@ -79,7 +79,7 @@ class SiteController extends _ControllerClass
                 $site[0]->setSitNom($nom);
                 $site[0]->setSitLocalisation($localisation);
                 $this->siteManager->update($site);
-                header('location: '.URL.'/site');
+                header('location: /site');
             } else
                 echo 'Site déjà enregistrée.';
         }
@@ -104,7 +104,7 @@ class SiteController extends _ControllerClass
                 );
                 $site = new Site($data);
                 $this->siteManager->add($site);
-                header('location: '.URL.'/site');
+                header('location: /site');
             } else
                 echo 'Site déjà enregistrée.';
         }

@@ -1,32 +1,12 @@
-elt1 = document.getElementById('autocomplete-input');
+search1 = document.getElementById('search2');
+search2 = document.getElementById('search1');
+
+search1.addEventListener('keyup', function (event) {sendForm(event);}, false);
+search2.addEventListener('keyup',function (event) {sendForm(event);}, false);
 
 
-
-elt1.addEventListener('keyup', function () {
-    let xhr = new XMLHttpRequest();
-    console.log(elt1.value);
-    xhr.open('GET', '?search='+elt1.value, true );
-
-    let Lire = function()
-    {
-        if (xhr.readyState === 4 && xhr.status === 200)
-        {
-            options.push(xhr.responseText);
-        }
-    };
-
-    xhr.addEventListener("readystatechange", Lire, false);
-    xhr.send(null);
-
-    $(document).ready(function(){
-        $('input.search').autocomplete({
-            data: {
-                "Apple": null,
-                "Microsoft": null,
-                "Google": 'https://placehold.it/250x250'
-            },
-        });
-    });
-
-    }, false);
-
+function sendForm (event) {
+   if (event.keyCode >= 65 && event.keyCode <= 90) { // si une lettre est pressée uniquement
+      document.getElementById('search').click()
+   }
+}

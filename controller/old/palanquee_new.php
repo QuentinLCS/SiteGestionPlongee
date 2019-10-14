@@ -77,13 +77,13 @@ if (!empty($_POST)) {
     if (!$erreur) {
 
         //Récupère le nombre de palanquee pour une plongée
-        $sql = "SELECT COUNT(*) as nb FROM PLO_PALANQUEE WHERE `PLO_DATE` = '".$date."' AND `PLO_MATIN_APRESMIDI` = '".$periode."'";
+        $sql = "SELECT COUNT(*) as nb FROM PLO_PALANQUEE WHERE `PLO_DATE` = '".$date."' AND `PLO_MAT_MID_SOI` = '".$periode."'";
         $db->LireDonneesPDO1($sql, $Palanquee);
         $nbPalanquee = ($Palanquee[0]['nb'])+1;
         echo $nbPalanquee;
 
         //Ajoute une nouvelle Plongee dans la Base de Donnée
-        $sql = "INSERT INTO PLO_PALANQUEE (PLO_DATE, PLO_MATIN_APRESMIDI, PAL_NUM, PAL_PROFONDEUR_MAX, PAL_DUREE_MAX, PAL_HEURE_IMMERSION, PAL_HEURE_SORTIE_EAU, PAL_PROFONDEUR_REELLE, PAL_DUREE_FOND)"
+        $sql = "INSERT INTO PLO_PALANQUEE (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PAL_PROFONDEUR_MAX, PAL_DUREE_MAX, PAL_HEURE_IMMERSION, PAL_HEURE_SORTIE_EAU, PAL_PROFONDEUR_REELLE, PAL_DUREE_FOND)"
             ."VALUES ('".$date."', '".$periode."', '.$nbPalanquee.', '.$profondeurP.', '.$profondeurR.', '".$heureD."', '".$heureA."', '.$profondeurR.', '.$tempsR.')";
         $yes = $db->majDonneesPDO($sql);
 

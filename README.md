@@ -1,3 +1,4 @@
+(penser à faire plein de tests, changement d'url, changement d'html (de type d'input), regex, etc) 
 # ProjetPlongee2A
 
 ## Première Partie : Les formulaires de mise à jour de la base de données PLO

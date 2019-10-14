@@ -4,7 +4,7 @@ require_once('_Model.php');
 
 class PalanqueeManager extends _Model
 {
-    public static $entity = 'PALANQUEE';
+    public static $entity = 'Palanquee';
     public static $table = 'PLO_PALANQUEE';
 
     public function getAll()

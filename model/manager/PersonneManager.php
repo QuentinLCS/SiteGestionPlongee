@@ -4,12 +4,32 @@ require_once('_Model.php');
 
 class PersonneManager extends _Model
 {
-    public static $entity = 'PERSONNE';
+    public static $entity = 'Personne';
     public static $table = 'PLO_PERSONNE';
 
     public function getAll()
     {
         return parent::_getAll(self::$table, self::$entity);
+    }
+
+    public function getSearchResult($search)
+    {
+        $sql = 'SELECT * FROM '.self::$table.' WHERE ';
+        if (isset($search['nom'])) {
+            $sql .= "PER_NOM LIKE '" . $search['nom'] . "%'";
+
+            if (isset($search['prenom']) || !isset($search['searchInactive'])) $sql .= 'AND ';
+        }
+        if (isset($search['prenom'])) {
+            $sql .= "PER_PRENOM LIKE '" . $search['prenom'] . "%'";
+
+            if (!isset($search['searchInactive'])) $sql .= 'AND ';
+        }
+
+        if (isset($search['inactive']))
+            $sql .= "PER_ACTIVE LIKE '%'";
+
+        return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
 
     public function countAll()
