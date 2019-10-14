@@ -52,7 +52,9 @@ class PlongeeController extends _ControllerClass
 
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
-            'searchedPlongees' => $searchedPlongees
+            'searchedPlongees' => $searchedPlongees,
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll()
         ]);
     }
 
@@ -85,7 +87,7 @@ class PlongeeController extends _ControllerClass
     {
         if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["submit"])) {
             $date = $_POST["date"];
-            $periode = strtoupper($_POST["periode"]);
+            $periode = ($_POST["periode"]);
             $siteNum = intval($_POST["site"], 10);
             $embNum = intval($_POST["embarcation"], 10);
             $directeurNum = intval($_POST["directeur"], 10);
