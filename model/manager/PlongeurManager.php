@@ -19,6 +19,12 @@ class PlongeurManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
+    public function getAllActive()
+    {
+        $req = 'SELECT * FROM PLO_PLONGEUR JOIN PLO_PERSONNE USING(PER_NUM) WHERE PER_ACTIVE  =  1';
+        return DataBase::$db->LireDonnees($req, self::$entity);
+    }
+
     public function getSearchResult($search)
     {
         $personnes = $this->personneManager->getSearchResult($search);

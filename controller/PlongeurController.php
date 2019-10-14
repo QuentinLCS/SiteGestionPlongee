@@ -56,10 +56,10 @@ class PlongeurController extends _ControllerClass
 
 
 
-        //k$this->delete();
+
 
         (new View('plongeur/plongeur_index'))->generate([
-            'allPlongeurs' => $this->plongeurManager->getAll(),
+            'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'searchedPlongeurs' => $searchedPlongeurs
         ]);
@@ -117,10 +117,12 @@ class PlongeurController extends _ControllerClass
             'PER_NUM' => $_GET['per_num']]);
 
         if (is_null($plongeur))
-            header('location: plongeur');
+            header('location: /plongeur');
 
-        if ( isset($_POST['submit']) )
+        if ( isset($_POST['submit']) ) {
             $this->plongeurManager->delete($plongeur);
+            header('location: /plongeur');
+        }
 
         (new View('plongeur/plongeur_removeform'))->generate([
             'plongeur' => $plongeur,
