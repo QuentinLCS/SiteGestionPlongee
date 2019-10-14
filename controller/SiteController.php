@@ -109,4 +109,24 @@ class SiteController extends _ControllerClass
                 echo 'Site déjà enregistrée.';
         }
     }
+
+    public function delete(){
+        if (!isset($_GET['sit_num']))
+            header('location: /site');
+
+        $site = $this->siteManager->getOne([
+            'SIT_NUM' => $_GET['sit_num']]);
+
+        if (is_null($site))
+            header('location: /site');
+
+        if ( isset($_POST['submit']) ) {
+            $this->siteManager->delete($site);
+            header('location: /site');
+        }
+
+        (new View('site/site_removeform'))->generate([
+            'site' => $site,
+        ]);
+    }
 }
