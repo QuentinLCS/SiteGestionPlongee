@@ -15,6 +15,8 @@ class SiteController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'edit')
                 $this->edit();
+            else if($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
