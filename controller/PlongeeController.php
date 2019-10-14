@@ -5,10 +5,17 @@ require_once('_ControllerClass.php');
 class PlongeeController extends _ControllerClass
 {
     private $plongeeManager;
+    private $siteManager;
+    private $embarcationManager;
+    private $personneManager;
+
 
     public function __construct($url)
     {
         $this->plongeeManager = new PlongeeManager();
+        $this->siteManager = new SiteManager();
+        $this->embarcationManager =  new EmbarcationManager();
+        $this->personneManager = new PersonneManager();
 
         $urlSize = parent::__construct($url);
 
@@ -65,7 +72,11 @@ class PlongeeController extends _ControllerClass
             $this->verification($plongee);
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'plongee' => $plongee
+            'plongee' => $plongee,
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteyr' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
         ]);
     }
 
@@ -76,7 +87,45 @@ class PlongeeController extends _ControllerClass
 
     private function add()
     {
-        // Ajout d'une plongee
+        if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["EN"])) {
+            $date = $_POST["date"];
+            $periode = ($_POST["periode"]);
+            $siteNum = intval($_POST["site"], 10);
+            $embNum = intval($_POST["embarcation"], 10);
+            $directeurNum = intval($_POST["directeur"], 10);
+            $securiteNum = intval($_POST["securite"], 10);
+            $envoyer = $_POST["EN"];
+
+            //Récupère l'effactif de plongeur depuis le formulaire
+            if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
+                $effectifP = intval($_POST["effectifP"], 10);
+            } else {
+                $effectifP = null;
+            }
+
+            //Récupère l'effactif sur le bateau depuis le formulaire
+            if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
+                $effectifB = intval($_POST["effectifB"], 10);
+            } else {
+                $effectifB = null;
+            }
+
+            $plongee = new Plongee();
+
+            $plongee->setPloDate($date);
+            $plongee->setPloMatMidSoi($periode);
+            $plongee->setSitNum($siteNum);
+            $plongee->setEmbNum($embNum);
+            $plongee->setPerNumDir($directeurNum);
+            $plongee->setPerNumSecu($securiteNum);
+            $plongee->setPloEffectifPlongeurs($effectifP);
+            $plongee->setPloEffectifBateau($effectifB);
+
+            $this->plongeeManager->update($plongee, true);
+
+        } else {
+            echo 'Tous les champs ne sont pas remplis.';
+        }
     }
 
     private function verification($plongeur)
