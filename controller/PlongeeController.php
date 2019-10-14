@@ -72,11 +72,7 @@ class PlongeeController extends _ControllerClass
             $this->verification($plongee);
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'plongee' => $plongee,
-            'allSite' => $this->siteManager->getAll(),
-            'allEmbarcation' => $this->embarcationManager->getAll(),
-            'allDirecteyr' => $this->personneManager->getAllDirecteur(),
-            'allSecurite' => $this->personneManager->getAllSecurite()
+            'plongee' => $plongee
         ]);
     }
 
