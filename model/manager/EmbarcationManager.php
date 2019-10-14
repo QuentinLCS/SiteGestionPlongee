@@ -26,4 +26,9 @@ class EmbarcationManager extends _Model
     {
         // TODO: Implement update() method.
     }
+    public function getEmbarcationPlongee($table)
+    {
+        $req="select * from ".self::$table." join ".$table." using (EMB_NUM)";
+        return DataBase::$db->LireDonnees($req,self::$entity);
+    }
 }

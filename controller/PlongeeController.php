@@ -5,10 +5,18 @@ require_once('_ControllerClass.php');
 class PlongeeController extends _ControllerClass
 {
     private $plongeeManager;
+    private $palanquee;
+    private $site;
+    private $bateau;
+    private $plongeur;
 
     public function __construct($url)
     {
         $this->plongeeManager = new PlongeeManager();
+        $this->palanquee = new PalanqueeManager();
+        $this->bateau = new EmbarcationManager();
+        $this->plongeur = new PlongeurManager();
+        $this->site = new SiteManager();
 
         $urlSize = parent::__construct($url);
 
@@ -58,6 +66,11 @@ class PlongeeController extends _ControllerClass
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
 
+        $palanquee = $this->palanquee->getPlongeePalanquee("PLO_PLONGEE");
+        $bateau = $this->bateau->getEmbarcationPlongee("PLO_PLONGEE");
+        $plongeur = $this->plongeur->getPlongeurPlongee("PLO_PLONGEE");
+        $site = $this->site->getSitePlongee("PLO_PLONGEE");
+
         if (is_null($plongee))
             header('location: /plongee');
 
@@ -65,7 +78,11 @@ class PlongeeController extends _ControllerClass
             $this->verification($plongee);
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'plongee' => $plongee
+            'plongee' => $plongee,
+            'palanquee' => $palanquee,
+            'bateau' => $bateau,
+            'plongeur' => $plongeur,
+            'site' => $site
         ]);
     }
 

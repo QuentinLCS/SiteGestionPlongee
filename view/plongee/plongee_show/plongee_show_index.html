@@ -77,25 +77,85 @@
     <div id="modalSite" class="modal">
         <div class="modal-content">
             <h4>Détails du site :</h4>
-            <p>faire requête</p>
+            <table>
+                <thead>
+                <tr>
+                    <td>Nom du site</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><?=$site[0]->getSitNom()?></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div id="modalPlongeur" class="modal">
         <div class="modal-content">
             <h4>Détails des plongeurs :</h4>
-            <p>faire requête</p>
+            <table>
+                <thead>
+                <tr>
+                    <td>Nom</td>
+                    <td>Prénom</td>
+                    <td>Aptitudes :</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><?=$plongeur[0]->getPersonne()[0]->getPerNom()?></td>
+                    <td><?=$plongeur[0]->getPersonne()[0]->getPerPrenom()?></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div id="modalPalanquees" class="modal">
         <div class="modal-content">
             <h4>Détails des palanquées :</h4>
-            <p>faire requête</p>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Numéro de palanquée</td>
+                        <td>Profondeur maximum</td>
+                        <td>Profondeur réelle</td>
+                        <td>Heure d'immersion</td>
+                        <td>Heure de sortie</td>
+                        <td>Durée maximum</td>
+                        <td>???</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?=$palanquee[0]->getPalNum()?></td>
+                        <td><?=$palanquee[0]->getPalProfondeurMax()?></td>
+                        <td><?=$palanquee[0]->getPalProfondeurReelle()?></td>
+                        <td><?=$palanquee[0]->getPalHeureImmersion()?></td>
+                        <td><?=$palanquee[0]->getPalHeureSortieEau()?></td>
+                        <td><?=$palanquee[0]->getPalDureeMax()?></td>
+                        <td><?=$palanquee[0]->getPalDureeFond()?></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div id="modalBateaux" class="modal">
         <div class="modal-content">
             <h4>Détails des bateaux :</h4>
-            <p>faire requête</p>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nom des embarcations</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?=$bateau[0]->getEmbNom()?></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
