@@ -34,7 +34,7 @@ doubles tirets sont interdits.
 - [ ] Respectera l'intégrité référentielle
 - [ ] Empêchera l'inscription de données absurdes
 - [ ] Ne videra pas un formulaire s'il n'a pas été complété correctement
-#####Plusieurs options peuvent permettre d'améliorer l'application
+##### Plusieurs options peuvent permettre d'améliorer l'application
 - [ ] Une page générale proposant tous les ajouts
 - [ ] Des menus déroulant d'aide à la saisie
 - [ ] L'affichage des données inscrites avant enregistrement définitif dans la table
@@ -45,17 +45,19 @@ doubles tirets sont interdits.
 - [ ] Possibilité de visualiser voire de corriger la base
 - [ ] Identification de l'utilisateur (gestion de la sécurité)
 - [ ] Consultations variées des données PLO
-#####Pour le formulaire personne et par ordre de priorité, il faut être capable
+##### Pour le formulaire personne et par ordre de priorité, il faut être capable
 - [ ] d'ajouter +++
 - [ ] d'afficher les infos [avec tris et sélections] ++
 - [ ] de modifier une donnée ~+
-- [ ] de supprimer une donnée ~
-#####Développer d'autres formulaires et peaufiner la présentation est une erreur si la page «Personne» est imparfaite !
-#####Conseils :
+- [ ] de supprimer une donnée 
+
+**Développer d'autres formulaires et peaufiner la présentation est une erreur si la page «Personne» est imparfaite !**
+
+##### Conseils :
 - [ ] Privilégier le développement de nombreuses petites fonctions de traitement
 - [ ] Ne développer les formulaires que lorsque les traitements fonctionnent
 - [ ] Faire tester régulièrement l'application
-##Troisième partie : Saisies des autres données
+## Troisième partie : Saisies des autres données
 > L'objectif est de réaliser un ou plusieurs formulaires de mise à jour des tables du tour de PLO.
 #### PLO_PLONGEE
 - [x] La saisie d’une nouvelle plongee doit être la plus simple possible (un seul formulaire)
