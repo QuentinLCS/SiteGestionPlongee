@@ -1,0 +1,30 @@
+<section>
+    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
+    <nav>
+        <div class="nav-wrapper #0d47a1 blue darken-4">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=site">Site</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=plongeurs">Plongeurs</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=palanquee">Palanquées</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=bateaux">Bateaux</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="white rounded z-depth-4 margin-bottom rounded">
+        <div class="container">
+            <h4>Détails du site :</h4>
+            <table>
+                <thead>
+                <tr>
+                    <td><h6>Nom du site</h6></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><?=$site[0]->getSitNom()?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

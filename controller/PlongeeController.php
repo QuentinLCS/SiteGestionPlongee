@@ -59,7 +59,7 @@ class PlongeeController extends _ControllerClass
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['page']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -77,15 +77,35 @@ class PlongeeController extends _ControllerClass
         if ( isset($_POST['submit']) )
             $this->verification($plongee);
 
-        (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'plongee' => $plongee,
-            'palanquee' => $palanquee,
-            'bateau' => $bateau,
-            'plongeur' => $plongeur,
-            'site' => $site
-        ]);
+        elseif ($_GET['page']=='palanquee')
+        {
+            (new View('plongee/plongee_show/plongee_show_palanquee'))->generate([
+                'plongee' => $plongee,
+                'palanquee' => $palanquee
+            ]);
+        }
+        elseif ($_GET['page']=='bateaux')
+        {
+            (new View('plongee/plongee_show/plongee_show_bateaux'))->generate([
+                'plongee' => $plongee,
+                'bateau' => $bateau,
+            ]);
+        }
+        elseif ($_GET['page']=='site')
+        {
+            (new View('plongee/plongee_show/plongee_show_site'))->generate([
+                'plongee' => $plongee,
+                'site' => $site
+            ]);
+        }
+        elseif ($_GET['page']=='plongeurs')
+        {
+            (new View('plongee/plongee_show/plongee_show_plongeurs'))->generate([
+                'plongee' => $plongee,
+                'plongeur' => $plongeur
+            ]);
+        }
     }
-
     private function edit()
     {
 
