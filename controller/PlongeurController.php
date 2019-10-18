@@ -131,6 +131,7 @@ class PlongeurController extends _ControllerClass
 
         (new View('plongeur/plongeur_removeform'))->generate([
             'plongeur' => $plongeur,
+
         ]);
 
     }
@@ -147,9 +148,10 @@ class PlongeurController extends _ControllerClass
         if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
 
                 if ($add || (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude']))) {
-                    $nom = strtoupper($_POST['nom']);
-                    $prenom = ucfirst($_POST['prenom']);
+                    $nom = $_POST['nom'];
+                    $prenom = $_POST['prenom'];
                     $aptitude = $_POST['aptitude'];
+
 
 
                     $personnes = $this->personneManager->getAll();
@@ -165,19 +167,23 @@ class PlongeurController extends _ControllerClass
                         $i = $nbPersonnes;
 
                     if ($i == $nbPersonnes) {
-                        $plongeur[0]->getPersonne()[0]->setPerNom($nom);
-                        $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
+                        if($this->verifEntree($nom,$prenom)) {
+                            $plongeur[0]->getPersonne()[0]->setPerNom($nom);
+                            $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
 
-                        $aptitudeObject = $this->aptitudeManager->getOne(['APT_CODE' => $aptitude]);
+                            $aptitudeObject = $this->aptitudeManager->getOne(['APT_CODE' => $aptitude]);
 
-                        if (!is_null($aptitudeObject))
-                            if ($add)
-                                $plongeur[0]->setAptitude($aptitudeObject);
+                            if (!is_null($aptitudeObject))
+                                if ($add)
+                                    $plongeur[0]->setAptitude($aptitudeObject);
                             $plongeur[0]->setAptCode($aptitude);
 
-                        $this->plongeurManager->update($plongeur, $add);
+                            $this->plongeurManager->update($plongeur, $add);
+                            header('location: '.URL.'/plongeur');
+                        }
+                        else
+                                echo "le nom ou le prénom n'est pas correct";
 
-                        header('location: '.URL.'/plongeur');
                     } else
                         echo 'Personne déjà enregistrée.';
                 } else

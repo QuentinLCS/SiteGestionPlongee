@@ -100,13 +100,17 @@ class SiteController extends _ControllerClass
             while (($nom != $sites[$i]->getSitNom() || $localisation != $sites[$i]->getSitLocalisation()) && ++$i < $nbSites) ;
 
             if ($i == $nbSites) {
-                $data = array(
-                    'SIT_NOM' => $nom,
-                    'SIT_LOCALISATION' => $localisation
-                );
-                $site = new Site($data);
-                $this->siteManager->add($site);
-                header('location: /site');
+                if(nomCorrect($localisation)) {
+                    $data = array(
+                        'SIT_NOM' => $nom,
+                        'SIT_LOCALISATION' => $localisation
+                    );
+                    $site = new Site($data);
+                    $this->siteManager->add($site);
+                    header('location: /site');
+                }
+                else
+                    echo "la localisation n'est pas correcte";
             } else
                 echo 'Site déjà enregistrée.';
         }
