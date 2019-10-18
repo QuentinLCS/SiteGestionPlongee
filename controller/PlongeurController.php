@@ -1,6 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
+require_once('/model/utils/traitement.php');
 
 class PlongeurController extends _ControllerClass
 {
@@ -79,7 +80,7 @@ class PlongeurController extends _ControllerClass
         if ( isset($_POST['submit']) )
             $this->verification($plongeur);
 
-        (new View('plongeur/plongeur_editform'))->generate([
+        (new View('plongeur/plongeur_show/plongeur_editform'))->generate([
             'plongeur' => $plongeur,
             'allAptitudes' => $this->aptitudeManager->getAll()
         ]);
@@ -90,18 +91,22 @@ class PlongeurController extends _ControllerClass
         if ( isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude']) ) {
 
             if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude'])) {
-                $nom = strtoupper($_POST['nom']);
-                $prenom = ucfirst($_POST['prenom']);
+                $nom = $_POST['nom'];
+                $prenom = $_POST['prenom'];
+                if($this->verifEntree($nom,$prenom)) {
+                    $plongeur[] = new Plongeur([]);
+                    $personne[] = new Personne([
+                        'PER_NOM' => traitementNom($nom),
+                        'PER_PRENOM' => traitementPrenom($prenom)
+                    ]);
 
-                $plongeur[] = new Plongeur([]);
-                $personne[] = new Personne([
-                    'PER_NOM' => $nom,
-                    'PER_PRENOM' => $prenom
-                ]);
+                    $plongeur[0]->setPersonne($personne);
 
-                $plongeur[0]->setPersonne($personne);
+                    $this->verification($plongeur, true);
+                }
+                else
+                    echo "le nom ou le prénom n'est pas correct";
 
-                $this->verification($plongeur, true);
 
             } else
                 echo 'Tous les champs ne sont pas remplis.';
@@ -128,6 +133,13 @@ class PlongeurController extends _ControllerClass
             'plongeur' => $plongeur,
         ]);
 
+    }
+
+    public function verifEntree($nom,$prenom){
+        if(prenomCorrect($prenom) && nomCorrect($nom))
+            return true;
+        else
+            return false;
     }
 
     private function verification($plongeur, $add = false)

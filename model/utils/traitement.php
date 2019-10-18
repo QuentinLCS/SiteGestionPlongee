@@ -20,24 +20,24 @@ function specialCharConverter($text) {
         '#ũ#' => 'u',
         '#Ũ#' => 'U',
         '#Ç#' => 'C',
-        '#ç#', 'c',
-        '#è|é|ê|ë#', 'e',
-        '#È|É|Ê|Ë#', 'E',
-        '#à|á|â|ã|ä|å#', 'a',
-        '#À|Á|Â|Ã|Ä|Å#', 'A',
-        '#ì|í|î|ï#', 'i',
-        '#Ì|Í|Î|Ï#', 'I',
-        '#ð|ò|ó|ô|õ|ö|ø#s', 'o',
-        '#Ò|Ó|Ô|Õ|Ö#', 'O',
-        '#ũ|ù|ú|û|ü#', 'u',
-        '#Ũ|Ù|Ú|Û|Ü#', 'U',
-        '#Ÿ#', 'Y',
-        '#ÿ#', 'y'
+        '#ç#' =>  'c',
+        '#è|é|ê|ë#' =>  'e',
+        '#È|É|Ê|Ë#' =>  'E',
+        '#à|á|â|ã|ä|å#' =>  'a',
+        '#À|Á|Â|Ã|Ä|Å#' =>  'A',
+        '#ì|í|î|ï#' =>  'i',
+        '#Ì|Í|Î|Ï#' =>  'I',
+        '#ð|ò|ó|ô|õ|ö|ø#s' =>  'o',
+        '#Ò|Ó|Ô|Õ|Ö#' =>  'O',
+        '#ũ|ù|ú|û|ü#' =>  'u',
+        '#Ũ|Ù|Ú|Û|Ü#' =>  'U',
+        '#Ÿ#' =>  'Y',
+        '#ÿ#' =>  'y'
     ];
     return preg_replace(array_keys($regex), array_values($regex), $text);
 }
 
-function firstLetterConverter($text) {
+function firstLetterAccentConverter($text) {
     $regex = [
         '#^Ç#' => 'C',
         '#^ç#' => 'c',
@@ -98,19 +98,19 @@ function hiphenLimiter($text) {
 }
 
 
-/*
+
     function majusculeDebut($ch) {
         $premiere = mb_substr($ch, 0, 1, 'UTF-8');
-        $premiere = convertirAccentDebutMot($premiere);
+        $premiere = firstLetterAccentConverter($premiere);
         $premiere = mb_strtoupper($premiere, 'UTF-8');
         $longueur = mb_strlen($ch, 'UTF-8');
         return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
     }
-*/
+
 
 // Vérificateurs de chaines
 
-/*
+
 function formatNomCorrect($chaine) {
     $modele = '/[a-zA-Z-\'àâäçéèêëîïôöùûüÿ\s]{1,}/';
     return preg_match($modele, $chaine, $data) && $data[0] == $chaine && mb_strlen($chaine) <= 30;
@@ -125,7 +125,7 @@ function formatPrenomCorrect($chaine) {
     $modele = '/[a-zA-Z-\'àâäçéèêëîïôöùûüÿ\s]{1,}/';
     return preg_match($modele, $chaine, $data) && $data[0] == $chaine && mb_strlen($chaine, 'UTF-8') <= 30;
 }
-*/
+
 
 function formatChaineChiffreCorrect($chaine) {
     $modele = '#[^0-9]*#';
@@ -169,11 +169,11 @@ function prenomCorrect($ch) {
 }
 
 function traitementNom($ch) {
-    $nom = convertirCaractereSpecial($ch);
-    $nom = supprimerTiret($nom);
-    $nom = convertirAccent($nom);
-    $nom = convertirMajuscule($nom);
-    $nom = supprimerEspace($nom);
+    $nom = specialCharConverter($ch);
+    $nom = hiphenLimiter($nom);
+   // $nom = convertirAccent($nom);
+    $nom = strtoupper($nom);
+    $nom = deleteSpaces($nom);
     if (!nomCorrect($nom)) {
         return false;
     }
@@ -181,10 +181,10 @@ function traitementNom($ch) {
 }
 
 function traitementPrenom($ch) {
-    $prenom = convertirCaractereSpecial($ch);
-    $prenom = supprimerEspace($prenom);
-    $prenom = supprimerTiret($prenom);
-    $prenom = convertirMajusculePrenom($prenom);
+    $prenom = specialCharConverter($ch);
+    $prenom = deleteSpaces($prenom);
+    $prenom = hiphenLimiter($prenom);
+    $prenom = AutoCapsOnFirstname($prenom);
     if (!prenomCorrect($prenom)) {
         return false;
     }
