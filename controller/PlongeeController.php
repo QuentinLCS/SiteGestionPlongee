@@ -9,14 +9,16 @@ class PlongeeController extends _ControllerClass
     private $embarcationManager;
     private $personneManager;
     private $palanqueeManager;
+    private $plongeurManager;
 
     public function __construct($url)
     {
-        $this->plongeeManager = new PlongeurManager();
+        $this->plongeeManager = new PlongeeManager();
         $this->siteManager = new SiteManager();
         $this->embarcationManager =  new EmbarcationManager();
         $this->personneManager = new PersonneManager();
         $this->palanqueeManager = new PalanqueeManager();
+        $this->plongeurManager = new PlongeurManager();
 
         $urlSize = parent::__construct($url);
 
@@ -37,6 +39,7 @@ class PlongeeController extends _ControllerClass
             $this->add();
 
         $searchedPlongees = null;
+
 
         if ( isset($_POST['search']) ) {
 
@@ -70,7 +73,7 @@ class PlongeeController extends _ControllerClass
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee("PLO_PLONGEE");
         $bateau = $this->embarcationManager->getEmbarcationPlongee("PLO_PLONGEE");
-        $plongeur = $this->plongeeManager->getPlongeurPlongee("PLO_PLONGEE");
+        $plongeur = $this->plongeurManager->getPlongeurPlongee("PLO_PLONGEE");
         $site = $this->siteManager->getSitePlongee("PLO_PLONGEE");
 
         if (is_null($plongee))
