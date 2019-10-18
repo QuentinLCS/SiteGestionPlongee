@@ -80,14 +80,15 @@ class PlongeurManager extends _Model
             DataBase::$db->majDonnees('UPDATE PLO_PERSONNE SET PER_ACTIVE = 0 WHERE PER_NUM = '.$object[0]->getPerNum());
         }
     }
-    public function getPlongeurPlongee($table)
+    public function getPlongeurPlongee($date,$periode)
     {
-        $req="SELECT PER_NUM FROM ".$table." 
+        $req="SELECT * FROM PLO_PLONGEE
                 JOIN PLO_PALANQUEE using (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_CONCERNER USING (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_PERSONNE USING (PER_NUM)
                 JOIN `PLO_PLONGEUR` USING (`PER_NUM`)
-                JOIN `PLO_APTITUDE` USING (`APT_CODE`)";
+                JOIN `PLO_APTITUDE` USING (`APT_CODE`)
+                WHERE PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
 }

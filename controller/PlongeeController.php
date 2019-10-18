@@ -64,17 +64,19 @@ class PlongeeController extends _ControllerClass
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['page']))
             header('location: /plongee');
+        //TODO faire attention page
 
         $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
+        ]);
 
-        $palanquee = $this->palanqueeManager->getPlongeePalanquee("PLO_PLONGEE");
-        $bateau = $this->embarcationManager->getEmbarcationPlongee("PLO_PLONGEE");
-        $plongeur = $this->plongeurManager->getPlongeurPlongee("PLO_PLONGEE");
-        $site = $this->siteManager->getSitePlongee("PLO_PLONGEE");
+        $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
+        $plongeur = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
 
         if (is_null($plongee))
             header('location: /plongee');

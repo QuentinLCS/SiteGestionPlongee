@@ -26,9 +26,9 @@ class PalanqueeManager extends _Model
     {
         // TODO: Implement update() method.
     }
-    public function getPlongeePalanquee($table)
+    public function getPlongeePalanquee($donne1,$donne2)
     {
-        $req="select * from ".self::$table." join ".$table." using (PLO_DATE,PLO_MAT_MID_SOI)";
+        $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
 }

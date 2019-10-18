@@ -30,9 +30,9 @@ class SiteManager extends _Model
     public function add($object){
         DataBase::$db->majDonnees("INSERT INTO ".self::$table." ( SIT_NOM, SIT_LOCALISATION) VALUES ('".$object->getSitNom()."','".$object->getSitLocalisation()."')");
     }
-    public function getSitePlongee($table)
+    public function getSitePlongee($valeur)
     {
-        $req="select * from ".self::$table." join ".$table." using (SIT_NUM)";
+        $req="select * from ".self::$table." join PLO_PLONGEE using (SIT_NUM) WHERE SIT_NUM=$valeur";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
 }
