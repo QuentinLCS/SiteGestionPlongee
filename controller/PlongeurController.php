@@ -1,7 +1,6 @@
 <?php
 
 require_once('_ControllerClass.php');
-require_once('/model/utils/traitement.php');
 
 class PlongeurController extends _ControllerClass
 {
@@ -20,8 +19,8 @@ class PlongeurController extends _ControllerClass
         $urlSize = parent::__construct($url);
 
         if ($urlSize > 1)
-            if($url[1] == 'edit')
-                $this->edit();
+            if($url[1] == 'show')
+                $this->show();
             else if($url[1] == 'delete')
                 $this->delete();
             else
@@ -66,8 +65,8 @@ class PlongeurController extends _ControllerClass
         ]);
     }
 
-    public function edit()
-    {
+    public function show() {
+
         if (!isset($_GET['per_num']))
             header('location: /plongeur');
 
@@ -77,13 +76,21 @@ class PlongeurController extends _ControllerClass
         if (is_null($plongeur))
             header('location: /plongeur');
 
-        if ( isset($_POST['submit']) )
-            $this->verification($plongeur);
+        $this->edit($plongeur);
 
-        (new View('plongeur/plongeur_show/plongeur_editform'))->generate([
+        (new View('plongeur/plongeur_show/plongeur_show_index'))->generate([
             'plongeur' => $plongeur,
             'allAptitudes' => $this->aptitudeManager->getAll()
         ]);
+    }
+
+    private function edit($plongeur)
+    {
+
+
+        if ( isset($_POST['edit']) )
+            $this->verification($plongeur);
+
     }
 
     private function add()
@@ -151,7 +158,6 @@ class PlongeurController extends _ControllerClass
                     $nom = $_POST['nom'];
                     $prenom = $_POST['prenom'];
                     $aptitude = $_POST['aptitude'];
-
 
 
                     $personnes = $this->personneManager->getAll();

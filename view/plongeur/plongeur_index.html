@@ -49,7 +49,7 @@
                             <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             <td class="center"><?php  if($plongeur->getPersonne()[0]->getPerActive()==1) echo "Oui"; else echo "Non"; ?></td>
                             <td class="center">
-                                <a href="plongeur/edit/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails du plongeur">
+                                <a href="plongeur/show/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails du plongeur">
                                     <i class="material-icons white-text">remove_red_eye</i>
                                 </a>
                                 <a href="plongeur/delete/&per_num=<?= $plongeur->getPerNum()?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer le plongeur">
