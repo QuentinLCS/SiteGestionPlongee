@@ -19,8 +19,8 @@ class PlongeurController extends _ControllerClass
         $urlSize = parent::__construct($url);
 
         if ($urlSize > 1)
-            if($url[1] == 'show')
-                $this->show();
+            if($url[1] == 'edit')
+                $this->edit();
             else
                 throw new Exception('Page introuvable');
     }
@@ -52,6 +52,8 @@ class PlongeurController extends _ControllerClass
 
         }
 
+
+
        // $this->delete();
 
         (new View('plongeur/plongeur_index'))->generate([
@@ -61,8 +63,8 @@ class PlongeurController extends _ControllerClass
         ]);
     }
 
-    public function show() {
-
+    public function edit()
+    {
         if (!isset($_GET['per_num']))
             header('location: /plongeur');
 
@@ -72,21 +74,13 @@ class PlongeurController extends _ControllerClass
         if (is_null($plongeur))
             header('location: /plongeur');
 
-        $this->edit($plongeur);
+        if ( isset($_POST['submit']) )
+            $this->verification($plongeur);
 
-        (new View('plongeur/plongeur_show/plongeur_show_index'))->generate([
+        (new View('plongeur/plongeur_editform'))->generate([
             'plongeur' => $plongeur,
             'allAptitudes' => $this->aptitudeManager->getAll()
         ]);
-    }
-
-    private function edit($plongeur)
-    {
-
-
-        if ( isset($_POST['edit']) )
-            $this->verification($plongeur);
-
     }
 
     private function add()
