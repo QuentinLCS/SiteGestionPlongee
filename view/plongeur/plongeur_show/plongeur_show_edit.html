@@ -1,0 +1,20 @@
+<?php $this->_title = 'Sub\'Alligator | '.$plongeur[0]->getPersonne()[0]->getPerNom().' '.$plongeur[0]->getPersonne()[0]->getPerPrenom() ?>
+
+<div class="container">
+    <table class="centered blue-grey darken-2 z-depth-1 margin-top margin-bottom">
+        <thead class="blue-grey darken-4">
+        <tr>
+            <th>Heure</th>
+            <th>Activité</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for activite in user.utiActivites %}
+        <tr>
+            <td>{{ activite.actDate }}</td>
+            <td>{{ activite.actDescription }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
