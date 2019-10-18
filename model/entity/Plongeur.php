@@ -12,6 +12,8 @@ class Plongeur extends _Entity
 
     private $aptitude;
 
+    private $plongees;
+
     public function __construct(array $data)
     {
         parent::__construct($data);
@@ -21,6 +23,7 @@ class Plongeur extends _Entity
 
         $this->personne = $personneManager->getOne(['PER_NUM' => $this->per_num]);
         $this->aptitude = $aptitudeManager->getOne(['APT_CODE' => $this->apt_code]);
+        $this->plongees = $personneManager->getPlongees(['PER_NUM' => $this->per_num]);
     }
 
     /**

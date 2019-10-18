@@ -60,4 +60,13 @@ class PersonneManager extends _Model
         else
             DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
     }
+
+    public function getPlongees($id) {
+        $i = count($id);
+        $sql = 'SELECT * FROM '.self::$table.' JOIN PLO_CONCERNER USING ('.key($id).') WHERE ';
+        foreach ($id as $key=>$value)
+            $sql .= "$key = '$value'".(--$i > 0 ? ' AND ' : ';');
+
+        return DataBase::$db->LireDonnees($sql, self::$entity);
+    }
 }
