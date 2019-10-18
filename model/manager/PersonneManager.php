@@ -12,29 +12,18 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function getAllDirecteur()
-    {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_DIRECTEUR USING(PER_NUM)');
-    }
-
-
-    public function getAllSecurite()
-    {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_SECURITE_DE_SURFACE USING(PER_NUM)');
-    }
-
     public function getSearchResult($search)
     {
         $sql = 'SELECT * FROM '.self::$table.' WHERE ';
         if (isset($search['nom'])) {
-            $sql .= "PER_NOM LIKE '" . $search['nom'] . "%'";
+            $sql .= "PER_NOM LIKE '" . $search['nom'] . "%' ";
 
-            if (isset($search['prenom']) || !isset($search['searchInactive'])) $sql .= 'AND ';
+            if (isset($search['prenom']) || isset($search['inactive'])) $sql .= 'AND ';
         }
         if (isset($search['prenom'])) {
-            $sql .= "PER_PRENOM LIKE '" . $search['prenom'] . "%'";
+            $sql .= "PER_PRENOM LIKE '" . $search['prenom'] . "%' ";
 
-            if (!isset($search['searchInactive'])) $sql .= 'AND ';
+            if (isset($search['inactive'])) $sql .= 'AND ';
         }
 
         if (isset($search['inactive']))

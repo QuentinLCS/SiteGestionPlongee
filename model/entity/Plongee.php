@@ -26,15 +26,25 @@ class Plongee extends _Entity
 
     private $site;
 
+    private $directeur;
+
+    private $securite;
+
     private $siteManager;
+
+    private $personneManager;
 
     public function __construct(array $data)
     {
         parent::__construct($data);
 
         $this->siteManager = new SiteManager();
+        $this->personneManager = new PersonneManager();
+        $this->embarcationManager = new EmbarcationManager();
 
         $this->site = $this->siteManager->getOne(['SIT_NUM' => $this->sit_num]);
+        $this->directeur = $this->personneManager->getOne(['PER_NUM' => $this->per_num_dir]);
+        $this->securite = $this->personneManager->getOne(['PER_NUM' => $this->per_num_secu]);
     }
 
     /**
@@ -204,5 +214,23 @@ class Plongee extends _Entity
     {
         return $this->site;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDirecteur()
+    {
+        return $this->directeur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecurite()
+    {
+        return $this->securite;
+    }
+
+
 
 }
