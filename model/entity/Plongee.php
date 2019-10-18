@@ -26,15 +26,13 @@ class Plongee extends _Entity
 
     private $site;
 
-    private $siteManager;
-
     public function __construct(array $data)
     {
         parent::__construct($data);
 
-        $this->siteManager = new SiteManager();
+        $siteManager = new SiteManager();
 
-        $this->site = $this->siteManager->getOne(['SIT_NUM' => $this->sit_num]);
+        $this->site = $siteManager->getOne(['SIT_NUM' => $this->sit_num]);
     }
 
     /**
