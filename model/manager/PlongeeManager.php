@@ -38,6 +38,20 @@ class PlongeeManager extends _Model
 
     public function update($object, $add = false)
     {
-        // TODO: Implement update() method.
+        if ($add) {
+            //$sql = "INSERT INTO PLO_PLONGEE (PLO_DATE, PLO_MAT_MID_SOI, SIT_NUM, EMB_NUM, PER_NUM_DIR, PER_NUM_SECU, PLO_EFFECTIF_PLONGEURS, PLO_EFFECTIF_BATEAU, PLO_NB_PALANQUEES)"
+             //   ." VALUES ('".$date."','".$periode."',".$siteNum.",'".$embNum."',".$directeurNum.",".$securiteNum.",".$effectifP.",".$effectifB.",0)";
+            DataBase::$db->majDonnees("INSERT INTO " . self::$table . " VALUES (
+                '". $object[0]->getPloDate() . "',
+                '" . $object[0]->getPloMatMidSoi() . "',
+                " . $object[0]->getSitNum().",
+                '" . $object[0]->getEmbNum()."',
+                " . $object[0]->getPerNumDir().",
+                " . $object[0]->getPerNumSecu().",
+                " . $object[0]->getPloEffectifPlongeurs().",
+                " . $object[0]->getPloEffectifBateau(). ")");
+        } else {
+
+        }
     }
 }

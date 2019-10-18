@@ -5,18 +5,18 @@ require_once('_ControllerClass.php');
 class PlongeeController extends _ControllerClass
 {
     private $plongeeManager;
+    private $siteManager;
+    private $embarcationManager;
+    private $personneManager;
     private $palanquee;
-    private $site;
-    private $bateau;
-    private $plongeur;
 
     public function __construct($url)
     {
         $this->plongeeManager = new PlongeeManager();
+        $this->siteManager = new SiteManager();
+        $this->embarcationManager =  new EmbarcationManager();
+        $this->personneManager = new PersonneManager();
         $this->palanquee = new PalanqueeManager();
-        $this->bateau = new EmbarcationManager();
-        $this->plongeur = new PlongeurManager();
-        $this->site = new SiteManager();
 
         $urlSize = parent::__construct($url);
 
@@ -53,13 +53,17 @@ class PlongeeController extends _ControllerClass
 
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
-            'searchedPlongees' => $searchedPlongees
+            'searchedPlongees' => $searchedPlongees,
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteyr' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
         ]);
     }
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['page']))
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -106,6 +110,7 @@ class PlongeeController extends _ControllerClass
             ]);
         }
     }
+
     private function edit()
     {
 
