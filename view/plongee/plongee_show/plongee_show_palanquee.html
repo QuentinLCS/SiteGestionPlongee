@@ -1,0 +1,53 @@
+<section>
+    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
+    <nav>
+        <div class="nav-wrapper #0d47a1 blue darken-4">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=site">Site</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=plongeurs">Plongeurs</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=palanquee">Palanquées</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=bateaux">Bateaux</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="white rounded z-depth-4 margin-bottom rounded">
+        <div class="container">
+            <h4>Détails des palanquées :</h4>
+            <table>
+                <thead>
+                <tr>
+                    <td><h6>Numéro de palanquée</h6></td>
+                    <td><h6>Profondeur maximum</h6></td>
+                    <td><h6>Profondeur réelle</h6></td>
+                    <td><h6>Heure d'immersion</h6></td>
+                    <td><h6>Heure de sortie</h6></td>
+                    <td><h6>Durée maximum</h6></td>
+                    <td><h6>Durée de fond</h6></td>
+                </tr>
+                </thead>
+                <tbody><h6></h6>
+                <?php for($i=0;$i<sizeof($palanquee);$i++)
+                {
+                    echo "<tr>";
+                    echo"<td>".$palanquee[$i]->getPalNum()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalProfondeurMax()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalProfondeurReelle()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalHeureImmersion()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalHeureSortieEau()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalDureeMax()."</td>";
+                    echo"<td>".$palanquee[$i]->getPalDureeFond()."</td>";
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+    <?php require_once('view/palanquee/palanquee_addform.html') ?>
+
+</section>

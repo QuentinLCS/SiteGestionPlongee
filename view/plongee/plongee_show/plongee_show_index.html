@@ -1,101 +1,18 @@
 <section>
     <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
+    <nav>
+        <div class="nav-wrapper #0d47a1 blue darken-4">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">Site</a></li>
+                <li><a href="#">Plongeurs</a></li>
+                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=palanquee">Palanquées</a></li>
+                <li><a href="#">Bateaux</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="white rounded z-depth-4 margin-bottom rounded">
         <div class="container">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Etat de la plongée : </td>
-                    <td><?php echo $plongee[0]->getPloEtat()?></td>
-                    <td></td>
-                    <td>
-                        <a href="#modalSite" class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier l'état de la plongée">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nom du site : </td>
-                    <td><?php echo $plongee[0]->getSite()[0]->getSitLocalisation()?></td>
-                    <td>
-                        <a href="#modalSite" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails du site">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier les informations du site">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Effectif des plongeurs : </td>
-                    <td><?php echo $plongee[0]->getPloEffectifPlongeurs()?></td>
-                    <td>
-                        <a  href="#modalPlongeur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des effectifs">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier les plongeurs">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nombre de palanquées : </td>
-                    <td><?php echo $plongee[0]->getPloNbPalanquees()?></td>
-                    <td>
-                        <a href="#modalPalanquees" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des palanquées">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn #1b5e20 green darken-4 tooltipped right" data-position="top" data-tooltip="Modifier les palanquées">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nombre de bateaux : </td>
-                    <td><?php echo $plongee[0]->getPloEffectifBateau()?></td>
-                    <td>
-                        <a href="#modalBateaux" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des bateaux">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn #1b5e20 green darken-4 tooltipped right" data-position="top" data-tooltip="Modifier les informations de l'embarcation">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div id="modalSite" class="modal">
-        <div class="modal-content">
-            <h4>Détails du site :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalPlongeur" class="modal">
-        <div class="modal-content">
-            <h4>Détails des plongeurs :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalPalanquees" class="modal">
-        <div class="modal-content">
-            <h4>Détails des palanquées :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalBateaux" class="modal">
-        <div class="modal-content">
-            <h4>Détails des bateaux :</h4>
-            <p>faire requête</p>
+
         </div>
     </div>
 </section>
