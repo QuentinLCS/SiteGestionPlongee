@@ -12,19 +12,19 @@ PHP et la présentation sera faite en HTML.
 Les tables doivent posséder des clés primaires [et étrangères le cas échéant]
 
 #### PLO_PERSONNE : 
-- [ ] On ne peut supprimer un plongeur ayant des plongées, 
-- [ ] Une modification ne peut concerner per_num,
+- [x] On ne peut supprimer un plongeur ayant des plongées, 
+- [x] Une modification ne peut concerner per_num,
 - [x] Les champs : nom,prenom sont obligatoires et ce duo doit être unique,
-- [ ] per_num est calculé,
-- [ ] les noms des personnes sont écrits en majuscule sans accent. Les tirets (dont 1 double tiret), espaces
+- [x] per_num est calculé,
+- [x] les noms des personnes sont écrits en majuscule sans accent. Les tirets (dont 1 double tiret), espaces
 isolés sont autorisés mais pas au début et à la fin. Les apostrophes sont autorisées à n’importe quel
 endroit. Les caractères autorisés sont ceux de l'alphabet français (sans ligature).
-- [ ] les prénoms des personnes sont écrits en minuscule sauf les premières lettres de chaque mot, codée en
+- [x] les prénoms des personnes sont écrits en minuscule sauf les premières lettres de chaque mot, codée en
 majuscule sans accent. Les tirets et espaces isolés sont autorisés mais ni au début, ni à la fin,
 - [ ] les localités suivent les mêmes règles que les noms à 2 exceptions près : les chiffres sont autorisés ; les
 doubles tirets sont interdits.
 #### PLO_PLONGEUR, PLO_DIRECTEUR, PLO_SECURITE_DE_SURFACE :
-- [ ] Quand on crée une de ces personnes, on écrit également dans la table Personne
+- [x] Quand on crée une de ces personnes, on écrit également dans la table Personne
 - [ ] Pour les plongeurs, il faut pouvoir ajouter ou modifier une aptitude
 
 **Attention aux suppressions et modifications : l'intégrité référentielle doit être préservée.**

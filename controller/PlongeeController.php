@@ -25,6 +25,8 @@ class PlongeeController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'show')
                 $this->show();
+            else if($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
@@ -84,34 +86,13 @@ class PlongeeController extends _ControllerClass
         if ( isset($_POST['submit']) )
             $this->verification($plongee);
 
-        elseif ($_GET['page']=='palanquee')
-        {
-            (new View('plongee/plongee_show/plongee_show_palanquee'))->generate([
-                'plongee' => $plongee,
-                'palanquee' => $palanquee
-            ]);
-        }
-        elseif ($_GET['page']=='bateaux')
-        {
-            (new View('plongee/plongee_show/plongee_show_bateaux'))->generate([
-                'plongee' => $plongee,
-                'bateau' => $bateau,
-            ]);
-        }
-        elseif ($_GET['page']=='site')
-        {
-            (new View('plongee/plongee_show/plongee_show_site'))->generate([
-                'plongee' => $plongee,
-                'site' => $site
-            ]);
-        }
-        elseif ($_GET['page']=='plongeurs')
-        {
-            (new View('plongee/plongee_show/plongee_show_plongeurs'))->generate([
-                'plongee' => $plongee,
-                'plongeur' => $plongeur
-            ]);
-        }
+        (new View('plongee/plongee_show/plongee_show_index'))->generate([
+            'plongee' => $plongee,
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteyr' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
+        ]);
     }
 
     private function edit()
@@ -121,7 +102,67 @@ class PlongeeController extends _ControllerClass
 
     private function add()
     {
-        // Ajout d'une plongee
+        if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["EN"])) {
+            $date = $_POST["date"];
+            $periode = ($_POST["periode"]);
+            $siteNum = intval($_POST["site"], 10);
+            $embNum = intval($_POST["embarcation"], 10);
+            $directeurNum = intval($_POST["directeur"], 10);
+            $securiteNum = intval($_POST["securite"], 10);
+            $envoyer = $_POST["EN"];
+
+            //Récupère l'effactif de plongeur depuis le formulaire
+            if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
+                $effectifP = intval($_POST["effectifP"], 10);
+            } else {
+                $effectifP = null;
+            }
+
+            //Récupère l'effactif sur le bateau depuis le formulaire
+            if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
+                $effectifB = intval($_POST["effectifB"], 10);
+            } else {
+                $effectifB = null;
+            }
+
+            $plongee = new Plongee();
+
+            $plongee->setPloDate($date);
+            $plongee->setPloMatMidSoi($periode);
+            $plongee->setSitNum($siteNum);
+            $plongee->setEmbNum($embNum);
+            $plongee->setPerNumDir($directeurNum);
+            $plongee->setPerNumSecu($securiteNum);
+            $plongee->setPloEffectifPlongeurs($effectifP);
+            $plongee->setPloEffectifBateau($effectifB);
+
+            $this->plongeeManager->update($plongee, true);
+
+        } else {
+            echo 'Tous les champs ne sont pas remplis.';
+        }
+    }
+
+    public function delete(){
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+            header('location: /plongee');
+
+        $plongee = $this->plongeeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
+
+
+        if (is_null($plongee))
+            header('location: /plongee');
+
+        if ( isset($_POST['submit']) ){
+            $this->plongeeManager->delete($plongee);
+            header('location: /plongee');
+        }
+
+        (new View('plongee/plongee_removeform'))->generate([
+            'plongee' => $plongee,
+        ]);
     }
 
     private function verification($plongeur)

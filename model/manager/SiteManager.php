@@ -35,4 +35,13 @@ class SiteManager extends _Model
         $req="select * from ".self::$table." join PLO_PLONGEE using (SIT_NUM) WHERE SIT_NUM=$valeur";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
+
+    public function delete($object){
+        $sql = 'SELECT * FROM PLO_PLONGEE WHERE SIT_NUM = '.$object[0]->getSitNum();
+        $tab = DataBase::$db->LireDonnees($sql);
+
+        if(count($tab)==0)
+            DataBase::$db->majDonnees('DELETE FROM PLO_SITE WHERE SIT_NUM = '.$object[0]->getSitNum());
+
+    }
 }
