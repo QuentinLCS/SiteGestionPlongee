@@ -11,12 +11,14 @@
                 <td><h6>Nom</h6></td>
                 <td><h6>Prénom</h6></td>
                 <td><h6>Aptitudes :</h6></td>
+                <td><h6>Palanquée :</h6></td>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td><?=$plongeur[0]->getPersonne()[0]->getPerNom()?></td>
                 <td><?=$plongeur[0]->getPersonne()[0]->getPerPrenom()?></td>
+                <td><?=$plongeur[0]->getAptitude()[0]->getAptLibelle()?></td>
                 <td><?=$plongeur[0]->getAptitude()[0]->getAptLibelle()?></td>
             </tr>
             </tbody>
