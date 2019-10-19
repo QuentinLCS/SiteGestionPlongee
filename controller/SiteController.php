@@ -114,6 +114,9 @@ class SiteController extends _ControllerClass
             } else
                 echo 'Site déjà enregistrée.';
         }
+        else{
+
+        }
     }
 
     public function delete(){
