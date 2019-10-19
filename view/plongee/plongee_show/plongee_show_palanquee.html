@@ -1,0 +1,45 @@
+<div class="container">
+    <?php if (empty($palanquee)): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+            Aucune palanquée enregistrée.
+        </p>
+    <?php else: ?>
+        <h4>Détails des palanquées :</h4>
+        <table>
+            <thead>
+            <tr>
+                <td><h6>Numéro de palanquée</h6></td>
+                <td><h6>Profondeur maximum</h6></td>
+                <td><h6>Profondeur réelle</h6></td>
+                <td><h6>Heure d'immersion</h6></td>
+                <td><h6>Heure de sortie</h6></td>
+                <td><h6>Durée maximum</h6></td>
+                <td><h6>Durée de fond</h6></td>
+            </tr>
+            </thead>
+            <tbody><h6></h6>
+            <?php for($i=0;$i<sizeof($palanquee);$i++)
+            {
+                echo "<tr>";
+                echo"<td>".$palanquee[$i]->getPalNum()."</td>";
+                echo"<td>".$palanquee[$i]->getPalProfondeurMax()."</td>";
+                echo"<td>".$palanquee[$i]->getPalProfondeurReelle()."</td>";
+                echo"<td>".$palanquee[$i]->getPalHeureImmersion()."</td>";
+                echo"<td>".$palanquee[$i]->getPalHeureSortieEau()."</td>";
+                echo"<td>".$palanquee[$i]->getPalDureeMax()."</td>";
+                echo"<td>".$palanquee[$i]->getPalDureeFond()."</td>";
+                echo "</tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
+<?php require_once('view/palanquee/palanquee_addform.html') ?>
+

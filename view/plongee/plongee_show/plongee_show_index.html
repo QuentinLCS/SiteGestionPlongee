@@ -1,101 +1,17 @@
-<section>
-    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
-    <div class="white rounded z-depth-4 margin-bottom rounded">
-        <div class="container">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Etat de la plongée : </td>
-                    <td><?php echo $plongee[0]->getPloEtat()?></td>
-                    <td></td>
-                    <td>
-                        <a href="#modalSite" class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier l'état de la plongée">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nom du site : </td>
-                    <td><?php echo $plongee[0]->getSite()[0]->getSitLocalisation()?></td>
-                    <td>
-                        <a href="#modalSite" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails du site">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier les informations du site">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Effectif des plongeurs : </td>
-                    <td><?php echo $plongee[0]->getPloEffectifPlongeurs()?></td>
-                    <td>
-                        <a  href="#modalPlongeur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des effectifs">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn tooltipped right #1b5e20 green darken-4" data-position="top" data-tooltip="Modifier les plongeurs">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nombre de palanquées : </td>
-                    <td><?php echo $plongee[0]->getPloNbPalanquees()?></td>
-                    <td>
-                        <a href="#modalPalanquees" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des palanquées">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn #1b5e20 green darken-4 tooltipped right" data-position="top" data-tooltip="Modifier les palanquées">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nombre de bateaux : </td>
-                    <td><?php echo $plongee[0]->getPloEffectifBateau()?></td>
-                    <td>
-                        <a href="#modalBateaux" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Détails des bateaux">
-                            <i class="material-icons left">remove_red_eye</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="waves-effect waves-light btn #1b5e20 green darken-4 tooltipped right" data-position="top" data-tooltip="Modifier les informations de l'embarcation">
-                            <i class="material-icons left">edit</i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div id="modalSite" class="modal">
-        <div class="modal-content">
-            <h4>Détails du site :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalPlongeur" class="modal">
-        <div class="modal-content">
-            <h4>Détails des plongeurs :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalPalanquees" class="modal">
-        <div class="modal-content">
-            <h4>Détails des palanquées :</h4>
-            <p>faire requête</p>
-        </div>
-    </div>
-    <div id="modalBateaux" class="modal">
-        <div class="modal-content">
-            <h4>Détails des bateaux :</h4>
-            <p>faire requête</p>
-        </div>
+<?php $this->_title = 'Sub\'Alligator | Plongée' ?>
+
+<section class="row">
+    <h4 class="center margin-bottom"><strong><?= $plongee[0]->getPloDate().' | '.($plongee[0]->getPloMatMidSoi() == 'M' ? 'Matin' : 'Soir') ?></strong></h4>
+    <div class="col s12">
+        <ul class="tabs blue-grey darken-4 z-depth-1">
+            <li class="tab col s3"><a class="active white-text" href="#page1">Embarcations</a></li>
+            <li class="tab col s3"><a href="#page2" class="white-text">Palanquees</a></li>
+            <li class="tab col s3"><a href="#page3" class="white-text">Plongeurs</a></li>
+            <li class="tab col s3"><a href="#page4" class="white-text">Site</a></li>
+        </ul>
+        <div id="page1" class="col s12 white z-depth-1"><?php require_once('plongee_show_bateaux.html') ?></div>
+        <div id="page2" class="col s12 white z-depth-1"><?php require_once('plongee_show_palanquee.html') ?></div>
+        <div id="page3" class="col s12 white z-depth-1"><?php require_once('plongee_show_plongeurs.html') ?></div>
+        <div id="page4" class="col s12 white z-depth-1"><?php require_once('plongee_show_site.html') ?></div>
     </div>
 </section>

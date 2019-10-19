@@ -1,0 +1,21 @@
+<div class="container">
+    <?php if (empty($bateau)): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+            Aucune embarcation enregistrée.
+        </p>
+    <?php else: ?>
+        <h4>Détails des embarcations :</h4>
+        <table>
+            <thead>
+            <tr>
+                <td><h6>Nom des embarcations</h6></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><?=$bateau[0]->getEmbNom()?></td>
+            </tr>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>

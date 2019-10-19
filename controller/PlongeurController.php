@@ -1,6 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
+require_once('/model/utils/traitement.php');
 
 class PlongeurController extends _ControllerClass
 {
@@ -21,7 +22,7 @@ class PlongeurController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'show')
                 $this->show();
-            else if($url[1] == 'delete')
+            elseif ($url[1] == 'delete')
                 $this->delete();
             else
                 throw new Exception('Page introuvable');
@@ -53,8 +54,6 @@ class PlongeurController extends _ControllerClass
                 $searchedPlongeurs = $this->plongeurManager->getSearchResult($search);
 
         }
-
-
 
 
 
@@ -158,6 +157,7 @@ class PlongeurController extends _ControllerClass
                     $nom = $_POST['nom'];
                     $prenom = $_POST['prenom'];
                     $aptitude = $_POST['aptitude'];
+
 
 
                     $personnes = $this->personneManager->getAll();

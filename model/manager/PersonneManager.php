@@ -12,17 +12,6 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function getAllDirecteur()
-    {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_DIRECTEUR USING(PER_NUM)');
-    }
-
-
-    public function getAllSecurite()
-    {
-        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_SECURITE_DE_SURFACE USING(PER_NUM)');
-    }
-
     public function getSearchResult($search)
     {
         $sql = 'SELECT * FROM '.self::$table.' WHERE ';
@@ -59,14 +48,5 @@ class PersonneManager extends _Model
             DataBase::$db->majDonnees("INSERT INTO ".self::$table." (PER_NOM, PER_PRENOM) VALUES ('".$object[0]->getPerNom()."', '".$object[0]->getPerPrenom()."')");
         else
             DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
-    }
-
-    public function getPlongees($id) {
-        $i = count($id);
-        $sql = 'SELECT * FROM '.self::$table.' JOIN PLO_CONCERNER USING ('.key($id).') WHERE ';
-        foreach ($id as $key=>$value)
-            $sql .= "$key = '$value'".(--$i > 0 ? ' AND ' : ';');
-
-        return DataBase::$db->LireDonnees($sql, self::$entity);
     }
 }

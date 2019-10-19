@@ -1,0 +1,21 @@
+<div class="container">
+    <?php if (empty($site)): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+            Aucun site renseigné.
+        </p>
+    <?php else: ?>
+        <h4>Détails du site :</h4>
+        <table>
+            <thead>
+            <tr>
+                <td><h6>Nom du site</h6></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><?=$site[0]->getSitNom()?></td>
+            </tr>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>
