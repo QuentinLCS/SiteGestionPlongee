@@ -1,7 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
-require_once('/model/utils/traitement.php');
+require_once('model/utils/traitement.php');
 
 class PlongeurController extends _ControllerClass
 {
@@ -22,6 +22,8 @@ class PlongeurController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'show')
                 $this->show();
+            elseif ($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
