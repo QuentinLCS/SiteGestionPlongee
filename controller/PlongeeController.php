@@ -27,6 +27,8 @@ class PlongeeController extends _ControllerClass
                 $this->show();
             else if($url[1] == 'delete')
                 $this->delete();
+            else if($url[1] == 'editPal')
+                $this->editPal();
             else
                 throw new Exception('Page introuvable');
     }
@@ -168,5 +170,27 @@ class PlongeeController extends _ControllerClass
     private function verification($plongeur)
     {
         header('location: /plongee');
+    }
+
+    public function editPal(){
+
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
+            header('location: /plongee');
+
+        $palanquee = $this->siteManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
+            'PAL_NUM' => $_GET['pal_num']]);
+
+        if (is_null($palanquee))
+            header('location: /plongee');
+
+        //if ( isset($_POST['submit']) )
+
+
+        (new View('palanquee/palanquee_editform'))->generate([
+            'palanquee' => $palanquee,
+
+        ]);
     }
 }
