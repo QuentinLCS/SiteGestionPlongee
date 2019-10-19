@@ -1,5 +1,5 @@
 <div class="container">
-    <?php if (empty($palanquee)): ?>
+    <?php if (empty($palanquees)): ?>
         <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
             Aucune palanquée enregistrée.
         </p>
@@ -18,19 +18,17 @@
             </tr>
             </thead>
             <tbody><h6></h6>
-            <?php for($i=0;$i<sizeof($palanquee);$i++)
-            {
-                echo "<tr>";
-                echo"<td>".$palanquee[$i]->getPalNum()."</td>";
-                echo"<td>".$palanquee[$i]->getPalProfondeurMax()."</td>";
-                echo"<td>".$palanquee[$i]->getPalProfondeurReelle()."</td>";
-                echo"<td>".$palanquee[$i]->getPalHeureImmersion()."</td>";
-                echo"<td>".$palanquee[$i]->getPalHeureSortieEau()."</td>";
-                echo"<td>".$palanquee[$i]->getPalDureeMax()."</td>";
-                echo"<td>".$palanquee[$i]->getPalDureeFond()."</td>";
-                echo "</tr>";
-            }
-            ?>
+            <?php foreach($palanquees as $palanquee): ?>
+                <tr>
+                    <td><?=$palanquee->getPalNum()?></td>
+                    <td><?=$palanquee->getPalProfondeurMax()?></td>
+                    <td><?=$palanquee->getPalProfondeurReelle()?></td>
+                    <td><?=$palanquee->getPalHeureImmersion()?></td>
+                    <td><?=$palanquee->getPalHeureSortieEau()?></td>
+                    <td><?=$palanquee->getPalDureeMax()?></td>
+                    <td><?=$palanquee->getPalDureeFond()?></td>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>

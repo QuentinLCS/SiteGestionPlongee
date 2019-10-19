@@ -77,7 +77,7 @@ class PlongeeController extends _ControllerClass
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
-        $plongeur = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $plongeurs = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
 
         if (is_null($plongee))
@@ -91,8 +91,8 @@ class PlongeeController extends _ControllerClass
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
             'bateau' => $bateau,
-            'plongeur' => $plongeur,
-            'palanquee' => $palanquee,
+            'plongeurs' => $plongeurs,
+            'palanquees' => $palanquee,
             'site' => $site
         ]);
     }
