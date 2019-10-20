@@ -104,41 +104,47 @@ class PlongeeController extends _ControllerClass
 
     private function add()
     {
-        if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["submit"])) {
-            $date = $_POST["date"];
-            $periode = ($_POST["periode"]);
-            $siteNum = intval($_POST["site"], 10);
-            $embNum = intval($_POST["embarcation"], 10);
-            $directeurNum = intval($_POST["directeur"], 10);
-            $securiteNum = intval($_POST["securite"], 10);
-            $envoyer = $_POST["submit"];
-            //Récupère l'effactif de plongeur depuis le formulaire
-            if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
-                $effectifP = intval($_POST["effectifP"], 10);
+        //Vérifie si le formulaire et bien un formulaire d'ajout de plongée
+        if ($_POST["formulaire"] ==  "plo") {
+            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["submit"])) {
+                $date = $_POST["date"];
+                $periode = ($_POST["periode"]);
+                $siteNum = intval($_POST["site"], 10);
+                $embNum = intval($_POST["embarcation"], 10);
+                $directeurNum = intval($_POST["directeur"], 10);
+                $securiteNum = intval($_POST["securite"], 10);
+                $envoyer = $_POST["submit"];
+                //Récupère l'effactif de plongeur depuis le formulaire
+                if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
+                    $effectifP = intval($_POST["effectifP"], 10);
+                } else {
+                    $effectifP = "NULL";
+                }
+                //Récupère l'effactif sur le bateau depuis le formulaire
+                if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
+                    $effectifB = intval($_POST["effectifB"], 10);
+                } else {
+                    $effectifB = "NULL";
+                }
+                $plongee[] = new Plongee([
+                    'PLO_DATE' => $date,
+                    'PLO_MAT_MID_SOI' => $periode,
+                    'SIT_NUM' => $siteNum,
+                    'EMB_NUM' => $embNum,
+                    'PER_NUM_DIR' => $directeurNum,
+                    'PER_NUM_SECU' => $securiteNum,
+                    'PLO_EFFECTIF_PLONGEURS' => $effectifP,
+                    'PLO_EFFECTIF_BATEAU' => $effectifB
+                ]);
+                $this->plongeeManager->update($plongee, true);
             } else {
-                $effectifP = "NULL";
+                echo 'Tous les champs ne sont pas remplis.';
+                var_dump($_POST);
             }
-            //Récupère l'effactif sur le bateau depuis le formulaire
-            if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
-                $effectifB = intval($_POST["effectifB"], 10);
-            } else {
-                $effectifB = "NULL";
-            }
-            $plongee[] = new Plongee([
-                'PLO_DATE' => $date,
-                'PLO_MAT_MID_SOI' => $periode,
-                'SIT_NUM' => $siteNum,
-                'EMB_NUM' => $embNum,
-                'PER_NUM_DIR' => $directeurNum,
-                'PER_NUM_SECU' => $securiteNum,
-                'PLO_EFFECTIF_PLONGEURS' => $effectifP,
-                'PLO_EFFECTIF_BATEAU' => $effectifB
-            ]);
-            $this->plongeeManager->update($plongee, true);
-        } else {
-            echo 'Tous les champs ne sont pas remplis.';
-            var_dump($_POST);
+        } else if ($_POST["formulaire"] ==  "pla") {  //Vérifie si le formulaire et bien un formulaire d'ajout de palanquée
+            null;
         }
+
     }
 
     public function delete(){
