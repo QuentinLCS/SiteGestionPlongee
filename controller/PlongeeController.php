@@ -142,7 +142,68 @@ class PlongeeController extends _ControllerClass
                 var_dump($_POST);
             }
         } else if ($_POST["formulaire"] ==  "pla") {  //Vérifie si le formulaire et bien un formulaire d'ajout de palanquée
-            null;
+            if (isset($_POST["submitPLA"])) {
+                $date = $_POST["date"];
+                $periode = ($_POST["periode"]);
+                $envoyer = $_POST["submit"];
+
+                // Récupère l'heure de départ depuis le formulaire reçu
+                if (isset($_POST["heureD"])) {
+                    $heureD = $_POST["heureD"];
+                } else {
+                    $heureD = "NULL";
+                }
+
+                // Récupère l'heure d'arrivée depuis le formulaire reçu
+                if (isset($_POST["heureA"])) {
+                    $heureA = $_POST["heureA"];
+                } else {
+                    $heureA = "NULL";
+                }
+
+                // Récupère le temps prévu depuis le formulaire reçu
+                if (isset($_POST["tempsP"]) && $_POST["tempsP"] != "") {
+                    $tempsP = $_POST["tempsP"];
+                } else {
+                    $tempsP = "NULL";
+                }
+
+                // Récupère le temps réel depuis le formulaire reçu
+                if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "") {
+                    $tempsR = $_POST["tempsR"];
+                } else {
+                    $tempsR = "NULL";
+                }
+
+                // Récupère la profondeur prévu depuis le formulaire reçu
+                if (isset($_POST["profondeurP"]) && $_POST["profondeurP"] != "") {
+                    $profondeurP = intval($_POST["profondeurP"], 10);
+                } else {
+                    $profondeurP  = "NULL";
+                }
+
+                // Récupère la profondeur réel depuis le formulaire reçu
+                if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "") {
+                    $profondeurR = doubleval($_POST["profondeurR"]);
+                } else {
+                    $profondeurR  = "NULL";
+                }
+
+                $palanquee[] = new Palanquee([
+                    'PLO_DATE' => $date,
+                    'PLO_MAT_MID_SOI' => $periode,
+                    'PAL_PROFONDEUR_MAX' => $profondeurP,
+                    'PAL_DUREE_MAX' => $tempsP,
+                    'PAL_HEURE_IMMERSION' => $heureD,
+                    'PAL_HEURE_SORTIE_EAU' => $heureA,
+                    'PAL_PROFONDEUR_REELLE' => $profondeurR,
+                    'PAL_DUREE_FOND' => $tempsR
+                ]);
+                $this->palanqueeManager->update($palanquee, true);
+            } else {
+                echo 'Tous les champs ne sont pas remplis.';
+                var_dump($_POST);
+            }
         }
 
     }
