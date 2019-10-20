@@ -1,5 +1,5 @@
 <div class="container">
-    <?php if (empty($palanquee)): ?>
+    <?php if (empty($palanquees)): ?>
         <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
             Aucune palanquée enregistrée.
         </p>
@@ -15,22 +15,31 @@
                 <td><h6>Heure de sortie</h6></td>
                 <td><h6>Durée maximum</h6></td>
                 <td><h6>Durée de fond</h6></td>
+                <td>Gestion</td>
             </tr>
             </thead>
             <tbody><h6></h6>
-            <?php for($i=0;$i<sizeof($palanquee);$i++)
-            {
-                echo "<tr>";
-                echo"<td>".$palanquee[$i]->getPalNum()."</td>";
-                echo"<td>".$palanquee[$i]->getPalProfondeurMax()."</td>";
-                echo"<td>".$palanquee[$i]->getPalProfondeurReelle()."</td>";
-                echo"<td>".$palanquee[$i]->getPalHeureImmersion()."</td>";
-                echo"<td>".$palanquee[$i]->getPalHeureSortieEau()."</td>";
-                echo"<td>".$palanquee[$i]->getPalDureeMax()."</td>";
-                echo"<td>".$palanquee[$i]->getPalDureeFond()."</td>";
-                echo "</tr>";
-            }
-            ?>
+            <?php foreach($palanquees as $palanquee):
+                var_dump($palanquee->getPloMatinApresmidi());
+            var_dump($palanquee);?>
+                <tr>
+                    <td><?=$palanquee->getPalNum()?></td>
+                    <td><?=$palanquee->getPalProfondeurMax()?></td>
+                    <td><?=$palanquee->getPalProfondeurReelle()?></td>
+                    <td><?=$palanquee->getPalHeureImmersion()?></td>
+                    <td><?=$palanquee->getPalHeureSortieEau()?></td>
+                    <td><?=$palanquee->getPalDureeMax()?></td>
+                    <td><?=$palanquee->getPalDureeFond()?></td>
+                    <td>
+                        <a href="palanquee/editPal/&pal_num=<?=$palanquee->getPalNum()?>&plo_mat_mid_soi=<?= $palanquee->getPloMatinApresmidi()?>&plo_date=<?=$palanquee->getPloDate()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
+                            <i class="material-icons white-text">remove_red_eye</i>
+                        </a>
+                        <a href="" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
+                            <i class="material-icons white-text">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>

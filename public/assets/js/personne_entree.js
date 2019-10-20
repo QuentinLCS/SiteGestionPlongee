@@ -11,7 +11,7 @@ let accent = [
     /[\307]/g, /[\347]/g, // C, c
     /œ/g, /æ/g, /"/g
 ];
-let noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c','oe','ae', ''];
+let noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c','oe','ae', '', '-'];
 
 inputNom.addEventListener('keyup', () => {
     for(let i = 0; i < accent.length; i++) {

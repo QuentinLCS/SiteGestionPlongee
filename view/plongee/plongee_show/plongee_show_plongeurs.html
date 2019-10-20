@@ -1,5 +1,5 @@
 <div class="container">
-    <?php if (empty($plongeur)): ?>
+     <?php if(empty($plongeurs)): ?>
         <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
             Aucun plongeur renseigné pour cette plongée.
         </p>
@@ -10,15 +10,20 @@
             <tr>
                 <td><h6>Nom</h6></td>
                 <td><h6>Prénom</h6></td>
-                <td><h6>Aptitudes :</h6></td>
+                <td><h6>Aptitudes</h6></td>
+                <td><h6>Palanquée</h6></td>
             </tr>
             </thead>
             <tbody>
+            <?php
+            foreach($plongeurs as $plongeur ): ?>
             <tr>
-                <td><?=$plongeur[0]->getPersonne()[0]->getPerNom()?></td>
-                <td><?=$plongeur[0]->getPersonne()[0]->getPerPrenom()?></td>
-                <td><?=$plongeur[0]->getAptitude()[0]->getAptLibelle()?></td>
+                <td><?=$plongeur->getPersonne()[0]->getPerNom()?></td>
+                <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
+                <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
+                <td></td>
             </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>

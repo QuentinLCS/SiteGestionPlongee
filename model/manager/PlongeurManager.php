@@ -82,7 +82,7 @@ class PlongeurManager extends _Model
             DataBase::$db->majDonnees('DELETE FROM PLO_PLONGEUR WHERE PER_NUM = '.$object[0]->getPerNum());
         } else {
             //sinon on le rend inactif
-            echo "vous ne pouvez pas supprimer ce plongeur car il a des plongées. Il est donc mis inactif.";
+           // echo "vous ne pouvez pas supprimer ce plongeur car il a des plongées. Il est donc mis inactif.";
             DataBase::$db->majDonnees('UPDATE PLO_PERSONNE SET PER_ACTIVE = 0 WHERE PER_NUM = '.$object[0]->getPerNum());
         }
     }
