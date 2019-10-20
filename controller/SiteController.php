@@ -15,6 +15,8 @@ class SiteController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'edit')
                 $this->edit();
+            else if($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
@@ -98,15 +100,39 @@ class SiteController extends _ControllerClass
             while (($nom != $sites[$i]->getSitNom() || $localisation != $sites[$i]->getSitLocalisation()) && ++$i < $nbSites) ;
 
             if ($i == $nbSites) {
-                $data = array(
-                    'SIT_NOM' => $nom,
-                    'SIT_LOCALISATION' => $localisation
-                );
-                $site = new Site($data);
-                $this->siteManager->add($site);
-                header('location: /site');
+                if(nomCorrect($localisation)) {
+                    $data = array(
+                        'SIT_NOM' => $nom,
+                        'SIT_LOCALISATION' => $localisation
+                    );
+                    $site = new Site($data);
+                    $this->siteManager->add($site);
+                    header('location: /site');
+                }
+                else
+                    echo "la localisation n'est pas correcte";
             } else
                 echo 'Site déjà enregistrée.';
         }
+    }
+
+    public function delete(){
+        if (!isset($_GET['sit_num']))
+            header('location: /site');
+
+        $site = $this->siteManager->getOne([
+            'SIT_NUM' => $_GET['sit_num']]);
+
+        if (is_null($site))
+            header('location: /site');
+
+        if ( isset($_POST['submit']) ) {
+            $this->siteManager->delete($site);
+            header('location: /site');
+        }
+
+        (new View('site/site_removeform'))->generate([
+            'site' => $site,
+        ]);
     }
 }

@@ -53,4 +53,19 @@ class PlongeeManager extends _Model
                 " . $object[0]->getPloEffectifBateau(). ",0,'')");
         }
     }
+
+    public function delete($object){
+        $pal = 'SELECT PAL_NUM FROM PLO_PALANQUEE WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
+        if(count($pal)>0){
+            $concerne = 'SELECT * FROM PLO_CONCERNER WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
+            if(count($concerne)>0){
+                $req1 = 'DELETE FROM PLO_CONCERNER WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
+                DataBase::$db->majDonnees($req1);
+            }
+            $req2 = 'DELETE FROM PLO_PALANQUEE WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
+            DataBase::$db->majDonnees($req2);
+        }
+        $req3 = 'DELETE FROM PLO_PLONGEE WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
+        DataBase::$db->majDonnees($req3);
+    }
 }

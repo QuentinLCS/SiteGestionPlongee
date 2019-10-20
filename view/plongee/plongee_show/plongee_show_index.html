@@ -1,18 +1,17 @@
-<section>
-    <h3 class="center-align">Plongée du <?php echo $plongee[0]->getPloDate().($plongee[0]->getPloMatMidSoi() == 'M' ? ' Matin' : ' Après-midi') ?></h3>
-    <nav>
-        <div class="nav-wrapper #0d47a1 blue darken-4">
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="#">Site</a></li>
-                <li><a href="#">Plongeurs</a></li>
-                <li><a href="&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&page=palanquee">Palanquées</a></li>
-                <li><a href="#">Bateaux</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="white rounded z-depth-4 margin-bottom rounded">
-        <div class="container">
+<?php $this->_title = 'Sub\'Alligator | Plongée' ?>
 
-        </div>
+<section class="row">
+    <h4 class="center margin-bottom"><strong><?= $plongee[0]->getPloDate().' | '.($plongee[0]->getPloMatMidSoi() == 'M' ? 'Matin' : 'Soir') ?></strong></h4>
+    <div class="col s12">
+        <ul class="tabs blue-grey darken-4 z-depth-1">
+            <li class="tab col s3"><a class="active white-text" href="#page1">Embarcations</a></li>
+            <li class="tab col s3"><a href="#page2" class="white-text">Palanquees</a></li>
+            <li class="tab col s3"><a href="#page3" class="white-text">Plongeurs</a></li>
+            <li class="tab col s3"><a href="#page4" class="white-text">Site</a></li>
+        </ul>
+        <div id="page1" class="col s12 white z-depth-1"><?php require_once('plongee_show_bateaux.html') ?></div>
+        <div id="page2" class="col s12 white z-depth-1"><?php require_once('plongee_show_palanquee.html') ?></div>
+        <div id="page3" class="col s12 white z-depth-1"><?php require_once('plongee_show_plongeurs.html') ?></div>
+        <div id="page4" class="col s12 white z-depth-1"><?php require_once('plongee_show_site.html') ?></div>
     </div>
 </section>

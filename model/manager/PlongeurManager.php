@@ -19,6 +19,12 @@ class PlongeurManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
+    public function getAllActive()
+    {
+        $req = 'SELECT * FROM PLO_PLONGEUR JOIN PLO_PERSONNE USING(PER_NUM) WHERE PER_ACTIVE  =  1';
+        return DataBase::$db->LireDonnees($req, self::$entity);
+    }
+
     public function getSearchResult($search)
     {
         $personnes = $this->personneManager->getSearchResult($search);
@@ -70,13 +76,13 @@ class PlongeurManager extends _Model
     public function delete($object){
 
         $req = 'SELECT PAL_NUM FROM PLO_PLONGEUR JOIN PLO_CONCERNER USING(PER_NUM) JOIN PLO_PALANQUEE USING(PAL_NUM) WHERE PER_NUM = '.$object[0]->getPerNum();
-        DataBase::$db->LireDonneesPDO2($req, $tab);
+        $tab = DataBase::$db->LireDonnees($req);
         //si le plongeur n'a pas de plongée on le supprime de la table PLO_PLONGEUR
         if (count($tab) == 0) {
             DataBase::$db->majDonnees('DELETE FROM PLO_PLONGEUR WHERE PER_NUM = '.$object[0]->getPerNum());
         } else {
             //sinon on le rend inactif
-            echo "vous ne pouvez pas supprimer ce plongeur car il a des plongées";
+            echo "vous ne pouvez pas supprimer ce plongeur car il a des plongées. Il est donc mis inactif.";
             DataBase::$db->majDonnees('UPDATE PLO_PERSONNE SET PER_ACTIVE = 0 WHERE PER_NUM = '.$object[0]->getPerNum());
         }
     }
