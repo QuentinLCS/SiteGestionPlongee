@@ -143,7 +143,8 @@ class PlongeeController extends _ControllerClass
                 echo 'Tous les champs ne sont pas remplis.';
                 var_dump($_POST);
             }
-        } else if ($_POST["formulaire"] ==  "pla") {  //Vérifie si le formulaire et bien un formulaire d'ajout de palanquée
+        }
+        if ($_POST["formulaire"] ==  "pla") {  //Vérifie si le formulaire et bien un formulaire d'ajout de palanquée
             if (isset($_POST["submitPLA"])) {
                 $date = $_GET["plo_date"];
                 $periode = $_GET["plo_mat_mid_soi"];
@@ -202,6 +203,7 @@ class PlongeeController extends _ControllerClass
                     'PAL_PROFONDEUR_REELLE' => $profondeurR,
                     'PAL_DUREE_FOND' => $tempsR
                 ]);
+                print_r($palanqueeObj);
                 $this->palanqueeManager->update($palanqueeObj, true);
             } else {
                 echo 'Tous les champs ne sont pas remplis.';
