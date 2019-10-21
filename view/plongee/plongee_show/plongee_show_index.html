@@ -1,8 +1,6 @@
 <?php $this->_title = 'Sub\'Alligator | Plongée' ?>
 
 <section class="row">
-    <?php print_r($_POST); print_r($_GET);?>
-    <?php include('view/palanquee/palanquee_addform.html');?>
     <h4 class="center margin-bottom"><strong><?= $plongee[0]->getPloDate().' | '.($plongee[0]->getPloMatMidSoi() == 'M' ? 'Matin' : 'Soir') ?></strong></h4>
     <div class="col s12">
         <ul class="tabs blue-grey darken-4 z-depth-1">
