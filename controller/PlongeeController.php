@@ -21,14 +21,14 @@ class PlongeeController extends _ControllerClass
         $this->plongeurManager = new PlongeurManager();
 
         $urlSize = parent::__construct($url);
-
+     //var_dump($url);
         if ($urlSize > 1)
-            if($url[1] == 'show')
+            if($url[1] == 'show' && $url[2] =='editPal')
+                $this->editPal();
+            else if($url[1] == 'show')
                 $this->show();
             else if($url[1] == 'delete')
                 $this->delete();
-            else if($url[1] == 'editPal')
-                $this->editPal();
             else
                 throw new Exception('Page introuvable');
     }
@@ -128,6 +128,9 @@ class PlongeeController extends _ControllerClass
             } else {
                 $effectifB = "NULL";
             }
+
+            $this->editPal();
+
             $plongee[] = new Plongee([
                 'PLO_DATE' => $date,
                 'PLO_MAT_MID_SOI' => $periode,
@@ -172,9 +175,9 @@ class PlongeeController extends _ControllerClass
         header('location: /plongee');
     }
 
-    public function editPal(){
-
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
+    private function editPal(){
+        echo "wesh";
+       /* if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
             header('location: /plongee');
 
         $palanquee = $this->siteManager->getOne([
@@ -188,9 +191,9 @@ class PlongeeController extends _ControllerClass
         //if ( isset($_POST['submit']) )
 
 
-        (new View('palanquee/palanquee_editform'))->generate([
+        (new View('plongee_show_palanquee/plongee_show_palanquee_editform'))->generate([
             'palanquee' => $palanquee,
 
-        ]);
+        ]);*/
     }
 }

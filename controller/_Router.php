@@ -32,11 +32,12 @@ class _Router
             {
                 $url = explode('/', filter_var($_GET['url'],
                 FILTER_SANITIZE_URL));
-
+                var_dump($url);
                 $controller = ucfirst(strtolower($url[0]));
                 $controllerClass = $controller.'Controller';
                 $controllerFile = 'controller/'.$controllerClass.'.php';
-
+                var_dump($controllerFile);
+                echo dirname(__FILE__);
                 if (file_exists($controllerFile))
                 {
                     require_once($controllerFile);
@@ -47,6 +48,7 @@ class _Router
             }
             else
                 {
+
                 require_once('controller/AccueilController.php');
                 $this->_controller = new AccueilController($url);
             }
