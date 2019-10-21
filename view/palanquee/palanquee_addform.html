@@ -4,12 +4,12 @@
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <fieldset>
                 <legend>Nouvelle Palanquée</legend>
-                <label for="heureD">Heure de Départ : </label><input type="time" name="heureD" id="heureD" ><br>
-                <label for="heureA">Heure de Retour : </label><input type="time" name="heureA" id="heureA" ><br><br>
-                <label for="tempsP">Temps Prévu : </label><input type="text" name="tempsP" id="tempsP" ><br>
-                <label for="tempsR">Temps Réalisé : </label><input type="text" name="tempsR" id="tempsR" ><br><br>
-                <label for="profondeurP">Profondeur Prévue : </label><input type="text" name="profondeurP" id="profondeurP" ><br>
-                <label for="profondeurR">Profondeur Réalisée : </label><input type="text" name="profondeurR" id="profondeurR" ><br><br>
+                <label for="heureD">Heure de Départ : </label><input type="time" name="heureD" id="heureD" value="<?php (!isset($_POST['heureD']) ? '' : $_POST['heureD']) ?>"><br>
+                <label for="heureA">Heure de Retour : </label><input type="time" name="heureA" id="heureA" value="<?php (!isset($_POST['heureA']) ? '' : $_POST['heureA']) ?>"><br><br>
+                <label for="tempsP">Temps Prévu : </label><input type="text" name="tempsP" id="tempsP" value="<?php (!isset($_POST['tempsP']) ? '' : $_POST['tempsP']) ?>"><br>
+                <label for="tempsR">Temps Réalisé : </label><input type="text" name="tempsR" id="tempsR" value="<?php (!isset($_POST['tempsR']) ? '' : $_POST['tempsR']) ?>"><br><br>
+                <label for="profondeurP">Profondeur Prévue : </label><input type="text" name="profondeurP" id="profondeurP" value="<?php (!isset($_POST['profondeurP']) ? '' : $_POST['profondeurP']) ?>"><br>
+                <label for="profondeurR">Profondeur Réalisée : </label><input type="text" name="profondeurR" id="profondeurR" value="<?php (!isset($_POST['profondeurR']) ? '' : $_POST['profondeurR']) ?>"><br><br>
 
                 <button name="submitPAL" id="submitPAL" value="pal">AJOUTER PALANQUEE</button>
             </fieldset>
