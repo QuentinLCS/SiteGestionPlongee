@@ -3,10 +3,11 @@
         <h4>Ajouter une plongée</h4>
         <form action="<?php $_SERVER['PHP_SELF'] ?>"  method="post">
             <div class="row">
-                <div class="col s6">
-                    <input class="datepicker" name="date" id="date" type="text" placeholder="Date" value="<?php (!isset($_POST['date']) ? '' : $_POST['date']) ?>" required><br>
+                <div class="col m5 s12">
+                    Date
+                    <input type="date" class="" name="date" id="dateForm"  value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
                 </div>
-                <div class="col s6">
+                <div class="col m5 s12 offset-m1">
                     Période de la Journée
                     <select name="periode" id="periode">
                         <option value="M" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'M') ? 'selected' : '') ?>>Matin</option>
@@ -16,7 +17,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s6">
+                <div class="col m5 s12">
                     Site
                     <select name="site" id="site">
                         <?php
@@ -26,7 +27,7 @@
                         ?>
                     </select><br>
                 </div>
-                <div class="col s6">
+                <div class="col m5 s12 offset-m1">
                     Embarcation
                     <select name="embarcation" id="embarcation">
                         <?php
@@ -38,17 +39,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s6">
+                <div class="col m5 s12">
                     Effectif de Plongeur
                     <input type="text" name="effectifP" id="effectifP" value="<?php (!isset($_POST['effectifP']) ? '' : $_POST['effectifP']) ?>"><br>
                 </div>
-                <div class="col S6">
+                <div class="col m5 s12 offset-m1">
                     Effectif sur Bateau
                     <input type="text" name="effectifB" id="effectifB" value="<?php (!isset($_POST['effectifB']) ? '' : $_POST['effectifB']) ?>"><br>
                 </div>
             </div>
+            <br>
             <div class="row">
-                <div class="col s6">
+                <div class="col m5 s12">
                     Directeur de Plongée
                     <select name="directeur" id="directeur">
                         <?php
@@ -58,7 +60,7 @@
                         ?>
                     </select> <br>
                 </div>
-                <div class="col s6">
+                <div class="col m5 s12 offset-m1">
                     Sécurité de Surface
                     <select name="securite" id="securite">
                         <?php
