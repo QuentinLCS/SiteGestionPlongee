@@ -1,0 +1,17 @@
+<div id="ajouterPLO" class="modal rounded">
+    <div class="modal-content center">
+        <h4>Ajouter un Plongeur</h4>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <label class="col s12 big-margin-bottom">
+                    <select name="PAL_plongeur" id="PAL_plongeur" class="browser-default">
+                        <?php foreach($allPlongeurs as $plongeur): ?>
+                            <option value="<?= $plongeur->getPerNum() ?>"><?= $plongeur->getPersonne()[0]->getPerNom() ?> <?= $plongeur->getPersonne()[0]->getPerPrenom() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+            </div>
+            <button class="btn waves-effect waves-light" name="submitPLONGEUR" id="submitPLONGEUR" value="plongeur">AJOUTER PLONGEUR</button>
+        </form>
+    </div>
+</div>
