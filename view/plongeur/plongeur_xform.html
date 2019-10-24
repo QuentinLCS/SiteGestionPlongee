@@ -1,0 +1,50 @@
+<p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+
+</p>
+<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+    <div class="row">
+        <label class="col s6">
+            Nom
+            <input type="text" id="nom" name="nom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerNom() : '') ?>" autofocus>
+        </label>
+
+        <label class="col s6">
+            Prénom
+            <input type="text" id="prenom" name="prenom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerPrenom() : '') ?>">
+        </label>
+    </div>
+
+    <div class="row">
+        <label class="col s12 margin-bottom">
+
+            <select name="aptitude" id="aptitude">
+                <?php
+                foreach ($allAptitudes as $aptitude) {
+                    echo '<option value="'. $aptitude->getAptCode() .'" '. (isset($plongeur) ? ($aptitude->getAptCode() == $plongeur[0]->getAptCode() ? 'selected' : '') : '') .'>'. $aptitude->getAptLibelle() .'</option>';
+                }
+                ?>
+            </select>
+        </label>
+    </div>
+
+    <div class="row">
+        <p class="col s6">
+            <label>
+                <input class="filled-in" name="type" type="checkbox" value="securite" />
+                <span>Securité</span>
+            </label>
+        </p>
+        <p class="col s6">
+            <label>
+                <input class="filled-in" name="type" type="checkbox" value="directeur"  />
+                <span>Directeur</span>
+            </label>
+        </p>
+    </div>
+
+    <div class="row">
+        <button class="btn waves-effect waves-light col s12 margin-bottom <?= ($button == 'EDITER' ? 'yellow darken-4' : 'blue' ) ?>" name="submit<?= $button ?>"><?= $button ?> UN PLONGEUR</button>
+    </div>
+</form>
+
+<script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>

@@ -56,6 +56,24 @@ class PlongeurManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
+    public function addDirector($per_num) {
+        DataBase::$db->majDonnees("INSERT INTO PLO_DIRECTEUR VALUES ('$per_num')");
+    }
+
+    public function addSecurite($per_num) {
+        DataBase::$db->majDonnees("INSERT INTO PLO_SECURITE_DE_SURFACE VALUES ('$per_num')");
+    }
+
+    public function isDirector($per_num) {
+        DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM = '.$per_num);
+    }
+
+    public function isSecurity($per_num) {
+        DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM = '.$per_num);
+    }
+
+
+
     public function update($object, $add = false)
     {
         $personneManager = new PersonneManager();
@@ -70,6 +88,7 @@ class PlongeurManager extends _Model
             DataBase::$db->majDonnees("INSERT INTO " . self::$table . " VALUES ('" . $personne[0]->getPerNum() . "','" . $object[0]->getAptCode() . "')");
         } else
             DataBase::$db->majDonnees("UPDATE " . self::$table . " SET APT_CODE = '" . $object[0]->getAptCode() . "' WHERE PER_NUM = '" . $object[0]->getPerNum() . "'");
+
 
     }
 

@@ -34,7 +34,7 @@ class PlongeurController extends _ControllerClass
      */
     public function index()
     {
-        if (isset($_POST['submit']))
+        if (isset($_POST['submitAJOUTER']))
             $this->add();
 
         $searchedPlongeurs = null;
@@ -87,7 +87,7 @@ class PlongeurController extends _ControllerClass
     {
 
 
-        if ( isset($_POST['edit']) )
+        if ( isset($_POST['submitEDITER']) )
             $this->verification($plongeur);
 
     }
@@ -153,12 +153,10 @@ class PlongeurController extends _ControllerClass
     {
         if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
 
-                if ($add || (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude']))) {
+                if ($add || (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude']) && !empty($_POST['type']))) {
                     $nom = $_POST['nom'];
                     $prenom = $_POST['prenom'];
                     $aptitude = $_POST['aptitude'];
-
-
 
                     $personnes = $this->personneManager->getAll();
 
@@ -184,8 +182,17 @@ class PlongeurController extends _ControllerClass
                                     $plongeur[0]->setAptitude($aptitudeObject);
                             $plongeur[0]->setAptCode($aptitude);
 
+
+                            if(isset($_POST['type']))
+                                if (($_POST['type'] == 'directeur'))
+                                    $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
+                                else if(($_POST['type'] == 'securite'))
+                                    $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
+                                else
+                                    echo 'Type invalide, plongeur classic réalisé';
+
                             $this->plongeurManager->update($plongeur, $add);
-                            header('location: '.URL.'/plongeur');
+                            header('location: '.URL.'plongeur');
                         }
                         else
                                 echo "le nom ou le prénom n'est pas correct";

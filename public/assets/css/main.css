@@ -172,6 +172,7 @@ input.dropdown-trigger + ul {
 .confirmation-btns .datepicker-done, .dropdown-content .selected span {
     color: var(--main-blue-color);
 }
+
 .confirmation-btns .datepicker-cancel {
     color: var(--main-orange-color);
 }
@@ -180,7 +181,9 @@ ul.autocomplete-content span.highlight {
     color: #2196F3;
     font-weight: bold;
 }
+
 [type="checkbox"].filled-in:checked + span:not(.lever):after {
     border: 2px solid #2196F3;
     background-color: #2196F3;
 }
+
