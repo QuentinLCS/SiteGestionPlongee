@@ -1,21 +1,40 @@
 <div id="ajouter" class="modal rounded">
     <div class="modal-content center">
         <h4>Ajouter une palanquée</h4>
-        <form name="newPlongee" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Nouvelle Palanquée</legend>
-                <label for="heureD">Heure de Départ : </label><input type="time" name="heureD" id="heureD" ><br>
-                <label for="heureA">Heure de Retour : </label><input type="time" name="heureA" id="heureA" ><br><br>
-                <label for="tempsP">Temps Prévu : </label><input type="time" name="tempsP" id="tempsP" ><br>
-                <label for="tempsR">Temps Réalisé : </label><input type="time" name="tempsR" id="tempsR" ><br><br>
-                <label for="profondeurP">Profondeur Prévue : </label><input type="text" name="profondeurP" id="profondeurP" ><br>
-                <label for="profondeurR">Profondeur Réalisée : </label><input type="text" name="profondeurR" id="profondeurR" ><br><br>
-                <label for="plongeur">Plongeurs</label><br>
-                <select name="plongeur" id="plongeur"></select> <br>
-
-
-                <input type="submit" name="EN" id="EN" value="Ajouter">
-            </fieldset>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <div class="col m5 s12">
+                    Heure de Départ
+                    <input type="time" name="heureD" id="heureD" value="<?php (!isset($_POST['heureD']) ? '' : $_POST['heureD']) ?>">
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Heure de Retour
+                    <input type="time" name="heureA" id="heureA" value="<?php (!isset($_POST['heureA']) ? '' : $_POST['heureA']) ?>">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col m5 s12">
+                    Temps Prévu
+                    <input type="text" name="tempsP" id="tempsP"  value="<?php (!isset($_POST['tempsP']) ? '' : $_POST['tempsP']) ?>">
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Temps Réalisé
+                    <input type="text" name="tempsR" id="tempsR" value="<?php (!isset($_POST['tempsR']) ? '' : $_POST['tempsR']) ?>">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col m5 s12">
+                    Profondeur Prévue
+                    <input type="text" name="profondeurP" id="profondeurP" value="<?php (!isset($_POST['profondeurP']) ? '' : $_POST['profondeurP']) ?>">
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Profondeur Réalisée
+                    <input type="text" name="profondeurR" id="profondeurR" value="<?php (!isset($_POST['profondeurR']) ? '' : $_POST['profondeurR']) ?>">
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" name="submitPAL" id="submitPAL" value="pal">AJOUTER PALANQUEE</button>
         </form>
     </div>
 </div>
