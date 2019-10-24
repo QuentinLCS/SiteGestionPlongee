@@ -64,6 +64,7 @@ class Plongeur extends _Entity
         $this->apt_code = $apt_code;
     }
 
+
     /**
      * @param mixed $aptitude
      */

@@ -12,8 +12,8 @@
                     </ul>
                 </li>
                 <li><strong>nbPlongées :</strong> ???</li>
-                <li><strong>nbAptitudes :</strong> ???</li>
-                <li><strong>Certificat médical :</strong> ??/??/????</li>
+                <li><strong>nbAptitudes :</strong> <?= count($plongeur[0]->getAptitude()) ?></li>
+                <li><strong>Certificat médical :</strong> <?= $plongeur[0]->getPersonne()[0]->getPerDateCertifMed() ?></li>
             </ul>
         </div>
     </div>

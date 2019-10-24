@@ -1,7 +1,7 @@
 <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
 
 </p>
-<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding ">
     <div class="row">
         <label class="col s6">
             Nom
@@ -15,7 +15,7 @@
     </div>
 
     <div class="row">
-        <label class="col s12 margin-bottom">
+        <label class="col s6 margin-top">
 
             <select name="aptitude" id="aptitude">
                 <?php
@@ -24,6 +24,9 @@
                 }
                 ?>
             </select>
+        </label>
+        <label class="col s6 margin-bottom margin-top">
+            <input type="text" class="datepicker" name="certificat" id="certificat" value="<?= (isset($_POST['certificat']) ? $_POST['certificat'] : '') ?>">
         </label>
     </div>
 
@@ -42,9 +45,12 @@
         </p>
     </div>
 
+
+
     <div class="row">
         <button class="btn waves-effect waves-light col s12 margin-bottom <?= ($button == 'EDITER' ? 'yellow darken-4' : 'blue' ) ?>" name="submit<?= $button ?>"><?= $button ?> UN PLONGEUR</button>
     </div>
 </form>
 
 <script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>
+<script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>

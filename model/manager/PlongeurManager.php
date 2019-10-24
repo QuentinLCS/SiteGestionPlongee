@@ -64,6 +64,14 @@ class PlongeurManager extends _Model
         DataBase::$db->majDonnees("INSERT INTO PLO_SECURITE_DE_SURFACE VALUES ('$per_num')");
     }
 
+    public function removeDirector($per_num) {
+        DataBase::$db->majDonnees("DELETE FROM PLO_DIRECTEUR WHERE PER_NUM = '$per_num'");
+    }
+
+    public function removeSecurite($per_num) {
+        DataBase::$db->majDonnees("DELETE FROM PLO_DIRECTEUR WHERE PER_NUM = '$per_num'");
+    }
+
     public function isDirector($per_num) {
         DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM = '.$per_num);
     }
