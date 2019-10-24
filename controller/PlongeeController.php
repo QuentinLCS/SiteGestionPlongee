@@ -93,6 +93,10 @@ class PlongeeController extends _ControllerClass
         {
             $this->edit('Site',$plongee);
         }
+        elseif (isset($_POST['submitEmbar']))
+        {
+            $this->edit('Embar',$plongee);
+        }
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -112,15 +116,25 @@ class PlongeeController extends _ControllerClass
     {
         if($value=="Site")
         {
-            if(isset($_POST["site"]))
+            if(isset($_POST["siteNum"]))
             {
                 $update=$this->siteManager->getOne([
-                    'SIT_NOM'=>$_POST['site'],
                     'SIT_NUM'=>intval($_POST['siteNum'])
                 ]);
                 $base[0]->setSitNum(intval($update[0]->getSitNum()));
+                $this->plongeeManager->update($base,false);
             }
-            $this->plongeeManager->update($base,false);
+        }
+        elseif ($value=="Embar")
+        {
+            if(isset($_POST["embar"]))
+            {
+                $update=$this->embarcationManager->getOne([
+                    'EMB_NUM'=>intval($_POST['embar'])
+                ]);
+                $base[0]->setEmbNum(intval($update[0]->getEmbNum()));
+                $this->plongeeManager->update($base,false);
+            }
         }
     }
 

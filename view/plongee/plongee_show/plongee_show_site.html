@@ -27,16 +27,14 @@
             <div class="modal-content">
                 <h4>Modification du site</h4>
                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                    <select name="site">
+                    <select name="siteNum">
                         <?php
                         foreach($allSite as $site)
                         {
-                            echo "<option value='".$site->getSitNom()."'>".$site->getSitNom()."</option>";
-                            $num = $site->getSitNum();
+                            echo "<option value='".$site->getSitNum()."'>".$site->getSitNom()."</option>";
                         }
                         ?>
                     </select>
-                    <input type="hidden" value="<?=$num?>" name="siteNum">
                     <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitSite">Enregistrer</button>
                 </form>
             </div>
