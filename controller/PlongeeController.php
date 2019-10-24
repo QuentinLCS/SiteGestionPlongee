@@ -87,6 +87,10 @@ class PlongeeController extends _ControllerClass
 
         if ( isset($_POST['submit']) )
             $this->verification($plongee);
+        if(isset($_POST['submitSite']))
+        {
+            $this->edit('Site',$plongee);
+        }
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
@@ -101,9 +105,20 @@ class PlongeeController extends _ControllerClass
 
 
 
-    private function edit()
+    private function edit($value,$base)
     {
-
+        if($value=="Site")
+        {
+            if(isset($_POST["site"]))
+            {
+                $update=$this->siteManager->getOne([
+                    'SIT_NOM'=>$_POST['site'],
+                    'SIT_NUM'=>intval($_POST['siteNum'])
+                ]);
+                $base[0]->setSitNum(intval($update[0]->getSitNum()));
+            }
+            $this->plongeeManager->update($base,false);
+        }
     }
 
     private function add()

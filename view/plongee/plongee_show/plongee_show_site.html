@@ -9,13 +9,38 @@
             <thead>
             <tr>
                 <td><h6>Nom du site</h6></td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td><?=$site[0]->getSitNom()?></td>
+                <td>
+                    <a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du site">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modification du site</h4>
+                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                    <select name="site">
+                        <?php
+                        foreach($allSite as $site)
+                        {
+                            echo "<option value='".$site->getSitNom()."'>".$site->getSitNom()."</option>";
+                            $num = $site->getSitNum();
+                        }
+                        ?>
+                    </select>
+                    <input type="hidden" value="<?=$num?>" name="siteNum">
+                    <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitSite">Enregistrer</button>
+                </form>
+            </div>
+        </div>
     <?php endif; ?>
 </div>
+
