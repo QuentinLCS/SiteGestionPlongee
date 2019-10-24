@@ -39,8 +39,8 @@ class PlongeeController extends _ControllerClass
      */
     public function index()
     {
-        if (isset($_POST['submit']))
-            $this->add();
+        if (isset($_POST['submitPLO']))
+            $this->addPlongee();
 
         $searchedPlongees = null;
 
@@ -62,7 +62,9 @@ class PlongeeController extends _ControllerClass
             'allPlongees' => $this->plongeeManager->getAll(),
             'searchedPlongees' => $searchedPlongees,
             'allSite' => $this->siteManager->getAll(),
-            'allEmbarcation' => $this->embarcationManager->getAll()
+            'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteur' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
         ]);
     }
 
@@ -91,6 +93,7 @@ class PlongeeController extends _ControllerClass
         {
             $this->edit('Site',$plongee);
         }
+        $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
@@ -121,18 +124,17 @@ class PlongeeController extends _ControllerClass
         }
     }
 
-    private function add()
+    private function addPlongee()
     {
         //Vérifie si le formulaire et bien un formulaire d'ajout de plongée
-        if ($_POST["formulaire"] ==  "plo") {
-            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["submit"])) {
+        if (isset($_POST["submitPLO"])) {
+            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"])) {
                 $date = $_POST["date"];
                 $periode = ($_POST["periode"]);
                 $siteNum = intval($_POST["site"], 10);
                 $embNum = intval($_POST["embarcation"], 10);
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
-                $envoyer = $_POST["submit"];
                 //Récupère l'effactif de plongeur depuis le formulaire
                 if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
                     $effectifP = intval($_POST["effectifP"], 10);
@@ -160,69 +162,62 @@ class PlongeeController extends _ControllerClass
                 echo 'Tous les champs ne sont pas remplis.';
                 var_dump($_POST);
             }
-        } else if ($_POST["formulaire"] ==  "pla") {  //Vérifie si le formulaire et bien un formulaire d'ajout de palanquée
-            if (isset($_POST["submitPLA"])) {
-                $date = $_POST["date"];
-                $periode = ($_POST["periode"]);
-                $envoyer = $_POST["submit"];
+        }
+    }
 
-                // Récupère l'heure de départ depuis le formulaire reçu
-                if (isset($_POST["heureD"])) {
-                    $heureD = $_POST["heureD"];
-                } else {
-                    $heureD = "NULL";
-                }
+    public function addPalanquee() {
+        if (isset($_POST["submitPAL"])) {
+            $date = $_GET["plo_date"];
+            $periode = $_GET["plo_mat_mid_soi"];
+            $heureD = "NULL";
+            $heureA = "NULL";
+            $tempsP = "NULL";
+            $tempsR = "NULL";
+            $profondeurP  = "NULL";
+            $profondeurR  = "NULL";
 
-                // Récupère l'heure d'arrivée depuis le formulaire reçu
-                if (isset($_POST["heureA"])) {
-                    $heureA = $_POST["heureA"];
-                } else {
-                    $heureA = "NULL";
-                }
 
-                // Récupère le temps prévu depuis le formulaire reçu
-                if (isset($_POST["tempsP"]) && $_POST["tempsP"] != "") {
-                    $tempsP = $_POST["tempsP"];
-                } else {
-                    $tempsP = "NULL";
-                }
-
-                // Récupère le temps réel depuis le formulaire reçu
-                if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "") {
-                    $tempsR = $_POST["tempsR"];
-                } else {
-                    $tempsR = "NULL";
-                }
-
-                // Récupère la profondeur prévu depuis le formulaire reçu
-                if (isset($_POST["profondeurP"]) && $_POST["profondeurP"] != "") {
-                    $profondeurP = intval($_POST["profondeurP"], 10);
-                } else {
-                    $profondeurP  = "NULL";
-                }
-
-                // Récupère la profondeur réel depuis le formulaire reçu
-                if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "") {
-                    $profondeurR = doubleval($_POST["profondeurR"]);
-                } else {
-                    $profondeurR  = "NULL";
-                }
-
-                $palanquee[] = new Palanquee([
-                    'PLO_DATE' => $date,
-                    'PLO_MAT_MID_SOI' => $periode,
-                    'PAL_PROFONDEUR_MAX' => $profondeurP,
-                    'PAL_DUREE_MAX' => $tempsP,
-                    'PAL_HEURE_IMMERSION' => $heureD,
-                    'PAL_HEURE_SORTIE_EAU' => $heureA,
-                    'PAL_PROFONDEUR_REELLE' => $profondeurR,
-                    'PAL_DUREE_FOND' => $tempsR
-                ]);
-                $this->palanqueeManager->update($palanquee, true);
-            } else {
-                echo 'Tous les champs ne sont pas remplis.';
-                var_dump($_POST);
+            // Récupère l'heure de départ depuis le formulaire reçu
+            if (isset($_POST["heureD"]) && $_POST["heureD"] !="" ) {
+                $heureD = $_POST["heureD"];
             }
+
+            // Récupère l'heure d'arrivée depuis le formulaire reçu
+            if (isset($_POST["heureA"]) && $_POST["heureA"] !="") {
+                $heureA = $_POST["heureA"];
+            }
+
+            // Récupère le temps prévu depuis le formulaire reçu
+            if (isset($_POST["tempsP"]) && $_POST["tempsP"] != "") {
+                $tempsP = intval($_POST["tempsP"]);
+            }
+
+            // Récupère le temps réel depuis le formulaire reçu
+            if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "") {
+                $tempsR = intval($_POST["tempsR"]);
+            }
+
+            // Récupère la profondeur prévu depuis le formulaire reçu
+            if (isset($_POST["profondeurP"]) && $_POST["profondeurP"] != "") {
+                $profondeurP = doubleval($_POST["profondeurP"]);
+            }
+
+            // Récupère la profondeur réel depuis le formulaire reçu
+            if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "") {
+                $profondeurR = intval($_POST["profondeurR"]);
+            }
+
+            $palanqueeObj[] = new Palanquee([
+                'PLO_DATE' => $date,
+                'PLO_MAT_MID_SOI' => $periode,
+                'PAL_PROFONDEUR_MAX' => $profondeurP,
+                'PAL_DUREE_MAX' => $tempsP,
+                'PAL_HEURE_IMMERSION' => $heureD,
+                'PAL_HEURE_SORTIE_EAU' => $heureA,
+                'PAL_PROFONDEUR_REELLE' => $profondeurR,
+                'PAL_DUREE_FOND' => $tempsR
+            ]);
+            $this->palanqueeManager->update($palanqueeObj, true);
         }
 
     }

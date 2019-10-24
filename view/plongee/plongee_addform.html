@@ -2,53 +2,79 @@
     <div class="modal-content center">
         <h4>Ajouter une plongée</h4>
         <form action="<?php $_SERVER['PHP_SELF'] ?>"  method="post">
-            <fieldset>
-                <legend>Nouvelle Plongée</legend>
-                <label for="date">Date : </label><input name="date" id="date" type="date" required><br>
-                <label for="periode">Période de la Journée : </label>
-                <select name="periode" id="periode">
-                    <option value="M" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'M') ? 'selected' : '') ?>>Matin</option>
-                    <option value="A"<?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'A') ? 'selected' : '') ?>>Après Midi</option>
-                    <option value="S" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'S') ? 'selected' : '') ?>>Soir</option>
-                </select><br>
-                <label for="site">Site :</label>
-                <select name="site" id="site">
-                    <?php
+            <div class="row">
+                <div class="col m5 s12">
+                    Date
+                    <input type="date" class="" name="date" id="dateForm"  value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Période de la Journée
+                    <select name="periode" id="periode">
+                        <option value="M" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'M') ? 'selected' : '') ?>>Matin</option>
+                        <option value="A"<?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'A') ? 'selected' : '') ?>>Après Midi</option>
+                        <option value="S" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'S') ? 'selected' : '') ?>>Soir</option>
+                    </select><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m5 s12">
+                    Site
+                    <select name="site" id="site">
+                        <?php
                             foreach ($allSite as $site) {
                                 echo '<option value="'. $site->getSitNum() .'" '.(!isset($_POST['site']) ? '' : ($_POST['site'] == $site->getSitNum()) ? 'selected' : '').' >'. $site->getSitNom() .'</option>';
-                            }
-                    ?>
-                </select><br>
-                <label for="embarcation">Embarcation :</label>
-                <select name="embarcation" id="embarcation">
-                    <?php
+                        }
+                        ?>
+                    </select><br>
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Embarcation
+                    <select name="embarcation" id="embarcation">
+                        <?php
                             foreach ($allEmbarcation as $emb) {
                                 echo '<option value="'. $emb->getEmbNum() .'" '.(!isset($_POST['site']) ? '' : ($_POST['site'] == $emb->getEmbNum()) ? 'selected' : '').'>'. $emb->getEmbNom() .'</option>';
-                            }
-                    ?>
-                </select><br>
-                <label for="effectifP">Effectif de Plongeur : </label><input type="text" name="effectifP" id="effectifP" value=""><br>
-                <label for="effectifB">Effectif sur Bateau : </label><input type="text" name="effectifB" id="effectifB" value=""><br>
-                <label for="directeur">Directeur de Plongée : </label>
-                <select name="directeur" id="directeur">
-                    <?php
-                            foreach ($allPlongees as $plongee) {
-                                echo '<option value="'. $plongee->getDirecteur()[0]->getPerNum() .'" >'. $plongee->getDirecteur()[0]->getPerNom() .' '. $plongee->getDirecteur()[0]->getPerPrenom() .'</option>';
-                            }
-                    ?>
-                </select> <br>
-                <label for="securite">Sécurité de Surface : </label>
-                <select name="securite" id="securite">
-                    <?php
-                            foreach ($allPlongees as $plongee) {
-                                echo '<option value="'. $plongee->getSecurite()[0]->getPerNum() .'" >'. $plongee->getSecurite()[0]->getPerNom() .' '. $plongee->getSecurite()[0]->getPerPrenom() .'</option>';
-                    }
-                    ?>
-                </select>
-                <input type="hidden" name="formulaire" id="formulaire" value="plo">
-                <input type="submit" name="submit" id="submit" value="Ajouter">
-            </fieldset>
+                        }
+                        ?>
+                    </select><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m5 s12">
+                    Effectif de Plongeur
+                    <input type="text" name="effectifP" id="effectifP" value="<?php (!isset($_POST['effectifP']) ? '' : $_POST['effectifP']) ?>"><br>
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Effectif sur Bateau
+                    <input type="text" name="effectifB" id="effectifB" value="<?php (!isset($_POST['effectifB']) ? '' : $_POST['effectifB']) ?>"><br>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col m5 s12">
+                    Directeur de Plongée
+                    <select name="directeur" id="directeur">
+                        <?php
+                            foreach ($allDirecteur as $directeur) {
+                                echo '<option value="'. $directeur->getPerNum() .'" >'. $directeur->getPerNom() .' '. $directeur->getPerPrenom() .'</option>';
+                        }
+                        ?>
+                    </select> <br>
+                </div>
+                <div class="col m5 s12 offset-m1">
+                    Sécurité de Surface
+                    <select name="securite" id="securite">
+                        <?php
+                            foreach ($allSecurite as $securite) {
+                                echo '<option value="'. $securite->getPerNum() .'" >'. $securite->getPerNom() .' '. $securite->getPerPrenom() .'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light"  name="submitPLO" id="submitPLO">AJOUTER PLONGEE</button>
         </form>
     </div>
 </div>
+
+<script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>
 
