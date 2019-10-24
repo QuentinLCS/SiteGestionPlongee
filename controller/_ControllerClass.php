@@ -16,7 +16,7 @@ abstract class _ControllerClass
     protected function __construct($url)
     {
         $urlSize = count($url);
-        if (isset($url) && $urlSize > 3)
+        if (isset($url) && $urlSize > 4 )
             throw new Exception('Page introuvable');
         else if ($urlSize == 1)
             $this->index();

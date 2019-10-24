@@ -36,8 +36,7 @@ class _Router
                 $controller = ucfirst(strtolower($url[0]));
                 $controllerClass = $controller.'Controller';
                 $controllerFile = 'controller/'.$controllerClass.'.php';
-                var_dump($controllerFile);
-                echo dirname(__FILE__);
+
                 if (file_exists($controllerFile))
                 {
                     require_once($controllerFile);
@@ -45,6 +44,7 @@ class _Router
                 }
                 else
                     throw new Exception('Page introuvable');
+
             }
             else
                 {
