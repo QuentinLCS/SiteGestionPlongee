@@ -27,6 +27,8 @@ class PlongeeController extends _ControllerClass
                 $this->show();
             else if($url[1] == 'delete')
                 $this->delete();
+            else if($url[1] == 'editPal')
+                $this->editPal();
             else
                 throw new Exception('Page introuvable');
     }
@@ -77,7 +79,7 @@ class PlongeeController extends _ControllerClass
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
-        $plongeur = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $plongeurs = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
 
         if (is_null($plongee))
@@ -91,11 +93,13 @@ class PlongeeController extends _ControllerClass
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
             'bateau' => $bateau,
-            'plongeur' => $plongeur,
-            'palanquee' => $palanquee,
+            'plongeurs' => $plongeurs,
+            'palanquees' => $palanquee,
             'site' => $site
         ]);
     }
+
+
 
     private function edit()
     {
@@ -166,5 +170,27 @@ class PlongeeController extends _ControllerClass
     private function verification($plongeur)
     {
         header('location: /plongee');
+    }
+
+    public function editPal(){
+
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
+            header('location: /plongee');
+
+        $palanquee = $this->siteManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
+            'PAL_NUM' => $_GET['pal_num']]);
+
+        if (is_null($palanquee))
+            header('location: /plongee');
+
+        //if ( isset($_POST['submit']) )
+
+
+        (new View('palanquee/palanquee_editform'))->generate([
+            'palanquee' => $palanquee,
+
+        ]);
     }
 }
