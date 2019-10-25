@@ -70,7 +70,7 @@ class PlongeeController extends _ControllerClass
 
     public function show()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['page']))
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
         //TODO faire attention page
 
