@@ -20,7 +20,7 @@
                 </div>
                 <p class="col xl4 s12" style="line-height: 60px;">
                     <label>
-                        <input type="checkbox" class="filled-in" name="searchInactive" <?= (isset($_POST['searchInactive']) ? 'checked' : '') ?>/>
+                        <input onclick="clickFormButton()" type="checkbox" class="filled-in" name="searchInactive" <?= (isset($_POST['searchInactive']) ? 'checked' : '') ?>/>
                         <span>Afficher les inactifs</span>
                     </label>
                 </p>

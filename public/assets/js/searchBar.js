@@ -6,7 +6,11 @@ search2.addEventListener('keyup',function (event) {sendForm(event);}, false);
 
 
 function sendForm (event) {
-   if (event.keyCode >= 65 && event.keyCode <= 90) { // si une lettre est pressée uniquement
-      document.getElementById('search').click()
-   }
+   //if (event.keyCode >= 65 && event.keyCode <= 90) { // si une lettre est pressée uniquement
+      clickFormButton();
+   //}
+}
+
+function clickFormButton() {
+   document.getElementById('search').click()
 }
