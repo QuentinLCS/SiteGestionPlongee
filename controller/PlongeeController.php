@@ -141,11 +141,17 @@ class PlongeeController extends _ControllerClass
             $date = $_GET["plo_date"];
             $periode = $_GET["plo_mat_mid_soi"];
             $numPal = $_GET["pal_num"];
+            //$numPers = $_POST[""]
             $palanquee = $this->palanqueeManager->getOne([
                 'PLO_DATE' => $date,
                 'PLO_MAT_MID_SOI' => $periode,
                 'PAL_NUM' => $numPal
             ]);
+            $concerner = [
+                'PLO_DATE' => $date,
+                'PLO_MAT_MID_SOI' => $periode,
+                'PAL_NUM' => $numPal,
+            ];
         }
     }
 

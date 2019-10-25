@@ -57,6 +57,19 @@ class PalanqueeManager extends _Model
             DataBase::$db->majDonnees($sql);
         }
     }
+
+    public function updatePlongeurs($object) {
+        ;
+        DataBase::$db->majDonnees("INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) 
+        VALUES (
+        '',
+        '',
+        '',
+        ''
+        );");
+        null;
+    }
+
     public function getPlongeePalanquee($donne1,$donne2)
     {
         $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
