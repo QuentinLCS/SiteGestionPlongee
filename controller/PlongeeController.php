@@ -97,6 +97,9 @@ class PlongeeController extends _ControllerClass
         {
             $this->edit('Embar',$plongee);
         }
+        elseif (isset($_POST["submitPLONGEUR"])) {
+            $this->edit("Plongeur", $plongee);
+        }
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -137,21 +140,20 @@ class PlongeeController extends _ControllerClass
                 $this->plongeeManager->update($base,false);
             }
         }
-        if (isset($_POST["submitPLONGEUR"])) {
+        if ($value=="Plongeur") {
             $date = $_GET["plo_date"];
             $periode = $_GET["plo_mat_mid_soi"];
-            $numPal = $_GET["pal_num"];
-            //$numPers = $_POST[""]
-            $palanquee = $this->palanqueeManager->getOne([
-                'PLO_DATE' => $date,
-                'PLO_MAT_MID_SOI' => $periode,
-                'PAL_NUM' => $numPal
-            ]);
+            $numPal = $_POST["palanquee"];
+            $numPers = $_POST["plongeur"];
+
             $concerner = [
                 'PLO_DATE' => $date,
                 'PLO_MAT_MID_SOI' => $periode,
                 'PAL_NUM' => $numPal,
+                'PER_NUM' => $numPers
             ];
+
+            $this->palanqueeManager->updatePlongeurs($concerner);
         }
     }
 
