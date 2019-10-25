@@ -337,15 +337,20 @@ class PlongeeController extends _ControllerClass
     }
 
     private function removePlo() {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) || !isset($_GET['per_num']) )
             header('location: /plongee');
 
         $palanquee = [
             'plo_date' => $_GET['plo_date'],
             'plo_mat_mid_soi' => $_GET['plo_mat_mid_soi'],
-            'pal_num' => $_GET['pal_num']
+            'pal_num' => $_GET['pal_num'],
+            'per_num' => $_GET['per_num']
         ];
 
+        if ( isset($_POST['removePLONGEUR']) ){
+            $this->plongeeManager->deleteConcerner($palanquee);
+            header('location: /plongee');
+        }
 
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs_removeform'))->generate([
             'palanquee' => $palanquee,
