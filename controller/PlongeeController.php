@@ -25,10 +25,10 @@ class PlongeeController extends _ControllerClass
         if ($urlSize > 1) {
             if ($url[1] == 'show' && $url[2] == 'editPal')
                 $this->editPal();
-            else if ($url[1] == 'show')
-                $this->show();
             else if ($url[1] == 'show' && $url[2] =='removePlo')
                 $this->removePlo();
+            else if ($url[1] == 'show')
+                $this->show();
             else if ($url[1] == 'delete')
                 $this->delete();
             else
@@ -287,7 +287,7 @@ class PlongeeController extends _ControllerClass
 
     private function editPal(){
 
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) )
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']) )
             header('location: /plongee');
 
         $palanquee = $this->palanqueeManager->getOne([
@@ -295,11 +295,11 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
             'PAL_NUM' => $_GET['pal_num']]);
 
-        if (is_null($palanquee))
-            header('location: /plongee/plongee_show');
+        if (empty($palanquee))
+            header('location: /plongee');
 
         if ( isset($_POST['submit']) ){
-            var_dump($_POST["DureeMax"]);
+
             if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) && !empty($_POST["HImmersion"]) ) {
 
                 $profondeurMax = $_POST["profondeurMax"];
@@ -322,10 +322,10 @@ class PlongeeController extends _ControllerClass
 
                 $this->palanqueeManager->update($palanquee);
 
-                //header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
             }
             else{
-               // header('location: /plongee/show');
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
             }
         }
 
@@ -350,5 +350,9 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs_removeform'))->generate([
             'palanquee' => $palanquee,
         ]);
+    }
+
+    private function deletePal(){
+
     }
 }
