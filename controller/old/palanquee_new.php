@@ -1,6 +1,6 @@
 <?php
 
-include_once('../view/palanquee/palanquee_addform.html');
+include_once('../view/palanquee/plongee_show_palanquee_addform.html');
 
 if (!empty($_POST)) {
 

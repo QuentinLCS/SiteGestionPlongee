@@ -11,9 +11,11 @@ $db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
 */
 
 // BASE DE DONNEES LOCALE
+
 $db_username = 'root';
 $db_password = '';
 $db_connect = 'mysql:host=localhost;dbname=projetphp;charset=UTF8';
+
 
 require_once('model/DataBase.php');
 DataBase::$db = new DataBase($db_connect ,$db_username, $db_password);

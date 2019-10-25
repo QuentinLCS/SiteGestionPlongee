@@ -3,4 +3,4 @@
 $sql = 'select * from PLO_PALANQUEE ORDER BY plo_date';
 $db->LireDonneesPDO2($sql, $allPalanquees);
 
-include_once('../view/palanquee/palanquee_index.html');
+include_once('../view/palanquee/plongee_show_palanquee_index.html');
