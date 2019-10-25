@@ -18,10 +18,10 @@
             <?php
             foreach($plongeurs as $plongeur ): ?>
             <tr>
-                <td><?=$plongeur->getPersonne()[0]->getPerNom()?></td>
-                <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
-                <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
-                <td></td>
+                <td><?=$plongeur['PER_NOM']?></td>
+                <td><?=$plongeur['PER_PRENOM']?></td>
+                <td><?=$plongeur['APT_LIBELLE']?></td>
+                <td><?=$plongeur['PAL_NUM']?></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
