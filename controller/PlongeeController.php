@@ -22,15 +22,18 @@ class PlongeeController extends _ControllerClass
 
         $urlSize = parent::__construct($url);
 
-        if ($urlSize > 1)
-            if($url[1] == 'show' && $url[2] =='editPal')
+        if ($urlSize > 1) {
+            if ($url[1] == 'show' && $url[2] == 'editPal')
                 $this->editPal();
-            else if($url[1] == 'show')
+            else if ($url[1] == 'show')
                 $this->show();
-            else if($url[1] == 'delete')
+            else if ($url[1] == 'show' && $url[2] =='removePlo')
+                $this->removePlo();
+            else if ($url[1] == 'delete')
                 $this->delete();
             else
                 throw new Exception('Page introuvable');
+        }
     }
 
     /**
@@ -331,5 +334,9 @@ class PlongeeController extends _ControllerClass
             'palanquee' => $palanquee,
 
         ]);
+    }
+
+    private function removePlo() {
+        null;
     }
 }
