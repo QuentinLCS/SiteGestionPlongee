@@ -115,13 +115,13 @@ class PlongeurManager extends _Model
     }
     public function getPlongeurPlongee($date,$periode)
     {
-        $req="SELECT * FROM PLO_PLONGEE
+        $req="SELECT PLO_PALANQUEE.PAL_NUM, PLO_APTITUDE.APT_LIBELLE,PLO_PERSONNE.PER_NOM,PLO_PERSONNE.PER_PRENOM FROM PLO_PLONGEE
                 JOIN PLO_PALANQUEE using (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_CONCERNER USING (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_PERSONNE USING (PER_NUM)
                 JOIN `PLO_PLONGEUR` USING (`PER_NUM`)
                 JOIN `PLO_APTITUDE` USING (`APT_CODE`)
                 WHERE PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
-        return DataBase::$db->LireDonnees($req,self::$entity);
+        return DataBase::$db->LireDonnees($req);
     }
 }

@@ -68,7 +68,7 @@ moins d’un an
 - [x] Toutes les données sont obligatoires
 - [ ] [on peut créer un pdf]
 #### PLO_PALANQUEE et PLO_CONCERNER
-- [ ] Pour ajouter une palanquée, il faut sélectionner une plongée
+- [x] Pour ajouter une palanquée, il faut sélectionner une plongée
 - [ ] On peut compléter une palanquée
 - [ ] On peut valider une palanquée lorsqu’elle est complète
 - [ ] Pour une palanquée, on peut avoir 5 plongeurs au maximum

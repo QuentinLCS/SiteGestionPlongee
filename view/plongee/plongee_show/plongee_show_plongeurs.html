@@ -12,16 +12,22 @@
                 <td><h6>Prénom</h6></td>
                 <td><h6>Aptitudes</h6></td>
                 <td><h6>Palanquée</h6></td>
+                <td><h6>Gestion</h6></td>
             </tr>
             </thead>
             <tbody>
             <?php
             foreach($plongeurs as $plongeur ): ?>
             <tr>
-                <td><?=$plongeur->getPersonne()[0]->getPerNom()?></td>
-                <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
-                <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
-                <td></td>
+                <td><?=$plongeur['PER_NOM']?></td>
+                <td><?=$plongeur['PER_PRENOM']?></td>
+                <td><?=$plongeur['APT_LIBELLE']?></td>
+                <td><?=$plongeur['PAL_NUM']?></td>
+                <td>
+                    <a href="removePlo/&pal_num=<?=$plongeur['PAL_NUM']?>&plo_mat_mid_soi=<?= $_GET['plo_mat_mid_soi'] ?>&plo_date=<?= $_GET['plo_date'] ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                        <i class="material-icons white-text">close</i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
             </tbody>
@@ -34,3 +40,4 @@
         <i class="large material-icons">add</i>
     </a>
 </div>
+<?php require_once('plongee_show_palanquee/plongee_show_plongeurs_addform.html') ?>
