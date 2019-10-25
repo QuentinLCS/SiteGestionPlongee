@@ -103,6 +103,7 @@ class PlongeeController extends _ControllerClass
             'plongee' => $plongee,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allPlongeurs' => $this->plongeurManager->getAll(),
             'bateau' => $bateau,
             'plongeurs' => $plongeurs,
             'palanquees' => $palanquee,
@@ -135,6 +136,16 @@ class PlongeeController extends _ControllerClass
                 $base[0]->setEmbNum(intval($update[0]->getEmbNum()));
                 $this->plongeeManager->update($base,false);
             }
+        }
+        if (isset($_POST["submitPLONGEUR"])) {
+            $date = $_GET["plo_date"];
+            $periode = $_GET["plo_mat_mid_soi"];
+            $numPal = $_GET["pal_num"];
+            $palanquee = $this->palanqueeManager->getOne([
+                'PLO_DATE' => $date,
+                'PLO_MAT_MID_SOI' => $periode,
+                'PAL_NUM' => $numPal
+            ]);
         }
     }
 
