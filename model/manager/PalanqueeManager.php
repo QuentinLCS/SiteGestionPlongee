@@ -60,13 +60,13 @@ class PalanqueeManager extends _Model
 
     public function updatePlongeurs($object) {
         ;
-        var_dump(DataBase::$db->majDonnees("INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) 
+        DataBase::$db->majDonnees("INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) 
         VALUES (
         '". $object['PLO_DATE'] ."',
         '". $object['PLO_MAT_MID_SOI'] ."',
         ". $object['PAL_NUM'] .",
         ". $object['PER_NUM'] ."
-        );"));
+        );");
     }
 
     public function getPlongeePalanquee($donne1,$donne2)
