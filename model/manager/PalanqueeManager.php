@@ -39,6 +39,11 @@ class PalanqueeManager extends _Model
                 )");
         }
     }
+    public function getPlongeurEffecif($date,$periode)
+    {
+        $req="SELECT count(*) from PLO_PALANQUEE where PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
+        return DataBase::$db->LireDonnees($req);
+    }
     public function getPlongeePalanquee($donne1,$donne2)
     {
         $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";

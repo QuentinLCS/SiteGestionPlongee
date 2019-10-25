@@ -232,6 +232,7 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
+            $this->palanqueeManager->getPlongeurEffecif($date,$periode);
         }
 
     }
