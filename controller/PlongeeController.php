@@ -157,6 +157,7 @@ class PlongeeController extends _ControllerClass
             ];
 
             $this->palanqueeManager->updatePlongeurs($concerner);
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
     }
 
@@ -254,6 +255,7 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
@@ -349,7 +351,7 @@ class PlongeeController extends _ControllerClass
 
         if ( isset($_POST['removePLONGEUR']) ){
             $this->plongeeManager->deleteConcerner($palanquee);
-            header('location: /plongee');
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs_removeform'))->generate([
