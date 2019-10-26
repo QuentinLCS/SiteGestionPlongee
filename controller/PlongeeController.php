@@ -245,9 +245,18 @@ class PlongeeController extends _ControllerClass
                 $profondeurR = intval($_POST["profondeurR"]);
             }
 
+            //Récupère le plus grand numéro de palanquée +1 pour la nouvelle palanquée
+            $max = DataBase::$db->LireDonnees("SELECT MAX(PAL_NUM) FROM PLO_PALANQUEE");
+            var_dump((int)$max[0]);
+            if($max[0] == null)
+                $pal_num = 1;
+            else
+                $pal_num = ((int)$max[0]+1);
+
             $palanqueeObj[] = new Palanquee([
                 'PLO_DATE' => $date,
                 'PLO_MAT_MID_SOI' => $periode,
+                'PAL_NUM' => $pal_num,
                 'PAL_PROFONDEUR_MAX' => $profondeurP,
                 'PAL_DUREE_MAX' => $tempsP,
                 'PAL_HEURE_IMMERSION' => $heureD,
