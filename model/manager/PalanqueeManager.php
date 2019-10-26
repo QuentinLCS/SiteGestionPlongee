@@ -62,7 +62,6 @@ class PalanqueeManager extends _Model
         $req="SELECT count(*) from PLO_PALANQUEE where PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
         return DataBase::$db->LireDonnees($req);
     }
-    public function getPlongeePalanquee($donne1,$donne2){}
 
     public function updatePlongeurs($object) {
         ;
