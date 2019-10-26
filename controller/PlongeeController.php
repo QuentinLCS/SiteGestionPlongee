@@ -246,12 +246,12 @@ class PlongeeController extends _ControllerClass
             }
 
             //Récupère le plus grand numéro de palanquée +1 pour la nouvelle palanquée
-            $max = DataBase::$db->LireDonnees("SELECT MAX(PAL_NUM) FROM PLO_PALANQUEE");
-            var_dump((int)$max[0]);
-            if($max[0] == null)
+            $max = DataBase::$db->LireDonnees("SELECT MAX(PAL_NUM) AS MAX FROM PLO_PALANQUEE");
+
+            if($max[0]['MAX'] == null)
                 $pal_num = 1;
             else
-                $pal_num = ((int)$max[0]+1);
+                $pal_num = ((int)$max[0]['MAX']+1);
 
             $palanqueeObj[] = new Palanquee([
                 'PLO_DATE' => $date,
@@ -265,6 +265,7 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
         }
 
     }
