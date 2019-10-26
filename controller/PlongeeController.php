@@ -213,6 +213,20 @@ class PlongeeController extends _ControllerClass
             $profondeurP  = "NULL";
             $profondeurR  = "NULL";
 
+            $allPal = $this->palanqueeManager->getPlongeePalanquee($date,$periode);
+            $i = 1;
+            $palNum = null;
+            foreach ( $allPal as $pal ) {
+                if (intval($pal->getPalNum()) != ($i)) {
+                    if (!isset($palNum)) {
+                        $palNum = $i;
+                    }
+                }
+                $i++;
+            }
+            if  (!isset($palNum)) {
+                $palNum = $i;
+            }
 
             // Récupère l'heure de départ depuis le formulaire reçu
             if (isset($_POST["heureD"]) && $_POST["heureD"] !="" ) {
@@ -247,6 +261,7 @@ class PlongeeController extends _ControllerClass
             $palanqueeObj[] = new Palanquee([
                 'PLO_DATE' => $date,
                 'PLO_MAT_MID_SOI' => $periode,
+                'PAL_NUM' => $palNum,
                 'PAL_PROFONDEUR_MAX' => $profondeurP,
                 'PAL_DUREE_MAX' => $tempsP,
                 'PAL_HEURE_IMMERSION' => $heureD,
@@ -255,7 +270,6 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
-            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
