@@ -1,5 +1,7 @@
 <?php $this->_title = 'Sub\'Alligator | Plongeur'; ?>
 
+<?php require_once('plongeur_addform.html') ?>
+
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des plongeurs<small>Affichés : <?= count((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs)) ?></small></h3>
@@ -69,8 +71,6 @@
                 <i class="large material-icons">add</i>
             </a>
         </div>
-
-        <?php require_once('plongeur_addform.html') ?>
     </div>
 </section>
 

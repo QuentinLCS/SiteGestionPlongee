@@ -22,34 +22,40 @@
         </form>
         <div class="row">
             <div class="col s12">
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th class="center">Date</th>
-                            <th class="center">Période</th>
-                            <th class="center">Site</th>
-                            <th class="center">Gestion</th>
-                        </tr>
-                    </thead>
+                <?php if(empty($allPlongees)): ?>
+                <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+                    Aucun plongeur renseigné pour cette plongée.
+                </p>
+                <?php else: ?>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th class="center">Date</th>
+                                <th class="center">Période</th>
+                                <th class="center">Site</th>
+                                <th class="center">Gestion</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                    <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
-                    <tr>
-                        <td class="center"><?= $plongee->getPloDate() ?></td>
-                        <td class="center"><?= $plongee->getPloMatMidSoi() ?></td>
-                        <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
-                        <td class="center">
-                            <a href="plongee/show/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>&page=palanquee" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
-                                <i class="material-icons white-text">remove_red_eye</i>
-                            </a>
-                            <a href="plongee/delete/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Détails de la plongée">
-                                <i class="material-icons white-text">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        <tbody>
+                        <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
+                        <tr>
+                            <td class="center"><?= $plongee->getPloDate() ?></td>
+                            <td class="center"><?= $plongee->getPloMatMidSoi() ?></td>
+                            <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
+                            <td class="center">
+                                <a href="plongee/show/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                                    <i class="material-icons white-text">remove_red_eye</i>
+                                </a>
+                                <a href="plongee/delete/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                                    <i class="material-icons white-text">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
             </div>
         </div>
     </div>

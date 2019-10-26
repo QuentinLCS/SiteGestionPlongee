@@ -13,7 +13,7 @@ class Personne extends _Entity
 
     private $per_active;
 
-    private $per_date_certify_med;
+    private $per_date_certif_med;
 
 
     public function __construct(array $data)
@@ -88,17 +88,17 @@ class Personne extends _Entity
     /**
      * @return mixed
      */
-    public function getPerDateCertifyMed()
+    public function getPerDateCertifMed()
     {
-        return $this->per_date_certify_med;
+        return $this->per_date_certif_med;
     }
 
     /**
-     * @param mixed $per_date_certify_med
+     * @param $per_date_certif_med
      */
-    public function setPerDateCertifyMed($per_date_certify_med)
+    public function setPerDateCertifMed($per_date_certif_med)
     {
-        $this->per_date_certify_med = $per_date_certify_med;
+        $this->per_date_certif_med = $per_date_certif_med;
     }
 
     private function enleverCaracteresSpeciaux($text)

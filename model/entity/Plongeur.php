@@ -12,15 +12,24 @@ class Plongeur extends _Entity
 
     private $aptitude;
 
-    public function __construct(array $data)
+    private $estDirecteur;
+
+    private $estSecurite;
+
+    public function __construct(array $data, $add = false)
     {
         parent::__construct($data);
 
         $personneManager = new PersonneManager();
         $aptitudeManager = new AptitudeManager();
+        $plongeurManager = new PlongeurManager();
 
         $this->personne = $personneManager->getOne(['PER_NUM' => $this->per_num]);
         $this->aptitude = $aptitudeManager->getOne(['APT_CODE' => $this->apt_code]);
+        if ($add) {
+            $this->estDirecteur = $plongeurManager->isDirector($this->per_num);
+            $this->estSecurite = $plongeurManager->isSecurity($this->per_num);
+        }
     }
 
     /**
@@ -55,6 +64,7 @@ class Plongeur extends _Entity
         $this->apt_code = $apt_code;
     }
 
+
     /**
      * @param mixed $aptitude
      */
@@ -78,4 +88,38 @@ class Plongeur extends _Entity
     public function getPersonne() {
         return $this->personne;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEstDirecteur()
+    {
+        return $this->estDirecteur;
+    }
+
+    /**
+     * @param mixed $estDirecteur
+     */
+    public function setEstDirecteur($estDirecteur)
+    {
+        $this->estDirecteur = $estDirecteur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstSecurite()
+    {
+        return $this->estSecurite;
+    }
+
+    /**
+     * @param mixed $estSecurite
+     */
+    public function setEstSecurite($estSecurite)
+    {
+        $this->estSecurite = $estSecurite;
+    }
+
+
 }

@@ -20,8 +20,8 @@
             </thead>
             <tbody><h6></h6>
             <?php foreach($palanquees as $palanquee):
-                var_dump($palanquee->getPloMatinApresmidi());
-            var_dump($palanquee);?>
+
+            ?>
                 <tr>
                     <td><?=$palanquee->getPalNum()?></td>
                     <td><?=$palanquee->getPalProfondeurMax()?></td>
@@ -31,7 +31,7 @@
                     <td><?=$palanquee->getPalDureeMax()?></td>
                     <td><?=$palanquee->getPalDureeFond()?></td>
                     <td>
-                        <a href="palanquee/editPal/&pal_num=<?=$palanquee->getPalNum()?>&plo_mat_mid_soi=<?= $palanquee->getPloMatinApresmidi()?>&plo_date=<?=$palanquee->getPloDate()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
+                        <a href="editPal/&pal_num=<?=$palanquee->getPalNum()?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi()?>&plo_date=<?=$palanquee->getPloDate()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
                             <i class="material-icons white-text">remove_red_eye</i>
                         </a>
                         <a href="" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
@@ -46,9 +46,9 @@
 </div>
 
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+    <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouterPAL">
         <i class="large material-icons">add</i>
     </a>
 </div>
-<?php require_once('view/palanquee/palanquee_addform.html') ?>
+<?php require_once('plongee_show_palanquee/plongee_show_palanquee_addform.html') ?>
 

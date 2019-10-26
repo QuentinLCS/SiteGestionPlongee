@@ -56,6 +56,32 @@ class PlongeurManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
+    public function addDirector($per_num) {
+        DataBase::$db->majDonnees("INSERT INTO PLO_DIRECTEUR VALUES ('$per_num')");
+    }
+
+    public function addSecurite($per_num) {
+        DataBase::$db->majDonnees("INSERT INTO PLO_SECURITE_DE_SURFACE VALUES ('$per_num')");
+    }
+
+    public function removeDirector($per_num) {
+        DataBase::$db->majDonnees("DELETE FROM PLO_DIRECTEUR WHERE PER_NUM = '$per_num'");
+    }
+
+    public function removeSecurite($per_num) {
+        DataBase::$db->majDonnees("DELETE FROM PLO_DIRECTEUR WHERE PER_NUM = '$per_num'");
+    }
+
+    public function isDirector($per_num) {
+        DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM = '.$per_num);
+    }
+
+    public function isSecurity($per_num) {
+        DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM = '.$per_num);
+    }
+
+
+
     public function update($object, $add = false)
     {
         $personneManager = new PersonneManager();
@@ -70,6 +96,7 @@ class PlongeurManager extends _Model
             DataBase::$db->majDonnees("INSERT INTO " . self::$table . " VALUES ('" . $personne[0]->getPerNum() . "','" . $object[0]->getAptCode() . "')");
         } else
             DataBase::$db->majDonnees("UPDATE " . self::$table . " SET APT_CODE = '" . $object[0]->getAptCode() . "' WHERE PER_NUM = '" . $object[0]->getPerNum() . "'");
+
 
     }
 
@@ -88,7 +115,7 @@ class PlongeurManager extends _Model
     }
     public function getPlongeurPlongee($date,$periode)
     {
-        $req="SELECT PLO_PALANQUEE.PAL_NUM, PLO_APTITUDE.APT_LIBELLE,PLO_PERSONNE.PER_NOM,PLO_PERSONNE.PER_PRENOM FROM PLO_PLONGEE
+        $req="SELECT PLO_PALANQUEE.PAL_NUM, PLO_APTITUDE.APT_LIBELLE,PLO_PERSONNE.PER_NOM,PLO_PERSONNE.PER_PRENOM, PLO_PERSONNE.PER_NUM FROM PLO_PLONGEE
                 JOIN PLO_PALANQUEE using (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_CONCERNER USING (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_PERSONNE USING (PER_NUM)

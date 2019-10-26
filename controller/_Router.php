@@ -32,7 +32,6 @@ class _Router
             {
                 $url = explode('/', filter_var($_GET['url'],
                 FILTER_SANITIZE_URL));
-
                 $controller = ucfirst(strtolower($url[0]));
                 $controllerClass = $controller.'Controller';
                 $controllerFile = 'controller/'.$controllerClass.'.php';
@@ -44,9 +43,11 @@ class _Router
                 }
                 else
                     throw new Exception('Page introuvable');
+
             }
             else
                 {
+
                 require_once('controller/AccueilController.php');
                 $this->_controller = new AccueilController($url);
             }

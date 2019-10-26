@@ -38,15 +38,46 @@ class PalanqueeManager extends _Model
                 " . $object[0]->getPalDureeFond(). "
                 )");
         }
+        else {
+            var_dump($object);
+            $sql="UPDATE " . self::$table . " SET 
+             PAL_PROFONDEUR_MAX ='" . $object[0]->getPalProfondeurMax() . "',
+             PAL_DUREE_MAX ='" . $object[0]->getPalDureeMax() . "',
+             PAL_HEURE_IMMERSION ='" . $object[0]->getPalHeureImmersion() . "' ";
+
+            if(!($object[0]->getPalHeureSortieEau()==null))
+              $sql.=", PAL_HEURE_SORTIE_EAU ='" . $object[0]->getPalHeureSortieEau() . "'" ;
+            if(!($object[0]->getPalProfondeurReelle()==null))
+                $sql.=", PAL_PROFONDEUR_REELLE ='" . $object[0]->getPalProfondeurReelle() . "'";
+            if(! ($object[0]->getPalDureeFond()  == null))
+                $sql.=", PAL_DUREE_FOND ='" . $object[0]->getPalDureeFond() . "'";
+
+            $sql.=" WHERE PAL_NUM = '". $object[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $object[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $object[0]->getPloDate()."'";
+            var_dump($sql);
+            DataBase::$db->majDonnees($sql);
+        }
     }
     public function getPlongeurEffecif($date,$periode)
     {
         $req="SELECT count(*) from PLO_PALANQUEE where PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
         return DataBase::$db->LireDonnees($req);
     }
-    public function getPlongeePalanquee($donne1,$donne2)
+    public function getPlongeePalanquee($donne1,$donne2){}
+
+    public function updatePlongeurs($object) {
+        ;
+        DataBase::$db->majDonnees("INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) 
+        VALUES (
+        '". $object['PLO_DATE'] ."',
+        '". $object['PLO_MAT_MID_SOI'] ."',
+        ". $object['PAL_NUM'] .",
+        ". $object['PER_NUM'] ."
+        );");
+    }
+
+    public function getPlongeePalanquee($ploDate,$matMidSoi)
     {
-        $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
+        $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$ploDate' and PLO_MAT_MID_SOI='$matMidSoi'";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
 }

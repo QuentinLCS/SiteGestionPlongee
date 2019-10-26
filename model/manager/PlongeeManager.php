@@ -80,6 +80,11 @@ class PlongeeManager extends _Model
         DataBase::$db->majDonnees($req3);
     }
 
+    public function deleteConcerner($object) {
+        $req = "DELETE FROM PLO_CONCERNER WHERE PLO_DATE='".$object['plo_date']."' AND PLO_MAT_MID_SOI='".$object['plo_mat_mid_soi']."' AND PAL_NUM = ".$object['pal_num']." AND PER_NUM = ".$object['per_num'];
+        DataBase::$db->majDonnees($req);
+    }
+
     public function addPlongeurs($plongee, $plongeur, $pal_num){
         $req = 'INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) VALUES (
                     "'.$plongee[0]->getPloDate().'",

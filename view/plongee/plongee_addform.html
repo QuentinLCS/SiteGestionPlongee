@@ -1,15 +1,15 @@
 <div id="ajouter" class="modal rounded">
     <div class="modal-content center">
         <h4>Ajouter une plongée</h4>
-        <form action="<?php $_SERVER['PHP_SELF'] ?>"  method="post">
+        <form action="<?php $_SERVER['PHP_SELF'] ?>"  method="post" class="no-padding">
             <div class="row">
-                <div class="col m5 s12">
+                <div class="input-field col m5 s12">
                     Date
-                    <input type="date" class="" name="date" id="dateForm"  value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
+                    <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
                 </div>
-                <div class="col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m1">
                     Période de la Journée
-                    <select name="periode" id="periode">
+                    <select name="periode" id="periode" class="browser-default">
                         <option value="M" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'M') ? 'selected' : '') ?>>Matin</option>
                         <option value="A"<?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'A') ? 'selected' : '') ?>>Après Midi</option>
                         <option value="S" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'S') ? 'selected' : '') ?>>Soir</option>
@@ -17,9 +17,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col m5 s12">
+                <div class="input-field col m5 s12">
                     Site
-                    <select name="site" id="site">
+                    <select name="site" id="site" class="browser-default">
                         <?php
                             foreach ($allSite as $site) {
                                 echo '<option value="'. $site->getSitNum() .'" '.(!isset($_POST['site']) ? '' : ($_POST['site'] == $site->getSitNum()) ? 'selected' : '').' >'. $site->getSitNom() .'</option>';
@@ -27,9 +27,9 @@
                         ?>
                     </select><br>
                 </div>
-                <div class="col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m1">
                     Embarcation
-                    <select name="embarcation" id="embarcation">
+                    <select name="embarcation" id="embarcation" class="browser-default">
                         <?php
                             foreach ($allEmbarcation as $emb) {
                                 echo '<option value="'. $emb->getEmbNum() .'" '.(!isset($_POST['site']) ? '' : ($_POST['site'] == $emb->getEmbNum()) ? 'selected' : '').'>'. $emb->getEmbNom() .'</option>';
@@ -38,21 +38,11 @@
                     </select><br>
                 </div>
             </div>
-            <div class="row">
-                <div class="col m5 s12">
-                    Effectif de Plongeur
-                    <input type="text" name="effectifP" id="effectifP" value="<?php (!isset($_POST['effectifP']) ? '' : $_POST['effectifP']) ?>"><br>
-                </div>
-                <div class="col m5 s12 offset-m1">
-                    Effectif sur Bateau
-                    <input type="text" name="effectifB" id="effectifB" value="<?php (!isset($_POST['effectifB']) ? '' : $_POST['effectifB']) ?>"><br>
-                </div>
-            </div>
             <br>
             <div class="row">
-                <div class="col m5 s12">
+                <div class="input-field col m5 s12">
                     Directeur de Plongée
-                    <select name="directeur" id="directeur">
+                    <select name="directeur" id="directeur" class="browser-default">
                         <?php
                             foreach ($allDirecteur as $directeur) {
                                 echo '<option value="'. $directeur->getPerNum() .'" >'. $directeur->getPerNom() .' '. $directeur->getPerPrenom() .'</option>';
@@ -60,9 +50,9 @@
                         ?>
                     </select> <br>
                 </div>
-                <div class="col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m1">
                     Sécurité de Surface
-                    <select name="securite" id="securite">
+                    <select name="securite" id="securite" class="browser-default">
                         <?php
                             foreach ($allSecurite as $securite) {
                                 echo '<option value="'. $securite->getPerNum() .'" >'. $securite->getPerNom() .' '. $securite->getPerPrenom() .'</option>';

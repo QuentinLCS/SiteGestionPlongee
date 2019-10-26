@@ -1,7 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
-require_once('/model/utils/traitement.php');
+require_once('model/utils/traitement.php');
 
 class PlongeurController extends _ControllerClass
 {
@@ -34,7 +34,7 @@ class PlongeurController extends _ControllerClass
      */
     public function index()
     {
-        if (isset($_POST['submit']))
+        if (isset($_POST['submitAJOUTER']))
             $this->add();
 
         $searchedPlongeurs = null;
@@ -87,7 +87,7 @@ class PlongeurController extends _ControllerClass
     {
 
 
-        if ( isset($_POST['edit']) )
+        if ( isset($_POST['submitEDITER']) )
             $this->verification($plongeur);
 
     }
@@ -157,8 +157,7 @@ class PlongeurController extends _ControllerClass
                     $nom = $_POST['nom'];
                     $prenom = $_POST['prenom'];
                     $aptitude = $_POST['aptitude'];
-
-
+                    $dateCertificat = $_POST['certificat'];
 
                     $personnes = $this->personneManager->getAll();
 
@@ -184,8 +183,24 @@ class PlongeurController extends _ControllerClass
                                     $plongeur[0]->setAptitude($aptitudeObject);
                             $plongeur[0]->setAptCode($aptitude);
 
+                            $plongeur[0]->getPersonne()[0]->setPerDateCertifMed($dateCertificat);
+
                             $this->plongeurManager->update($plongeur, $add);
-                            header('location: '.URL.'/plongeur');
+                            if ($add) $plongeur = $this->personneManager->getOne([
+                                'PER_NOM' => $nom,
+                                'PER_PRENOM' => $prenom
+                            ]);
+                            if(isset($_POST['type'])) {
+                                if (($_POST['type'] == 'directeur'))
+                                    $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
+                                else
+                                    $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
+                                if (($_POST['type'] == 'securite'))
+                                    $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
+                                else
+                                    $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
+                            }
+                            if ($add) header('location: /plongeur');
                         }
                         else
                                 echo "le nom ou le prénom n'est pas correct";
