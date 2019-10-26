@@ -73,7 +73,10 @@ class Palanquee extends _Entity
     public function setPalNum($pal_num)
     {
         $max = DataBase::$db->LireDonnees("SELECT MAX(PAL_NUM) FROM PLO_PALANQUEE");
-        $this->pal_num = ($max+1);
+        if($max == null)
+            $this->pal_num = 1;
+        else
+            $this->pal_num = ($max+1);
     }
 
     /**
