@@ -203,14 +203,15 @@ class PlongeeController extends _ControllerClass
     }
 
     public function addPalanquee() {
-        if (isset($_POST["submitPAL"])) {
+        if (isset($_POST["submitPAL"]) && isset($_POST["heureD"]) && isset($_POST["profondeurP"]) && isset($_POST["tempsP"])) {
+            if ($_POST["heureD"] !="" && $_POST["profondeurP"] != "" && $_POST["tempsP"] != "")
             $date = $_GET["plo_date"];
             $periode = $_GET["plo_mat_mid_soi"];
-            $heureD = "NULL";
+            $heureD = $_POST["heureD"];
             $heureA = "NULL";
-            $tempsP = "NULL";
+            $tempsP = intval($_POST["tempsP"]);
             $tempsR = "NULL";
-            $profondeurP  = "NULL";
+            $profondeurP = doubleval($_POST["profondeurP"]);
             $profondeurR  = "NULL";
 
             $allPal = $this->palanqueeManager->getPlongeePalanquee($date,$periode);
@@ -228,29 +229,14 @@ class PlongeeController extends _ControllerClass
                 $palNum = $i;
             }
 
-            // Récupère l'heure de départ depuis le formulaire reçu
-            if (isset($_POST["heureD"]) && $_POST["heureD"] !="" ) {
-                $heureD = $_POST["heureD"];
-            }
-
             // Récupère l'heure d'arrivée depuis le formulaire reçu
             if (isset($_POST["heureA"]) && $_POST["heureA"] !="") {
                 $heureA = $_POST["heureA"];
             }
 
-            // Récupère le temps prévu depuis le formulaire reçu
-            if (isset($_POST["tempsP"]) && $_POST["tempsP"] != "") {
-                $tempsP = intval($_POST["tempsP"]);
-            }
-
             // Récupère le temps réel depuis le formulaire reçu
             if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "") {
                 $tempsR = intval($_POST["tempsR"]);
-            }
-
-            // Récupère la profondeur prévu depuis le formulaire reçu
-            if (isset($_POST["profondeurP"]) && $_POST["profondeurP"] != "") {
-                $profondeurP = doubleval($_POST["profondeurP"]);
             }
 
             // Récupère la profondeur réel depuis le formulaire reçu
