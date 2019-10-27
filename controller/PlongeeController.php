@@ -192,8 +192,10 @@ class PlongeeController extends _ControllerClass
                     'PER_NUM_DIR' => $directeurNum,
                     'PER_NUM_SECU' => $securiteNum,
                     'PLO_EFFECTIF_PLONGEURS' => $effectifP,
-                    'PLO_EFFECTIF_BATEAU' => $effectifB
+                    'PLO_EFFECTIF_BATEAU' => $effectifB,
+                    'PLO_ETAT'=> "Creee"
                 ]);
+                var_dump($plongee);
                 $this->plongeeManager->update($plongee, true);
             } else {
                 echo 'Tous les champs ne sont pas remplis.';
@@ -256,7 +258,15 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
-            $this->palanqueeManager->getPlongeurEffecif($date,$periode);
+            $nombrePlongeurs=$this->palanqueeManager->getPlongeurEffecif($date,$periode);
+            $plongee=$this->plongeeManager->getOne([
+                'PLO_DATE' => $_GET['plo_date'],
+                'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
+            ]);
+            $plongee[0]->setPloNbPalanquees(intval($nombrePlongeurs[0]['count(*)']));
+            $plongee[0]->setPloEtat("Paramétrée");
+            //TODO faire la condition si toutes les palanquées sont complétés
+            $this->plongeeManager->update($plongee,false);
             header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
