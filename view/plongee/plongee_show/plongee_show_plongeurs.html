@@ -24,7 +24,7 @@
                 <td><?=$plongeur['APT_LIBELLE']?></td>
                 <td><?=$plongeur['PAL_NUM']?></td>
                 <td>
-                    <a href="removePlo/&pal_num=<?=$plongeur['PAL_NUM']?>&plo_mat_mid_soi=<?= $_GET['plo_mat_mid_soi'] ?>&plo_date=<?= $_GET['plo_date'] ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                    <a href="removePlo/&pal_num=<?=$plongeur['PAL_NUM']?>&plo_mat_mid_soi=<?= $_GET['plo_mat_mid_soi'] ?>&plo_date=<?= $_GET['plo_date'] ?>&per_num=<?=$plongeur['PER_NUM']?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
                         <i class="material-icons white-text">close</i>
                     </a>
                 </td>
@@ -40,4 +40,4 @@
         <i class="large material-icons">add</i>
     </a>
 </div>
-<?php require_once('plongee_show_palanquee/plongee_show_plongeurs_addform.html') ?>
+<?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html') ?>

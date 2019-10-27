@@ -48,20 +48,21 @@ class PlongeeManager extends _Model
                 " . $object[0]->getPerNumDir().",
                 " . $object[0]->getPerNumSecu().",
                 " . $object[0]->getPloEffectifPlongeurs().",
-                " . $object[0]->getPloEffectifBateau(). ",0,'')");
+                " . $object[0]->getPloEffectifBateau(). ",0,'".$object[0]->getPloEtat()."')");
             //TODO faire la selection pour les deux dernières valeurs
         }
         else
         {
-            DataBase::$db->majDonnees("UPDATE ".self::$table.
+            var_dump(DataBase::$db->majDonnees("UPDATE ".self::$table.
                 " SET SIT_NUM=".$object[0]->getSitNum().
                 " ,EMB_NUM=".$object[0]->getEmbNum().
                 " ,PER_NUM_DIR=".$object[0]->getPerNumDir().
                 " ,PER_NUM_SECU=".$object[0]->getPerNumSecu().
                 " ,PLO_EFFECTIF_PLONGEURS=".$object[0]->getPloEffectifPlongeurs().
                 " ,PLO_EFFECTIF_BATEAU=".$object[0]->getPloEffectifBateau().
+                " ,PLO_NB_PALANQUEES=".$object[0]->getPloNbPalanquees().
                 " WHERE PLO_DATE='".$object[0]->getPloDate()."'
-                AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'");
+                AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'"));
         }
     }
 
@@ -78,6 +79,11 @@ class PlongeeManager extends _Model
         }
         $req3 = 'DELETE FROM PLO_PLONGEE WHERE PLO_DATE = "'.$object[0]->getPloDate().'" AND PLO_MAT_MID_SOI ="'.$object[0]->getPloMatMidSoi().'"';
         DataBase::$db->majDonnees($req3);
+    }
+
+    public function deleteConcerner($object) {
+        $req = "DELETE FROM PLO_CONCERNER WHERE PLO_DATE='".$object['plo_date']."' AND PLO_MAT_MID_SOI='".$object['plo_mat_mid_soi']."' AND PAL_NUM = ".$object['pal_num']." AND PER_NUM = ".$object['per_num'];
+        DataBase::$db->majDonnees($req);
     }
 
     public function addPlongeurs($plongee, $plongeur, $pal_num){
