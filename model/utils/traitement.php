@@ -39,18 +39,18 @@ function specialCharConverter($text) {
 
 function firstLetterAccentConverter($text) {
     $regex = [
-        '#^Ç#' => 'C',
-        '#^ç#' => 'c',
+        '#^ì|^í|^î|^ï#' => 'i',
+        '#^Ì|^Í|^Î|^Ï#' => 'I',
         '#^è|^é|^ê|^ë#' => 'e',
         '#^È|^É|^Ê|^Ë#' => 'E',
         '#^à|^á|^â|^ã|^ä|^å#' => 'a',
         '#^À|^Á|^Â|^Ã|^Ä|^Å#' => 'A',
-        '#^ì|^í|^î|^ï#' => 'i',
-        '#^Ì|^Í|^Î|^Ï#' => 'I',
         '#^ð|^ò|^ó|^ô|^õ|^ö|^ø#s' => 'o',
         '#^Ò|^Ó|^Ô|^Õ|^Ö#' => 'O',
         '#^ũ|^ù|^ú|^û|^ü#' => 'u',
-        '#^Ũ|^Ù|^Ú|^Û|^Ü#' => 'U'
+        '#^Ũ|^Ù|^Ú|^Û|^Ü#' => 'U',
+        '#^ç#' => 'c',
+        '#^Ç#' => 'C'
     ];
     return preg_replace(array_keys($regex), array_values($regex), $text);
 }
@@ -62,6 +62,17 @@ function AutoCapsOnFirstname($text) {
     $prenom = capsOnWordStart($prenom, "'");
     return $prenom;
 }
+
+function hiphenLimiter($text) {
+
+    $regex = [
+        '#^-{1,}#' => '',
+        '#-{1,}$#' => ''
+    ];
+
+    return preg_replace(array_keys($regex), array_values($regex), $text);
+}
+
 
 function capsOnWordStart($text, $limitor) {
     $tabPrenom = mb_split($limitor, $text);
@@ -87,25 +98,16 @@ function deleteSpaces($text) {
     return preg_replace(array_keys($regex), array_values($regex), $text);
 }
 
-function hiphenLimiter($text) {
 
-    $regex = [
-        '#^-{1,}#' => '',
-        '#-{1,}$#' => ''
-    ];
 
-    return preg_replace(array_keys($regex), array_values($regex), $text);
+
+function majusculeDebut($ch) {
+    $premiere = mb_substr($ch, 0, 1, 'UTF-8');
+    $premiere = firstLetterAccentConverter($premiere);
+    $premiere = mb_strtoupper($premiere, 'UTF-8');
+    $longueur = mb_strlen($ch, 'UTF-8');
+    return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
 }
-
-
-
-    function majusculeDebut($ch) {
-        $premiere = mb_substr($ch, 0, 1, 'UTF-8');
-        $premiere = firstLetterAccentConverter($premiere);
-        $premiere = mb_strtoupper($premiere, 'UTF-8');
-        $longueur = mb_strlen($ch, 'UTF-8');
-        return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
-    }
 
 
 // Vérificateurs de chaines

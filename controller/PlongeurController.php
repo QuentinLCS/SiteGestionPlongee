@@ -99,11 +99,15 @@ class PlongeurController extends _ControllerClass
             if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude'])) {
                 $nom = $_POST['nom'];
                 $prenom = $_POST['prenom'];
-                if($this->verifEntree($nom,$prenom)) {
+                $certif = $_POST['certificat'];
+                $prenom = traitementPrenom($prenom);
+                $nom = traitementNom($nom);
+                if(!($nom==false) && !($prenom==false)) {
                     $plongeur[] = new Plongeur([]);
                     $personne[] = new Personne([
                         'PER_NOM' => traitementNom($nom),
-                        'PER_PRENOM' => traitementPrenom($prenom)
+                        'PER_PRENOM' => traitementPrenom($prenom),
+                        'PER_DATE_CERTIF_MED' => $certif
                     ]);
 
                     $plongeur[0]->setPersonne($personne);
@@ -142,12 +146,7 @@ class PlongeurController extends _ControllerClass
 
     }
 
-    public function verifEntree($nom,$prenom){
-        if(prenomCorrect($prenom) && nomCorrect($nom))
-            return true;
-        else
-            return false;
-    }
+
 
     private function verification($plongeur, $add = false)
     {
@@ -164,15 +163,22 @@ class PlongeurController extends _ControllerClass
                     $nbPersonnes = count($personnes);
 
                     $i = 0;
-
-                    // Si le prénom ou le nom a été modifié
-                    if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom() || $add)
-                        while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
-                    else
-                        $i = $nbPersonnes;
+                    if(!$add) {
+                        // Si le prénom ou le nom a été modifié
+                        if ($nom != $plongeur[0]->getPersonne()[0]->getPerNom() || $prenom != $plongeur[0]->getPersonne()[0]->getPerPrenom() || $add)
+                            while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
+                        else
+                            $i = $nbPersonnes;
+                    }
+                    else{
+                        if($nbPersonnes!=0)
+                            while (($nom != $personnes[$i]->getPerNom() || $prenom != $personnes[$i]->getPerPrenom()) && (++$i < $nbPersonnes)) ;
+                    }
 
                     if ($i == $nbPersonnes) {
-                        if($this->verifEntree($nom,$prenom)) {
+                        $nom = traitementNom($nom);
+                        $prenom = traitementPrenom($prenom);
+                        if(!($nom==false) && !($prenom==false)) {
                             $plongeur[0]->getPersonne()[0]->setPerNom($nom);
                             $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
 
