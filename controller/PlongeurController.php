@@ -111,7 +111,6 @@ class PlongeurController extends _ControllerClass
                     ]);
 
                     $plongeur[0]->setPersonne($personne);
-
                     $this->verification($plongeur, true);
                 }
                 else

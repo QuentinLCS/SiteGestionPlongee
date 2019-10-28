@@ -13,6 +13,7 @@ class PlongeeController extends _ControllerClass
 
     public function __construct($url)
     {
+
         $this->plongeeManager = new PlongeeManager();
         $this->siteManager = new SiteManager();
         $this->embarcationManager =  new EmbarcationManager();
@@ -48,6 +49,7 @@ class PlongeeController extends _ControllerClass
             $this->addPlongee();
 
         $searchedPlongees = null;
+
 
 
         if ( isset($_POST['search']) ) {

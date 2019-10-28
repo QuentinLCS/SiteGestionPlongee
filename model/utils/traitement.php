@@ -1,7 +1,7 @@
 <?php
 // Correcteurs de chaines
 
-function specialCharConverter($text) {
+function specialCharConverterNom($text) {
     $regex = [
         '#ý#s' => 'y',
         '#Ý#s' => 'Y',
@@ -171,8 +171,8 @@ function prenomCorrect($ch) {
 }
 
 function traitementNom($ch) {
-    $nom = specialCharConverter($ch);
-    $nom = hiphenLimiter($nom);
+    //$nom = specialCharConverter($ch);
+    $nom = hiphenLimiter($ch);
    // $nom = convertirAccent($nom);
     $nom = strtoupper($nom);
     $nom = deleteSpaces($nom);

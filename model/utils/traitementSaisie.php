@@ -104,8 +104,8 @@ function tiretAvecApostrophe($chaine) {
 
 
 function traitementPrenom($txt) {
-    $prenom = specialCharConverter($txt); //transforme les caractères spéciaux
-    $prenom = deleteSpaces($prenom);
+   // $prenom = specialCharConverter($txt); //transforme les caractères spéciaux
+    $prenom = deleteSpaces($txt);
     $prenom = hiphenLimiter($prenom);
     $prenom = AutoCapsOnFirstname($prenom);
     if (!formatPrenomOK($prenom) && !tiretPrenomOK($prenom) && !espaceOK($prenom) && !apostropheOK($prenom)) {
