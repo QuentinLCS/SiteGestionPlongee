@@ -53,7 +53,7 @@ class PlongeeManager extends _Model
         }
         else
         {
-            var_dump(DataBase::$db->majDonnees("UPDATE ".self::$table.
+            DataBase::$db->majDonnees("UPDATE ".self::$table.
                 " SET SIT_NUM=".$object[0]->getSitNum().
                 " ,EMB_NUM=".$object[0]->getEmbNum().
                 " ,PER_NUM_DIR=".$object[0]->getPerNumDir().
@@ -62,7 +62,7 @@ class PlongeeManager extends _Model
                 " ,PLO_EFFECTIF_BATEAU=".$object[0]->getPloEffectifBateau().
                 " ,PLO_NB_PALANQUEES=".$object[0]->getPloNbPalanquees().
                 " WHERE PLO_DATE='".$object[0]->getPloDate()."'
-                AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'"));
+                AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'");
         }
     }
 

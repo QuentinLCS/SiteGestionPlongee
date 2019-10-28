@@ -269,7 +269,6 @@ class PlongeeController extends _ControllerClass
             $plongee[0]->setPloEtat("Paramétrée");
             //TODO faire la condition si toutes les palanquées sont complétés
             $this->plongeeManager->update($plongee,false);
-            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
@@ -356,24 +355,19 @@ class PlongeeController extends _ControllerClass
     {
         if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']))
             header('location: /plongee');
-
         $palanquee = $this->palanqueeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
             'PAL_NUM' => $_GET['pal_num']]);
-
         if (empty($palanquee))
             header('location: /plongee');
-
-        if (isset($_POST['submit'])) {
+        if ( isset($_POST['submit']) ){
             $this->palanqueeManager->delete($palanquee);
-            header('location: /plongee/show/&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi'] . '&page=palanquee');
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
         }
-
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_palanquee_removeform'))->generate([
             'palanquee' => $palanquee,
         ]);
-
     }
 
     private function removePlo() {
@@ -395,10 +389,6 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_show/plongee_show_plongeurs/plongee_show_plongeurs_removeform'))->generate([
             'palanquee' => $palanquee,
         ]);
-    }
-
-    private function deletePal(){
-
     }
 }
 
