@@ -215,6 +215,7 @@ class PlongeurController extends _ControllerClass
                             ]);
                             if(!$add) {
                                 $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM=' . $_GET['per_num']);
+
                                 if (count($dir) > 0)
                                     $dir = 1;
                                 else {
