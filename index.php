@@ -7,8 +7,8 @@ define('URL', str_replace('index.php', '', (isset($_SERVER['HTTPS']) ? 'https' :
 /*
 $db_username = 'pphp2a16';
 $db_password = 'Ohwie1shaeshohga';
-$db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';
-*/
+$db_connect = 'mysql:host=localhost;dbname=pphp2a16_bd';*/
+
 
 // BASE DE DONNEES LOCALE
 

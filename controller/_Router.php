@@ -15,7 +15,6 @@ class _Router
     {
         try
         {
-
             spl_autoload_register(function($class){
                 if (strpos($class, 'Manager') !== false)
                     $path = 'model/manager/';
@@ -24,8 +23,8 @@ class _Router
 
                 require_once($path.$class.'.php');
             });
-
             $url = '';
+
 
             // INCLUSION DU CONTROLLER EN FONCTION DE L'URL
             if (isset($_GET['url']))
