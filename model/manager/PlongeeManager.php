@@ -48,7 +48,7 @@ class PlongeeManager extends _Model
                 " . $object[0]->getPerNumDir().",
                 " . $object[0]->getPerNumSecu().",
                 " . $object[0]->getPloEffectifPlongeurs().",
-                " . $object[0]->getPloEffectifBateau(). ",0,'')");
+                " . $object[0]->getPloEffectifBateau(). ",0,'".$object[0]->getPloEtat()."')");
             //TODO faire la selection pour les deux dernières valeurs
         }
         else
@@ -60,6 +60,7 @@ class PlongeeManager extends _Model
                 " ,PER_NUM_SECU=".$object[0]->getPerNumSecu().
                 " ,PLO_EFFECTIF_PLONGEURS=".$object[0]->getPloEffectifPlongeurs().
                 " ,PLO_EFFECTIF_BATEAU=".$object[0]->getPloEffectifBateau().
+                " ,PLO_NB_PALANQUEES=".$object[0]->getPloNbPalanquees().
                 " WHERE PLO_DATE='".$object[0]->getPloDate()."'
                 AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'");
         }

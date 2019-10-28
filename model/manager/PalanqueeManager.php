@@ -57,6 +57,11 @@ class PalanqueeManager extends _Model
             DataBase::$db->majDonnees($sql);
         }
     }
+    public function getPlongeurEffecif($date,$periode)
+    {
+        $req="SELECT count(*) from PLO_PALANQUEE where PLO_DATE='$date' and PLO_MAT_MID_SOI='$periode'";
+        return DataBase::$db->LireDonnees($req);
+    }
 
     public function updatePlongeurs($object) {
         ;
@@ -69,9 +74,16 @@ class PalanqueeManager extends _Model
         );");
     }
 
-    public function getPlongeePalanquee($ploDate,$matMidSoi)
+    public function delete($palanquee){
+        DataBase::$db->majDonnees("DELETE FROM PLO_CONCERNER WHERE PAL_NUM = '". $palanquee[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $palanquee[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $palanquee[0]->getPloDate()."'");
+
+        DataBase::$db->majDonnees("DELETE FROM PLO_PALANQUEE WHERE PAL_NUM = '". $palanquee[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $palanquee[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $palanquee[0]->getPloDate()."'");
+    }
+
+
+    public function getPlongeePalanquee($donne1,$donne2)
     {
-        $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$ploDate' and PLO_MAT_MID_SOI='$matMidSoi'";
+        $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
         return DataBase::$db->LireDonnees($req,self::$entity);
     }
 }
