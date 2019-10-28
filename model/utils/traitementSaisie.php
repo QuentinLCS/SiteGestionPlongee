@@ -1,5 +1,5 @@
 <?php
-
+/*
 //converti caractères spéciaux
 function specialCharConverter($text) {
     $regex = [
@@ -104,8 +104,8 @@ function tiretAvecApostrophe($chaine) {
 
 
 function traitementPrenom($txt) {
-   // $prenom = specialCharConverter($txt); //transforme les caractères spéciaux
-    $prenom = deleteSpaces($txt);
+    $prenom = specialCharConverter($txt); //transforme les caractères spéciaux
+    $prenom = deleteSpaces($prenom);
     $prenom = hiphenLimiter($prenom);
     $prenom = AutoCapsOnFirstname($prenom);
     if (!formatPrenomOK($prenom) && !tiretPrenomOK($prenom) && !espaceOK($prenom) && !apostropheOK($prenom)) {
@@ -163,3 +163,4 @@ function tiretPrenomOK($chaine) {
     return !(preg_match($modele, $chaine) || count($tab) > 2 || tiretAvecApostrophe($chaine));
 }
 
+*/
