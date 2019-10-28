@@ -1,4 +1,4 @@
-let inputPnom = document.getElementById('prenom');
+/*let inputPnom = document.getElementById('prenom');
 let inputNom = document.getElementById('nom');
 
 let accent = [
@@ -24,11 +24,6 @@ inputNom.addEventListener('keyup', () => {
 }, false);
 
 inputPnom.addEventListener('keyup', () => {
-    for(let i = 0; i < accent.length; i++){
-        if (inputPnom.value.match(accent[i]))
-            document.getElementById('form-error').innerHTML = 'Caractères invalides détectés dans le <strong>PRENOM</strong>. <br> Ces derniers ont été remplacés automatiquement.';
-        inputPnom.value = inputPnom.value.replace(accent[i], noaccent[i]);
-    }
 
     inputPnom.value = inputPnom.value.substr(0,1).toUpperCase() + inputPnom.value.substr(1);
-}, false);
+}, false);*/

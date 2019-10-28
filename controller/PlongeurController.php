@@ -72,7 +72,7 @@ class PlongeurController extends _ControllerClass
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
-        if (is_null($plongeur))
+        if (empty($plongeur))
             header('location: /plongeur');
 
         $this->edit($plongeur);
@@ -99,7 +99,8 @@ class PlongeurController extends _ControllerClass
             if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['aptitude'])) {
                 $nom = $_POST['nom'];
                 $prenom = $_POST['prenom'];
-                if($this->verifEntree($nom,$prenom)) {
+                var_dump($prenom);
+                if(prenomCorrect($prenom) && nomCorrect($nom)) {
                     $plongeur[] = new Plongeur([]);
                     $personne[] = new Personne([
                         'PER_NOM' => traitementNom($nom),
@@ -142,13 +143,6 @@ class PlongeurController extends _ControllerClass
 
     }
 
-    public function verifEntree($nom,$prenom){
-        if(prenomCorrect($prenom) && nomCorrect($nom))
-            return true;
-        else
-            return false;
-    }
-
     private function verification($plongeur, $add = false)
     {
         if ( $add || (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['aptitude'])) ) {
@@ -172,7 +166,7 @@ class PlongeurController extends _ControllerClass
                         $i = $nbPersonnes;
 
                     if ($i == $nbPersonnes) {
-                        if($this->verifEntree($nom,$prenom)) {
+                        if(prenomCorrect($prenom) && nomCorrect($nom)) {
                             $plongeur[0]->getPersonne()[0]->setPerNom($nom);
                             $plongeur[0]->getPersonne()[0]->setPerPrenom($prenom);
 

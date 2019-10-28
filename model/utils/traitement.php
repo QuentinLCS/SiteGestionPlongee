@@ -99,13 +99,13 @@ function hiphenLimiter($text) {
 
 
 
-    function majusculeDebut($ch) {
-        $premiere = mb_substr($ch, 0, 1, 'UTF-8');
-        $premiere = firstLetterAccentConverter($premiere);
-        $premiere = mb_strtoupper($premiere, 'UTF-8');
-        $longueur = mb_strlen($ch, 'UTF-8');
-        return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
-    }
+function majusculeDebut($ch) {
+    $premiere = mb_substr($ch, 0, 1, 'UTF-8');
+    $premiere = firstLetterAccentConverter($premiere);
+    $premiere = mb_strtoupper($premiere, 'UTF-8');
+    $longueur = mb_strlen($ch, 'UTF-8');
+    return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
+}
 
 
 // Vérificateurs de chaines
@@ -168,25 +168,20 @@ function prenomCorrect($ch) {
     return formatPrenomCorrect($ch) && tiretCorrectPrenom($ch) && espaceCorrect($ch) && apostropheCorrect($ch);
 }
 
-function traitementNom($ch) {
-    $nom = specialCharConverter($ch);
+function traitementNom($nomInitial) {
+    $nom = specialCharConverter($nomInitial);
     $nom = hiphenLimiter($nom);
-   // $nom = convertirAccent($nom);
     $nom = strtoupper($nom);
     $nom = deleteSpaces($nom);
-    if (!nomCorrect($nom)) {
-        return false;
-    }
+
     return $nom;
 }
 
-function traitementPrenom($ch) {
-    $prenom = specialCharConverter($ch);
+function traitementPrenom($prenomInitial) {
+    $prenom = specialCharConverter($prenomInitial);
     $prenom = deleteSpaces($prenom);
     $prenom = hiphenLimiter($prenom);
     $prenom = AutoCapsOnFirstname($prenom);
-    if (!prenomCorrect($prenom)) {
-        return false;
-    }
+
     return $prenom;
 }

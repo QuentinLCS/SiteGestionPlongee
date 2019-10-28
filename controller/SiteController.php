@@ -43,13 +43,13 @@ class SiteController extends _ControllerClass
     {
 
         if (!isset($_GET['sit_num']))
-            header('location: '.URL.'/site');
+            header('location: /site');
 
         $site = $this->siteManager->getOne([
             'SIT_NUM' => $_GET['sit_num']]);
 
         if (is_null($site))
-            header('location: '.URL.'/plongeur');
+            header('location: /plongeur');
 
         if ( isset($_POST['submit']) )
             $this->verificationModif($site);

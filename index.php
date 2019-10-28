@@ -21,7 +21,7 @@ require_once('model/DataBase.php');
 DataBase::$db = new DataBase($db_connect ,$db_username, $db_password);
 
 require_once('controller/_Router.php');
+
 $router = new _Router();
 $router->routeRequest();
-
 mb_internal_encoding("UTF-8");
