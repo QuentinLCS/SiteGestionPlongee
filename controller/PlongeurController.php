@@ -87,7 +87,7 @@ class PlongeurController extends _ControllerClass
         else
             $secu = 0;
 
-    var_dump($secu);
+
         if (empty($plongeur))
             header('location: /plongeur');
 
