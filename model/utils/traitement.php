@@ -1,7 +1,7 @@
 <?php
 // Correcteurs de chaines
 
-function specialCharConverterNom($text) {
+function specialCharConverter($text) {
     $regex = [
         '#ý#s' => 'y',
         '#Ý#s' => 'Y',
