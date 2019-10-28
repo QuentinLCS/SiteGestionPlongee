@@ -72,7 +72,7 @@ class PlongeurController extends _ControllerClass
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
-        if (is_null($plongeur))
+        if (empty($plongeur))
             header('location: /plongeur');
 
         $this->edit($plongeur);
