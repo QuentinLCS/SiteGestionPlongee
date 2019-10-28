@@ -125,4 +125,8 @@ class PlongeurManager extends _Model
                 WHERE PLO_DATE='".$date."' and PLO_MAT_MID_SOI='".$periode."'";
         return DataBase::$db->LireDonnees($req);
     }
+
+    public function getPalanqueeConcerner($plongeur){
+        return DataBase::$db->LireDonnees('SELECT * FROM PLO_CONCERNER WHERE PER_NUM ='.$plongeur[0]->getPerNum());
+    }
 }

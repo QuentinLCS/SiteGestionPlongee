@@ -74,6 +74,9 @@ class PlongeurController extends _ControllerClass
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
+        $palConcerner = $this->plongeurManager->getPalanqueeConcerner($plongeur);
+
+
         $dir  = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM='.$_GET['per_num']);
         if(count($dir)>0)
             $dir = 1;
@@ -97,7 +100,8 @@ class PlongeurController extends _ControllerClass
             'plongeur' => $plongeur,
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'securite' => $secu,
-            'directeur' => $dir
+            'directeur' => $dir,
+            'allPalanquees' => $palConcerner
         ]);
     }
 

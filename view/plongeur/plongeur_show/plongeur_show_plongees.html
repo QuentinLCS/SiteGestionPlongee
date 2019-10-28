@@ -3,19 +3,20 @@
     <table class="centered white z-depth-1 margin-top margin-bottom">
         <thead class="blue-grey darken-4">
         <tr>
-            <th class="white-text">Numéro</th>
+            <th class="white-text">Numéro Palanquée</th>
             <th class="white-text">Date</th>
             <th class="white-text">Matin / Midi / Soir</th>
             <th class="white-text">Action</th>
         </tr>
         </thead>
         <tbody>
-        <!--
-        <tr>
-            <td>{{ activite.actDate }}</td>
-            <td>{{ activite.actDescription }}</td>
-        </tr>
-        -->
+        <?php foreach($allPalanquees as $palanquee):  ?>
+            <tr>
+                <td class="center"><?= $palanquee['PAL_NUM'] ?></td>
+                <td class="center"><?= $palanquee['PLO_DATE'] ?></td>
+                <td class="center"><?= $palanquee['PLO_MAT_MID_SOI'] ?></td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>
