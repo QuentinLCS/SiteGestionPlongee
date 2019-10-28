@@ -81,7 +81,6 @@ class PalanqueeManager extends _Model
     }
 
 
-    public function getPlongeePalanquee($ploDate,$matMidSoi)
     public function getPlongeePalanquee($donne1,$donne2)
     {
         $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
