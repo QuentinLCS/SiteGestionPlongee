@@ -80,6 +80,8 @@ class PalanqueeManager extends _Model
         DataBase::$db->majDonnees("DELETE FROM PLO_PALANQUEE WHERE PAL_NUM = '". $palanquee[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $palanquee[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $palanquee[0]->getPloDate()."'");
     }
 
+
+    public function getPlongeePalanquee($ploDate,$matMidSoi)
     public function getPlongeePalanquee($donne1,$donne2)
     {
         $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";

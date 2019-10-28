@@ -23,7 +23,6 @@
                 <tr>
                     <th class="center">Code</th>
                     <th class="center">Libelle</th>
-                    <th class="center">Gestion</th>
                 </tr>
             </thead>
 
@@ -32,21 +31,12 @@
             <tr>
                 <td class="center"><?= $aptitude->getAptCode() ?></td>
                 <td class="center"><?= $aptitude->getAptLibelle() ?></td>
-                <td class="center">
-                    <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
-                        <i class="material-icons white-text">remove_red_eye</i>
-                    </a>
-                </td>
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
 
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
+
     </div>
 </section>
 
