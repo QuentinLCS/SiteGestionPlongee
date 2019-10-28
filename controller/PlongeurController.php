@@ -56,11 +56,13 @@ class PlongeurController extends _ControllerClass
         }
 
 
-
+        $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
-            'searchedPlongeurs' => $searchedPlongeurs
+            'searchedPlongeurs' => $searchedPlongeurs,
+            'directeur' => $tmp,
+            'securite' => $tmp
         ]);
     }
 
@@ -72,6 +74,20 @@ class PlongeurController extends _ControllerClass
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
+        $dir  = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM='.$_GET['per_num']);
+        if(count($dir)>0)
+            $dir = 1;
+        else{
+            $dir=0;
+        }
+
+        $secu  = DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM='.$_GET['per_num']);
+        if(count($secu)>0)
+            $secu = 1;
+        else
+            $secu = 0;
+
+    var_dump($secu);
         if (empty($plongeur))
             header('location: /plongeur');
 
@@ -79,7 +95,9 @@ class PlongeurController extends _ControllerClass
 
         (new View('plongeur/plongeur_show/plongeur_show_index'))->generate([
             'plongeur' => $plongeur,
-            'allAptitudes' => $this->aptitudeManager->getAll()
+            'allAptitudes' => $this->aptitudeManager->getAll(),
+            'securite' => $secu,
+            'directeur' => $dir
         ]);
     }
 
@@ -195,17 +213,42 @@ class PlongeurController extends _ControllerClass
                                 'PER_NOM' => $nom,
                                 'PER_PRENOM' => $prenom
                             ]);
-                            if(isset($_POST['type'])) {
-                                if (($_POST['type'] == 'directeur'))
+                            if(!$add) {
+                                $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM=' . $_GET['per_num']);
+                                if (count($dir) > 0)
+                                    $dir = 1;
+                                else {
+                                    $dir = 0;
+                                }
+
+
+                                $secu = DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM=' . $_GET['per_num']);
+                                if (count($secu) > 0)
+                                    $secu = 1;
+                                else
+                                    $secu = 0;
+
+
+                                if (isset($_POST['directeur']) && $dir == 0)
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                else
+                                else if ($dir == 1 && !(isset($_POST['directeur'])))
                                     $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
-                                if (($_POST['type'] == 'securite'))
+
+                                if (isset($_POST['securite']) && $secu == 0)
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                else
+                                else if ($secu == 1 && !(isset($_POST['securite'])))
                                     $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
+
                             }
+                            else{
+                                if (isset($_POST['directeur']))
+                                    $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
+                                if (isset($_POST['securite']))
+                                    $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
+                            }
+
                             if ($add) header('location: /plongeur');
+                            else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
                         }
                         else
                                 echo "le nom ou le prénom n'est pas correct";

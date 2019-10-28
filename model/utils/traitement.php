@@ -172,14 +172,10 @@ function prenomCorrect($ch) {
 
 function traitementNom($ch) {
     $nom = specialCharConverter($ch);
-    var_dump($nom);
     $nom = hiphenLimiter($nom);
-    var_dump($nom);
    // $nom = convertirAccent($nom);
     $nom = strtoupper($nom);
-    var_dump($nom);
     $nom = deleteSpaces($nom);
-    var_dump($nom);
     if (!nomCorrect($nom)) {
         return false;
     }

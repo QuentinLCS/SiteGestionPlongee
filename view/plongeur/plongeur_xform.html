@@ -33,13 +33,13 @@
     <div class="row">
         <p class="col s6">
             <label>
-                <input class="filled-in" name="type" type="checkbox" value="securite" />
+                <input class="filled-in" name="securite" type="checkbox" value="securite" <?php if($securite) echo 'checked'; ?> />
                 <span>Securité</span>
             </label>
         </p>
         <p class="col s6">
             <label>
-                <input class="filled-in" name="type" type="checkbox" value="directeur"  />
+                <input class="filled-in" name="directeur" type="checkbox" value="directeur" <?php if($directeur) echo 'checked'; ?> />
                 <span>Directeur</span>
             </label>
         </p>

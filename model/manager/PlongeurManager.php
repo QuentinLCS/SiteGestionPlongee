@@ -57,6 +57,7 @@ class PlongeurManager extends _Model
     }
 
     public function addDirector($per_num) {
+
         DataBase::$db->majDonnees("INSERT INTO PLO_DIRECTEUR VALUES ('$per_num')");
     }
 
