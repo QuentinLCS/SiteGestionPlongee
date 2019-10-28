@@ -25,6 +25,8 @@ class PlongeeController extends _ControllerClass
         if ($urlSize > 1) {
             if ($url[1] == 'show' && $url[2] == 'editPal')
                 $this->editPal();
+            else if($url[1] == 'show' && $url[2] == 'deletePal')
+                $this->deletePal();
             else if ($url[1] == 'show' && $url[2] =='removePlo')
                 $this->removePlo();
             else if ($url[1] == 'show')
@@ -350,6 +352,30 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
+    private function deletePal()
+    {
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']))
+            header('location: /plongee');
+
+        $palanquee = $this->palanqueeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
+            'PAL_NUM' => $_GET['pal_num']]);
+
+        if (empty($palanquee))
+            header('location: /plongee');
+
+        if (isset($_POST['submit'])) {
+            $this->palanqueeManager->delete($palanquee);
+            header('location: /plongee/show/&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi'] . '&page=palanquee');
+        }
+
+        (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_palanquee_removeform'))->generate([
+            'palanquee' => $palanquee,
+        ]);
+
+    }
+
     private function removePlo() {
         if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) || !isset($_GET['per_num']) )
             header('location: /plongee');
@@ -375,3 +401,4 @@ class PlongeeController extends _ControllerClass
 
     }
 }
+
