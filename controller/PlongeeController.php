@@ -182,7 +182,7 @@ class PlongeeController extends _ControllerClass
         }
         elseif ($value=="date")
         {
-            /*if(isset($_POST['date']))
+            if(isset($_POST['date']))
             {
                 $suppPal=$this->palanqueeManager->getOne([
                     'PLO_DATE' => $base[0]->getPloDate(),
@@ -194,14 +194,15 @@ class PlongeeController extends _ControllerClass
                     $tab[0]=$pal;
                     $this->plongeeManager->delete($tab);
                 }
+                $this->plongeeManager->delete($base);
                 $base[0]->setPloDate($_POST['date']);
-                $this->plongeeManager->update($base,false);
+                $this->plongeeManager->update($base,true);
                 foreach ($suppPal as $pal)
                 {
                     $tab[0]=$pal;
                     $this->palanqueeManager->update($tab,true);
                 }
-            }*/
+            }
         }
         if ($value=="Plongeur") {
             $date = $_GET["plo_date"];
