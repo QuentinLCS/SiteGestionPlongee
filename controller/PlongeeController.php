@@ -79,12 +79,15 @@ class PlongeeController extends _ControllerClass
     {
         if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
-        //TODO faire attention page
 
         $plongee = $this->plongeeManager->getOne([
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
         ]);
+        if($plongee==null)
+        {
+            header('location: /plongee');
+        }
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
@@ -167,6 +170,14 @@ class PlongeeController extends _ControllerClass
                 foreach ($suppPal as $pal)
                 {
                     $pal->setPloMatMidSoi($_POST['selectPeriode']);
+                    if($pal->getPalDureeFond()==null)
+                    {
+                        $pal->setPalDureeFond('NULL');
+                    }
+                    if($pal->getPalProfondeurReelle()==null)
+                    {
+                        $pal->setPalProfondeurReelle('NULL');
+                    }
                     $tab[0]=$pal;
                     $this->palanqueeManager->delete($tab);
                 }
@@ -178,6 +189,7 @@ class PlongeeController extends _ControllerClass
                     $tab[0]=$pal;
                     $this->palanqueeManager->update($tab,true);
                 }
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_POST['selectPeriode']);
             }
         }
         elseif ($value=="date")
@@ -199,9 +211,19 @@ class PlongeeController extends _ControllerClass
                 $this->plongeeManager->update($base,true);
                 foreach ($suppPal as $pal)
                 {
+                    if($pal->getPalDureeFond()==null)
+                    {
+                        $pal->setPalDureeFond('NULL');
+                    }
+                    if($pal->getPalProfondeurReelle()==null)
+                    {
+                        $pal->setPalProfondeurReelle('NULL');
+                    }
                     $tab[0]=$pal;
+                    var_dump($pal);
                     $this->palanqueeManager->update($tab,true);
                 }
+                header('location: /plongee/show/&plo_date='.$_POST['date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
         if ($value=="Plongeur") {
