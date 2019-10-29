@@ -311,6 +311,7 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
             'PAL_NUM' => $_GET['pal_num']]);
 
+
         if (empty($palanquee))
             header('location: /plongee');
 

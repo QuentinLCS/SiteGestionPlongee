@@ -11,16 +11,21 @@ class PlongeurController extends _ControllerClass
 
     private $personneManager;
 
+    private $palanqueeManager;
+
     public function __construct($url)
     {
         $this->plongeurManager = new PlongeurManager();
         $this->aptitudeManager = new AptitudeManager();
         $this->personneManager = new PersonneManager();
+        $this->palanqueeManager = new PalanqueeManager();
 
         $urlSize = parent::__construct($url);
 
         if ($urlSize > 1)
-            if($url[1] == 'show')
+            if($url[1] == 'show' && $url[2] == 'showPal')
+                $this->showPal();
+            else if($url[1] == 'show')
                 $this->show();
             elseif ($url[1] == 'delete')
                 $this->delete();
@@ -68,13 +73,17 @@ class PlongeurController extends _ControllerClass
 
     public function show() {
 
-        if (!isset($_GET['per_num']))
+        if (empty($_GET['per_num']))
             header('location: /plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
+        if(empty($plongeur))
+            header('location: /plongeur');
+
         $palConcerner = $this->plongeurManager->getPalanqueeConcerner($plongeur);
+
 
 
         $dir  = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM='.$_GET['per_num']);
@@ -102,6 +111,23 @@ class PlongeurController extends _ControllerClass
             'securite' => $secu,
             'directeur' => $dir,
             'allPalanquees' => $palConcerner
+        ]);
+    }
+
+    private function showPal(){
+        if (empty($_GET['per_num']) && empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num'])  )
+            header('location: /plongeur');
+
+        $palanquee = $this->palanqueeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
+            'PAL_NUM' => $_GET['pal_num']]);
+
+        if(empty($palanquee))
+            header('location: /plongeur');
+
+        (new View('plongeur/plongeur_show/plongeur_show_plongees_show'))->generate([
+            'palanquee' => $palanquee[0]
         ]);
     }
 

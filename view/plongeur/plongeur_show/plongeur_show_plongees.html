@@ -6,7 +6,7 @@
             <th class="white-text">Numéro Palanquée</th>
             <th class="white-text">Date</th>
             <th class="white-text">Matin / Midi / Soir</th>
-            <th class="white-text">Action</th>
+            <th class="white-text">Détails</th>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +15,11 @@
                 <td class="center"><?= $palanquee['PAL_NUM'] ?></td>
                 <td class="center"><?= $palanquee['PLO_DATE'] ?></td>
                 <td class="center"><?= $palanquee['PLO_MAT_MID_SOI'] ?></td>
+                <td class="center">
+                    <a href="showPal/&pal_num=<?=$palanquee['PAL_NUM']?>&plo_mat_mid_soi=<?= $palanquee['PLO_MAT_MID_SOI']?>&plo_date=<?=$palanquee['PLO_DATE']?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
+                        <i class="material-icons white-text">remove_red_eye</i>
+                    </a>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>

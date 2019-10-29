@@ -1,0 +1,41 @@
+<div class="container">
+    <?php if (empty($palanquee)): ?>
+    <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+        Aucune palanquée enregistrée.
+    </p>
+    <?php else: ?>
+    <h4>Détails des palanquées :</h4>
+    <table>
+        <thead>
+        <tr>
+            <td><h6>Numéro de palanquée</h6></td>
+            <td><h6>Profondeur maximum</h6></td>
+            <td><h6>Profondeur réelle</h6></td>
+            <td><h6>Heure d'immersion</h6></td>
+            <td><h6>Heure de sortie</h6></td>
+            <td><h6>Durée maximum</h6></td>
+            <td><h6>Durée de fond</h6></td>
+        </tr>
+        </thead>
+        <tbody><h6></h6>
+
+        <tr>
+            <td><?=$palanquee->getPalNum()?></td>
+            <td><?=$palanquee->getPalProfondeurMax()?></td>
+            <td><?=$palanquee->getPalProfondeurReelle()?></td>
+            <td><?=$palanquee->getPalHeureImmersion()?></td>
+            <td><?=$palanquee->getPalHeureSortieEau()?></td>
+            <td><?=$palanquee->getPalDureeMax()?></td>
+            <td><?=$palanquee->getPalDureeFond()?></td>
+        </tr>
+        </tbody>
+    </table>
+    <?php endif; ?>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue modal-trigger" href="..">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
+</div>
+
