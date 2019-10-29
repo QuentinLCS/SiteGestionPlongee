@@ -317,7 +317,6 @@ class PlongeeController extends _ControllerClass
             header('location: /plongee');
 
         if ( isset($_POST['submit']) ){
-
             if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) && !empty($_POST["HImmersion"]) ) {
 
                 $profondeurMax = $_POST["profondeurMax"];
