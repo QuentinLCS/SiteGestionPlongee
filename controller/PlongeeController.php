@@ -255,18 +255,18 @@ class PlongeeController extends _ControllerClass
                 $embNum = intval($_POST["embarcation"], 10);
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
-                //Récupère l'effactif de plongeur depuis le formulaire
+                /*Récupère l'effactif de plongeur depuis le formulaire
                 if (isset($_POST["effectifP"]) && $_POST["effectifP"] != "") {
                     $effectifP = intval($_POST["effectifP"], 10);
                 } else {
                     $effectifP = "NULL";
-                }
-                //Récupère l'effactif sur le bateau depuis le formulaire
+                }*/
+                /*Récupère l'effactif sur le bateau depuis le formulaire
                 if (isset($_POST["effectifB"]) && $_POST["effectifB"] != "") {
                     $effectifB = intval($_POST["effectifB"], 10);
                 } else {
                     $effectifB = "NULL";
-                }
+                }*/
                 $plongee[] = new Plongee([
                     'PLO_DATE' => $date,
                     'PLO_MAT_MID_SOI' => $periode,
@@ -274,8 +274,8 @@ class PlongeeController extends _ControllerClass
                     'EMB_NUM' => $embNum,
                     'PER_NUM_DIR' => $directeurNum,
                     'PER_NUM_SECU' => $securiteNum,
-                    'PLO_EFFECTIF_PLONGEURS' => $effectifP,
-                    'PLO_EFFECTIF_BATEAU' => $effectifB,
+                    'PLO_EFFECTIF_PLONGEURS' => 0,
+                    'PLO_EFFECTIF_BATEAU' => 1,
                     'PLO_ETAT'=> "Creee"
                 ]);
                 $this->plongeeManager->update($plongee, true);
@@ -351,6 +351,7 @@ class PlongeeController extends _ControllerClass
             $plongee[0]->setPloEffectifPlongeurs(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)']));
             $plongee[0]->setPloEffectifBateau(1);
             $this->plongeeManager->update($plongee,false);
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
