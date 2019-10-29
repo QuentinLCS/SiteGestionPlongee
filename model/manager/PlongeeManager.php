@@ -61,7 +61,8 @@ class PlongeeManager extends _Model
                 " ,PLO_EFFECTIF_PLONGEURS=".$object[0]->getPloEffectifPlongeurs().
                 " ,PLO_EFFECTIF_BATEAU=".$object[0]->getPloEffectifBateau().
                 " ,PLO_NB_PALANQUEES=".$object[0]->getPloNbPalanquees().
-                " WHERE PLO_DATE='".$object[0]->getPloDate()."'
+                " ,PLO_ETAT='".$object[0]->getPloEtat()."'
+                WHERE PLO_DATE='".$object[0]->getPloDate()."'
                 AND PLO_MAT_MID_SOI='".$object[0]->getPloMatMidSoi()."'");
         }
     }
@@ -85,7 +86,15 @@ class PlongeeManager extends _Model
         $req = "DELETE FROM PLO_CONCERNER WHERE PLO_DATE='".$object['plo_date']."' AND PLO_MAT_MID_SOI='".$object['plo_mat_mid_soi']."' AND PAL_NUM = ".$object['pal_num']." AND PER_NUM = ".$object['per_num'];
         DataBase::$db->majDonnees($req);
     }
-
+    public function getEffectifPlongeur($date,$periode)
+    {
+        $req="SELECT count(PLO_CONCERNER.PER_NUM) from PLO_PLONGEE
+                join PLO_PALANQUEE USING(PLO_DATE,PLO_MAT_MID_SOI)
+                join PLO_CONCERNER USING(PLO_DATE,PLO_MAT_MID_SOI,PAL_NUM)
+                WHERE PLO_DATE='$date' 
+                AND PLO_MAT_MID_SOI='$periode'";
+        return DataBase::$db->LireDonnees($req);
+    }
     public function addPlongeurs($plongee, $plongeur, $pal_num){
         $req = 'INSERT INTO PLO_CONCERNER (PLO_DATE, PLO_MAT_MID_SOI, PAL_NUM, PER_NUM) VALUES (
                     "'.$plongee[0]->getPloDate().'",

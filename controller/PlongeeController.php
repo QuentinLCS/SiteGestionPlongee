@@ -261,14 +261,16 @@ class PlongeeController extends _ControllerClass
                 'PAL_DUREE_FOND' => $tempsR
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
-            $nombrePlongeurs=$this->palanqueeManager->getPlongeurEffecif($date,$periode);
+            $nombrePalanquee=$this->palanqueeManager->getPlongeurEffecif($date,$periode);
+            $nombrePlongeur=$this->plongeeManager->getEffectifPlongeur($date,$periode);
             $plongee=$this->plongeeManager->getOne([
                 'PLO_DATE' => $_GET['plo_date'],
                 'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
             ]);
-            $plongee[0]->setPloNbPalanquees(intval($nombrePlongeurs[0]['count(*)']));
-            $plongee[0]->setPloEtat("Paramétrée");
-            //TODO faire la condition si toutes les palanquées sont complétés
+            $plongee[0]->setPloNbPalanquees(intval($nombrePalanquee[0]['count(*)']));
+            $plongee[0]->setPloEtat("Parametree");
+            $plongee[0]->setPloEffectifPlongeurs(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)']));
+            $plongee[0]->setPloEffectifBateau(1);
             $this->plongeeManager->update($plongee,false);
         }
 
@@ -334,7 +336,6 @@ class PlongeeController extends _ControllerClass
                     $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
                     $palanquee[0]->setPalDureeFond($DureeFond);
                 }
-                var_dump($palanquee);
 
                 $this->palanqueeManager->update($palanquee);
 
