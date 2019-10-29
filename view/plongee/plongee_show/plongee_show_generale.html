@@ -28,7 +28,7 @@
             ?>
             <td><?=$mat?></td>
             <td>
-                <a href="#" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
+                <a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
                     <i class="material-icons white-text">edit</i>
                 </a>
             </td>
@@ -51,4 +51,16 @@
         </tbody>
     </table><br>
     <a class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>
+    <div id="modalPeriode" class="modal">
+        <div class="modal-content">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <select name="selectPeriode">
+                    <option value="M" selected>Matin</option>
+                    <option value="A" >Après-midi</option>
+                    <option value="S" >Soir</option>
+                </select>
+                <button type="submit" value="submit" name="submitPeriode" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
 </div>

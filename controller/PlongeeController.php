@@ -107,6 +107,11 @@ class PlongeeController extends _ControllerClass
         elseif (isset($_POST["submitPLONGEUR"])) {
             $this->edit("Plongeur", $plongee);
         }
+
+        elseif(isset($_POST['submitPeriode']))
+        {
+            $this->edit('peri',$plongee);
+        }
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -145,6 +150,29 @@ class PlongeeController extends _ControllerClass
                 ]);
                 $base[0]->setEmbNum(intval($update[0]->getEmbNum()));
                 $this->plongeeManager->update($base,false);
+            }
+        }
+        elseif ($value=="peri")
+        {
+            if(isset($_POST['selectPeriode']))
+            {
+                $suppPal=$this->palanqueeManager->getOne([
+                    'PLO_DATE' => $base[0]->getPloDate(),
+                    'PLO_MAT_MID_SOI' => $base[0]->getPloMatMidSoi()
+                ]);
+                foreach ($suppPal as $pal)
+                {
+                    $pal->setPloMatMidSoi($_POST['selectPeriode']);
+                    $tab[0]=$pal;
+                    $this->palanqueeManager->delete($tab);
+                }
+                $base[0]->setPloMatMidSoi($_POST['selectPeriode']);
+                $this->plongeeManager->update($base,false);
+                foreach ($suppPal as $pal)
+                {
+                    $tab[0]=$pal;
+                    $this->palanqueeManager->update($tab,true);
+                }
             }
         }
         if ($value=="Plongeur") {
