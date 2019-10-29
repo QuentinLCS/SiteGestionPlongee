@@ -112,6 +112,10 @@ class PlongeeController extends _ControllerClass
         {
             $this->edit('peri',$plongee);
         }
+        elseif(isset($_POST['submitDate']))
+        {
+            $this->edit('date',$plongee);
+        }
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -166,14 +170,38 @@ class PlongeeController extends _ControllerClass
                     $tab[0]=$pal;
                     $this->palanqueeManager->delete($tab);
                 }
+                $this->plongeeManager->delete($base);
                 $base[0]->setPloMatMidSoi($_POST['selectPeriode']);
-                $this->plongeeManager->update($base,false);
+                $this->plongeeManager->update($base,true);
                 foreach ($suppPal as $pal)
                 {
                     $tab[0]=$pal;
                     $this->palanqueeManager->update($tab,true);
                 }
             }
+        }
+        elseif ($value=="date")
+        {
+            /*if(isset($_POST['date']))
+            {
+                $suppPal=$this->palanqueeManager->getOne([
+                    'PLO_DATE' => $base[0]->getPloDate(),
+                    'PLO_MAT_MID_SOI' => $base[0]->getPloMatMidSoi()
+                ]);
+                foreach ($suppPal as $pal)
+                {
+                    $pal->setPloDate($_POST['date']);
+                    $tab[0]=$pal;
+                    $this->plongeeManager->delete($tab);
+                }
+                $base[0]->setPloDate($_POST['date']);
+                $this->plongeeManager->update($base,false);
+                foreach ($suppPal as $pal)
+                {
+                    $tab[0]=$pal;
+                    $this->palanqueeManager->update($tab,true);
+                }
+            }*/
         }
         if ($value=="Plongeur") {
             $date = $_GET["plo_date"];

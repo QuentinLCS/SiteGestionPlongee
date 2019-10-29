@@ -5,7 +5,7 @@
             <td>Date :</td>
             <td><?=$plongee[0]->getPloDate()?></td>
             <td>
-                <a href="#" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
+                <a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
                     <i class="material-icons white-text">edit</i>
                 </a>
             </td>
@@ -60,6 +60,14 @@
                     <option value="S" >Soir</option>
                 </select>
                 <button type="submit" value="submit" name="submitPeriode" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalDate" class="modal">
+        <div class="modal-fixed-footer">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
+                <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn">Enregistrer</button>
             </form>
         </div>
     </div>
