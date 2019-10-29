@@ -34,7 +34,6 @@ class DataBase extends PDO
     public function majDonnees($sql)
     {
         $res = $this->conn->exec($sql);
-
         return $res;
     }
 

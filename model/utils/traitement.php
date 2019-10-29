@@ -171,8 +171,8 @@ function prenomCorrect($ch) {
 }
 
 function traitementNom($ch) {
-    //$nom = specialCharConverter($ch);
-    $nom = hiphenLimiter($ch);
+    $nom = specialCharConverter($ch);
+    $nom = hiphenLimiter($nom);
    // $nom = convertirAccent($nom);
     $nom = strtoupper($nom);
     $nom = deleteSpaces($nom);
@@ -183,8 +183,8 @@ function traitementNom($ch) {
 }
 
 function traitementPrenom($ch) {
-    $prenom = specialCharConverter($ch);
-    $prenom = deleteSpaces($prenom);
+    //$prenom = specialCharConverter($ch);
+    $prenom = deleteSpaces($ch);
     $prenom = hiphenLimiter($prenom);
     $prenom = AutoCapsOnFirstname($prenom);
     if (!prenomCorrect($prenom)) {

@@ -57,6 +57,7 @@ class PlongeurManager extends _Model
     }
 
     public function addDirector($per_num) {
+
         DataBase::$db->majDonnees("INSERT INTO PLO_DIRECTEUR VALUES ('$per_num')");
     }
 
@@ -69,7 +70,7 @@ class PlongeurManager extends _Model
     }
 
     public function removeSecurite($per_num) {
-        DataBase::$db->majDonnees("DELETE FROM PLO_DIRECTEUR WHERE PER_NUM = '$per_num'");
+        DataBase::$db->majDonnees("DELETE FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM = '$per_num'");
     }
 
     public function isDirector($per_num) {
