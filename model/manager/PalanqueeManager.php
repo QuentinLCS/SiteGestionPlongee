@@ -39,7 +39,7 @@ class PalanqueeManager extends _Model
                 )");
         }
         else {
-            var_dump($object);
+            //var_dump($object);
             $sql="UPDATE " . self::$table . " SET 
              PAL_PROFONDEUR_MAX ='" . $object[0]->getPalProfondeurMax() . "',
              PAL_DUREE_MAX ='" . $object[0]->getPalDureeMax() . "',
@@ -53,7 +53,7 @@ class PalanqueeManager extends _Model
                 $sql.=", PAL_DUREE_FOND ='" . $object[0]->getPalDureeFond() . "'";
 
             $sql.=" WHERE PAL_NUM = '". $object[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $object[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $object[0]->getPloDate()."'";
-            var_dump($sql);
+            //var_dump($sql);
             DataBase::$db->majDonnees($sql);
         }
     }
@@ -85,5 +85,20 @@ class PalanqueeManager extends _Model
     {
         $req="select * from ".self::$table." join PLO_PLONGEE using (PLO_DATE,PLO_MAT_MID_SOI) WHERE PLO_DATE='$donne1' and PLO_MAT_MID_SOI='$donne2'";
         return DataBase::$db->LireDonnees($req,self::$entity);
+    }
+    public function getConcerner($objet)
+    {
+        $req="SELECT * FROM PLO_CONCERNER WHERE PLO_DATE='".$objet[0]->getPloDate()."' AND PLO_MAT_MID_SOI='".$objet[0]->getPloMatMidSoi()."'";
+        return DataBase::$db->LireDonnees($req);
+    }
+    public function setConcerner($tab)
+    {
+        $req="INSERT INTO PLO_CONCERNER (PLO_DATE,PLO_MAT_MID_SOI,PAL_NUM,PER_NUM) VALUES ('".$tab['PLO_DATE']."','".$tab['PLO_MAT_MID_SOI']."',".$tab['PAL_NUM'].",".$tab['PER_NUM'].")";
+        DataBase::$db->majDonnees($req);
+    }
+    public function getNombreConcerner($objet,$value)
+    {
+        $req="SELECT count(*) FROM PLO_CONCERNER WHERE PLO_DATE='".$objet[0]->getPloDate()."' AND PLO_MAT_MID_SOI='".$objet[0]->getPloMatMidSoi()."' AND PAL_NUM=".$value;
+        return DataBase::$db->LireDonnees($req);
     }
 }

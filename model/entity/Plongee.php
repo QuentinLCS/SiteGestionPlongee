@@ -229,8 +229,8 @@ class Plongee extends _Entity
     public function getSecurite()
     {
         return $this->securite;
-    }
 
+    }
 
 
 }
