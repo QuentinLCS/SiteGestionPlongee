@@ -96,4 +96,9 @@ class PalanqueeManager extends _Model
         $req="INSERT INTO PLO_CONCERNER (PLO_DATE,PLO_MAT_MID_SOI,PAL_NUM,PER_NUM) VALUES ('".$tab['PLO_DATE']."','".$tab['PLO_MAT_MID_SOI']."',".$tab['PAL_NUM'].",".$tab['PER_NUM'].")";
         DataBase::$db->majDonnees($req);
     }
+    public function getNombreConcerner($objet,$value)
+    {
+        $req="SELECT count(*) FROM PLO_CONCERNER WHERE PLO_DATE='".$objet[0]->getPloDate()."' AND PLO_MAT_MID_SOI='".$objet[0]->getPloMatMidSoi()."' AND PAL_NUM=".$value;
+        return DataBase::$db->LireDonnees($req);
+    }
 }
