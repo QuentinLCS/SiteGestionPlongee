@@ -8,12 +8,12 @@
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" >
-                    <label for="search1">Rechercher par NOM...</label>
+                    <label for="search1">Rechercher par CODE...</label>
                 </div>
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
                     <input type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" >
-                    <label for="search2">Rechercher par Prenom...</label>
+                    <label for="search2">Rechercher par LIBELLE...</label>
                 </div>
             </div>
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
@@ -23,6 +23,7 @@
                 <tr>
                     <th class="center">Code</th>
                     <th class="center">Libelle</th>
+                    <th class="center">Gestion</th>
                 </tr>
             </thead>
 
@@ -31,10 +32,16 @@
             <tr>
                 <td class="center"><?= $aptitude->getAptCode() ?></td>
                 <td class="center"><?= $aptitude->getAptLibelle() ?></td>
+                <td class="center">
+                    <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                        <i class="material-icons white-text">remove_red_eye</i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
+
 
     </div>
 </section>

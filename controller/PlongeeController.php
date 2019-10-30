@@ -37,6 +37,7 @@ class PlongeeController extends _ControllerClass
             else
                 throw new Exception('Page introuvable');
         }
+
     }
 
     /**
@@ -68,10 +69,7 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
             'searchedPlongees' => $searchedPlongees,
-            'allSite' => $this->siteManager->getAll(),
-            'allEmbarcation' => $this->embarcationManager->getAll(),
-            'allDirecteur' => $this->personneManager->getAllDirecteur(),
-            'allSecurite' => $this->personneManager->getAllSecurite()
+            'allSite' => $this->siteManager->getAll()
         ]);
     }
 
