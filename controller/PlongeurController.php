@@ -44,6 +44,9 @@ class PlongeurController extends _ControllerClass
 
         $searchedPlongeurs = null;
 
+        //$directeur = $this->personneManager->getAllDirecteur();
+        // $secu = $this->personneManager->getAllSecurite();
+
         if ( isset($_POST['search']) ) {
 
             if (!empty($_POST['searchNom']))
@@ -60,14 +63,16 @@ class PlongeurController extends _ControllerClass
 
         }
 
-
+        var_dump( $this->plongeurManager->isDirector(25));
         $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'searchedPlongeurs' => $searchedPlongeurs,
-            'directeur' => $tmp,
-            'securite' => $tmp
+            //'roleDir' => $directeur,
+            //'roleSecu' => $secu,
+            'directeur' => $tmp, //sert pour le add
+            'securite' => $tmp //sert pour le add
         ]);
     }
 
@@ -258,28 +263,41 @@ class PlongeurController extends _ControllerClass
                                     $secu = 1;
                                 else
                                     $secu = 0;
+                                var_dump($this->plongeurManager->isDirector());
 
-
-                                if (isset($_POST['directeur']) && $dir == 0)
+                                if (isset($_POST['directeur']) && $dir == 0){
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                else if ($dir == 1 && !(isset($_POST['directeur'])))
+                                    $plongeur[0]->getPersonne()[0]->setEstDirecteur('1');
+                                }
+                                else if ($dir == 1 && !(isset($_POST['directeur']))){
                                     $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
+                                    $plongeur[0]->getPersonne()[0]->setEstDirecteur('0');
+                                }
 
-                                if (isset($_POST['securite']) && $secu == 0)
+                                if (isset($_POST['securite']) && $secu == 0){
+
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                else if ($secu == 1 && !(isset($_POST['securite'])))
+                                    $plongeur[0]->setEstSecurite('1');
+                                }
+                                else if ($secu == 1 && !(isset($_POST['securite']))){
                                     $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
+                                    $plongeur[0]->setEstSecurite('0');
+                                }
 
                             }
                             else{
-                                if (isset($_POST['directeur']))
+                                if (isset($_POST['directeur'])) {
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                if (isset($_POST['securite']))
+                                    $plongeur[0]->setEstDirecteur('1');
+                                }
+                                if (isset($_POST['securite'])){
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
+                                    $plongeur[0]->setEstSecurite('1');
+                                }
                             }
 
                             if ($add) header('location: /plongeur');
-                            else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
+                            //else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
                         }
                         else
                                 echo "le nom ou le prénom n'est pas correct";
