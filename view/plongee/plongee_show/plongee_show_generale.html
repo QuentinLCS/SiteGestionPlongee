@@ -1,0 +1,75 @@
+<div class="container">
+    <table class="striped">
+        <tbody>
+        <tr>
+            <td>Date :</td>
+            <td><?=$plongee[0]->getPloDate()?></td>
+            <td>
+                <a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
+                    <i class="material-icons white-text">edit</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Période de la journée :</td>
+            <?php
+                if($plongee[0]->getPloMatMidSoi()=='M')
+                {
+                    $mat='Matin';
+                }
+                elseif($plongee[0]->getPloMatMidSoi()=='A')
+                {
+                    $mat='Après-midi';
+                }
+                else
+                {
+                    $mat='Soir';
+                }
+            ?>
+            <td><?=$mat?></td>
+            <td>
+                <a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
+                    <i class="material-icons white-text">edit</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Effectif des plongeurs :</td>
+            <td><?=$plongee[0]->getPloEffectifPlongeurs()?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Effectif des palanquées :</td>
+            <td><?=$plongee[0]->getPloNbPalanquees()?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Etat de la plongée :</td>
+            <td><?=$plongee[0]->getPloEtat()?></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table><br>
+    <a class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>
+    <div id="modalPeriode" class="modal">
+        <div class="modal-content">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <select name="selectPeriode">
+                    <option value="M" selected>Matin</option>
+                    <option value="A" >Après-midi</option>
+                    <option value="S" >Soir</option>
+                </select>
+                <button type="submit" value="submit" name="submitPeriode" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalDate" class="modal">
+        <div class="modal-fixed-footer">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
+                <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>
