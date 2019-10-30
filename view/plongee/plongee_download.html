@@ -1,0 +1,32 @@
+<html lang="fr">
+<head>
+    <?php include_once('view/global/head.html'); ?>
+    <meta charset="utf-8">
+    <title>Fiche à télécharger.</title>
+</head>
+<body>
+<main class="container margin-top">
+    <h1>FICHE DE SECURITE</h1>
+    <table class="striped">
+        <thead>
+        <tr>
+            <th class="center">Date</th>
+            <th class="center">Période</th>
+            <th class="center">Site</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr>
+            <td class="center"><?= $plongee[0]->getPloDate() ?></td>
+            <td class="center"><?= $plongee[0]->getPloMatMidSoi() ?></td>
+            <td class="center"><?= $plongee[0]->getSite()[0]->getSitNom() ?></td>
+        </tr>
+
+        </tbody>
+    </table>
+</main>
+<script type="text/javascript" src="/public/assets/js/main.js"></script>
+</body>
+</html>

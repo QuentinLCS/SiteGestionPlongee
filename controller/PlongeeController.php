@@ -30,6 +30,8 @@ class PlongeeController extends _ControllerClass
                 $this->deletePal();
             else if ($url[1] == 'show' && $url[2] =='removePlo')
                 $this->removePlo();
+            else if ($url[1] == 'download')
+                $this->download();
             else if ($url[1] == 'show')
                 $this->show();
             else if ($url[1] == 'delete')
@@ -73,50 +75,57 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
-    public function show()
+    public function download()
     {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
-            header('location: /plongee');
 
-        $plongee = $this->plongeeManager->getOne([
-            'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
-        ]);
-        if($plongee==null)
-        {
-            header('location: /plongee');
-        }
+        $plongee = $this->verifierPlongee();
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
         $plongeurs = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
 
-        if (is_null($plongee))
-            header('location: /plongee');
+
+
+        (new View('plongee/plongee_download'))->generate([
+            'plongee' => $plongee,
+            'bateau' => $bateau,
+            'plongeurs' => $plongeurs,
+            'palanquees' => $palanquee,
+            'site' => $site
+        ], true);
+
+        //header('location: /plongee');
+    }
+
+    public function show()
+    {
+
+        $plongee = $this->verifierPlongee();
+
+        $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
+        $plongeurs = $this->plongeurManager->getPlongeurPlongee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
+        $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
 
         if ( isset($_POST['submit']) )
             $this->verification($plongee);
+
         if(isset($_POST['submitSite']))
-        {
             $this->edit('Site',$plongee);
-        }
+
         elseif (isset($_POST['submitEmbar']))
-        {
             $this->edit('Embar',$plongee);
-        }
-        elseif (isset($_POST["submitPLONGEUR"])) {
+
+        elseif (isset($_POST["submitPLONGEUR"]))
             $this->edit("Plongeur", $plongee);
-        }
 
         elseif(isset($_POST['submitPeriode']))
-        {
             $this->edit('peri',$plongee);
-        }
+
         elseif(isset($_POST['submitDate']))
-        {
             $this->edit('date',$plongee);
-        }
+
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -167,35 +176,39 @@ class PlongeeController extends _ControllerClass
                     'PLO_DATE' => $base[0]->getPloDate(),
                     'PLO_MAT_MID_SOI' => $base[0]->getPloMatMidSoi()
                 ]);
+
                 $concernerOld=$this->palanqueeManager->getConcerner($base);
+
                 foreach ($suppPal as $pal)
                 {
                     $pal->setPloMatMidSoi($_POST['selectPeriode']);
                     if($pal->getPalDureeFond()==null)
-                    {
                         $pal->setPalDureeFond('NULL');
-                    }
+
                     if($pal->getPalProfondeurReelle()==null)
-                    {
                         $pal->setPalProfondeurReelle('NULL');
-                    }
+
                     $tab[0]=$pal;
                     $this->palanqueeManager->delete($tab);
                 }
+
                 $this->plongeeManager->delete($base);
                 $base[0]->setPloMatMidSoi($_POST['selectPeriode']);
                 $this->plongeeManager->update($base,true);
+
                 foreach ($suppPal as $pal)
                 {
                     $tab[0]=$pal;
                     $this->palanqueeManager->update($tab,true);
                 }
+
                 foreach ($concernerOld as $concerner)
                 {
                     $concerner['PLO_DATE']=$base[0]->getPloDate();
                     $concerner['PLO_MAT_MID_SOI']=$base[0]->getPloMatMidSoi();
                     $this->palanqueeManager->setConcerner($concerner);
                 }
+
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_POST['selectPeriode']);
             }
         }
@@ -207,16 +220,20 @@ class PlongeeController extends _ControllerClass
                     'PLO_DATE' => $base[0]->getPloDate(),
                     'PLO_MAT_MID_SOI' => $base[0]->getPloMatMidSoi()
                 ]);
+
                 $concernerOld=$this->palanqueeManager->getConcerner($base);
+
                 foreach ($suppPal as $pal)
                 {
                     $pal->setPloDate($_POST['date']);
                     $tab[0]=$pal;
                     $this->plongeeManager->delete($tab);
                 }
+
                 $this->plongeeManager->delete($base);
                 $base[0]->setPloDate($_POST['date']);
                 $this->plongeeManager->update($base,true);
+
                 foreach ($suppPal as $pal)
                 {
                     if($pal->getPalDureeFond()==null)
@@ -230,17 +247,20 @@ class PlongeeController extends _ControllerClass
                     $tab[0]=$pal;
                     $this->palanqueeManager->update($tab,true);
                 }
+
                 foreach ($concernerOld as $concerner)
                 {
                     $concerner['PLO_DATE']=$base[0]->getPloDate();
                     $concerner['PLO_MAT_MID_SOI']=$base[0]->getPloMatMidSoi();
                     $this->palanqueeManager->setConcerner($concerner);
                 }
+
                 header('location: /plongee/show/&plo_date='.$_POST['date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
         if ($value=="Plongeur") {
             $nombre = $this->palanqueeManager->getNombreConcerner($base,intval($_POST["palanquee"]));
+
             if($nombre[0]['count(*)']<5)
             {
                 $date = $_GET["plo_date"];
@@ -256,10 +276,10 @@ class PlongeeController extends _ControllerClass
                 ];
                 $this->palanqueeManager->updatePlongeurs($concerner);
                 $this->updateEffectifPlongeur();
+
                 if($this->verifierCompleter($base))
-                {
                     $base[0]->setPloEtat("Complete");
-                }
+
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
@@ -319,24 +339,24 @@ class PlongeeController extends _ControllerClass
                 }
                 $i++;
             }
-            if  (!isset($palNum)) {
+            if  (!isset($palNum))
                 $palNum = $i;
-            }
+
 
             // Récupère l'heure d'arrivée depuis le formulaire reçu
-            if (isset($_POST["heureA"]) && $_POST["heureA"] !="") {
+            if (isset($_POST["heureA"]) && $_POST["heureA"] !="")
                 $heureA = $_POST["heureA"];
-            }
+
 
             // Récupère le temps réel depuis le formulaire reçu
-            if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "") {
+            if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "")
                 $tempsR = intval($_POST["tempsR"]);
-            }
+
 
             // Récupère la profondeur réel depuis le formulaire reçu
-            if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "") {
+            if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "")
                 $profondeurR = intval($_POST["profondeurR"]);
-            }
+
 
             $palanqueeObj[] = new Palanquee([
                 'PLO_DATE' => $date,
@@ -488,7 +508,8 @@ class PlongeeController extends _ControllerClass
             'palanquee' => $palanquee,
         ]);
     }
-    public function updateEffectifPlongeur()
+
+    private function updateEffectifPlongeur()
     {
         $nombrePlongeur=$this->plongeeManager->getEffectifPlongeur($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
         $plongee=$this->plongeeManager->getOne([
@@ -499,7 +520,8 @@ class PlongeeController extends _ControllerClass
         $plongee[0]->setPloEtat("Parametree");
         $this->plongeeManager->update($plongee,false);
     }
-    public function updateEffectifPalanquee()
+
+    private function updateEffectifPalanquee()
     {
         $nombrePalanquee=$this->palanqueeManager->getPlongeurEffecif($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
         $plongee=$this->plongeeManager->getOne([
@@ -510,7 +532,8 @@ class PlongeeController extends _ControllerClass
         $plongee[0]->setPloEtat("Parametree");
         $this->plongeeManager->update($plongee,false);
     }
-    public function verifierCompleter($base)
+
+    private function verifierCompleter($base)
     {
         $complete=true;
         $palanqueeComplete =$this->palanqueeManager->getOne([
@@ -526,6 +549,21 @@ class PlongeeController extends _ControllerClass
             }
         }
         return $complete;
+    }
+
+    private function verifierPlongee() {
+        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+            header('location: /plongee');
+
+        $plongee = $this->plongeeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
+        ]);
+
+        if(is_null($plongee))
+            header('location: /plongee');
+
+        return $plongee;
     }
 }
 
