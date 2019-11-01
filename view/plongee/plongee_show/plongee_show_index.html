@@ -30,11 +30,9 @@
         <div id="page2" class="col s12 white z-depth-1"><?php require_once('plongee_show_palanquee.html') ?></div>
         <div id="page3" class="col s12 white z-depth-1"><?php require_once('plongee_show_plongeurs.html') ?></div>
         <div id="page4" class="col s12 white z-depth-1"><?php require_once('plongee_show_site.html') ?></div>
-        <div id="page5" class="col s12 white z-depth-1"><?php
-            if($plongee[0]->getPloEtat()=='Creee' || $plongee[0]->getPloEtat()=='Parametree' || $plongee[0]->getPloEtat()=='Complete')
-                {
-                    require_once('plongee_show_generale.html');
-                }
-        ?></div>
+        <div id="page5" class="col s12 white z-depth-1">
+            <?php if($plongee[0]->getPloEtat()=='Creee' || $plongee[0]->getPloEtat()=='Parametree' || $plongee[0]->getPloEtat()=='Complete')
+                    require_once('plongee_show_generale.html'); ?>
+        </div>
     </div>
 </section>
