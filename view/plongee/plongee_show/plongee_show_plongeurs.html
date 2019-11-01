@@ -24,9 +24,14 @@
                 <td><?=$plongeur['APT_LIBELLE']?></td>
                 <td><?=$plongeur['PAL_NUM']?></td>
                 <td>
-                    <a href="removePlo/&pal_num=<?=$plongeur['PAL_NUM']?>&plo_mat_mid_soi=<?= $_GET['plo_mat_mid_soi'] ?>&plo_date=<?= $_GET['plo_date'] ?>&per_num=<?=$plongeur['PER_NUM']?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
-                        <i class="material-icons white-text">close</i>
-                    </a>
+                    <?php
+                        if($plongee[0]->getPloEtat()!="Validee")
+                        {
+                            echo '<a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                                <i class="material-icons white-text">close</i>
+                            </a>';
+                        }
+                    ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -34,10 +39,15 @@
         </table>
     <?php endif; ?>
 </div>
+<?php
+    if($plongee[0]->getPloEtat()!="Validee")
+    {
+        echo '<div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouterPLO">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>';
+        require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html');
+    }
+?>
 
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouterPLO">
-        <i class="large material-icons">add</i>
-    </a>
-</div>
-<?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html') ?>

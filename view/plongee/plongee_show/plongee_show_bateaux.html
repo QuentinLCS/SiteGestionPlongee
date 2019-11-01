@@ -16,9 +16,14 @@
             <tr>
                 <td><?=$bateau[0]->getEmbNom()?></td>
                 <td>
-                    <a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'embarcation">
-                        <i class="material-icons white-text">edit</i>
-                    </a>
+                    <?php
+                        if($plongee[0]->getPloEtat()!="Validee")
+                        {
+                            echo '<a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'embarcation">
+                                <i class="material-icons white-text">edit</i>
+                            </a>';
+                        }
+                    ?>
                 </td>
             </tr>
             </tbody>
