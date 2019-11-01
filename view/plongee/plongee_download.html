@@ -1,32 +1,125 @@
 <html lang="fr">
-<head>
-    <?php include_once('view/global/head.html'); ?>
-    <meta charset="utf-8">
-    <title>Fiche à télécharger.</title>
-</head>
-<body>
-<main class="container margin-top">
-    <h1>FICHE DE SECURITE</h1>
-    <table class="striped">
-        <thead>
-        <tr>
-            <th class="center">Date</th>
-            <th class="center">Période</th>
-            <th class="center">Site</th>
-        </tr>
-        </thead>
+    <head>
+        <?php include_once('view/global/head.html'); ?>
+        <meta charset="utf-8">
+        <title>Projet plongée | Fiche</title>
+        <style>
+            body {
+                -webkit-print-color-adjust: exact
+            }
 
-        <tbody>
+            th {
+                border-radius: 0;
+            }
+        </style>
+    </head>
+    <body onload="window.print()">
+        <?php var_dump($plongee) ?>
+        <main class="container margin-top">
+            <h4 class="center margin-bottom">FICHE DE SECURITE</h4>
+            <div class="row ">
+                <table class="col s6 centered">
+                    <tr>
+                        <th>Date</th>
+                        <td><?= $plongee[0]->getPloDate() ?> <?= $plongee[0]->getPloMatMidSoi() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Directeur de plongée</th>
+                        <td><?= $plongee[0]->getDirecteur()[0]->getPerNom().' '.$plongee[0]->getDirecteur()[0]->getPerPrenom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Site de plongée</th>
+                        <td><?= $plongee[0]->getSite()[0]->getSitNom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Effectif</th>
+                        <td><?= $plongee[0]->getPloEffectifPlongeurs() ?></td>
+                    </tr>
+                </table>
+                <div class="col s6 center">
+                    <img src="../../public/media/logo.png" alt="Logo" style="max-width: 170px; margin-top: 50px">
+                </div>
+            </div>
+            <div class="row">
+                <table class="col s12 centered">
+                    <tr>
+                        <th style="width: 170px;">Sécurité de surface</th>
+                        <td><?= $plongee[0]->getSecurite()[0]->getPerNom().' '.$plongee[0]->getSecurite()[0]->getPerPrenom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Observation</th>
+                        <td>???</td>
+                    </tr>
+                </table>
+            </div>
+            <?php if(empty($palanquees)): ?>
+            <table class="col s12 centered">
+                <tr>
+                    <th class="pink lighten-5 red-text text-darken-4 center"><strong>AUCUNE PALANQUEE ENTREE</strong></th>
+                </tr>
+            </table>
+            <?php endif; ?>
+            <?php foreach($palanquees as $palanquee): ?>
+            <?php var_dump($palanquee) ?>
+            <div class="row" style="border: 5px #424242 solid;">
+                <table class="col s12 centered">
+                    <tr>
+                        <th class="grey darken-3 white-text center">PALANQUEE <?= $palanquee->getPalNum() ?></th>
+                    </tr>
+                </table>
+                <table class="col s12 centered">
+                    <tr>
+                        <th style="width: 170px;">Heure Départ</th>
+                        <td>???</td>
+                        <th style="width: 170px;">Heure Retour</th>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 170px;">Temps Prévu</th>
+                        <td>???</td>
+                        <th style="width: 170px;">Profondeur Prévue</th>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 170px;">Temps Réalisé</th>
+                        <td>???</td>
+                        <th style="width: 170px;">Profondeur Réalisée</th>
+                        <td>???</td>
+                    </tr>
+                </table>
+                <table class="centered">
+                    <thead class="grey darken-3 white-text">
+                        <tr>
+                            <th>Nom Prénom</th>
+                            <th>Niveau</th>
+                            <th>Formation Vers</th>
+                            <th>Fonction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php endforeach; ?>
+        </main>
 
-        <tr>
-            <td class="center"><?= $plongee[0]->getPloDate() ?></td>
-            <td class="center"><?= $plongee[0]->getPloMatMidSoi() ?></td>
-            <td class="center"><?= $plongee[0]->getSite()[0]->getSitNom() ?></td>
-        </tr>
-
-        </tbody>
-    </table>
-</main>
-<script type="text/javascript" src="/public/assets/js/main.js"></script>
-</body>
+    </body>
 </html>

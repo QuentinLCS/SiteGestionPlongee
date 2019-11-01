@@ -89,13 +89,8 @@ class PlongeeController extends _ControllerClass
 
         (new View('plongee/plongee_download'))->generate([
             'plongee' => $plongee,
-            'bateau' => $bateau,
-            'plongeurs' => $plongeurs,
             'palanquees' => $palanquee,
-            'site' => $site
         ], true);
-
-        //header('location: /plongee');
     }
 
     public function show()

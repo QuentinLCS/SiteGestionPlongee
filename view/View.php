@@ -35,7 +35,7 @@ class View
         $view = $this->generateFile($this->_file, $data);
 
         if (!$blank)
-            $view = $this->generateFile('view/base.html', ['title' => $this->_title, 'content' => view]);
+            $view = $this->generateFile('view/base.html', ['title' => $this->_title, 'content' => $view]);
 
         echo $view;
 
