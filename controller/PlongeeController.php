@@ -34,6 +34,8 @@ class PlongeeController extends _ControllerClass
                 $this->show();
             else if ($url[1] == 'delete')
                 $this->delete();
+            else if ($url[1] == 'show' && $url[2] == 'validerPlongee')
+                $this->validerPlongee();
             else
                 throw new Exception('Page introuvable');
         }
@@ -133,8 +135,6 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
-
-
     private function edit($value,$base)
     {
         if($value=="Site")
@@ -203,7 +203,7 @@ class PlongeeController extends _ControllerClass
         }
         elseif ($value=="date")
         {
-            if(isset($_POST['date']))
+            if(isset($_POST['date']) && $this->verifierDate($_POST['date']))
             {
                 $suppPal=$this->palanqueeManager->getOne([
                     'PLO_DATE' => $base[0]->getPloDate(),
@@ -272,7 +272,7 @@ class PlongeeController extends _ControllerClass
     {
         //Vérifie si le formulaire et bien un formulaire d'ajout de plongée
         if (isset($_POST["submitPLO"])) {
-            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"])) {
+            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && $this->verifierDate($_POST["date"])) {
                 $date = $_POST["date"];
                 $periode = ($_POST["periode"]);
                 $siteNum = intval($_POST["site"], 10);
@@ -293,7 +293,7 @@ class PlongeeController extends _ControllerClass
                 $this->plongeeManager->update($plongee, true);
             } else {
                 echo 'Tous les champs ne sont pas remplis.';
-                var_dump($_POST);
+                //var_dump($_POST);
             }
         }
     }
@@ -489,6 +489,7 @@ class PlongeeController extends _ControllerClass
             'palanquee' => $palanquee,
         ]);
     }
+
     public function updateEffectifPlongeur()
     {
         $nombrePlongeur=$this->plongeeManager->getEffectifPlongeur($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
@@ -500,6 +501,7 @@ class PlongeeController extends _ControllerClass
         $plongee[0]->setPloEtat("Parametree");
         $this->plongeeManager->update($plongee,false);
     }
+
     public function updateEffectifPalanquee()
     {
         $nombrePalanquee=$this->palanqueeManager->getPlongeurEffecif($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
@@ -511,6 +513,7 @@ class PlongeeController extends _ControllerClass
         $plongee[0]->setPloEtat("Parametree");
         $this->plongeeManager->update($plongee,false);
     }
+
     public function verifierCompleter($base)
     {
         $complete=true;
@@ -527,6 +530,36 @@ class PlongeeController extends _ControllerClass
             }
         }
         return $complete;
+    }
+
+    public function validerPlongee()
+    {
+        if(isset($_POST['validerPlongee']))
+        {
+            if ($_POST['validerPlongee']=="plongeeValide")
+            {
+                $plongee = $this->plongeeManager->getOne([
+                    'PLO_DATE' => $_GET['plo_date'],
+                    'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
+                ]);
+                $plongee[0]->setPloEtat("Validee");
+                $this->plongeeManager->update($plongee,false);
+            }
+        }
+        (new View('plongee/plongee_show/plongee_show_generale/plongee_show_generale_valider'))->generate([]);
+    }
+    function verifierDate($date)
+    {
+        $modele='#([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))#';
+        if(preg_match($modele,$date))
+        {
+            $tab = explode('-',$date);
+            return checkdate(intval($tab[1]),intval($tab[2]),intval($tab[0]));
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
