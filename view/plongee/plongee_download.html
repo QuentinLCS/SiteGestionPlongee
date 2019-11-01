@@ -2,7 +2,7 @@
     <head>
         <?php include_once('view/global/head.html'); ?>
         <meta charset="utf-8">
-        <title>Projet plongée | Fiche</title>
+        <title>Plongée_du_<?= $plongee[0]->getPloDate() ?><?= $plongee[0]->getPloMatMidSoi() ?></title>
         <style>
             body {
                 -webkit-print-color-adjust: exact
@@ -14,14 +14,13 @@
         </style>
     </head>
     <body onload="window.print()">
-        <?php var_dump($plongee) ?>
         <main class="container margin-top">
-            <h4 class="center margin-bottom">FICHE DE SECURITE</h4>
+            <h4 class="center margin-bottom" style="margin-top: 0">FICHE DE SECURITE</h4>
             <div class="row ">
                 <table class="col s6 centered">
                     <tr>
                         <th>Date</th>
-                        <td><?= $plongee[0]->getPloDate() ?> <?= $plongee[0]->getPloMatMidSoi() ?></td>
+                        <td><?= $plongee[0]->getPloDate() ?> <?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
                     </tr>
                     <tr>
                         <th>Directeur de plongée</th>
@@ -60,43 +59,43 @@
             </table>
             <?php endif; ?>
             <?php foreach($palanquees as $palanquee): ?>
-            <?php var_dump($palanquee) ?>
-            <div class="row" style="border: 5px #424242 solid;">
-                <table class="col s12 centered">
-                    <tr>
-                        <th class="grey darken-3 white-text center">PALANQUEE <?= $palanquee->getPalNum() ?></th>
-                    </tr>
-                </table>
-                <table class="col s12 centered">
-                    <tr>
-                        <th style="width: 170px;">Heure Départ</th>
-                        <td>???</td>
-                        <th style="width: 170px;">Heure Retour</th>
-                        <td>???</td>
-                    </tr>
-                    <tr>
-                        <th style="width: 170px;">Temps Prévu</th>
-                        <td>???</td>
-                        <th style="width: 170px;">Profondeur Prévue</th>
-                        <td>???</td>
-                    </tr>
-                    <tr>
-                        <th style="width: 170px;">Temps Réalisé</th>
-                        <td>???</td>
-                        <th style="width: 170px;">Profondeur Réalisée</th>
-                        <td>???</td>
-                    </tr>
-                </table>
-                <table class="centered">
-                    <thead class="grey darken-3 white-text">
+            <div class="margin-bottom">
+                <div class="row" style="border: 5px #424242 solid;">
+                    <table class="col s12 centered">
+                        <tr>
+                            <th class="grey darken-3 white-text center">PALANQUEE <?= $palanquee->getPalNum() ?></th>
+                        </tr>
+                    </table>
+                    <table class="col s12 centered">
+                        <tr>
+                            <th style="width: 170px;">Heure Départ</th>
+                            <td>???</td>
+                            <th style="width: 170px;">Heure Retour</th>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 170px;">Temps Prévu</th>
+                            <td>???</td>
+                            <th style="width: 170px;">Profondeur Prévue</th>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 170px;">Temps Réalisé</th>
+                            <td>???</td>
+                            <th style="width: 170px;">Profondeur Réalisée</th>
+                            <td>???</td>
+                        </tr>
+                    </table>
+                    <table class="centered">
+                        <thead class="grey darken-3 white-text">
                         <tr>
                             <th>Nom Prénom</th>
                             <th>Niveau</th>
                             <th>Formation Vers</th>
                             <th>Fonction</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td>???</td>
                             <td>???</td>
@@ -115,11 +114,16 @@
                             <td>???</td>
                             <td>???</td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <?php endforeach; ?>
         </main>
-
+        <script>
+            setTimeout(function () {
+                document.location.href="plongee_index.html"
+            }, 1000)
+        </script>
     </body>
 </html>
