@@ -1,21 +1,22 @@
-<div class="container">
+<div class="row">
+    <div class="col s12">
     <?php if (empty($palanquees)): ?>
         <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
             Aucune palanquée enregistrée.
         </p>
     <?php else: ?>
         <h4>Détails des palanquées :</h4>
-        <table>
+        <table class="striped">
             <thead>
             <tr>
-                <td><h6>Numéro de palanquée</h6></td>
-                <td><h6>Profondeur maximum</h6></td>
-                <td><h6>Profondeur réelle</h6></td>
-                <td><h6>Heure d'immersion</h6></td>
-                <td><h6>Heure de sortie</h6></td>
-                <td><h6>Durée maximum</h6></td>
-                <td><h6>Durée de fond</h6></td>
-                <td>Gestion</td>
+                <td class="center"><h6>Numéro de palanquée</h6></td>
+                <td class="center"><h6>Profondeur maximum</h6></td>
+                <td class="center"><h6>Profondeur réelle</h6></td>
+                <td class="center"><h6>Heure d'immersion</h6></td>
+                <td class="center"><h6>Heure de sortie</h6></td>
+                <td class="center"><h6>Durée maximum</h6></td>
+                <td class="center"><h6>Durée de fond</h6></td>
+                <td class="center"><h6>Gestion</h6></td>
             </tr>
             </thead>
             <tbody><h6></h6>
@@ -23,32 +24,38 @@
 
             ?>
                 <tr>
-                    <td><?=$palanquee->getPalNum()?></td>
-                    <td><?=$palanquee->getPalProfondeurMax()?></td>
-                    <td><?=$palanquee->getPalProfondeurReelle()?></td>
-                    <td><?=$palanquee->getPalHeureImmersion()?></td>
-                    <td><?=$palanquee->getPalHeureSortieEau()?></td>
-                    <td><?=$palanquee->getPalDureeMax()?></td>
-                    <td><?=$palanquee->getPalDureeFond()?></td>
-                    <td>
-                        <a href="editPal/&pal_num=<?=$palanquee->getPalNum()?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi()?>&plo_date=<?=$palanquee->getPloDate()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
-                            <i class="material-icons white-text">remove_red_eye</i>
-                        </a>
-                        <a href="deletePal/&pal_num=<?=$palanquee->getPalNum()?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi()?>&plo_date=<?=$palanquee->getPloDate()?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
-                            <i class="material-icons white-text">delete</i>
-                        </a>
+                    <td class="center"><?=$palanquee->getPalNum()?></td>
+                    <td class="center"><?=$palanquee->getPalProfondeurMax()?></td>
+                    <td class="center"><?=$palanquee->getPalProfondeurReelle()?></td>
+                    <td class="center"><?=$palanquee->getPalHeureImmersion()?></td>
+                    <td class="center"><?=$palanquee->getPalHeureSortieEau()?></td>
+                    <td class="center"><?=$palanquee->getPalDureeMax()?></td>
+                    <td class="center"><?=$palanquee->getPalDureeFond()?></td>
+                    <td class="center">
+                        <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                            <a href="editPal/&pal_num=<?= $palanquee->getPalNum() ?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi() ?>&plo_date=<?= $palanquee->getPloDate() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
+                                <i class="material-icons white-text">remove_red_eye</i>
+                            </a>
+                            <a href="deletePal/&pal_num=<?= $palanquee->getPalNum() ?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi() ?>&plo_date=<?= $palanquee->getPloDate() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
+                                <i class="material-icons white-text">delete</i>
+                            </a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>
+    </div>
 </div>
-
+<?php if($plongee[0]->getPloEtat()!="Validee"): ?>
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouterPAL">
         <i class="large material-icons">add</i>
     </a>
 </div>
-<?php require_once('plongee_show_palanquee/plongee_show_palanquee_addform.html') ?>
+<?php
+    endif;
+    require_once('plongee_show_palanquee/plongee_show_palanquee_addform.html');
+?>
 

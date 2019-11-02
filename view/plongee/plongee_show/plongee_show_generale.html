@@ -5,9 +5,14 @@
             <td>Date :</td>
             <td><?=$plongee[0]->getPloDate()?></td>
             <td>
-                <a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
-                    <i class="material-icons white-text">edit</i>
-                </a>
+                <?php
+                    if($plongee[0]->getPloEtat()!="Validee")
+                    {
+                        echo '<a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
+                                <i class="material-icons white-text">edit</i>
+                              </a>';
+                    }
+                ?>
             </td>
         </tr>
         <tr>
@@ -28,9 +33,14 @@
             ?>
             <td><?=$mat?></td>
             <td>
-                <a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
-                    <i class="material-icons white-text">edit</i>
-                </a>
+                <?php
+                    if($plongee[0]->getPloEtat()!="Validee")
+                    {
+                        echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
+                            <i class="material-icons white-text">edit</i>
+                        </a>';
+                    }
+                ?>
             </td>
         </tr>
         <tr>
@@ -50,7 +60,12 @@
         </tr>
         </tbody>
     </table><br>
-    <a class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>
+    <?php
+        if($plongee[0]->getPloEtat()=="Complete")
+        {
+            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
+        }
+    ?>
     <div id="modalPeriode" class="modal">
         <div class="modal-content">
             <form action="<?php $_SERVER['PHP_SELF']?>" method="post">

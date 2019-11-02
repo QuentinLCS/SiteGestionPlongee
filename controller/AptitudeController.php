@@ -71,12 +71,12 @@ class AptitudeController extends _ControllerClass
     private function add()
     {
         if ( isset($_POST['submit']) ) {
-            $aptitude = new Aptitude($_POST);
-            $this->verification($aptitude);
+            $aptitude[] = new Aptitude($_POST);
+            $this->verification($aptitude, true);
         }
     }
 
-    private function verification($aptitude)
+    private function verification($aptitude, $add = false)
     {
         if (!empty($_POST['code']) && !empty($_POST['libelle'])) {
             $code = strtoupper($_POST['code']);
@@ -96,7 +96,7 @@ class AptitudeController extends _ControllerClass
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
                 $aptitude[0]->setAptLibelle($libelle);
-                $this->aptitudeManager->update($aptitude);
+                $this->aptitudeManager->update($aptitude, $add);
                 header('location: /aptitude');
             } else
                 echo 'Aptitude déjà enregistrée.';

@@ -1,0 +1,19 @@
+<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+
+    <div class="row">
+        <label class="col s12">
+            Code (Modifiable seulement si non utilisé)
+            <input type="text" id="code" name="code" value="<?= isset($aptitude) ? $aptitude[0]->getAptCode() : '' ?>" autofocus>
+        </label>
+    </div>
+    <div class="row">
+        <label class="col s12">
+            Libelle
+            <input type="text" id="libelle" name="libelle" value="<?= isset($aptitude) ? $aptitude[0]->getAptLibelle() : '' ?>">
+        </label>
+    </div>
+
+    <div class="row">
+        <button class="btn <?= ($button == 'EDITER' ? 'yellow darken-4' : 'blue' ) ?> waves-effect waves-light col s12 margin-bottom" name="submit"><?= $button ?> UNE APTITUDE</button>
+    </div>
+</form>

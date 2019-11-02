@@ -1,5 +1,7 @@
 <?php $this->_title = 'Projet Plongée | Aptitude'; ?>
 
+<?php require_once('aptitude_addform.html') ?>
+
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des Aptitudes<small>Affichés : <?= count((is_null($searchedAptitudes) ? $allAptitudes : $searchedAptitudes)) ?></small></h3>
@@ -41,8 +43,11 @@
             <?php endforeach; ?>
             </tbody>
         </table>
-
-
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     </div>
 </section>
 
