@@ -422,12 +422,16 @@ class PlongeeController extends _ControllerClass
                 $palanquee[0]->setPalDureeMax($dureeMax);
                 $palanquee[0]->setPalHeureImmersion($HImmersion);
 
-                if (!empty($_POST["HSortie"]) && !empty($_POST["ProfondeurReelle"]) && !empty($_POST["DureeFond"])) {
+                if (!empty($_POST["HSortie"])) {
                     $HSortie = $_POST["HSortie"];
-                    $ProfondeurReelle = $_POST["ProfondeurReelle"];
-                    $DureeFond = $_POST["DureeFond"];
                     $palanquee[0]->setPalHeureSortieEau($HSortie);
+                }
+                if (!empty($_POST["ProfondeurReelle"]))  {
+                    $ProfondeurReelle = $_POST["ProfondeurReelle"];
                     $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                }
+                if (!empty($_POST["DureeFond"])) {
+                    $DureeFond = $_POST["DureeFond"];
                     $palanquee[0]->setPalDureeFond($DureeFond);
                 }
 
