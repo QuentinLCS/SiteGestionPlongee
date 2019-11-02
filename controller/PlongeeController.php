@@ -466,7 +466,7 @@ class PlongeeController extends _ControllerClass
             header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
-        (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs_removeform'))->generate([
+        (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs/plongee_show_plongeurs_removeform'))->generate([
             'palanquee' => $palanquee,
         ]);
     }
