@@ -18,19 +18,19 @@
     <h4 class="center margin-bottom"><strong><?= $plongee[0]->getPloDate().' | '.$mat ?></strong></h4>
     <div class="col s12">
         <ul class="tabs blue-grey darken-4 z-depth-1">
-            <li class="tab col s3"><a class="white-text" href="#page1">Embarcations</a></li>
-            <li class="tab col s3"><a href="#page2" class="<?= !isset($_GET['page']) ? '' : ($_GET['page']=='palanquee') ? 'active' : '' ?> white-text">Palanquees</a></li>
-            <li class="tab col s3"><a href="#page4" class="white-text">Site</a></li>
             <?php if($plongee[0]->getPloEtat()=='Creee' || $plongee[0]->getPloEtat()=='Parametree' || $plongee[0]->getPloEtat()=='Complete'): ?>
-                    <li class="tab col s2"><a href="#page5" class="<?= !isset($_GET['page']) ? '' : ($_GET['page']=='generale') ? 'active' : '' ?> white-text">Générale</a></li>
+                <li class="tab col s3"><a href="#page5" class="<?= !isset($_GET['page']) ? '' : ($_GET['page']=='generale') ? 'active' : '' ?> white-text">Détails</a></li>
             <?php endif; ?>
+            <li class="tab col s3"><a href="#page2" class="<?= !isset($_GET['page']) ? '' : ($_GET['page']=='palanquee') ? 'active' : '' ?> white-text">Palanquees</a></li>
+            <li class="tab col s3"><a class="white-text" href="#page1">Embarcations</a></li>
+            <li class="tab col s3"><a href="#page4" class="white-text">Site</a></li>
         </ul>
-        <div id="page1" class="col s12 white z-depth-1"><?php require_once('plongee_show_bateaux.html') ?></div>
-        <div id="page2" class="col s12 white z-depth-1"><?php require_once('plongee_show_palanquee.html') ?></div>
-        <div id="page4" class="col s12 white z-depth-1"><?php require_once('plongee_show_site.html') ?></div>
         <div id="page5" class="col s12 white z-depth-1">
             <?php if($plongee[0]->getPloEtat()=='Creee' || $plongee[0]->getPloEtat()=='Parametree' || $plongee[0]->getPloEtat()=='Complete')
-                    require_once('plongee_show_generale.html'); ?>
+            require_once('plongee_show_generale.html'); ?>
         </div>
+        <div id="page2" class="col s12 white z-depth-1"><?php require_once('plongee_show_palanquee.html') ?></div>
+        <div id="page1" class="col s12 white z-depth-1"><?php require_once('plongee_show_bateaux.html') ?></div>
+        <div id="page4" class="col s12 white z-depth-1"><?php require_once('plongee_show_site.html') ?></div>
     </div>
 </section>
