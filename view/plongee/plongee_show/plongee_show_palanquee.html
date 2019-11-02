@@ -31,15 +31,12 @@
                     <td><?=$palanquee->getPalDureeMax()?></td>
                     <td><?=$palanquee->getPalDureeFond()?></td>
                     <td>
-                        <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-                            <a href="editPal/&pal_num='.$palanquee->getPalNum().'&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
-                                <i class="material-icons white-text">remove_red_eye</i>
-                            </a>
-                            <a href="deletePal/&pal_num='.$palanquee->getPalNum().'&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
-                                <i class="material-icons white-text">delete</i>
-                            </a>
-
-                        <?php endif; ?>
+                        <?php
+                            if($plongee[0]->getPloEtat()!="Validee") {
+                                echo '<a href="editPal/&pal_num='.$palanquee->getPalNum().'&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée"><i class="material-icons white-text">remove_red_eye</i></a>';
+                                echo '<a href="deletePal/&pal_num='.$palanquee->getPalNum().'&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée"><i class="material-icons white-text">delete</i></a>';
+                            }
+                        ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

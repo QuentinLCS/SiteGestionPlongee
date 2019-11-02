@@ -4,18 +4,6 @@
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding">
             <div class="row">
                 <div class="input-field">
-                    Palanquée
-                    <select name="palanquee" id="palanquee" class="browser-default">
-                        <?php
-                            foreach ($palanquees as $palanquee) {
-                                echo '<option value="'. $palanquee->getPalNum() .'" '.(!isset($_POST['palanquee']) ? '' : ($_POST['palanquee'] == $palanquee->getPalNum()) ? 'selected' : '').' >'. $palanquee->getPloDate() .' | Période : '. $palanquee->getPloMatMidSoi() .' | N° : '. $palanquee->getPalNum() .'</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field">
                     Plongeur
                     <select name="plongeur" id="plongeur" class="browser-default">
                         <?php
