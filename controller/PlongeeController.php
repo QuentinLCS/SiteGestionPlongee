@@ -23,12 +23,10 @@ class PlongeeController extends _ControllerClass
 
         $urlSize = parent::__construct($url);
 
-        if ($urlSize > 2) {
+        if ($urlSize > 1) {
             if ($url[1] == 'show' && $url[2] == 'editPal' && $url[3] == 'removePlo')
                 $this->removePlo();
-        }
-        if ($urlSize > 1) {
-            if ($url[1] == 'show' && $url[2] == 'editPal')
+            else if ($url[1] == 'show' && $url[2] == 'editPal')
                 $this->editPal();
             else if($url[1] == 'show' && $url[2] == 'deletePal')
                 $this->deletePal();
@@ -409,6 +407,7 @@ class PlongeeController extends _ControllerClass
                     $base[0]->setPloEtat("Complete");
 
                 $this->plongeeManager->update($base,false);
+                header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
 
@@ -464,7 +463,7 @@ class PlongeeController extends _ControllerClass
         if ( isset($_POST['removePLONGEUR']) ){
             $this->plongeeManager->deleteConcerner($palanquee);
             $this->updateEffectifPlongeur();
-            header('location: /plongee/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_plongeurs_removeform'))->generate([
