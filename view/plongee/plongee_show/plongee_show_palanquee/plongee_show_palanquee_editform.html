@@ -102,3 +102,13 @@
         <?php endif; ?>
     </div>
 </section>
+<section class="center">
+    <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
+        <button class="btn green waves-effect waves-light col s12 margin-bottom" name="retour">RETOUNER A LA PAGE PRÉCÉDENTE</button>
+    </form>
+</section>
+<?php
+    if (isset($_POST['retour'])) {
+        header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
+    }
+?>
