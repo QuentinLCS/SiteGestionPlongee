@@ -52,7 +52,11 @@
                             <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             <td class="center">
                                 <?php
-                                    var_dump($plongeur->getEstDirecteur());
+                                    if($plongeurManager->isDirector($plongeur->getPerNum()))
+                                        echo "directeur<br>";
+                                    if($plongeurManager->isSecurity($plongeur->getPerNum()))
+                                        echo "sécurité de surface";
+
 
                                 ?>
 

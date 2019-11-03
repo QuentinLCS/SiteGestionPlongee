@@ -74,11 +74,20 @@ class PlongeurManager extends _Model
     }
 
     public function isDirector($per_num) {
-        DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM = '.$per_num);
+        $tab = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM = '.$per_num);
+        if(count($tab)>0)
+            return 1;
+        else
+            return 0;
+
     }
 
     public function isSecurity($per_num) {
-        DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM = '.$per_num);
+        $tab = DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM = '.$per_num);
+        if(count($tab)>0)
+            return 1;
+        else
+            return 0;
     }
 
 
