@@ -72,7 +72,10 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
             'searchedPlongees' => $searchedPlongees,
-            'allSite' => $this->siteManager->getAll()
+            'allSite' => $this->siteManager->getAll(),
+            'allEmbarcation' => $this->embarcationManager->getAll(),
+            'allDirecteur' => $this->personneManager->getAllDirecteur(),
+            'allSecurite' => $this->personneManager->getAllSecurite()
         ]);
     }
 
@@ -270,6 +273,7 @@ class PlongeeController extends _ControllerClass
                     'PLO_ETAT'=> "Creee"
                 ]);
                 $this->plongeeManager->update($plongee, true);
+                header('location: /plongee/show/&plo_date='.$date.'&plo_mat_mid_soi='.$periode.'&page=palanquee');
             } else
                 echo 'Tous les champs ne sont pas remplis.';
 
