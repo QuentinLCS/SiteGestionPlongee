@@ -52,24 +52,24 @@
 </section>
 <section class="white z-depth-4 rounded center">
     <div class="container">
+        <h4>Détails des plongeurs :</h4>
+        <div class="row">
+            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+            <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
+                <i class="large material-icons">add</i>
+            </a>
+
+            <a class="btn blue darken-4 waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Créer un Plongeur" href="">
+                <i class="large material-icons">person_add</i>
+            </a>
+            <?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html'); ?>
+            <?php endif; ?>
+        </div>
         <?php if(empty($plongeurs)): ?>
             <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
                 Aucun plongeur renseigné pour cette plongée.
             </p>
         <?php else: ?>
-            <h4>Détails des plongeurs :</h4>
-            <div class="row">
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-                <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
-                    <i class="large material-icons">add</i>
-                </a>
-
-                <a class="btn blue darken-4 waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Créer un Plongeur" href="">
-                    <i class="large material-icons">person_add</i>
-                </a>
-                <?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html'); ?>
-                <?php endif; ?>
-            </div>
             <table>
                 <thead>
                 <tr>
