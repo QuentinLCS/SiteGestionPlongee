@@ -63,7 +63,7 @@
     <?php
         if($plongee[0]->getPloEtat()=="Complete")
         {
-            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
+            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
         }
     ?>
     <div id="modalPeriode" class="modal">

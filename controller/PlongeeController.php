@@ -335,7 +335,7 @@ class PlongeeController extends _ControllerClass
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
             $this->updateEffectifPalanquee();
-            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            header('location: /plongee/show/editPal/&pal_num='.$palNum.'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
