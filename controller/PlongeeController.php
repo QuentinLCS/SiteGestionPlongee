@@ -411,6 +411,15 @@ class PlongeeController extends _ControllerClass
                     $base[0]->setPloEtat("Complete");
 
                 $this->plongeeManager->update($base,false);
+
+                $plongeur = $this->personneManager->getOne([
+                    'PER_NUM' => $numPers
+                ]);
+
+                if ($plongeur[0]->getPerActive() == 0) {
+                    $plongeur[0]->setPerActive(1);
+                    $this->personneManager->update($plongeur, false);
+                }
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
