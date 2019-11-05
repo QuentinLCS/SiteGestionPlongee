@@ -4,12 +4,11 @@
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding">
             <div class="row">
                 <div class="input-field">
-                    Plongeur
                     <select name="plongeur" id="plongeur" class="browser-default">
                         <?php
                             foreach ($allPlongeurs as $plongeur) {
-                                echo '<option value="'. $plongeur->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $plongeur->getPerNum()) ? 'selected' : '').' >'. $plongeur->getPersonne()[0]->getPerNom() .' '. $plongeur->getPersonne()[0]->getPerPrenom() .'</option>';
-                        }
+                                echo '<option class='.(date('Y-m-d', strtotime('+1 year',strtotime($plongeur->getPersonne()[0]->getPerDateCertifMed()))) < date('Y-m-d') ? 'red lighten-3' : '').' value="'. $plongeur->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $plongeur->getPerNum()) ? 'selected' : '').' >'. $plongeur->getPersonne()[0]->getPerNom() .' '. $plongeur->getPersonne()[0]->getPerPrenom() .'</option>';
+                            }
                         ?>
                     </select>
                 </div>
