@@ -4,6 +4,13 @@
 <table class="striped">
     <tbody>
         <tr>
+            <td colspan="3" class="row">
+                <a href="plongee/download/&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>" class="col s12 btn green darken-1 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Télécharger la fiche">
+                    <i class="material-icons white-text">file_download</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
             <td>Date :</td>
             <td><?=$plongee[0]->getPloDate() ?></td>
             <td>
@@ -137,14 +144,18 @@
             <td></td>
             <td></td>
         </tr>
-        </tbody>
-    </table><br>
-    <?php
-        if($plongee[0]->getPloEtat()=="Complete")
-        {
-            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
-        }
-    ?>
+        <?php if($plongee[0]->getPloEtat()=="Complete"): ?>
+        <tr>
+            <td class="row" colspan="3">
+
+                <a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
+
+            </td>
+        </tr>
+        <?php endif ?>
+    </tbody>
+</table>
+
     <div id="modalPeriode" class="modal">
         <div class="modal-content">
             <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
