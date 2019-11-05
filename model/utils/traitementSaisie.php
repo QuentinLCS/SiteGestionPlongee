@@ -1,5 +1,5 @@
 <?php
-/*
+
 //converti caractères spéciaux
 function specialCharConverter($text) {
     $regex = [
@@ -104,8 +104,8 @@ function tiretAvecApostrophe($chaine) {
 
 
 function traitementPrenom($txt) {
-    $prenom = specialCharConverter($txt); //transforme les caractères spéciaux
-    $prenom = deleteSpaces($prenom);
+    //$prenom = specialCharConverter($txt);
+    $prenom = deleteSpaces($txt);
     $prenom = hiphenLimiter($prenom);
     $prenom = AutoCapsOnFirstname($prenom);
     if (!formatPrenomOK($prenom) && !tiretPrenomOK($prenom) && !espaceOK($prenom) && !apostropheOK($prenom)) {
@@ -125,7 +125,7 @@ function deleteSpaces($text) {
 }
 
 function AutoCapsOnFirstname($text) {
-    $prenom = mb_strtolower($text, 'UTF-8');
+    $prenom = mb_strtolower($text, 'UTF-8'); //met le nom en minuscule
     $prenom = capsOnWordStart($prenom, "-");
     $prenom = capsOnWordStart($prenom, " ");
     $prenom = capsOnWordStart($prenom, "'");
@@ -145,9 +145,9 @@ function capsOnWordStart($text, $limitor) {
 }
 
 function majusculeDebut($ch) {
-    $premiere = mb_substr($ch, 0, 1, 'UTF-8');
-    $premiere = firstLetterAccentConverter($premiere);
-    $premiere = mb_strtoupper($premiere, 'UTF-8');
+    $premiere = mb_substr($ch, 0, 1, 'UTF-8'); //prend la première lettre
+    $premiere = firstLetterAccentConverter($premiere); //si c'est un accent le convetie
+    $premiere = mb_strtoupper($premiere, 'UTF-8'); //met la lettre en majuscule
     $longueur = mb_strlen($ch, 'UTF-8');
     return $premiere . mb_substr($ch, 1, $longueur - 1, 'UTF-8');
 }
@@ -163,4 +163,3 @@ function tiretPrenomOK($chaine) {
     return !(preg_match($modele, $chaine) || count($tab) > 2 || tiretAvecApostrophe($chaine));
 }
 
-*/

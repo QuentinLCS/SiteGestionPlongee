@@ -15,6 +15,8 @@ class AptitudeController extends _ControllerClass
         if ($urlSize > 1)
             if($url[1] == 'edit')
                 $this->edit();
+            else if($url[1] == 'delete')
+                $this->delete();
             else
                 throw new Exception('Page introuvable');
     }
@@ -101,5 +103,25 @@ class AptitudeController extends _ControllerClass
             } else
                 echo 'Aptitude déjà enregistrée.';
         }
+    }
+
+    private function delete(){
+        if (empty($_GET['apt_code']))
+            header('location: /aptitude');
+
+        $aptitude = $this->aptitudeManager->getOne([
+            'APT_CODE' => $_GET['apt_code']]);
+
+        if (empty($aptitude))
+            header('location: /aptitude');
+
+        if ( isset($_POST['submit']) ) {
+            $this->aptitudeManager->delete($aptitude);
+            header('location: /aptitude');
+        }
+
+        (new View('aptitude/aptitude_removeform'))->generate([
+            'aptitude' => $aptitude,
+        ]);
     }
 }
