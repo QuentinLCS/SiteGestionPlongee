@@ -46,6 +46,11 @@ class PersonneManager extends _Model
         return parent::_countAll(self::$table);
     }
 
+    public function countActifs()
+    {
+        return DataBase::$db->LireDonnees('SELECT COUNT(*) as nb FROM '.self::$table." WHERE PER_ACTIVE = '1'");
+    }
+
     public function getOne(array $id)
     {
         return parent::_getOne(self::$table, $id, self::$entity);

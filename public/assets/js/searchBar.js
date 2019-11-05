@@ -1,8 +1,20 @@
-search1 = document.getElementById('search2');
-search2 = document.getElementById('search1');
+search1 = document.getElementById('search1');
+search2 = document.getElementById('search2');
 
-search1.addEventListener('keyup', function (event) {sendForm(event);}, false);
-search2.addEventListener('keyup',function (event) {sendForm(event);}, false);
+if (search1 != null) {
+    let save = search1.value;
+    search1.value = '';
+    search1.value = save;
+    search1.addEventListener('keyup', function (event) {sendForm(event);}, false);
+}
+
+if (search2 != null) {
+    save = search2.value;
+    search2.value = '';
+    search2.value = save;
+    search2.addEventListener('keyup',function (event) {sendForm(event);}, false);
+}
+
 
 
 function sendForm (event) {
@@ -12,5 +24,5 @@ function sendForm (event) {
 }
 
 function clickFormButton() {
-   document.getElementById('search').click()
+    document.getElementById('search').click();
 }

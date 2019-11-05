@@ -14,8 +14,9 @@
                         <option value="" <?= (!isset($_POST['searchNom']) ? 'selected' : (is_empty($_POST['searchPeriode'])) ? 'selected' : '') ?>>Tous</option>
                         <option value="M" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'M') ? 'selected' : '') ?>>Matin</option>
                         <option value="A" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'A') ? 'selected' : '') ?>>Après-midi</option>
+                        <option value="S" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'S') ? 'selected' : '') ?>>Soir</option>
                     </select>
-                    <label for="search2">Matin ou Après-midi ?</label>
+                    <label for="search2">Matin, Après-midi ou Soir ?</label>
                 </div>
                 <button name="search" id="search" class="col m1 s12 btn blue waves-effect waves-light" style="height: 60px"><i class="material-icons">send</i></button>
             </div>
@@ -75,3 +76,4 @@
 </section>
 
 <script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>
+<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>

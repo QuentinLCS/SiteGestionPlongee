@@ -23,9 +23,7 @@ class PlongeurController extends _ControllerClass
         $urlSize = parent::__construct($url);
 
         if ($urlSize > 1)
-            if($url[1] == 'show' && $url[2] == 'showPal')
-                $this->showPal();
-            else if($url[1] == 'show')
+            if($url[1] == 'show')
                 $this->show();
             elseif ($url[1] == 'delete')
                 $this->delete();
@@ -104,23 +102,6 @@ class PlongeurController extends _ControllerClass
             'securite' => $secu,
             'directeur' => $dir,
             'allPalanquees' => $palConcerner
-        ]);
-    }
-
-    private function showPal(){
-        if (empty($_GET['per_num']) && empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num'])  )
-            header('location: /plongeur');
-
-        $palanquee = $this->palanqueeManager->getOne([
-            'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
-            'PAL_NUM' => $_GET['pal_num']]);
-
-        if(empty($palanquee))
-            header('location: /plongeur');
-
-        (new View('plongeur/plongeur_show/plongeur_show_plongees_show'))->generate([
-            'palanquee' => $palanquee[0]
         ]);
     }
 

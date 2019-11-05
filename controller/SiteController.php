@@ -26,8 +26,17 @@ class SiteController extends _ControllerClass
     {
         $this->add();
 
+        $searchedSites = null;
+
+        if (!empty($_POST['searchNom'])) {
+            $search['nom'] = $_POST['searchNom'];
+            $searchedSites = $this->siteManager->getSearchResult($search);
+        }
+
+
         (new View('site/site_index'))->generate([
-            'allSites' => $this->siteManager->getAll()
+            'allSites' => $this->siteManager->getAll(),
+            'searchedSites' => $searchedSites
         ]);
     }
 
