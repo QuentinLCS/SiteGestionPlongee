@@ -76,10 +76,13 @@ class Plongee extends _Entity
         switch($this->plo_mat_mid_soi) {
             case 'M':
                 $res = 'Matin';
+                break;
             case 'A':
                 $res = 'Apres-midi';
+                break;
             case 'S':
                 $res = 'Soir';
+                break;
         }
         return $res;
     }

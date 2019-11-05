@@ -5,7 +5,7 @@
     <tbody>
         <tr>
             <td colspan="3" class="row">
-                <a href="plongee/download/&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>" class="col s12 btn green darken-1 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Télécharger la fiche">
+                <a href="/plongee/download/&plo_date=<?= $plongee[0]->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>" class="col s12 btn green darken-1 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Télécharger la fiche">
                     <i class="material-icons white-text">file_download</i>
                 </a>
             </td>
@@ -23,13 +23,8 @@
         </tr>
         <tr>
             <td>Période de la journée :</td>
-            <?php if($plongee[0]->getPloMatMidSoi()=='M')
-                    $mat='Matin';
-                elseif($plongee[0]->getPloMatMidSoi()=='A')
-                    $mat='Après-midi';
-                else
-                    $mat='Soir'; ?>
-            <td><?=$mat?></td>
+
+            <td><?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
             <td>
                 <?php if($plongee[0]->getPloEtat()!="Validee")
                 echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
