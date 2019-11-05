@@ -2,14 +2,18 @@
     <head>
         <?php include_once('view/global/head.html'); ?>
         <meta charset="utf-8">
-        <title>Plongée_du_<?= $plongee[0]->getPloDate() ?><?= $plongee[0]->getPloMatMidSoi() ?></title>
+        <title>Plongée_du_<?= $plongee[0]->getPloDate() ?><?= $plongee[0]->getPloMatMidSoiEntier() ?></title>
         <style>
             body {
-                -webkit-print-color-adjust: exact
+                -webkit-print-color-adjust: exact;
             }
 
             th {
                 border-radius: 0;
+            }
+
+            .saut {
+                page-break-after:always
             }
         </style>
     </head>
@@ -20,7 +24,7 @@
                 <table class="col s6 centered">
                     <tr>
                         <th>Date</th>
-                        <td><?= $plongee[0]->getPloDate() ?> <?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
+                        <td><?= $plongee[0]->getPloDate() ?><br><?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
                     </tr>
                     <tr>
                         <th>Directeur de plongée</th>
@@ -47,7 +51,7 @@
                     </tr>
                     <tr>
                         <th>Observation</th>
-                        <td>???</td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -57,9 +61,14 @@
                     <th class="pink lighten-5 red-text text-darken-4 center"><strong>AUCUNE PALANQUEE ENTREE</strong></th>
                 </tr>
             </table>
-            <?php endif; ?>
-            <?php foreach($palanquees as $palanquee): ?>
-            <div class="margin-bottom">
+            <?php endif;
+
+            $i = 0;
+
+            foreach($palanquees as $palanquee):
+            $i++ ?>
+
+            <div class="margin-bottom <?= ($i) % 2 || $i == 1 ? 'saut' : '' ?>">
                 <div class="row" style="border: 5px #424242 solid;">
                     <table class="col s12 centered">
                         <tr>
@@ -69,21 +78,21 @@
                     <table class="col s12 centered">
                         <tr>
                             <th style="width: 170px;">Heure Départ</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalHeureImmersion() ?></td>
                             <th style="width: 170px;">Heure Retour</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalHeureSortieEau() ?></td>
                         </tr>
                         <tr>
                             <th style="width: 170px;">Temps Prévu</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalDureeMax() ?></td>
                             <th style="width: 170px;">Profondeur Prévue</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalProfondeurMax() ?></td>
                         </tr>
                         <tr>
                             <th style="width: 170px;">Temps Réalisé</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalDureeFond() ?></td>
                             <th style="width: 170px;">Profondeur Réalisée</th>
-                            <td>???</td>
+                            <td><?= $palanquee->getPalProfondeurReelle() ?></td>
                         </tr>
                     </table>
                     <table class="centered">
@@ -94,18 +103,18 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php if(!empty($plongeurs[$i-1])): ?>
+                            <?php foreach($plongeurs[$i-1] as $plongeur): ?>
+                            <tr>
+                                <td><?= $plongeur->getPersonne()[0]->getPerNom().' '.$plongeur->getPersonne()[0]->getPerPrenom() ?></td>
+                                <td><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                         <tr>
-                            <td>???</td>
-                            <td>???</td>
+                            <td colspan="2" class="pink lighten-5 red-text text-darken-4 center"><strong>AUCUN PLONGEUR DANS CETTE PALANQUEE</strong></td>
                         </tr>
-                        <tr>
-                            <td>???</td>
-                            <td>???</td>
-                        </tr>
-                        <tr>
-                            <td>???</td>
-                            <td>???</td>
-                        </tr>
+                        <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -114,7 +123,7 @@
         </main>
         <script>
             setTimeout(function () {
-                document.location.href="plongee_index.html"
+                document.location.href="<?= (isset($_GET['show']) ? URL.'plongee/show/&plo_date='.$plongee[0]->getPloDate().'&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi() : 'plongee_index.html')?>"
             }, 1000)
         </script>
     </body>

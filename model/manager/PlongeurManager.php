@@ -120,7 +120,7 @@ class PlongeurManager extends _Model
 
             //on vérifie si c'est un directeur qui a dirigé une plongée
             $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEE WHERE PER_NUM_DIR ='.$object[0]->getPerNum());
-            var_dump($dir);
+
             if(count($dir)==0)
                 DataBase::$db->majDonnees('DELETE FROM PLO_DIRECTEUR WHERE PER_NUM='.$object[0]->getPerNum());
 
@@ -138,14 +138,14 @@ class PlongeurManager extends _Model
     }
     public function getPlongeurPlongee($date,$periode,$palNum)
     {
-        $req="SELECT PLO_PALANQUEE.PAL_NUM, PLO_APTITUDE.APT_LIBELLE,PLO_PERSONNE.PER_NOM,PLO_PERSONNE.PER_PRENOM, PLO_PERSONNE.PER_NUM FROM PLO_PLONGEE
+        $req="SELECT * FROM PLO_PLONGEE
                 JOIN PLO_PALANQUEE using (PLO_DATE,PLO_MAT_MID_SOI)
                 JOIN PLO_CONCERNER USING (PLO_DATE,PLO_MAT_MID_SOI,PAL_NUM)
                 JOIN PLO_PERSONNE USING (PER_NUM)
                 JOIN PLO_PLONGEUR USING (PER_NUM)
                 JOIN PLO_APTITUDE USING (APT_CODE)
                 WHERE PLO_DATE='".$date."' and PLO_MAT_MID_SOI='".$periode."' and PAL_NUM='".$palNum."'";
-        return DataBase::$db->LireDonnees($req);
+        return DataBase::$db->LireDonnees($req, self::$entity);
     }
 
     public function getPalanqueeConcerner($plongeur){

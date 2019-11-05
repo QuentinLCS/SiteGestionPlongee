@@ -86,10 +86,14 @@ class PlongeeController extends _ControllerClass
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
 
+        $plongeurs = null;
+        foreach ($palanquee as $pal)
+            $plongeurs[] = $this->plongeurManager->getPlongeurPlongee($_GET['plo_date'],$_GET['plo_mat_mid_soi'],$pal->getPalNum());
 
         (new View('plongee/plongee_download'))->generate([
             'plongee' => $plongee,
             'palanquees' => $palanquee,
+            'plongeurs' => $plongeurs
         ], true);
     }
 
@@ -119,15 +123,7 @@ class PlongeeController extends _ControllerClass
 
         $this->addPalanquee();
 
-        if ($plongee[0]->getPloMatMidSoi() == 'M')
-            $mat = 'Matin';
-        elseif ($plongee[0]->getPloMatMidSoi() == 'A')
-            $mat = 'Après-midi';
-        else
-            $mat = 'Soir';
-
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
-            'mat' => $mat,
             'plongee' => $plongee,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
