@@ -42,7 +42,7 @@
                         <tbody>
                         <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
                         <tr>
-                            <td class="center"><?= $plongee->getPloDate() ?></td>
+                            <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
                             <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
                             <td class="center"><b><?= $plongee->getPloNbPalanquees() ?></b></td>

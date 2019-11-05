@@ -1,6 +1,6 @@
 <?php $this->_title = 'Projet Plongée | Plongée' ?>
 
-<h4 class="center margin-bottom"><strong><?= $plongee[0]->getPloDate().' | '.$plongee[0]->getPloMatMidSoiEntier() ?></strong></h4>
+<h4 class="center margin-bottom"><strong><?= dateFormater($plongee[0]->getPloDate()).' | '.$plongee[0]->getPloMatMidSoiEntier() ?></strong></h4>
 <section class="row">
     <div class="col xl3 s12 white z-depth-1 no-padding margin-bottom">
         <?php require_once('plongee_show_generale.html'); ?>

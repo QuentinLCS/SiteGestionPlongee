@@ -1,6 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
+require_once('model/utils/DateFomater.php');
 
 class PlongeeController extends _ControllerClass
 {

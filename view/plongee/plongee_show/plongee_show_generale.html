@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <td>Date :</td>
-            <td><?=$plongee[0]->getPloDate() ?></td>
+            <td><?= dateFormater($plongee[0]->getPloDate()) ?></td>
             <td>
                 <?php
             if($plongee[0]->getPloEtat()!="Validee")
