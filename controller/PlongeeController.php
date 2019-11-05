@@ -267,8 +267,10 @@ class PlongeeController extends _ControllerClass
                 $embNum = intval($_POST["embarcation"], 10);
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
-                $effectifB = intval($_POST["effectifB"], 10);
-
+                $effectifB = "0";
+                if ($_POST["effectifB"] != "") {
+                    $effectifB = intval($_POST["effectifB"], 10);
+                }
                 $plongee[] = new Plongee([
                     'PLO_DATE' => $date,
                     'PLO_MAT_MID_SOI' => $periode,

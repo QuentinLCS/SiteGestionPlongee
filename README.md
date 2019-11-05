@@ -71,11 +71,11 @@ moins d’un an
 - [x] Pour ajouter une palanquée, il faut sélectionner une plongée
 - [x] On peut compléter une palanquée
 - [ ] On peut valider une palanquée lorsqu’elle est complète
-- [ ] Pour une palanquée, on peut avoir 5 plongeurs au maximum
+- [X] Pour une palanquée, on peut avoir 5 plongeurs au maximum
 #### État d’une plongée. Une plongée peut être dans l’état
-- [ ] « Créée » : on a créé une plongée
+- [X] « Créée » : on a créé une plongée
 - [ ] « Paramétrée » : on a saisi toutes les palanquées d’avant la plongée
-- [ ] « Complète » ou « validée » : on a complété toutes les palanquées d’après la plongée
+- [X] « Complète » ou « validée » : on a complété toutes les palanquées d’après la plongée
 - [ ] « Dépassée » : La plongée a plus d’un an
  ## Dernière partie : Affichage des données PLO
 > L'objectif est de permettre la visualisation de toutes les informations de la base. Grâce à des menus adaptés et
