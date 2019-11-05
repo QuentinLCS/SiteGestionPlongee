@@ -262,13 +262,15 @@ class PlongeeController extends _ControllerClass
     {
         //Vérifie si le formulaire et bien un formulaire d'ajout de plongée
         if (isset($_POST["submitPLO"])) {
-            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && $this->verifierDate($_POST["date"])) {
+            if (isset($_POST["date"]) && isset($_POST["periode"]) && isset($_POST["site"]) && isset($_POST["embarcation"]) && isset($_POST["directeur"]) && isset($_POST["securite"]) && isset($_POST["effectifB"]) && $this->verifierDate($_POST["date"])) {
                 $date = $_POST["date"];
                 $periode = ($_POST["periode"]);
                 $siteNum = intval($_POST["site"], 10);
                 $embNum = intval($_POST["embarcation"], 10);
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
+                $effectifB = intval($_POST["effectifB"], 10);
+
                 $plongee[] = new Plongee([
                     'PLO_DATE' => $date,
                     'PLO_MAT_MID_SOI' => $periode,
@@ -277,7 +279,7 @@ class PlongeeController extends _ControllerClass
                     'PER_NUM_DIR' => $directeurNum,
                     'PER_NUM_SECU' => $securiteNum,
                     'PLO_EFFECTIF_PLONGEURS' => 0,
-                    'PLO_EFFECTIF_BATEAU' => 1,
+                    'PLO_EFFECTIF_BATEAU' => $effectifB,
                     'PLO_ETAT'=> "Creee"
                 ]);
                 $this->plongeeManager->update($plongee, true);
