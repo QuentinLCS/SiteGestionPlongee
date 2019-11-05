@@ -145,7 +145,7 @@ class PlongeurManager extends _Model
                 JOIN PLO_PLONGEUR USING (PER_NUM)
                 JOIN PLO_APTITUDE USING (APT_CODE)
                 WHERE PLO_DATE='".$date."' and PLO_MAT_MID_SOI='".$periode."' and PAL_NUM='".$palNum."'";
-        return DataBase::$db->LireDonnees($req);
+        return DataBase::$db->LireDonnees($req, self::$entity);
     }
 
     public function getPalanqueeConcerner($plongeur){

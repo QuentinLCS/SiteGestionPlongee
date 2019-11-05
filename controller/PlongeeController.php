@@ -86,10 +86,14 @@ class PlongeeController extends _ControllerClass
 
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
 
+        $plongeurs = null;
+        foreach ($palanquee as $pal)
+            $plongeurs[] = $this->plongeurManager->getPlongeurPlongee($_GET['plo_date'],$_GET['plo_mat_mid_soi'],$pal->getPalNum());
 
         (new View('plongee/plongee_download'))->generate([
             'plongee' => $plongee,
             'palanquees' => $palanquee,
+            'plongeurs' => $plongeurs
         ], true);
     }
 

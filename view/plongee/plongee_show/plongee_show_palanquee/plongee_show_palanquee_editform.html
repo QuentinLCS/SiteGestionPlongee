@@ -93,9 +93,9 @@
                 <tbody>
                 <?php foreach($plongeurs as $plongeur ): ?>
                 <tr>
-                    <td><?=$plongeur['PER_NOM']?></td>
-                    <td><?=$plongeur['PER_PRENOM']?></td>
-                    <td><?=$plongeur['APT_LIBELLE']?></td>
+                    <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
+                    <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
+                    <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
                     <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
                         <td>
                             <a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
