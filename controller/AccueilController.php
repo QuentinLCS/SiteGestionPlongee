@@ -58,7 +58,7 @@ class AccueilController extends _ControllerClass
         $plongeesFutures = $this->plongeeManager->getPlongeesFutures();
 
         (new View('home/home'))->generate([
-            'nbPersonnes' => $this->personneManager->countAll(),
+            'nbActifs' => $this->personneManager->countActifs(),
             'nbPlongeurs' => $this->plongeurManager->countAll(),
             'nbPlongees' => $this->plongeeManager->countAll(),
             'nbSites' => $this->siteManager->countAll(),
