@@ -132,6 +132,8 @@ class PlongeeController extends _ControllerClass
             'plongeurs' => $plongeurs,
             'palanquees' => $palanquee,
             'site' => $site
+            /*'directeurPlongeur' => $this->personneManager->getOne(["PER_NUM" => ]),
+            'securiteSurface' =>;*/
         ]);
     }
 
@@ -287,7 +289,7 @@ class PlongeeController extends _ControllerClass
                     'PER_NUM_DIR' => $directeurNum,
                     'PER_NUM_SECU' => $securiteNum,
                     'PLO_EFFECTIF_PLONGEURS' => 0,
-                    'PLO_EFFECTIF_BATEAU' => 1,
+                    'PLO_EFFECTIF_BATEAU' => $this->plongeeManager->getEffectifPlongeur($_POST["date"],$_POST["periode"])[0]['count(PLO_CONCERNER.PER_NUM)']+2,
                     'PLO_ETAT'=> "Creee"
                 ]);
                 $this->plongeeManager->update($plongee, true);
@@ -472,17 +474,13 @@ class PlongeeController extends _ControllerClass
         if ( isset($_POST['submit']) ){
             $this->palanqueeManager->delete($palanquee);
             $this->updateEffectifPalanquee();
-            $this->updateEffectifPlongeur();
-            $base=$this->plongeeManager->getOne([
-                'PLO_DATE'=> $_GET['plo_date'],
-                'PLO_MAT_MID_SOI'=> $_GET['plo_mat_mid_soi']
-            ]);
+            $base=$this->updateEffectifPlongeur();
             if($this->verifierCompleter($base))
             {
                 $base[0]->setPloEtat("Complete");
             }
             $this->plongeeManager->update($base,false);
-            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
+            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
         (new View('plongee/plongee_show/plongee_show_palanquee/plongee_show_palanquee_removeform'))->generate([
@@ -497,9 +495,11 @@ class PlongeeController extends _ControllerClass
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
         ]);
+        $plongee[0]->setPloEffectifBateau(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)'])+2);
         $plongee[0]->setPloEffectifPlongeurs(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)']));
         $plongee[0]->setPloEtat("Parametree");
-        $this->plongeeManager->update($plongee,false);
+        return $plongee;
+        //$this->plongeeManager->update($plongee,false);
     }
 
     public function updateEffectifPalanquee()
@@ -544,10 +544,12 @@ class PlongeeController extends _ControllerClass
                 ]);
                 $plongee[0]->setPloEtat("Validee");
                 $this->plongeeManager->update($plongee,false);
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
         (new View('plongee/plongee_show/plongee_show_generale/plongee_show_generale_valider'))->generate([]);
     }
+
     function verifierDate($date)
     {
         $modele='#([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))#';

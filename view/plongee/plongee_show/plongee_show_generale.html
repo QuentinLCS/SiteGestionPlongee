@@ -58,12 +58,27 @@
             <td><?=$plongee[0]->getPloEtat()?></td>
             <td></td>
         </tr>
+        <tr>
+            <td>Effectif des bateaux</td>
+            <td><?=$plongee[0]->getPloEffectifBateau()?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Directeur de plongée :</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Sécurité de surface :</td>
+            <td></td>
+            <td></td>
+        </tr>
         </tbody>
     </table><br>
     <?php
         if($plongee[0]->getPloEtat()=="Complete")
         {
-            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
+            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
         }
     ?>
     <div id="modalPeriode" class="modal">
