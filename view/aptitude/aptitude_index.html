@@ -9,15 +9,16 @@
             <div class="row">
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" >
+                    <input onclick="isFocused('search1')" type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" <?= isset($_POST["focused"]) ? ($_POST["focused"] == 'search1' ? 'autofocus' : '') : '' ?>>
                     <label for="search1">Rechercher par CODE...</label>
                 </div>
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" >
+                    <input onclick="isFocused('search2')" type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" <?= isset($_POST["focused"]) ? ($_POST["focused"] == 'search2' ? 'autofocus' : '') : '' ?>>
                     <label for="search2">Rechercher par LIBELLE...</label>
                 </div>
             </div>
+            <input type="hidden" value="<?= isset($_POST["focused"]) ? $_POST["focused"] : '' ?>" id="focused" name="focused">
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
         <table class="striped">
@@ -55,6 +56,10 @@
 </section>
 
 <script>
+    function isFocused(div) {
+        document.getElementById("focused").value = div;
+    }
+
     $(document).ready(function(){
         $('input#search1').autocomplete({
             data: {
