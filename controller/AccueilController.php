@@ -63,7 +63,7 @@ class AccueilController extends _ControllerClass
             'nbPlongees' => $this->plongeeManager->countAll(),
             'nbSites' => $this->siteManager->countAll(),
             'nbAptitudes' => $this->aptitudeManager->countAll(),
-            'plongeesFutures' => $plongeesFutures
+            'allPlongeesFutures' => $plongeesFutures
             ]);
     }
 }
