@@ -60,6 +60,7 @@ class PlongeurController extends _ControllerClass
 
         }
 
+        $today = new DateTime();
 
         $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
@@ -67,7 +68,8 @@ class PlongeurController extends _ControllerClass
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'searchedPlongeurs' => $searchedPlongeurs,
             'directeur' => $tmp,
-            'securite' => $tmp
+            'securite' => $tmp,
+            'dateOfToday' => $today
         ]);
     }
 

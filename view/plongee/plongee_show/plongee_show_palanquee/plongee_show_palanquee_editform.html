@@ -1,75 +1,81 @@
-<section class="white z-depth-4 rounded center">
-    <div class="container">
-        <h4>Modifier une palanquée</h4>
-        <form name="modifier" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-            <div class="row">
-                <div class="col s6">
-                    <h5>Début de la plongée</h5>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Heure immersion
-                            <input type="time" id="HImmersion" name="HImmersion" value="<?= $palanquee[0]->getPalHeureImmersion() ?>">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Profondeur maximum
-                            <input type="text" id="profondeurMax" name="profondeurMax" value="<?= $palanquee[0]->getPalProfondeurMax() ?>">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Durée maximum
-                            <input type="text" id="DureeMax" name="DureeMax" value="<?= $palanquee[0]->getPalDureeMax() ?>">
-                        </label>
-                    </div>
-                </div>
-                <div class="col s6">
-                    <h5>Retour de la plongée</h5>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Heure sortie
-                            <input type="time" id="HSortie" name="HSortie" value="<?= $palanquee[0]->getPalHeureSortieEau() ?>">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Profondeur réelle
-                            <input type="text" id="ProfondeurReelle" name="ProfondeurReelle" value="<?= $palanquee[0]->getPalProfondeurReelle() ?>">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label class="col s12 margin-bottom">
-                            Durée Fond
-                            <input type="text" id="DureeFond" name="DureeFond" value="<?= $palanquee[0]->getPalDureeFond() ?>">
-                        </label>
-                    </div>
-                </div>
-                <button class="btn yellow darken-4 waves-effect waves-light col s12 margin-bottom" name="submit">ENREGISTRER</button>
-            </div>
+<section>
+    <div class="center">
+        <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
+            <button class="btn green waves-effect waves-light col s12 margin-bottom" name="retour">RETOUNER A LA PAGE PRÉCÉDENTE</button>
         </form>
     </div>
-</section>
-<section class="white z-depth-4 rounded center">
-    <div class="container">
-        <h4>Détails des plongeurs :</h4>
-        <div class="row">
-            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-            <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
-                <i class="large material-icons">add</i>
-            </a>
-
-            <a class="btn blue darken-4 waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Créer un Plongeur" href="">
-                <i class="large material-icons">person_add</i>
-            </a>
-            <?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html'); ?>
-            <?php endif; ?>
+    <div class="white z-depth-4 rounded center">
+        <div class="container">
+            <h4>Modifier une palanquée</h4>
+            <form name="modifier" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                <div class="row">
+                    <div class="col s6">
+                        <h5>Début de la plongée</h5>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Heure immersion
+                                <input type="time" id="HImmersion" name="HImmersion" value="<?= $palanquee[0]->getPalHeureImmersion() ?>">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Profondeur maximum
+                                <input type="text" id="profondeurMax" name="profondeurMax" value="<?= $palanquee[0]->getPalProfondeurMax() ?>">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Durée maximum
+                                <input type="text" id="DureeMax" name="DureeMax" value="<?= $palanquee[0]->getPalDureeMax() ?>">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <h5>Retour de la plongée</h5>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Heure sortie
+                                <input type="time" id="HSortie" name="HSortie" value="<?= $palanquee[0]->getPalHeureSortieEau() ?>">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Profondeur réelle
+                                <input type="text" id="ProfondeurReelle" name="ProfondeurReelle" value="<?= $palanquee[0]->getPalProfondeurReelle() ?>">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="col s12 margin-bottom">
+                                Durée Fond
+                                <input type="text" id="DureeFond" name="DureeFond" value="<?= $palanquee[0]->getPalDureeFond() ?>">
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn yellow darken-4 waves-effect waves-light col s12 margin-bottom" name="submit">ENREGISTRER</button>
+                </div>
+            </form>
         </div>
-        <?php if(empty($plongeurs)): ?>
+    </div>
+    <div class="white z-depth-4 rounded center">
+        <div class="container">
+            <h4>Détails des plongeurs :</h4>
+            <div class="row">
+                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
+                    <i class="large material-icons">add</i>
+                </a>
+
+                <a class="btn blue darken-4 waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Créer un Plongeur" href="">
+                    <i class="large material-icons">person_add</i>
+                </a>
+                <?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html'); ?>
+                <?php endif; ?>
+            </div>
+            <?php if(empty($plongeurs)): ?>
             <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
                 Aucun plongeur renseigné pour cette plongée.
             </p>
-        <?php else: ?>
+            <?php else: ?>
             <table>
                 <thead>
                 <tr>
@@ -80,33 +86,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($plongeurs as $plongeur ): ?>
-                        <tr>
-                            <td><?=$plongeur['PER_NOM']?></td>
-                            <td><?=$plongeur['PER_PRENOM']?></td>
-                            <td><?=$plongeur['APT_LIBELLE']?></td>
-                            <td>
-                                <?php
+                <?php foreach($plongeurs as $plongeur ): ?>
+                <tr>
+                    <td><?=$plongeur['PER_NOM']?></td>
+                    <td><?=$plongeur['PER_PRENOM']?></td>
+                    <td><?=$plongeur['APT_LIBELLE']?></td>
+                    <td>
+                        <?php
                                         if($plongee[0]->getPloEtat()!="Validee")
-                                {
-                                echo '<a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
-                                <i class="material-icons white-text">close</i>
-                            </a>';
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                        {
+                        echo '<a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                        <i class="material-icons white-text">close</i>
+                    </a>';
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
-<section class="center">
-    <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
-        <button class="btn green waves-effect waves-light col s12 margin-bottom" name="retour">RETOUNER A LA PAGE PRÉCÉDENTE</button>
-    </form>
-</section>
+
 <?php
     if (isset($_POST['retour'])) {
         header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
