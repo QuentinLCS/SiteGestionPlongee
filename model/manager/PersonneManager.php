@@ -36,7 +36,7 @@ class PersonneManager extends _Model
         }
 
         if (isset($search['inactive']))
-            $sql .= "PER_ACTIVE = '%'";
+            $sql .= "PER_ACTIVE = '".$search['inactive']."'";
 
         return  DataBase::$db->LireDonnees($sql, self::$entity);
     }

@@ -93,20 +93,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($plongeurs as $plongeur ): ?>
-                <tr>
-                    <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
-                    <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
-                    <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-                        <td>
-                            <a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
-                                <i class="material-icons white-text">close</i>
-                            </a>
-                        </td>
-                    <?php endif; ?>
-                </tr>
-                <?php endforeach; ?>
+                    <?php foreach($plongeurs as $plongeur ): ?>
+                        <tr>
+                            <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
+                            <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
+                            <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
+                            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                                <td>
+                                    <a href="removePlo/&pal_num=<?=$_GET['pal_num']?>&plo_mat_mid_soi=<?=$_GET['plo_mat_mid_soi']?>&plo_date=<?=$_GET['plo_date']?>&per_num=<?=$plongeur->getPerNum()?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                                        <i class="material-icons white-text">close</i>
+                                    </a>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             <?php endif; ?>

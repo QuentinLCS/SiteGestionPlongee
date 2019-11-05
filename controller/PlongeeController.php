@@ -477,7 +477,8 @@ class PlongeeController extends _ControllerClass
             'palanquee' => $palanquee,
             'plongeurs' => $plongeurs,
             'plongee' => $plongee,
-            'allPlongeurs' => $this->plongeurManager->getAll()
+            'allActive' => $this->personneManager->getSearchResult(['inactive' => 1]),
+            'allInactive' => $this->personneManager->getSearchResult(['inactive' => 0])
         ]);
     }
 
