@@ -65,6 +65,7 @@
             <h4>Liste des plongeurs</h4>
             <div class="row">
                 <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <h5><small>Plongeurs Restants : <?= 5 - count($plongeurs)  ?></small></h5>
                 <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
                     <i class="large material-icons">add</i>
                 </a>

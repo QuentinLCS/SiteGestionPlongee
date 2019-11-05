@@ -27,6 +27,7 @@
                 <td class="center"><h6>Heure de sortie</h6></td>
                 <td class="center"><h6>Durée maximum</h6></td>
                 <td class="center"><h6>Durée de fond</h6></td>
+                <td class="center"><h6>Nombre de plongeurs</h6></td>
                 <td class="center"><h6>Gestion</h6></td>
             </tr>
             </thead>
@@ -40,6 +41,7 @@
                     <td class="center"><?=$palanquee->getPalHeureSortieEau()?></td>
                     <td class="center"><?=$palanquee->getPalDureeMax()?></td>
                     <td class="center"><?=$palanquee->getPalDureeFond()?></td>
+                    <td class="center"><?=$palanquee->getNbPlongeurs()?></td>
                     <td class="center">
                         <a href="editPal/&pal_num=<?= $palanquee->getPalNum() ?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi() ?>&plo_date=<?= $palanquee->getPloDate() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
                             <i class="material-icons white-text">remove_red_eye</i>
