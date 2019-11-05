@@ -73,7 +73,7 @@ class PlongeurController extends _ControllerClass
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
-            'plongeurManager' => $this->plongeurManager,
+            'plongeurManager' => $this->plongeurManager, 
             'searchedPlongeurs' => $searchedPlongeurs,
             //'roleDir' => $directeur,
             //'roleSecu' => $secu,
@@ -246,9 +246,9 @@ class PlongeurController extends _ControllerClass
                             ]);
                             if(!$add) {
 
-                                var_dump($this->plongeurManager->isDirector(47));
-                                var_dump($plongeur[0]->getEstDirecteur());
-                                var_dump($plongeur[0]);
+                                //var_dump($this->plongeurManager->isDirector(47));
+                                //var_dump($plongeur[0]->getEstDirecteur());
+                                //var_dump($plongeur[0]);
                                 if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0){
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
                                     $plongeur[0]->setEstDirecteur('1');

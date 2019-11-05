@@ -33,11 +33,10 @@
                 <table class="striped">
                     <thead>
                         <tr>
-                            <th class="center">ID</th>
+                            <th class="center">Rôle</th>
                             <th class="center">Nom</th>
                             <th class="center">Prénom</th>
                             <th class="center">Aptitude</th>
-                            <th class="center">Rôle</th>
                             <th class="center">Actif</th>
                             <th class="center">Gestion</th>
                         </tr>
@@ -46,21 +45,17 @@
                     <tbody>
                         <?php  foreach((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs) as $plongeur): ?>
                         <tr>
-                            <td class="center"><?= $plongeur->getPerNum() ?></td>
-                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
-                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
-                            <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             <td class="center">
                                 <?php
                                     if($plongeurManager->isDirector($plongeur->getPerNum()))
                                         echo "directeur<br>";
                                     if($plongeurManager->isSecurity($plongeur->getPerNum()))
                                         echo "sécurité de surface";
-
-
                                 ?>
-
                             </td>
+                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
+                            <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
+                            <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             <td class="center"><?php  if($plongeur->getPersonne()[0]->getPerActive()==1) echo "Oui"; else echo "Non"; ?></td>
                             <td class="center">
                                 <a href="plongeur/show/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails du plongeur">
