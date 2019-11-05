@@ -45,7 +45,6 @@
                     <tbody>
                         <?php foreach((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs) as $plongeur): ?>
                         <tr>
-                            <?php var_dump((new DateTime($plongeur->getPersonne()[0]->getPerDateCertifMed()))) ?>
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
                             <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>

@@ -39,7 +39,6 @@ class PalanqueeManager extends _Model
                 )");
         }
         else {
-            //var_dump($object);
             $sql="UPDATE " . self::$table . " SET 
              PAL_PROFONDEUR_MAX ='" . $object[0]->getPalProfondeurMax() . "',
              PAL_DUREE_MAX ='" . $object[0]->getPalDureeMax() . "',
@@ -53,7 +52,7 @@ class PalanqueeManager extends _Model
                 $sql.=", PAL_DUREE_FOND ='" . $object[0]->getPalDureeFond() . "'";
 
             $sql.=" WHERE PAL_NUM = '". $object[0]->getPalNum() ."' AND PLO_MAT_MID_SOI ='". $object[0]->getPloMatMidSoi() ."' AND PLO_DATE ='". $object[0]->getPloDate()."'";
-            //var_dump($sql);
+
             DataBase::$db->majDonnees($sql);
         }
     }
