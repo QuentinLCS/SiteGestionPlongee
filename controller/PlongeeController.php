@@ -344,8 +344,7 @@ class PlongeeController extends _ControllerClass
                 ]);
                 $this->palanqueeManager->update($palanqueeObj, true);
                 $this->updateEffectifPalanquee();
-                header('location: /plongee/show/editPal/&pal_num=' . $palNum . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
-
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
     }
@@ -414,23 +413,29 @@ class PlongeeController extends _ControllerClass
                     'PAL_NUM' => $numPal,
                     'PER_NUM' => $numPers
                 ];
-                $this->palanqueeManager->updatePlongeurs($concerner);
-                $this->updateEffectifPlongeur();
 
-                if($this->verifierCompleter($base))
-                    $base[0]->setPloEtat("Complete");
+                $plongee = $this->plongeeManager->getOne([
+                   'PLO_DATE' => $date,
+                   'PLO_MAT_MID_SOI' => $periode
+                ]);
 
-                $this->plongeeManager->update($base,false);
+                if (( $numPers == $plongee[0]->getDirecteur()[0]->getPerNum() )||( $numPers == $plongee[0]->getSecurite()[0]->getPerNum() )) {
 
+                } else {
+                    $this->palanqueeManager->updatePlongeurs($concerner);
+                    $this->updateEffectifPlongeur();
+                    header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                }
+                /*
+                 *
                 $plongeur = $this->personneManager->getOne([
                     'PER_NUM' => $numPers
                 ]);
-
                 if ($plongeur[0]->getPerActive() == 0) {
                     $plongeur[0]->setPerActive(1);
                     $this->personneManager->update($plongeur, false);
                 }
-                header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                */
             }
         }
 
@@ -463,7 +468,7 @@ class PlongeeController extends _ControllerClass
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
             else{
-                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&page=palanquee');
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
 
@@ -618,6 +623,7 @@ class PlongeeController extends _ControllerClass
             return false;
         }
     }
+
 }
 
 

@@ -1,10 +1,8 @@
 <div class="row">
     <div class="col s12">
+        <br>
         <div class="row center">
             <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-            <h5>
-                <small>Palanquées Restantes : <?= 5 - ($plongee[0]->getPloNbPalanquees()) ?>  </small>
-            </h5>
             <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Nouvelle Palanquée" href="#ajouterPAL">
                 <i class="large material-icons">add</i>
             </a>
@@ -33,9 +31,7 @@
             </tr>
             </thead>
             <tbody><h6></h6>
-            <?php foreach($palanquees as $palanquee):
-
-            ?>
+            <?php foreach($palanquees as $palanquee): ?>
                 <tr>
                     <td class="center"><b><?=$palanquee->getPalNum()?></b></td>
                     <td class="center"><?=$palanquee->getPalProfondeurMax()?></td>
