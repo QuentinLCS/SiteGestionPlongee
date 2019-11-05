@@ -1,46 +1,33 @@
-<div class="container">
-    <table class="striped">
-        <tbody>
+<div class="blue-grey darken-4 z-depth-1" style="overflow: hidden; line-height: 50px;">
+    <div class="white-text center">INFORMATIONS GLOBALES</div>
+</div>
+<table class="striped">
+    <tbody>
         <tr>
             <td>Date :</td>
-            <td><?=$plongee[0]->getPloDate()?></td>
+            <td><?=$plongee[0]->getPloDate() ?></td>
             <td>
                 <?php
-                    if($plongee[0]->getPloEtat()!="Validee")
-                    {
-                        echo '<a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
-                                <i class="material-icons white-text">edit</i>
-                              </a>';
-                    }
+            if($plongee[0]->getPloEtat()!="Validee")
+                echo '<a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
+                <i class="material-icons white-text">edit</i></a>';
                 ?>
             </td>
         </tr>
         <tr>
             <td>Période de la journée :</td>
-            <?php
-                if($plongee[0]->getPloMatMidSoi()=='M')
-                {
+            <?php if($plongee[0]->getPloMatMidSoi()=='M')
                     $mat='Matin';
-                }
                 elseif($plongee[0]->getPloMatMidSoi()=='A')
-                {
                     $mat='Après-midi';
-                }
                 else
-                {
-                    $mat='Soir';
-                }
-            ?>
+                    $mat='Soir'; ?>
             <td><?=$mat?></td>
             <td>
-                <?php
-                    if($plongee[0]->getPloEtat()!="Validee")
-                    {
-                        echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
-                            <i class="material-icons white-text">edit</i>
-                        </a>';
-                    }
-                ?>
+                <?php if($plongee[0]->getPloEtat()!="Validee")
+                echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
+                <i class="material-icons white-text">edit</i>
+            </a>'; ?>
             </td>
         </tr>
         <tr>
@@ -58,33 +45,107 @@
             <td><?=$plongee[0]->getPloEtat()?></td>
             <td></td>
         </tr>
-        </tbody>
-    </table><br>
-    <?php
-        if($plongee[0]->getPloEtat()=="Complete")
-        {
-            echo '<a href="validerPlongee/&plo_mat_mid_soi='.$palanquee->getPloMatMidSoi().'&plo_date='.$palanquee->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>';
-        }
-    ?>
-    <div id="modalPeriode" class="modal">
-        <div class="modal-content">
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                <select name="selectPeriode">
-                    <option value="M" selected>Matin</option>
-                    <option value="A" >Après-midi</option>
-                    <option value="S" >Soir</option>
-                </select>
-                <button type="submit" value="submit" name="submitPeriode" class="waves-effect waves-light btn">Enregistrer</button>
-            </form>
-        </div>
-    </div>
-    <div id="modalDate" class="modal">
-        <div class="modal-fixed-footer">
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
-                <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn">Enregistrer</button>
-            </form>
-        </div>
+        <tr>
+            <td>Embarcation :</td>
+            <td>
+                <?php if (empty($bateau)): ?>
+                    <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+                        Aucune embarcation enregistrée.
+                    </p>
+                <?php else: ?>
+                    <?=$bateau[0]->getEmbNom()?>
+                    <div id="modal1" class="modal">
+                        <div class="modal-content">
+                            <h4>Modification du site</h4>
+                            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                                <select name="embar">
+                                    <?php
+                                foreach($allEmbarcation as $embar)
+                                {
+                                    echo "<option value='".$embar->getEmbNum()."'>".$embar->getEmbNom()."</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitEmbar">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'embarcation">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                <?php endif; ?>
+            </td>
+        </tr>
+        <?php if (empty($site)): ?>
+            <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+                Aucun site renseigné.
+            </p>
+        <?php else: ?>
+            <tr>
+                <td>Site :</td>
+                <td>
+                    <?php if (empty($site)): ?>
+                        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+                            Aucun site renseigné.
+                        </p>
+                    <?php else: ?>
+                        <?=$site[0]->getSitNom()?>
+                        <div id="modal2" class="modal">
+                            <div class="modal-content">
+                                <h4>Modification du site</h4>
+                                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                                    <select name="siteNum">
+                                        <?php
+                            foreach($allSite as $site)
+                            {
+                                echo "<option value='".$site->getSitNum()."'>".$site->getSitNom()."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitSite">Enregistrer</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                        <a href="#modal2" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du site">
+                            <i class="material-icons white-text">edit</i>
+                        </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php if($plongee[0]->getPloEtat()=="Complete")
+    echo '<a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="waves-effect waves-light btn #1b5e20 green darken-4 right"><i class="material-icons right">done</i>Valider</a><br>'; ?>
+
+
+<div id="modalPeriode" class="modal">
+    <div class="modal-content">
+        <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+            <select name="selectPeriode">
+                <option value="M" selected>Matin</option>
+                <option value="A" >Après-midi</option>
+                <option value="S" >Soir</option>
+            </select>
+            <button type="submit" value="submit" name="submitPeriode" class="waves-effect waves-light btn">Enregistrer</button>
+        </form>
     </div>
 </div>
+<div id="modalDate" class="modal">
+    <div class="modal-fixed-footer">
+        <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+            <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
+            <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn">Enregistrer</button>
+        </form>
+    </div>
+</div>
+
 <script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>

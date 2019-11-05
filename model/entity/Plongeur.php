@@ -26,10 +26,8 @@ class Plongeur extends _Entity
 
         $this->personne = $personneManager->getOne(['PER_NUM' => $this->per_num]);
         $this->aptitude = $aptitudeManager->getOne(['APT_CODE' => $this->apt_code]);
-
-        $this->estDirecteur = 0;
-        $this->estSecurite = 0;
-
+        $this->estDirecteur = $plongeurManager->isDirector($this->per_num);
+        $this->estSecurite = $plongeurManager->isSecurity($this->per_num);
     }
 
     /**

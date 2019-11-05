@@ -119,7 +119,15 @@ class PlongeeController extends _ControllerClass
 
         $this->addPalanquee();
 
+        if ($plongee[0]->getPloMatMidSoi() == 'M')
+            $mat = 'Matin';
+        elseif ($plongee[0]->getPloMatMidSoi() == 'A')
+            $mat = 'Après-midi';
+        else
+            $mat = 'Soir';
+
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
+            'mat' => $mat,
             'plongee' => $plongee,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
@@ -335,7 +343,7 @@ class PlongeeController extends _ControllerClass
             ]);
             $this->palanqueeManager->update($palanqueeObj, true);
             $this->updateEffectifPalanquee();
-            header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            header('location: /plongee/show/editPal/&pal_num='.$palNum.'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
     }
@@ -411,6 +419,15 @@ class PlongeeController extends _ControllerClass
                     $base[0]->setPloEtat("Complete");
 
                 $this->plongeeManager->update($base,false);
+
+                $plongeur = $this->personneManager->getOne([
+                    'PER_NUM' => $numPers
+                ]);
+
+                if ($plongeur[0]->getPerActive() == 0) {
+                    $plongeur[0]->setPerActive(1);
+                    $this->personneManager->update($plongeur, false);
+                }
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }

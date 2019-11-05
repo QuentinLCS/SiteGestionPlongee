@@ -44,12 +44,6 @@ class PlongeurController extends _ControllerClass
 
         $searchedPlongeurs = null;
 
-        //$directeur = $this->personneManager->getAllDirecteur();
-        // $secu = $this->personneManager->getAllSecurite();
-
-
-
-
         if ( isset($_POST['search']) ) {
 
             if (!empty($_POST['searchNom']))
@@ -66,19 +60,17 @@ class PlongeurController extends _ControllerClass
 
         }
 
-       // var_dump( $this->plongeurManager->isDirector(25));
-       // var_dump($this->plongeurManager->getAllActive());
-       // var_dump(in_array($this->plongeurManager->getAllActive()));
+        $today = new DateTime();
+
         $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
-            'plongeurManager' => $this->plongeurManager, 
+            'plongeurManager' => $this->plongeurManager,
             'searchedPlongeurs' => $searchedPlongeurs,
-            //'roleDir' => $directeur,
-            //'roleSecu' => $secu,
-            'directeur' => $tmp, //sert pour le add
-            'securite' => $tmp //sert pour le add
+            'directeur' => $tmp,
+            'securite' => $tmp,
+            'dateOfToday' => $today
         ]);
     }
 
@@ -281,7 +273,7 @@ class PlongeurController extends _ControllerClass
                             }
 
                             if ($add) header('location: /plongeur');
-                            //else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
+                            else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
                         }
                         else
                                 echo "le nom ou le prénom n'est pas correct";
