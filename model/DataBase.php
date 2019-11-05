@@ -43,6 +43,7 @@ class DataBase extends PDO
         $cur = $this->conn->query($sql);
         while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
             $tab[] = (is_null($entity) ? $ligne : new $entity($ligne));
+
         return $tab;
     }
 
