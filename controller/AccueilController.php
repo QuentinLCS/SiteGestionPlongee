@@ -55,13 +55,15 @@ class AccueilController extends _ControllerClass
     public function index()
     {
 
+        $plongeesFutures = $this->plongeeManager->getPlongeesFutures();
 
         (new View('home/home'))->generate([
             'nbPersonnes' => $this->personneManager->countAll(),
             'nbPlongeurs' => $this->plongeurManager->countAll(),
             'nbPlongees' => $this->plongeeManager->countAll(),
             'nbSites' => $this->siteManager->countAll(),
-            'nbAptitudes' => $this->aptitudeManager->countAll()
+            'nbAptitudes' => $this->aptitudeManager->countAll(),
+            'plongeesFutures' => $plongeesFutures
             ]);
     }
 }

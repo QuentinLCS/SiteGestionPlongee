@@ -48,7 +48,7 @@
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerNom() ?></td>
                             <td class="center"><?= $plongeur->getPersonne()[0]->getPerPrenom() ?></td>
                             <td class="center"><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
-                            <td class="center <?= (($plongeur->getPersonne()[0]->getPerDateCertifMed()) < $dateOfToday ? 'red lighten-3 red-text text-darken-4' : '') ?>"><?= $plongeur->getPersonne()[0]->getPerDateCertifMed() ?></td>
+                            <td class="center <?= (date('Y-m-d', strtotime('+1 year',strtotime($plongeur->getPersonne()[0]->getPerDateCertifMed()))) < $dateOfToday ? 'red lighten-3 red-text text-darken-4' : '') ?>"><?= $plongeur->getPersonne()[0]->getPerDateCertifMed() ?></td>
                             <td class="center"><?php if($plongeur->getPersonne()[0]->getPerActive()==1) echo "Oui"; else echo "Non"; ?></td>
                             <td class="center">
                                 <a href="plongeur/show/&per_num=<?= $plongeur->getPerNum()?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails du plongeur">
