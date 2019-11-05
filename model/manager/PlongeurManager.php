@@ -120,7 +120,7 @@ class PlongeurManager extends _Model
 
             //on vérifie si c'est un directeur qui a dirigé une plongée
             $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEE WHERE PER_NUM_DIR ='.$object[0]->getPerNum());
-            var_dump($dir);
+
             if(count($dir)==0)
                 DataBase::$db->majDonnees('DELETE FROM PLO_DIRECTEUR WHERE PER_NUM='.$object[0]->getPerNum());
 
