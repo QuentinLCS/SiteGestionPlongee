@@ -60,7 +60,7 @@ class PlongeurController extends _ControllerClass
 
         }
 
-        $today = new DateTime();
+        $today = date('Y-m-d');
 
         $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
