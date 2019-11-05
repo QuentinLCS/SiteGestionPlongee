@@ -106,7 +106,6 @@
                         <?php if(!empty($plongeurs[$i-1])): ?>
                             <?php foreach($plongeurs[$i-1] as $plongeur): ?>
                             <tr>
-                                <td><?php  var_dump($plongeur); ?></td>
                                 <td><?= $plongeur->getPersonne()[0]->getPerNom().' '.$plongeur->getPersonne()[0]->getPerPrenom() ?></td>
                                 <td><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
                             </tr>
