@@ -289,63 +289,64 @@ class PlongeeController extends _ControllerClass
     }
 
     public function addPalanquee() {
-        if (isset($_POST["submitPAL"]) && isset($_POST["heureD"]) && isset($_POST["profondeurP"]) && isset($_POST["tempsP"])) {
-            if ($_POST["heureD"] !="" && $_POST["profondeurP"] != "" && $_POST["tempsP"] != "")
-            $date = $_GET["plo_date"];
-            $periode = $_GET["plo_mat_mid_soi"];
-            $heureD = $_POST["heureD"];
-            $heureA = "NULL";
-            $tempsP = intval($_POST["tempsP"]);
-            $tempsR = "NULL";
-            $profondeurP = doubleval($_POST["profondeurP"]);
-            $profondeurR  = "NULL";
+        if (isset($_POST["submitPAL"]) && isset($_POST["profondeurP"]) && isset($_POST["tempsP"])) {
+            if ($_POST["profondeurP"] != "" && $_POST["tempsP"] != "") {
+                $date = $_GET["plo_date"];
+                $periode = $_GET["plo_mat_mid_soi"];
+                $heureD = $_POST["heureD"];
+                $heureA = "NULL";
+                $tempsP = intval($_POST["tempsP"]);
+                $tempsR = "NULL";
+                $profondeurP = doubleval($_POST["profondeurP"]);
+                $profondeurR = "NULL";
 
-            $allPal = $this->palanqueeManager->getPlongeePalanquee($date,$periode);
-            $i = 1;
-            $palNum = null;
-            foreach ( $allPal as $pal ) {
-                if (intval($pal->getPalNum()) != ($i)) {
-                    if (!isset($palNum)) {
-                        $palNum = $i;
+                $allPal = $this->palanqueeManager->getPlongeePalanquee($date, $periode);
+                $i = 1;
+                $palNum = null;
+                foreach ($allPal as $pal) {
+                    if (intval($pal->getPalNum()) != ($i)) {
+                        if (!isset($palNum)) {
+                            $palNum = $i;
+                        }
                     }
+                    $i++;
                 }
-                $i++;
+                if (!isset($palNum))
+                    $palNum = $i;
+
+
+                // Récupère l'heure d'arrivée depuis le formulaire reçu
+                if (isset($_POST["heureA"]) && $_POST["heureA"] != "")
+                    $heureA = $_POST["heureA"];
+
+
+                // Récupère le temps réel depuis le formulaire reçu
+                if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "")
+                    $tempsR = intval($_POST["tempsR"]);
+
+
+                // Récupère la profondeur réel depuis le formulaire reçu
+                if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "")
+                    $profondeurR = intval($_POST["profondeurR"]);
+
+
+                $palanqueeObj[] = new Palanquee([
+                    'PLO_DATE' => $date,
+                    'PLO_MAT_MID_SOI' => $periode,
+                    'PAL_NUM' => $palNum,
+                    'PAL_PROFONDEUR_MAX' => $profondeurP,
+                    'PAL_DUREE_MAX' => $tempsP,
+                    'PAL_HEURE_IMMERSION' => $heureD,
+                    'PAL_HEURE_SORTIE_EAU' => $heureA,
+                    'PAL_PROFONDEUR_REELLE' => $profondeurR,
+                    'PAL_DUREE_FOND' => $tempsR
+                ]);
+                $this->palanqueeManager->update($palanqueeObj, true);
+                $this->updateEffectifPalanquee();
+                header('location: /plongee/show/editPal/&pal_num=' . $palNum . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
+
             }
-            if  (!isset($palNum))
-                $palNum = $i;
-
-
-            // Récupère l'heure d'arrivée depuis le formulaire reçu
-            if (isset($_POST["heureA"]) && $_POST["heureA"] !="")
-                $heureA = $_POST["heureA"];
-
-
-            // Récupère le temps réel depuis le formulaire reçu
-            if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "")
-                $tempsR = intval($_POST["tempsR"]);
-
-
-            // Récupère la profondeur réel depuis le formulaire reçu
-            if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "")
-                $profondeurR = intval($_POST["profondeurR"]);
-
-
-            $palanqueeObj[] = new Palanquee([
-                'PLO_DATE' => $date,
-                'PLO_MAT_MID_SOI' => $periode,
-                'PAL_NUM' => $palNum,
-                'PAL_PROFONDEUR_MAX' => $profondeurP,
-                'PAL_DUREE_MAX' => $tempsP,
-                'PAL_HEURE_IMMERSION' => $heureD,
-                'PAL_HEURE_SORTIE_EAU' => $heureA,
-                'PAL_PROFONDEUR_REELLE' => $profondeurR,
-                'PAL_DUREE_FOND' => $tempsR
-            ]);
-            $this->palanqueeManager->update($palanqueeObj, true);
-            $this->updateEffectifPalanquee();
-            header('location: /plongee/show/editPal/&pal_num='.$palNum.'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
-
     }
 
     public function delete(){

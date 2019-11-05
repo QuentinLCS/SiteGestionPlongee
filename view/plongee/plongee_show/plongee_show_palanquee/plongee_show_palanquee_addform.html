@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col m5 s12">
                     Heure de Départ
-                    <input type="time" name="heureD" id="heureD" value="<?php (!isset($_POST['heureD']) ? '' : $_POST['heureD']) ?>" required>
+                    <input type="time" name="heureD" id="heureD" value="<?php (!isset($_POST['heureD']) ? '' : $_POST['heureD']) ?>">
                 </div>
                 <div class="col m5 s12 offset-m1">
                     Heure de Retour
@@ -15,7 +15,7 @@
             <br>
             <div class="row">
                 <div class="col m5 s12">
-                    Temps Prévu
+                    Temps Prévu *
                     <input type="text" name="tempsP" id="tempsP"  value="<?php (!isset($_POST['tempsP']) ? '' : $_POST['tempsP']) ?>" placeholder="en minutes" required>
                 </div>
                 <div class="col m5 s12 offset-m1">
@@ -26,7 +26,7 @@
             <br>
             <div class="row">
                 <div class="col m5 s12">
-                    Profondeur Prévue
+                    Profondeur Prévue *
                     <input type="text" name="profondeurP" id="profondeurP" value="<?php (!isset($_POST['profondeurP']) ? '' : $_POST['profondeurP']) ?>" placeholder="en mètres" required>
                 </div>
                 <div class="col m5 s12 offset-m1">
@@ -35,6 +35,7 @@
                 </div>
             </div>
             <br>
+            <p><small>* Champs obligatoires</small></p>
             <button class="btn waves-effect waves-light" name="submitPAL" id="submitPAL" value="pal">AJOUTER PALANQUEE</button>
         </form>
     </div>
