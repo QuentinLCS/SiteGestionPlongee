@@ -25,7 +25,7 @@ majuscule sans accent. Les tirets et espaces isolés sont autorisés mais ni au 
 doubles tirets sont interdits.
 #### PLO_PLONGEUR, PLO_DIRECTEUR, PLO_SECURITE_DE_SURFACE :
 - [x] Quand on crée une de ces personnes, on écrit également dans la table Personne
-- [ ] Pour les plongeurs, il faut pouvoir ajouter ou modifier une aptitude
+- [x] Pour les plongeurs, il faut pouvoir ajouter ou modifier une aptitude
 
 **Attention aux suppressions et modifications : l'intégrité référentielle doit être préservée.**
 
@@ -35,41 +35,41 @@ doubles tirets sont interdits.
 - [ ] Empêchera l'inscription de données absurdes
 - [ ] Ne videra pas un formulaire s'il n'a pas été complété correctement
 ##### Plusieurs options peuvent permettre d'améliorer l'application
-- [ ] Une page générale proposant tous les ajouts
-- [ ] Des menus déroulant d'aide à la saisie
-- [ ] L'affichage des données inscrites avant enregistrement définitif dans la table
-- [ ] Des scripts de vérification des données saisies
-- [ ] Le calcul automatique des identifiants
-- [ ] Amélioration de la présentation par des feuilles de style
+- [x] Une page générale proposant tous les ajouts
+- [x] Des menus déroulant d'aide à la saisie
+- [x] L'affichage des données inscrites avant enregistrement définitif dans la table
+- [x] Des scripts de vérification des données saisies
+- [x] Le calcul automatique des identifiants
+- [x] Amélioration de la présentation par des feuilles de style
 - [ ] Journal des transactions et des éventuelles erreurs
 - [ ] Possibilité de visualiser voire de corriger la base
 - [ ] Identification de l'utilisateur (gestion de la sécurité)
-- [ ] Consultations variées des données PLO
+- [x] Consultations variées des données PLO
 ##### Pour le formulaire personne et par ordre de priorité, il faut être capable
-- [ ] d'ajouter +++
-- [ ] d'afficher les infos [avec tris et sélections] ++
-- [ ] de modifier une donnée ~+
-- [ ] de supprimer une donnée 
+- [x] d'ajouter +++
+- [x] d'afficher les infos [avec tris et sélections] ++
+- [x] de modifier une donnée ~+
+- [x] de supprimer une donnée 
 
 **Développer d'autres formulaires et peaufiner la présentation est une erreur si la page «Personne» est imparfaite !**
 
 ##### Conseils :
-- [ ] Privilégier le développement de nombreuses petites fonctions de traitement
-- [ ] Ne développer les formulaires que lorsque les traitements fonctionnent
-- [ ] Faire tester régulièrement l'application
+- [x] Privilégier le développement de nombreuses petites fonctions de traitement
+- [x] Ne développer les formulaires que lorsque les traitements fonctionnent
+- [x] Faire tester régulièrement l'application
 ## Troisième partie : Saisies des autres données
 > L'objectif est de réaliser un ou plusieurs formulaires de mise à jour des tables du tour de PLO.
 #### PLO_PLONGEE
 - [x] La saisie d’une nouvelle plongee doit être la plus simple possible (un seul formulaire)
-- [ ] On peut afficher et corriger une plongée
+- [x] On peut afficher et corriger une plongée
 - [ ] On peut supprimer une plongée mais un message de confirmation est nécessaire pour une plongée de
 moins d’un an
-- [ ] On peut créer directement les palanquées après la création d’une plongée
+- [x] On peut créer directement les palanquées après la création d’une plongée
 - [x] Toutes les données sont obligatoires
-- [ ] [on peut créer un pdf]
+- [x] [on peut créer un pdf]
 #### PLO_PALANQUEE et PLO_CONCERNER
 - [x] Pour ajouter une palanquée, il faut sélectionner une plongée
-- [ ] On peut compléter une palanquée
+- [x] On peut compléter une palanquée
 - [ ] On peut valider une palanquée lorsqu’elle est complète
 - [ ] Pour une palanquée, on peut avoir 5 plongeurs au maximum
 #### État d’une plongée. Une plongée peut être dans l’état
@@ -82,10 +82,10 @@ moins d’un an
 aux jointures entre les tables, il sera possible de montrer des informations très complètes.
 
 ##### Par exemple, à partir de la page "personne", on peut accéder...
-- [ ] à ses plongées
+- [x] à ses plongées
 - [ ] à ses aptitudes
-- [ ] à ses fonctions (plongeurs, directeur, sécurité de surface)
-- [ ] …
-- [ ] "Plongée" on peut accéder
-- [ ] aux palanquées
-- [ ] aux commandes
+- [x] à ses fonctions (plongeurs, directeur, sécurité de surface) …
+
+##### "Plongée" on peut accéder
+- [x] aux palanquées
+- [x] aux commandes
