@@ -58,7 +58,7 @@
                         <div class="modal-content">
                             <h4>Modification du site</h4>
                             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                <select name="embar">
+                                <select name="embar" class="browser-default">
                                     <?php
                                 foreach($allEmbarcation as $embar)
                                 {
@@ -98,7 +98,7 @@
                             <div class="modal-content">
                                 <h4>Modification du site</h4>
                                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                    <select name="siteNum">
+                                    <select name="siteNum" class="browser-default">
                                         <?php
                             foreach($allSite as $site)
                             {
@@ -130,7 +130,7 @@
 <div id="modalPeriode" class="modal">
     <div class="modal-content">
         <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-            <select name="selectPeriode">
+            <select name="selectPeriode" class="browser-default">
                 <option value="M" selected>Matin</option>
                 <option value="A" >Après-midi</option>
                 <option value="S" >Soir</option>
