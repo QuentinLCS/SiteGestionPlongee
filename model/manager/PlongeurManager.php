@@ -117,6 +117,19 @@ class PlongeurManager extends _Model
         //si le plongeur n'a pas de plongée on le supprime de la table PLO_PLONGEUR
         if (count($tab) == 0) {
             DataBase::$db->majDonnees('DELETE FROM PLO_PLONGEUR WHERE PER_NUM = '.$object[0]->getPerNum());
+
+            //on vérifie si c'est un directeur qui a dirigé une plongée
+            $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEE WHERE PER_NUM_DIR ='.$object[0]->getPerNum());
+            var_dump($dir);
+            if(count($dir)==0)
+                DataBase::$db->majDonnees('DELETE FROM PLO_DIRECTEUR WHERE PER_NUM='.$object[0]->getPerNum());
+
+            //on vérifie si c'est un sécu qui a sécurisé une plongée
+            $secu = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEE WHERE PER_NUM_SECU ='.$object[0]->getPerNum());
+            if(count($secu)==0)
+                DataBase::$db->majDonnees('DELETE FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM='.$object[0]->getPerNum());
+
+            DataBase::$db->majDonnees('DELETE FROM PLO_PERSONNE WHERE PER_NUM = '.$object[0]->getPerNum());
         } else {
             //sinon on le rend inactif
            // echo "vous ne pouvez pas supprimer ce plongeur car il a des plongées. Il est donc mis inactif.";

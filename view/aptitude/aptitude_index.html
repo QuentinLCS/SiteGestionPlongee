@@ -38,6 +38,9 @@
                     <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
                         <i class="material-icons white-text">remove_red_eye</i>
                     </a>
+                    <a href="aptitude/delete/&apt_code=<?= $aptitude->getAptCode() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer le plongeur">
+                        <i class="material-icons white-text">delete</i>
+                    </a>
                 </td>
             </tr>
             <?php endforeach; ?>
