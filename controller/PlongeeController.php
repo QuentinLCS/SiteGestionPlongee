@@ -409,6 +409,7 @@ class PlongeeController extends _ControllerClass
                 $periode = $_GET["plo_mat_mid_soi"];
                 $numPal = $_GET['pal_num'];
                 $numPers = $_POST["plongeur"];
+                var_dump($numPers);
 
                 $concerner = [
                     'PLO_DATE' => $date,
@@ -423,12 +424,14 @@ class PlongeeController extends _ControllerClass
                 ]);
 
                 if (( $numPers == $plongee[0]->getDirecteur()[0]->getPerNum() )||( $numPers == $plongee[0]->getSecurite()[0]->getPerNum() )) {
-
+                    $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
                 } else {
                     $this->palanqueeManager->updatePlongeurs($concerner);
                     $this->updateEffectifPlongeur();
                     header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
                 }
+
+
                 /*
                  *
                 $plongeur = $this->personneManager->getOne([
@@ -439,20 +442,24 @@ class PlongeeController extends _ControllerClass
                     $this->personneManager->update($plongeur, false);
                 }
                 */
+            } else {
+                $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
             }
         }
 
         if ( isset($_POST['submit']) ){
-            if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) && !empty($_POST["HImmersion"]) ) {
+            if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) ) {
 
                 $profondeurMax = $_POST["profondeurMax"];
                 $dureeMax = $_POST["DureeMax"];
-                $HImmersion = $_POST["HImmersion"];
 
                 $palanquee[0]->setPalProfondeurMax($profondeurMax);
                 $palanquee[0]->setPalDureeMax($dureeMax);
-                $palanquee[0]->setPalHeureImmersion($HImmersion);
 
+                if (!empty($_POST["HImmersion"])) {
+                    $HImmersion = $_POST["HImmersion"];
+                    $palanquee[0]->setPalHeureSortieEau($HImmersion);
+                }
                 if (!empty($_POST["HSortie"])) {
                     $HSortie = $_POST["HSortie"];
                     $palanquee[0]->setPalHeureSortieEau($HSortie);
@@ -471,7 +478,7 @@ class PlongeeController extends _ControllerClass
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
             else{
-                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                $_POST['errorPalanqueeEdit'] = "Modification Palanquée : Données Invalide";
             }
         }
 
