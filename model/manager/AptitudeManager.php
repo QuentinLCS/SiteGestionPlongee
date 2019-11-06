@@ -23,6 +23,8 @@ class AptitudeManager extends _Model
         if (isset($search['libelle']))
             $sql .= "APT_LIBELLE LIKE '".$search['libelle']."%'";
 
+        $sql.= "ORDER BY APT_NUM";
+
         return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
 
@@ -49,4 +51,6 @@ class AptitudeManager extends _Model
         if(count($apt)==0)
             DataBase::$db->majDonnees('DELETE FROM PLO_APTITUDE WHERE APT_CODE ="'.$object[0]->getAptCode().'"');
     }
+
+
 }

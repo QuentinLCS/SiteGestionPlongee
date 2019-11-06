@@ -98,11 +98,12 @@ class PlongeurManager extends _Model
         $personneManager->update($object[0]->getPersonne(), $add);
 
         if ($add) {
+
             $personne = $personneManager->getOne([
                 'PER_NOM' => $object[0]->getPersonne()[0]->getPerNom(),
                 'PER_PRENOM' => $object[0]->getPersonne()[0]->getPerPrenom(),
                 ]);
-
+           
             DataBase::$db->majDonnees("INSERT INTO " . self::$table . " VALUES ('" . $personne[0]->getPerNum() . "','" . $object[0]->getAptCode() . "')");
         } else
             DataBase::$db->majDonnees("UPDATE " . self::$table . " SET APT_CODE = '" . $object[0]->getAptCode() . "' WHERE PER_NUM = '" . $object[0]->getPerNum() . "'");
@@ -150,5 +151,11 @@ class PlongeurManager extends _Model
 
     public function getPalanqueeConcerner($plongeur){
         return DataBase::$db->LireDonnees('SELECT * FROM PLO_CONCERNER WHERE PER_NUM ='.$plongeur[0]->getPerNum());
+    }
+
+    public function getAptitudesDebloquees($object){
+        $apt_num = DataBase::$db->LireDonnees('SELECT APT_NUM FROM PLO_APTITUDE WHERE APT_CODE = "'.$object[0]->getAptCode().'"');
+
+        return DataBase::$db->LireDonnees('SELECT * FROM PLO_APTITUDE WHERE APT_NUM < "'.$apt_num[0]['APT_NUM'].'" ORDER BY APT_NUM');
     }
 }

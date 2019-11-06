@@ -85,7 +85,7 @@ class PlongeurController extends _ControllerClass
 
         $palConcerner = $this->plongeurManager->getPalanqueeConcerner($plongeur);
 
-
+        $aptitudes = $this->plongeurManager->getAptitudesDebloquees($plongeur);
 
         $dir  = $this->plongeurManager->isDirector($_GET['per_num']);
 
@@ -101,7 +101,8 @@ class PlongeurController extends _ControllerClass
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'securite' => $secu,
             'directeur' => $dir,
-            'allPalanquees' => $palConcerner
+            'allPalanquees' => $palConcerner,
+            'aptitudes' => $aptitudes
         ]);
     }
 
@@ -144,6 +145,8 @@ class PlongeurController extends _ControllerClass
 
         }
     }
+
+
 
     public function delete(){
         if (empty($_GET['per_num']))
