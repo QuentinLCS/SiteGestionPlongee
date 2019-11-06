@@ -132,8 +132,8 @@ class PlongeeController extends _ControllerClass
             'plongeurs' => $plongeurs,
             'palanquees' => $palanquee,
             'site' => $site,
-            'directeurPlongeur' => $this->personneManager->getOne(["PER_NUM" => $plongee]),
-            'securiteSurface' =>
+            'directeurPlongeur' => $this->personneManager->getOne(["PER_NUM" => $plongee[0]->getDirecteur()]),
+            'securiteSurface' => $this->personneManager->getOne(["PER_NUM" => $plongee[0]->getSecurite()])
         ]);
     }
 
