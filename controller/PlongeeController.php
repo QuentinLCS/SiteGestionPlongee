@@ -409,7 +409,6 @@ class PlongeeController extends _ControllerClass
                 $periode = $_GET["plo_mat_mid_soi"];
                 $numPal = $_GET['pal_num'];
                 $numPers = $_POST["plongeur"];
-                var_dump($numPers);
 
                 $concerner = [
                     'PLO_DATE' => $date,
