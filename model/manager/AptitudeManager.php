@@ -42,9 +42,9 @@ class AptitudeManager extends _Model
     public function update($object, $add = false)
     {
         if ($add)
-            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (APT_CODE, APT_LIBELLE) VALUES ('".$object[0]->getAptCode()."', '".$object[0]->getAptLibelle()."')");
+            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (APT_CODE, APT_LIBELLE, APT_NUM) VALUES ('".$object[0]->getAptCode()."', '".$object[0]->getAptLibelle()."','".$object[0]->getAptNum()."')");
         else
-            DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
+            DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."', APT_NUM = '".$object[0]->getAptNum()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
     }
 
 

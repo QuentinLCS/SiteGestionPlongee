@@ -56,13 +56,13 @@ class AptitudeController extends _ControllerClass
 
     public function edit()
     {
-        if (!isset($_GET['apt_code']))
+        if (empty($_GET['apt_code']))
             header('location: /aptitude');
 
         $aptitude = $this->aptitudeManager->getOne([
             'APT_CODE' => $_GET['apt_code']]);
 
-        if (is_null($aptitude))
+        if (empty($aptitude))
             header('location: /aptitude');
 
         if ( isset($_POST['submit']) )
@@ -89,6 +89,9 @@ class AptitudeController extends _ControllerClass
             $code = strtoupper($_POST['code']);
             $libelle = ucfirst($_POST['libelle']);
 
+            if(!empty($_POST['niveau']))
+                $num = $_POST['niveau'];
+
             $aptitudes = $this->aptitudeManager->getAll();
 
             $nbAptitudes = count($aptitudes);
@@ -102,9 +105,11 @@ class AptitudeController extends _ControllerClass
 
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
+                if(!empty($_POST['niveau']))
+                    $aptitude[0]->setAptNum($num);
                 $aptitude[0]->setAptLibelle($libelle);
                 $this->aptitudeManager->update($aptitude, $add);
-                header('location: /aptitude');
+               header('location: /aptitude');
             } else
                 echo 'Aptitude déjà enregistrée.';
         }
