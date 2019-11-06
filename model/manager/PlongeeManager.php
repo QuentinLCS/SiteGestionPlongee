@@ -36,6 +36,11 @@ class PlongeeManager extends _Model
         return parent::_getOne(self::$table, $id, self::$entity);
     }
 
+    public function getPlongeesFutures()
+    {
+        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' WHERE PLO_ETAT NOT LIKE "VALIDEE%"' , self::$entity);
+    }
+
     public function update($object, $add = false)
     {
         if ($add) {

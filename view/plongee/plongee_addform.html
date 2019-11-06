@@ -7,7 +7,7 @@
                     Date
                     <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
                 </div>
-                <div class="input-field col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m2">
                     Période de la Journée
                     <select name="periode" id="periode" class="browser-default">
                         <option value="M" <?= (!isset($_POST['periode']) ? '' : ($_POST['periode'] == 'M') ? 'selected' : '') ?>>Matin</option>
@@ -27,7 +27,7 @@
                         ?>
                     </select><br>
                 </div>
-                <div class="input-field col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m2">
                     Embarcation
                     <select name="embarcation" id="embarcation" class="browser-default">
                         <?php
@@ -50,7 +50,7 @@
                         ?>
                     </select> <br>
                 </div>
-                <div class="input-field col m5 s12 offset-m1">
+                <div class="input-field col m5 s12 offset-m2">
                     Sécurité de Surface
                     <select name="securite" id="securite" class="browser-default">
                         <?php
@@ -59,6 +59,12 @@
                         }
                         ?>
                     </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col m6 s12 offset-m3 center">
+                    Effectif Bateau
+                    <input type="text" name="effectifB" id="effectifB" value="<?php (!isset($_POST['effectifB']) ? '' : $_POST['effectifB']) ?>" required>
                 </div>
             </div>
             <button class="btn waves-effect waves-light"  name="submitPLO" id="submitPLO">AJOUTER PLONGEE</button>

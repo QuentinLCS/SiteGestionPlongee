@@ -36,7 +36,7 @@ class PersonneManager extends _Model
         }
 
         if (isset($search['inactive']))
-            $sql .= "PER_ACTIVE = '%'";
+            $sql .= "PER_ACTIVE = '".$search['inactive']."'";
 
         return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
@@ -44,6 +44,11 @@ class PersonneManager extends _Model
     public function countAll()
     {
         return parent::_countAll(self::$table);
+    }
+
+    public function countActifs()
+    {
+        return DataBase::$db->LireDonnees('SELECT COUNT(*) as nb FROM '.self::$table." WHERE PER_ACTIVE = '1'");
     }
 
     public function getOne(array $id)
@@ -56,6 +61,6 @@ class PersonneManager extends _Model
         if ($add)
             DataBase::$db->majDonnees("INSERT INTO ".self::$table." (PER_NOM, PER_PRENOM, PER_DATE_CERTIF_MED) VALUES ('".$object[0]->getPerNom()."', '".$object[0]->getPerPrenom()."', '".$object[0]->getPerDateCertifMed()."')");
         else
-            DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."', PER_DATE_CERTIF_MED = '".$object[0]->getPerDateCertifMed()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
+            DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."', PER_DATE_CERTIF_MED = '".$object[0]->getPerDateCertifMed()."', PER_ACTIVE = '".$object[0]->getPerActive()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
     }
 }

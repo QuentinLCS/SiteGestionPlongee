@@ -14,8 +14,9 @@
                         <option value="" <?= (!isset($_POST['searchNom']) ? 'selected' : (is_empty($_POST['searchPeriode'])) ? 'selected' : '') ?>>Tous</option>
                         <option value="M" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'M') ? 'selected' : '') ?>>Matin</option>
                         <option value="A" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'A') ? 'selected' : '') ?>>Après-midi</option>
+                        <option value="S" <?= (!isset($_POST['searchPeriode']) ? '' : ($_POST['searchPeriode'] == 'S') ? 'selected' : '') ?>>Soir</option>
                     </select>
-                    <label for="search2">Matin ou Après-midi ?</label>
+                    <label for="search2">Matin, Après-midi ou Soir ?</label>
                 </div>
                 <button name="search" id="search" class="col m1 s12 btn blue waves-effect waves-light" style="height: 60px"><i class="material-icons">send</i></button>
             </div>
@@ -33,6 +34,7 @@
                                 <th class="center">Date</th>
                                 <th class="center">Période</th>
                                 <th class="center">Site</th>
+                                <th class="center">Palanquées</th>
                                 <th class="center">Gestion</th>
                             </tr>
                         </thead>
@@ -40,10 +42,14 @@
                         <tbody>
                         <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
                         <tr>
-                            <td class="center"><?= $plongee->getPloDate() ?></td>
-                            <td class="center"><?= $plongee->getPloMatMidSoi() ?></td>
+                            <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
+                            <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
+                            <td class="center"><b><?= $plongee->getPloNbPalanquees() ?></b></td>
                             <td class="center">
+                                <a href="plongee/download/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="btn green darken-1 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Télécharger la fiche">
+                                    <i class="material-icons white-text">file_download</i>
+                                </a>
                                 <a href="plongee/show/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
                                     <i class="material-icons white-text">remove_red_eye</i>
                                 </a>
@@ -70,3 +76,4 @@
 </section>
 
 <script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>
+<script type="text/javascript" src="../../public/assets/js/searchBar.js"></script>

@@ -11,11 +11,14 @@ class PlongeurController extends _ControllerClass
 
     private $personneManager;
 
+    private $palanqueeManager;
+
     public function __construct($url)
     {
         $this->plongeurManager = new PlongeurManager();
         $this->aptitudeManager = new AptitudeManager();
         $this->personneManager = new PersonneManager();
+        $this->palanqueeManager = new PalanqueeManager();
 
         $urlSize = parent::__construct($url);
 
@@ -55,38 +58,38 @@ class PlongeurController extends _ControllerClass
 
         }
 
+        $today = date('Y-m-d');
 
         $tmp = 0;
         (new View('plongeur/plongeur_index'))->generate([
             'allPlongeurs' => $this->plongeurManager->getAllActive(),
             'allAptitudes' => $this->aptitudeManager->getAll(),
+            'plongeurManager' => $this->plongeurManager,
             'searchedPlongeurs' => $searchedPlongeurs,
             'directeur' => $tmp,
-            'securite' => $tmp
+            'securite' => $tmp,
+            'dateOfToday' => $today
         ]);
     }
 
     public function show() {
 
-        if (!isset($_GET['per_num']))
+        if (empty($_GET['per_num']))
             header('location: /plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
-        $dir  = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM='.$_GET['per_num']);
-        if(count($dir)>0)
-            $dir = 1;
-        else{
-            $dir=0;
-        }
+        if(empty($plongeur))
+            header('location: /plongeur');
 
-        $secu  = DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM='.$_GET['per_num']);
-        if(count($secu)>0)
-            $secu = 1;
-        else
-            $secu = 0;
+        $palConcerner = $this->plongeurManager->getPalanqueeConcerner($plongeur);
 
+
+
+        $dir  = $this->plongeurManager->isDirector($_GET['per_num']);
+
+        $secu  =  $this->plongeurManager->isSecurity($_GET['per_num']);
 
         if (empty($plongeur))
             header('location: /plongeur');
@@ -97,7 +100,8 @@ class PlongeurController extends _ControllerClass
             'plongeur' => $plongeur,
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'securite' => $secu,
-            'directeur' => $dir
+            'directeur' => $dir,
+            'allPalanquees' => $palConcerner
         ]);
     }
 
@@ -142,13 +146,13 @@ class PlongeurController extends _ControllerClass
     }
 
     public function delete(){
-        if (!isset($_GET['per_num']))
+        if (empty($_GET['per_num']))
             header('location: plongeur');
 
         $plongeur = $this->plongeurManager->getOne([
             'PER_NUM' => $_GET['per_num']]);
 
-        if (is_null($plongeur))
+        if (empty($plongeur))
             header('location: /plongeur');
 
         if ( isset($_POST['submit']) ) {
@@ -214,38 +218,36 @@ class PlongeurController extends _ControllerClass
                                 'PER_PRENOM' => $prenom
                             ]);
                             if(!$add) {
-                                $dir = DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM=' . $_GET['per_num']);
 
-                                if (count($dir) > 0)
-                                    $dir = 1;
-                                else {
-                                    $dir = 0;
+                                if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0){
+                                    $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
+                                    $plongeur[0]->setEstDirecteur('1');
+                                }
+                                else if ($this->plongeurManager->isDirector( $_GET['per_num']) == 1 && !(isset($_POST['directeur']))){
+                                    $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
+                                    $plongeur[0]->setEstDirecteur('0');
                                 }
 
+                                if (isset($_POST['securite']) && $this->plongeurManager->isSecurity( $_GET['per_num'])== 0){
 
-                                $secu = DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM=' . $_GET['per_num']);
-                                if (count($secu) > 0)
-                                    $secu = 1;
-                                else
-                                    $secu = 0;
-
-
-                                if (isset($_POST['directeur']) && $dir == 0)
-                                    $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                else if ($dir == 1 && !(isset($_POST['directeur'])))
-                                    $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
-
-                                if (isset($_POST['securite']) && $secu == 0)
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                else if ($secu == 1 && !(isset($_POST['securite'])))
+                                    $plongeur[0]->setEstSecurite('1');
+                                }
+                                else if ($this->plongeurManager->isSecurity( $_GET['per_num']) == 1 && !(isset($_POST['securite']))){
                                     $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
+                                    $plongeur[0]->setEstSecurite('0');
+                                }
 
                             }
                             else{
-                                if (isset($_POST['directeur']))
+                                if (isset($_POST['directeur'])) {
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                if (isset($_POST['securite']))
+                                   // $plongeur[0]->setEstDirecteur('1');
+                                }
+                                if (isset($_POST['securite'])){
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
+                                  //  $plongeur[0]->setEstSecurite('1');
+                                }
                             }
 
                             if ($add) header('location: /plongeur');

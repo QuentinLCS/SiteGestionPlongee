@@ -1,5 +1,7 @@
 <?php $this->_title = 'Projet Plongée | Aptitude'; ?>
 
+<?php require_once('aptitude_addform.html') ?>
+
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des Aptitudes<small>Affichés : <?= count((is_null($searchedAptitudes) ? $allAptitudes : $searchedAptitudes)) ?></small></h3>
@@ -7,15 +9,16 @@
             <div class="row">
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" >
-                    <label for="search1">Rechercher par NOM...</label>
+                    <input onclick="isFocused('search1')" type="text" id="search1" class="search" name="searchCode" value="<?= (isset($_POST['searchCode']) ? $_POST['searchCode'] : '') ?>" <?= isset($_POST["focused"]) ? ($_POST["focused"] == 'search1' ? 'autofocus' : '') : '' ?>>
+                    <label for="search1">Rechercher par CODE...</label>
                 </div>
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" >
-                    <label for="search2">Rechercher par Prenom...</label>
+                    <input onclick="isFocused('search2')" type="text" id="search2" class="search" name="searchLibelle" value="<?= (isset($_POST['searchLibelle']) ? $_POST['searchLibelle'] : '') ?>" <?= isset($_POST["focused"]) ? ($_POST["focused"] == 'search2' ? 'autofocus' : '') : '' ?>>
+                    <label for="search2">Rechercher par LIBELLE...</label>
                 </div>
             </div>
+            <input type="hidden" value="<?= isset($_POST["focused"]) ? $_POST["focused"] : '' ?>" id="focused" name="focused">
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
         <table class="striped">
@@ -23,6 +26,7 @@
                 <tr>
                     <th class="center">Code</th>
                     <th class="center">Libelle</th>
+                    <th class="center">Gestion</th>
                 </tr>
             </thead>
 
@@ -31,15 +35,31 @@
             <tr>
                 <td class="center"><?= $aptitude->getAptCode() ?></td>
                 <td class="center"><?= $aptitude->getAptLibelle() ?></td>
+                <td class="center">
+                    <a href="aptitude/edit/&apt_code=<?= $aptitude->getAptCode() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la plongée">
+                        <i class="material-icons white-text">remove_red_eye</i>
+                    </a>
+                    <a href="aptitude/delete/&apt_code=<?= $aptitude->getAptCode() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer le plongeur">
+                        <i class="material-icons white-text">delete</i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
-
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     </div>
 </section>
 
 <script>
+    function isFocused(div) {
+        document.getElementById("focused").value = div;
+    }
+
     $(document).ready(function(){
         $('input#search1').autocomplete({
             data: {

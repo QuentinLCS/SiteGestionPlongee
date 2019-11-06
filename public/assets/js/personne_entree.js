@@ -1,4 +1,4 @@
-/*let inputPnom = document.getElementById('prenom');
+let inputPnom = document.getElementById('prenom');
 let inputNom = document.getElementById('nom');
 
 let accent = [
@@ -26,4 +26,4 @@ inputNom.addEventListener('keyup', () => {
 inputPnom.addEventListener('keyup', () => {
 
     inputPnom.value = inputPnom.value.substr(0,1).toUpperCase() + inputPnom.value.substr(1);
-}, false);*/
+}, false);

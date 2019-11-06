@@ -27,15 +27,18 @@ class View
 
     /**
      * @param $data
+     * @param bool $blank
      * @throws Exception
      */
-    public function generate($data)
+    public function generate($data, $blank = false)
     {
-        $content = $this->generateFile($this->_file, $data);
+        $view = $this->generateFile($this->_file, $data);
 
-        $view = $this->generateFile('view/base.html', ['title' => $this->_title, 'content' => $content]);
+        if (!$blank)
+            $view = $this->generateFile('view/base.html', ['title' => $this->_title, 'content' => $view]);
 
         echo $view;
+
     }
 
     /**

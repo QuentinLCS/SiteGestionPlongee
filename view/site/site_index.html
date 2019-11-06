@@ -3,13 +3,16 @@
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des sites</h3>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">search</i>
-                <input type="text" id="autocomplete-input" class="search">
-                <label for="autocomplete-input">Recherchez avec mot clé...</label>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search1" class="search" name="searchNom" value="<?= (isset($_POST['searchNom']) ? $_POST['searchNom'] : '') ?>" autofocus>
+                    <label for="search1">Rechercher par NOM...</label>
+                </div>
             </div>
-        </div>
+            <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
+        </form>
         <table class="striped">
             <thead>
                 <tr>
@@ -21,7 +24,7 @@
             </thead>
 
             <tbody>
-                <?php foreach($allSites as $site): ?>
+                <?php foreach((is_null($searchedSites) ? $allSites : $searchedSites) as $site): ?>
                     <tr>
                         <td class="center"><?= $site->getSitNum() ?></td>
                         <td class="center"><?= $site->getSitNom() ?></td>

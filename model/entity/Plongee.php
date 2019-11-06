@@ -71,6 +71,22 @@ class Plongee extends _Entity
         return $this->plo_mat_mid_soi;
     }
 
+    public function getPloMatMidSoiEntier() {
+        $res = 'Période non définie';
+        switch($this->plo_mat_mid_soi) {
+            case 'M':
+                $res = 'Matin';
+                break;
+            case 'A':
+                $res = 'Apres-midi';
+                break;
+            case 'S':
+                $res = 'Soir';
+                break;
+        }
+        return $res;
+    }
+
     /**
      * @param $plo_mat_mid_soi
      */

@@ -2,28 +2,10 @@
 
 <section class="white z-depth-4 rounded center">
     <div class="container">
-        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
-
-        </p>
-
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-
-            <div class="row">
-                <label class="col s12">
-                    Code (Modifiable seulement si non utilisé)
-                    <input type="text" id="code" name="code" value="<?= $aptitude[0]->getAptCode() ?>" autofocus>
-                </label>
-            </div>
-            <div class="row">
-                <label class="col s12">
-                    Libelle
-                    <input type="text" id="libelle" name="libelle" value="<?= $aptitude[0]->getAptLibelle() ?>">
-                </label>
-            </div>
-
-            <div class="row">
-                <button class="btn yellow darken-4 waves-effect waves-light col s12 margin-bottom" name="submit">MODIFIER</button>
-            </div>
-        </form>
+        <h4>Modifier une aptitude</h4>
+        <?php
+            $button = 'EDITER';
+            require_once('view/aptitude/aptitude_xform.html');
+        ?>
     </div>
 </section>

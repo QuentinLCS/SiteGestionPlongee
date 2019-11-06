@@ -22,9 +22,13 @@ class Palanquee extends _Entity
 
     private $pal_duree_fond;
 
+    private $nbPlongeurs;
+    private $palanqueeManager;
+
     public function __construct(array $data)
     {
         parent::__construct($data);
+        $this->palanqueeManager = new PalanqueeManager();
     }
 
     /**
@@ -171,6 +175,14 @@ class Palanquee extends _Entity
         $this->pal_duree_fond = $pal_duree_fond;
     }
 
+    public function getNbPlongeurs() {
+        $plongee[] = new Plongee([
+            'PLO_DATE' => $this->plo_date,
+            'PLO_MAT_MID_SOI' => $this->plo_mat_mid_soi
+        ]);
+        $nombre = $this->palanqueeManager->getNombreConcerner($plongee , $this->pal_num);
+        return $nombre[0]['count(*)'];
+    }
 
 
 }

@@ -98,7 +98,7 @@ class Personne extends _Entity
      */
     public function setPerDateCertifMed($per_date_certif_med)
     {
-        $date = DateTime::createFromFormat('d-m-Y', $per_date_certif_med);
+        $date = DateTime::createFromFormat('Y-m-d', $per_date_certif_med);
         if ($date)
             $this->per_date_certif_med = $per_date_certif_med;
     }

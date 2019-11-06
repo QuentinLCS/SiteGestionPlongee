@@ -1,0 +1,130 @@
+<html lang="fr">
+    <head>
+        <?php include_once('view/global/head.html'); ?>
+        <meta charset="utf-8">
+        <title>Plongée_du_<?= $plongee[0]->getPloDate() ?><?= $plongee[0]->getPloMatMidSoiEntier() ?></title>
+        <style>
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+
+            th {
+                border-radius: 0;
+            }
+
+            .saut {
+                page-break-after:always
+            }
+        </style>
+    </head>
+    <body onload="window.print()">
+        <main class="container margin-top">
+            <h4 class="center margin-bottom" style="margin-top: 0">FICHE DE SECURITE</h4>
+            <div class="row ">
+                <table class="col s6 centered">
+                    <tr>
+                        <th>Date</th>
+                        <td><?= $plongee[0]->getPloDate() ?><br><?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Directeur de plongée</th>
+                        <td><?= $plongee[0]->getDirecteur()[0]->getPerNom().' '.$plongee[0]->getDirecteur()[0]->getPerPrenom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Site de plongée</th>
+                        <td><?= $plongee[0]->getSite()[0]->getSitNom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Effectif</th>
+                        <td><?= $plongee[0]->getPloEffectifPlongeurs() ?></td>
+                    </tr>
+                </table>
+                <div class="col s6 center">
+                    <img src="../../public/media/logo.png" alt="Logo" style="max-width: 170px; margin-top: 50px">
+                </div>
+            </div>
+            <div class="row">
+                <table class="col s12 centered">
+                    <tr>
+                        <th style="width: 170px;">Sécurité de surface</th>
+                        <td><?= $plongee[0]->getSecurite()[0]->getPerNom().' '.$plongee[0]->getSecurite()[0]->getPerPrenom() ?></td>
+                    </tr>
+                    <tr>
+                        <th>Observation</th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <?php if(empty($palanquees)): ?>
+            <table class="col s12 centered">
+                <tr>
+                    <th class="pink lighten-5 red-text text-darken-4 center"><strong>AUCUNE PALANQUEE ENTREE</strong></th>
+                </tr>
+            </table>
+            <?php endif;
+
+            $i = 0;
+
+            foreach($palanquees as $palanquee):
+            $i++ ?>
+
+            <div class="margin-bottom <?= ($i) % 2 || $i == 1 ? 'saut' : '' ?>">
+                <div class="row" style="border: 5px #424242 solid;">
+                    <table class="col s12 centered">
+                        <tr>
+                            <th class="grey darken-3 white-text center">PALANQUEE <?= $palanquee->getPalNum() ?></th>
+                        </tr>
+                    </table>
+                    <table class="col s12 centered">
+                        <tr>
+                            <th style="width: 170px;">Heure Départ</th>
+                            <td><?= $palanquee->getPalHeureImmersion() ?></td>
+                            <th style="width: 170px;">Heure Retour</th>
+                            <td><?= $palanquee->getPalHeureSortieEau() ?></td>
+                        </tr>
+                        <tr>
+                            <th style="width: 170px;">Temps Prévu</th>
+                            <td><?= $palanquee->getPalDureeMax() ?></td>
+                            <th style="width: 170px;">Profondeur Prévue</th>
+                            <td><?= $palanquee->getPalProfondeurMax() ?></td>
+                        </tr>
+                        <tr>
+                            <th style="width: 170px;">Temps Réalisé</th>
+                            <td><?= $palanquee->getPalDureeFond() ?></td>
+                            <th style="width: 170px;">Profondeur Réalisée</th>
+                            <td><?= $palanquee->getPalProfondeurReelle() ?></td>
+                        </tr>
+                    </table>
+                    <table class="centered">
+                        <thead class="grey darken-3 white-text">
+                        <tr>
+                            <th>Nom Prénom</th>
+                            <th>Niveau</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if(!empty($plongeurs[$i-1])): ?>
+                            <?php foreach($plongeurs[$i-1] as $plongeur): ?>
+                            <tr>
+                                <td><?= $plongeur->getPersonne()[0]->getPerNom().' '.$plongeur->getPersonne()[0]->getPerPrenom() ?></td>
+                                <td><?= $plongeur->getAptitude()[0]->getAptLibelle() ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                        <tr>
+                            <td colspan="2" class="pink lighten-5 red-text text-darken-4 center"><strong>AUCUN PLONGEUR DANS CETTE PALANQUEE</strong></td>
+                        </tr>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </main>
+        <script>
+            setTimeout(function () {
+                document.location.href="<?= (isset($_GET['show']) ? URL.'plongee/show/&plo_date='.$plongee[0]->getPloDate().'&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi() : 'plongee_index.html')?>"
+            }, 1000)
+        </script>
+    </body>
+</html>
