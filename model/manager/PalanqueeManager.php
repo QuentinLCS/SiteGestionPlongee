@@ -90,6 +90,11 @@ class PalanqueeManager extends _Model
         $req="SELECT * FROM PLO_CONCERNER WHERE PLO_DATE='".$objet[0]->getPloDate()."' AND PLO_MAT_MID_SOI='".$objet[0]->getPloMatMidSoi()."'";
         return DataBase::$db->LireDonnees($req);
     }
+    public function getPlongeurConcerner($objet)
+    {
+        $req="SELECT * FROM PLO_CONCERNER WHERE PLO_DATE='".$objet['PLO_DATE']."' AND PLO_MAT_MID_SOI='".$objet['PLO_MAT_MID_SOI']."' AND PAL_NUM ='".$objet['PAL_NUM']."' AND PER_NUM='".$objet['PER_NUM']."'";
+        return DataBase::$db->LireDonnees($req);
+    }
     public function setConcerner($tab)
     {
         $req="INSERT INTO PLO_CONCERNER (PLO_DATE,PLO_MAT_MID_SOI,PAL_NUM,PER_NUM) VALUES ('".$tab['PLO_DATE']."','".$tab['PLO_MAT_MID_SOI']."',".$tab['PAL_NUM'].",".$tab['PER_NUM'].")";

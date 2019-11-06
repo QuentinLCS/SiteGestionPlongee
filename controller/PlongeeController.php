@@ -400,49 +400,54 @@ class PlongeeController extends _ControllerClass
             header('location: /plongee');
 
         if (isset($_POST["submitPLONGEUR"])) {
+
             $base = $this->verifierPlongee();
-            $nombre = $this->palanqueeManager->getNombreConcerner($base,intval($_GET['pal_num']));
 
-            if($nombre[0]['count(*)']<5)
-            {
-                $date = $_GET["plo_date"];
-                $periode = $_GET["plo_mat_mid_soi"];
-                $numPal = $_GET['pal_num'];
-                $numPers = $_POST["plongeur"];
+            if ($this->verifierPlongeurPalanquee()) {
 
-                $concerner = [
-                    'PLO_DATE' => $date,
-                    'PLO_MAT_MID_SOI' => $periode,
-                    'PAL_NUM' => $numPal,
-                    'PER_NUM' => $numPers
-                ];
+                $nombre = $this->palanqueeManager->getNombreConcerner($base, intval($_GET['pal_num']));
+                if ($nombre[0]['count(*)'] < 5) {
+                    $date = $_GET["plo_date"];
+                    $periode = $_GET["plo_mat_mid_soi"];
+                    $numPal = $_GET['pal_num'];
+                    $numPers = $_POST["plongeur"];
 
-                $plongee = $this->plongeeManager->getOne([
-                   'PLO_DATE' => $date,
-                   'PLO_MAT_MID_SOI' => $periode
-                ]);
+                    $concerner = [
+                        'PLO_DATE' => $date,
+                        'PLO_MAT_MID_SOI' => $periode,
+                        'PAL_NUM' => $numPal,
+                        'PER_NUM' => $numPers
+                    ];
 
-                if (( $numPers == $plongee[0]->getDirecteur()[0]->getPerNum() )||( $numPers == $plongee[0]->getSecurite()[0]->getPerNum() )) {
-                    $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
+                    $plongee = $this->plongeeManager->getOne([
+                        'PLO_DATE' => $date,
+                        'PLO_MAT_MID_SOI' => $periode
+                    ]);
+
+                    if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
+                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
+                    } else {
+                        $this->palanqueeManager->updatePlongeurs($concerner);
+                        $this->updateEffectifPlongeur();
+                        header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
+                    }
+
+
+                    /*
+                     *
+                    $plongeur = $this->personneManager->getOne([
+                        'PER_NUM' => $numPers
+                    ]);
+                    if ($plongeur[0]->getPerActive() == 0) {
+                        $plongeur[0]->setPerActive(1);
+                        $this->personneManager->update($plongeur, false);
+                    }
+                    */
                 } else {
-                    $this->palanqueeManager->updatePlongeurs($concerner);
-                    $this->updateEffectifPlongeur();
-                    header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                    $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
                 }
-
-
-                /*
-                 *
-                $plongeur = $this->personneManager->getOne([
-                    'PER_NUM' => $numPers
-                ]);
-                if ($plongeur[0]->getPerActive() == 0) {
-                    $plongeur[0]->setPerActive(1);
-                    $this->personneManager->update($plongeur, false);
-                }
-                */
             } else {
-                $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
+                $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Ce Plongeur a déjà été ajouter";
             }
         }
 
@@ -618,6 +623,19 @@ class PlongeeController extends _ControllerClass
             }
         }
         (new View('plongee/plongee_show/plongee_show_generale/plongee_show_generale_valider'))->generate([]);
+    }
+
+    /*
+     * Vérification si le Plongeur n'est pas déjà dans la base pour cette palanquée
+     */
+    private function verifierPlongeurPalanquee() {
+        $concerner = [
+            'PLO_DATE' => $_GET["plo_date"],
+            'PLO_MAT_MID_SOI' => $_GET["plo_mat_mid_soi"],
+            'PAL_NUM' => $_GET['pal_num'],
+            'PER_NUM' => $_POST["plongeur"]
+        ];
+        return empty($this->palanqueeManager->getPlongeurConcerner($concerner));
     }
 
     function verifierDate($date)
