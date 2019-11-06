@@ -87,6 +87,8 @@ class PlongeurController extends _ControllerClass
 
         $aptitudes = $this->plongeurManager->getAptitudesDebloquees($plongeur);
 
+
+
         $dir  = $this->plongeurManager->isDirector($_GET['per_num']);
 
         $secu  =  $this->plongeurManager->isSecurity($_GET['per_num']);

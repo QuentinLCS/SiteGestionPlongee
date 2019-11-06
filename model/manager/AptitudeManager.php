@@ -25,6 +25,7 @@ class AptitudeManager extends _Model
 
         $sql.= "ORDER BY APT_NUM";
 
+
         return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
 
@@ -45,6 +46,7 @@ class AptitudeManager extends _Model
         else
             DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
     }
+
 
     public function delete($object){
         $apt = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEUR WHERE APT_CODE = "'.$object[0]->getAptCode().'"');

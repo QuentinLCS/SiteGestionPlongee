@@ -43,7 +43,7 @@ class Aptitude extends _Entity
      */
     public function setAptNum($apt_num)
     {
-            $this->$apt_num = $apt_num;
+            $this->apt_num = $apt_num;
 
     }
 

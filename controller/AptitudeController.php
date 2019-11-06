@@ -32,6 +32,8 @@ class AptitudeController extends _ControllerClass
 
         $searchedAptitudes = null;
 
+
+
         if ( isset($_POST['search']) ) {
 
             if (!empty($_POST['searchCode']))
@@ -44,6 +46,7 @@ class AptitudeController extends _ControllerClass
                 $searchedAptitudes = $this->aptitudeManager->getSearchResult($search);
 
         }
+
 
         (new View('aptitude/aptitude_index'))->generate([
             'allAptitudes' => $this->aptitudeManager->getAll(),
@@ -77,6 +80,8 @@ class AptitudeController extends _ControllerClass
             $this->verification($aptitude, true);
         }
     }
+
+
 
     private function verification($aptitude, $add = false)
     {

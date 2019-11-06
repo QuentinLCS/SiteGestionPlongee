@@ -156,6 +156,6 @@ class PlongeurManager extends _Model
     public function getAptitudesDebloquees($object){
         $apt_num = DataBase::$db->LireDonnees('SELECT APT_NUM FROM PLO_APTITUDE WHERE APT_CODE = "'.$object[0]->getAptCode().'"');
 
-        return DataBase::$db->LireDonnees('SELECT * FROM PLO_APTITUDE WHERE APT_NUM < "'.$apt_num[0]['APT_NUM'].'" ORDER BY APT_NUM');
+        return DataBase::$db->LireDonnees('SELECT * FROM PLO_APTITUDE WHERE APT_NUM <= "'.$apt_num[0]['APT_NUM'].'" ORDER BY APT_NUM');
     }
 }
