@@ -9,7 +9,7 @@ class AptitudeManager extends _Model
 
     public function getAll()
     {
-        return parent::_getAll(self::$table, self::$entity);
+        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' ORDER BY APT_NUM', self::$entity);
     }
 
     public function getSearchResult($search)
