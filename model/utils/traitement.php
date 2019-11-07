@@ -113,7 +113,7 @@ function majusculeDebut($ch) {
 // Vérificateurs de chaines
 
 
-function formatNomCorrect($chaine) {
+function FormatNomOK($chaine) {
     $modele = '/[a-zA-Z-\'àâäçéèêëîïôöùûüÿ\s]{1,}/';
     return preg_match($modele, $chaine, $data) && $data[0] == $chaine && mb_strlen($chaine) <= 30;
 }
@@ -123,7 +123,7 @@ function formatLocaliteCorrect($chaine) {
     return preg_match($modele, $chaine, $data) && $data[0] == $chaine;
 }
 
-function formatPrenomCorrect($chaine) {
+function formatPrenomOK($chaine) {
     $modele = '/[a-zA-Z-\'àâäçéèêëîïôöùûüÿ\s]{1,}/';
     return preg_match($modele, $chaine, $data) && $data[0] == $chaine && mb_strlen($chaine, 'UTF-8') <= 30;
 }
@@ -134,19 +134,19 @@ function formatChaineChiffreCorrect($chaine) {
     return !preg_match($modele, $chaine);
 }
 
-function espaceCorrect($chaine) {
+function espaceOK($chaine) {
     $modele = '#\s{2,}#';
     return !preg_match($modele, $chaine);
 }
 
-function tiretCorrectNom($chaine)
+function tiretNomOK($chaine)
 {
     $modele = '#^-|-$|-{3,}#';
-    return !(preg_match($modele, $chaine) || countDoubleTirets($chaine) > 2 || verificationTiretApostrophe($chaine));
+    return !(preg_match($modele, $chaine) || countDoubleTirets($chaine) > 2 || tiretAvecApostrophe($chaine));
 }
-function tiretCorrectPrenom($chaine) {
+function tiretPrenomOK($chaine) {
     $modele = '#^-|-$|-{3,}#';
-    return !(preg_match($modele, $chaine) || countDoubleTirets($chaine) > 1 || verificationTiretApostrophe($chaine));
+    return !(preg_match($modele, $chaine) || countDoubleTirets($chaine) > 1 || tiretAvecApostrophe($chaine));
 }
 
 function countDoubleTirets($chaine) {
@@ -154,20 +154,20 @@ function countDoubleTirets($chaine) {
     return count($tab);
 }
 
-function verificationTiretApostrophe($chaine) {
+function tiretAvecApostrophe($chaine) {
     return preg_match("/-'$|^'-/", $chaine);
 }
 
-function apostropheCorrect($ch) {
+function apostropheOK($ch) {
     return !preg_match('#\'{2,}|^\'$#', $ch);
 }
 
 function nomCorrect($ch) {
-    return formatNomCorrect($ch) && tiretCorrectNom($ch) && espaceCorrect($ch) && apostropheCorrect($ch);
+    return FormatNomOK($ch) && tiretNomOK($ch) && espaceOK($ch) && apostropheOK($ch);
 }
 
 function prenomCorrect($ch) {
-    return formatPrenomCorrect($ch) && tiretCorrectPrenom($ch) && espaceCorrect($ch) && apostropheCorrect($ch);
+    return formatPrenomOK($ch) && tiretPrenomOK($ch) && espaceOK($ch) && apostropheOK($ch);
 }
 
 function traitementNom($ch) {

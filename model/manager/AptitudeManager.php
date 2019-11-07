@@ -9,7 +9,7 @@ class AptitudeManager extends _Model
 
     public function getAll()
     {
-        return parent::_getAll(self::$table, self::$entity);
+        return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' ORDER BY APT_NUM', self::$entity);
     }
 
     public function getSearchResult($search)
@@ -22,6 +22,9 @@ class AptitudeManager extends _Model
         }
         if (isset($search['libelle']))
             $sql .= "APT_LIBELLE LIKE '".$search['libelle']."%'";
+
+        $sql.= "ORDER BY APT_NUM";
+
 
         return  DataBase::$db->LireDonnees($sql, self::$entity);
     }
@@ -39,14 +42,17 @@ class AptitudeManager extends _Model
     public function update($object, $add = false)
     {
         if ($add)
-            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (APT_CODE, APT_LIBELLE) VALUES ('".$object[0]->getAptCode()."', '".$object[0]->getAptLibelle()."')");
+            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (APT_CODE, APT_LIBELLE, APT_NUM) VALUES ('".$object[0]->getAptCode()."', '".$object[0]->getAptLibelle()."','".$object[0]->getAptNum()."')");
         else
-            DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
+            DataBase::$db->majDonnees("UPDATE ".self::$table." SET APT_CODE = '".$object[0]->getAptCode()."', APT_LIBELLE = '".$object[0]->getAptLibelle()."', APT_NUM = '".$object[0]->getAptNum()."' WHERE APT_CODE = '".$object[0]->getOldAptCode()."'");
     }
+
 
     public function delete($object){
         $apt = DataBase::$db->LireDonnees('SELECT * FROM PLO_PLONGEUR WHERE APT_CODE = "'.$object[0]->getAptCode().'"');
         if(count($apt)==0)
             DataBase::$db->majDonnees('DELETE FROM PLO_APTITUDE WHERE APT_CODE ="'.$object[0]->getAptCode().'"');
     }
+
+
 }

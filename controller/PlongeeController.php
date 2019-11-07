@@ -387,10 +387,11 @@ class PlongeeController extends _ControllerClass
                     'PAL_PROFONDEUR_REELLE' => $profondeurR,
                     'PAL_DUREE_FOND' => $tempsR
                 ]);
+
                 $this->palanqueeManager->update($palanqueeObj, true);
                 $this->updateEffectifPalanquee();
-                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
-            }else  {
+                header('location: /plongee/show/&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
+            } else {
                 $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données invalide";
             }
         } else {
@@ -479,7 +480,8 @@ class PlongeeController extends _ControllerClass
                     }*/
                     else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
-                        $this->updateEffectifPlongeur();
+                        $plongee = $this->updateEffectifPlongeur();
+                        $this->plongeeManager->update($plongee);
                         header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                     }
 

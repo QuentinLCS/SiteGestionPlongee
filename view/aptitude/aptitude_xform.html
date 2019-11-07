@@ -2,6 +2,13 @@
 
     <div class="row">
         <label class="col s12">
+            Niveau
+            <input type="text" id="niveau" name="niveau" value="<?= isset($aptitude) ? $aptitude[0]->getAptNum() : '' ?>" autofocus>
+        </label>
+    </div>
+
+    <div class="row">
+        <label class="col s12">
             Code (Modifiable seulement si non utilisé)
             <input type="text" id="code" name="code" value="<?= isset($aptitude) ? $aptitude[0]->getAptCode() : '' ?>" autofocus>
         </label>
