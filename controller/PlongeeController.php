@@ -436,6 +436,10 @@ class PlongeeController extends _ControllerClass
                     } else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
                         $plongee = $this->updateEffectifPlongeur();
+                        if($this->verifierCompleter($plongee))
+                        {
+                            $plongee[0]->setPloEtat("Complete");
+                        }
                         $this->plongeeManager->update($plongee);
                         header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                     }
@@ -470,7 +474,7 @@ class PlongeeController extends _ControllerClass
 
                 if (!empty($_POST["HImmersion"])) {
                     $HImmersion = $_POST["HImmersion"];
-                    $palanquee[0]->setPalHeureSortieEau($HImmersion);
+                    $palanquee[0]->setPalHeureImmersion($HImmersion);
                 }
                 if (!empty($_POST["HSortie"])) {
                     $HSortie = $_POST["HSortie"];
@@ -486,6 +490,11 @@ class PlongeeController extends _ControllerClass
                 }
 
                 $this->palanqueeManager->update($palanquee);
+                if($this->verifierCompleter($plongee))
+                {
+                    $plongee[0]->setPloEtat("Complete");
+                }
+                $this->plongeeManager->update($plongee,false);
 
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
