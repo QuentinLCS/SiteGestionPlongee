@@ -473,10 +473,10 @@ class PlongeeController extends _ControllerClass
                     if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
                         $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
                     }
-                    /*elseif ()//TODO
+                    elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date,$periode,$numPers)[0]['count(*)'])>1)
                     {
                         $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
-                    }*/
+                    }
                     else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
                         $this->updateEffectifPlongeur();
