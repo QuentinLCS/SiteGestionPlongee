@@ -284,11 +284,15 @@ class PlongeeController extends _ControllerClass
                     'PLO_EFFECTIF_BATEAU' => $this->plongeeManager->getEffectifPlongeur($_POST["date"],$_POST["periode"])[0]['count(PLO_CONCERNER.PER_NUM)']+2,
                     'PLO_ETAT'=> "Creee"
                 ]);
-                $this->plongeeManager->update($plongee, true);
-                header('location: /plongee/show/&plo_date='.$date.'&plo_mat_mid_soi='.$periode.'&page=palanquee');
-            } else
-                echo 'Tous les champs ne sont pas remplis.';
 
+                if (empty($this->plongeeManager->getSearchResult(['date' => $date, 'periode'=>$periode]))) {
+                    $this->plongeeManager->update($plongee, true);
+                    header('location: /plongee/show/&plo_date='.$date.'&plo_mat_mid_soi='.$periode.'&page=palanquee');
+                } else {
+                    $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee : Plongee déjà existante.";
+                }
+            } else
+                $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee: Données manquantes.";
         }
     }
 
@@ -348,7 +352,11 @@ class PlongeeController extends _ControllerClass
                 $this->palanqueeManager->update($palanqueeObj, true);
                 $this->updateEffectifPalanquee();
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            }else  {
+                $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données invalide";
             }
+        } else {
+            $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données manquantes";
         }
     }
 

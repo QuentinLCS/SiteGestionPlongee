@@ -23,6 +23,11 @@
         </form>
         <div class="row">
             <div class="col s12">
+                <?php if(isset($_POST['errorPlongeeAdd'])): ?>
+                    <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+                        <?= $_POST['errorPlongeeAdd'] ?>
+                    </p>
+                <?php endif; ?>
                 <?php if(empty($allPlongees)): ?>
                 <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
                     Aucun plongeur renseigné pour cette plongée.
