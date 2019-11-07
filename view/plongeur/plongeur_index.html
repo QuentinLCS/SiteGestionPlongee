@@ -28,6 +28,11 @@
             <input type="hidden" value="<?= isset($_POST["focused"]) ? $_POST["focused"] : '' ?>" id="focused" name="focused">
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
+        <?php if(isset($_POST['errorPlongeurAdd'])): ?>
+            <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+                <?= $_POST['errorPlongeurAdd'] ?>
+            </p>
+        <?php endif; ?>
 
         <div class="row">
             <div class="col s12">
@@ -43,7 +48,6 @@
                             <th class="center">Gestion</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php foreach((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs) as $plongeur): ?>
                         <tr>

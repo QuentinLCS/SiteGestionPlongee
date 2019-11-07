@@ -139,11 +139,11 @@ class PlongeurController extends _ControllerClass
                     $this->verification($plongeur, true);
                 }
                 else
-                    echo "le nom ou le prénom n'est pas correct";
+                    $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout du plongeur : le nom ou le prénom n'est pas correct";
 
 
             } else
-                echo 'Tous les champs ne sont pas remplis.';
+                $_POST['errorPlongeurAdd'] = 'Erreur dans l\'ajout du plongeur :  Tous les champs ne sont pas remplis.';
 
         }
     }
@@ -259,12 +259,12 @@ class PlongeurController extends _ControllerClass
                             else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
                         }
                         else
-                                echo "le nom ou le prénom n'est pas correct";
+                            $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : le nom ou le prénom n'est pas correct";
 
                     } else
-                        echo 'Personne déjà enregistrée.';
+                        $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : Personne déjà enregistrée.";
                 } else
-                    echo 'Tous les champs ne sont pas remplis.';
+                    $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : Tous les champs ne sont pas remplis.";
 
         }
     }

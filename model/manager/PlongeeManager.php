@@ -107,4 +107,12 @@ class PlongeeManager extends _Model
                     '.$pal_num.'
                     '.$plongeur[0]->getPerNum().')';
     }
+
+    public function getDirecteur($object){
+        return DataBase::$db->LireDonnees('SELECT * FROM PLO_DIRECTEUR WHERE PER_NUM ="'.$object[0]->getPerNumDir().'"','Personne');
+    }
+
+    public function getSecurite($object){
+        return DataBase::$db->LireDonnees('SELECT * FROM PLO_SECURITE_DE_SURFACE WHERE PER_NUM ="'.$object[0]->getPerNumSecu().'"','Personne');
+    }
 }
