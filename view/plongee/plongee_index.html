@@ -36,6 +36,7 @@
                     <table class="striped">
                         <thead>
                             <tr>
+                                <th class="center">État</th>
                                 <th class="center">Date</th>
                                 <th class="center">Période</th>
                                 <th class="center">Site</th>
@@ -47,6 +48,7 @@
                         <tbody>
                         <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
                         <tr>
+                            <td class="center"><?= $plongee->getPloEtat() ?></td>
                             <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
                             <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
