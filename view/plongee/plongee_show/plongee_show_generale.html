@@ -83,7 +83,7 @@
             </td>
         </tr>
         <?php if (empty($site)): ?>
-            <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+            <p class="red lighten-4 red-text text-darken-4 center" id="form-error1">
                 Aucun site renseigné.
             </p>
         <?php else: ?>
@@ -91,7 +91,7 @@
                 <td>Site :</td>
                 <td>
                     <?php if (empty($site)): ?>
-                        <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
+                        <p class="red lighten-4 red-text text-darken-4 center" id="form-error2">
                             Aucun site renseigné.
                         </p>
                     <?php else: ?>
@@ -131,7 +131,7 @@
         </tr>
         <tr>
             <td>Directeur de plongée :</td>
-            <td><?=$directeurPlongeur[0]->getPerNom().$directeurPlongeur[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getDirecteur()[0]->getPerNom().$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
             <td>
                 <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
                     <i class="material-icons white-text">edit</i>
@@ -140,7 +140,7 @@
         </tr>
         <tr>
             <td>Sécurité de surface :</td>
-            <td><?=$securiteSurface[0]->getPerNom().$securiteSurface[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getSecurite()[0]->getPerNom().$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
             <td>
                 <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
                     <i class="material-icons white-text">edit</i>
