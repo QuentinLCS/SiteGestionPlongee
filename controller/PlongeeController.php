@@ -435,7 +435,8 @@ class PlongeeController extends _ControllerClass
                         $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
                     } else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
-                        $this->updateEffectifPlongeur();
+                        $plongee = $this->updateEffectifPlongeur();
+                        $this->plongeeManager->update($plongee);
                         header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                     }
 
