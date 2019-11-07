@@ -8,7 +8,11 @@
             <ul>
                 <li><strong>Rôle.s :</strong>
                     <ul>
-                        ...
+                        <?php if($directeur)
+                            echo 'directeur <br>';
+                        if($securite)
+                            echo 'securité de surface <br>';
+                        echo 'plongeur'; ?>
                     </ul>
                 </li>
                 <li><strong>nbPlongées :</strong> <?= count($allPalanquees); ?></li>
