@@ -131,7 +131,7 @@
         </tr>
         <tr>
             <td>Directeur de plongée :</td>
-            <td><?=$plongee[0]->getDirecteur()[0]->getPerNom().$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getDirecteur()[0]->getPerNom().' '.$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
             <td>
                 <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
                     <i class="material-icons white-text">edit</i>
@@ -140,7 +140,7 @@
         </tr>
         <tr>
             <td>Sécurité de surface :</td>
-            <td><?=$plongee[0]->getSecurite()[0]->getPerNom().$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getSecurite()[0]->getPerNom().' '.$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
             <td>
                 <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
                     <i class="material-icons white-text">edit</i>
