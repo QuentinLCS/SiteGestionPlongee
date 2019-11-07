@@ -248,5 +248,21 @@ class Plongee extends _Entity
 
     }
 
+    /**
+     * @param mixed $directeur
+     */
+    public function setDirecteur($directeur)
+    {
+        $this->directeur = $directeur;
+    }
+
+    /**
+     * @param mixed $securite
+     */
+    public function setSecurite($securite)
+    {
+        $this->securite = $securite;
+    }
+
 
 }

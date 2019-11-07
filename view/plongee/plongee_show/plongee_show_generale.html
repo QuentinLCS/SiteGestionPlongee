@@ -131,13 +131,21 @@
         </tr>
         <tr>
             <td>Directeur de plongée :</td>
-            <td></td>
-            <td></td>
+            <td><?=$directeurPlongeur[0]->getPerNom().$directeurPlongeur[0]->getPerPrenom()?></td>
+            <td>
+                <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
+                    <i class="material-icons white-text">edit</i>
+                </a>
+            </td>
         </tr>
         <tr>
             <td>Sécurité de surface :</td>
-            <td></td>
-            <td></td>
+            <td><?=$securiteSurface[0]->getPerNom().$securiteSurface[0]->getPerPrenom()?></td>
+            <td>
+                <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
+                    <i class="material-icons white-text">edit</i>
+                </a>
+            </td>
         </tr>
         <?php if($plongee[0]->getPloEtat()=="Complete"): ?>
         <tr>
@@ -163,11 +171,33 @@
             </form>
         </div>
     </div>
-    <div id="modalDate" class="modal">
+    <div id="modalDirecteur" class="modal">
         <div class="modal-fixed-footer">
             <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                <input type="text" class="datepicker" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
-                <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn">Enregistrer</button>
+                <select name="selectDirecteur">
+                    <?php
+                        foreach($allDirecteur as $directeur)
+                        {
+                            echo '<option value='.$directeur->getPerNum().'>'.$directeur->getPerNom(),$directeur->getPerPrenom().'</option>';
+                        }
+                    ?>
+                </select>
+                <button type="submit" value="submit" name="submitDirecteur" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalSurface" class="modal">
+        <div class="modal-fixed-footer">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <select name="selectSurface">
+                    <?php
+                        foreach($allSecuriteSurface as $securite)
+                        {
+                            echo '<option value='.$securite->getPerNum().'>'.$securite->getPerNom(),$securite->getPerPrenom().'</option>';
+                        }
+                    ?>
+                </select>
+                <button type="submit" value="submit" name="submitSurface" class="waves-effect waves-light btn">Enregistrer</button>
             </form>
         </div>
     </div>

@@ -102,7 +102,6 @@ class PlongeeController extends _ControllerClass
     {
 
         $plongee = $this->verifierPlongee();
-
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
@@ -124,6 +123,7 @@ class PlongeeController extends _ControllerClass
 
         $this->addPalanquee();
 
+
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
             'allSite' => $this->siteManager->getAll(),
@@ -131,9 +131,9 @@ class PlongeeController extends _ControllerClass
             'allPlongeurs' => $this->plongeurManager->getAll(),
             'bateau' => $bateau,
             'palanquees' => $palanquee,
-            'site' => $site
-            /*'directeurPlongeur' => $this->personneManager->getOne(["PER_NUM" => ]),
-            'securiteSurface' =>;*/
+            'site' => $site,
+            'directeurPlongeur' => $this->plongeeManager->getDirecteur($plongee),
+            'securiteSurface' => $this->plongeeManager->getSecurite($plongee)
         ]);
     }
 

@@ -10,6 +10,8 @@ class Aptitude extends _Entity
 
     private $apt_libelle;
 
+    private $apt_num;
+
     /**
      * Aptitude constructor.
      * Check if the setter exists.
@@ -19,7 +21,6 @@ class Aptitude extends _Entity
     {
         parent::__construct($data);
     }
-
 
 
     // SETTERS
@@ -38,6 +39,15 @@ class Aptitude extends _Entity
     }
 
     /**
+     * @param mixed $apt_num
+     */
+    public function setAptNum($apt_num)
+    {
+            $this->apt_num = $apt_num;
+
+    }
+
+    /**
      * @param mixed $apt_libelle
      */
     public function setAptLibelle($apt_libelle)
@@ -49,6 +59,17 @@ class Aptitude extends _Entity
 
 
     // GETTERS
+
+
+    /**
+     * @return mixed
+     */
+
+    public function getAptNum()
+    {
+        return $this->apt_num;
+    }
+
 
     /**
      * @return mixed
