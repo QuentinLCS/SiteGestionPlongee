@@ -4,7 +4,7 @@ $(document).ready(function(){
         firstDay: 1,
         format: 'yyyy-mm-dd',
         minDate: new Date(2000,1,1),
-        //maxDate: new date(),
+        maxDate: new Date(),
         i18n: {
             done: 'Valider',
             cancel: 'Annuler',
