@@ -55,8 +55,6 @@ class AccueilController extends _ControllerClass
      */
     public function index()
     {
-        var_dump($this->personneManager->getCertificatDepasse());
-
         $plongeesFutures = $this->plongeeManager->getPlongeesFutures();
 
         (new View('home/home'))->generate([
