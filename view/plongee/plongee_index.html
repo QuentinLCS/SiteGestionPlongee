@@ -49,7 +49,7 @@
                         <?php foreach((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees) as $plongee): ?>
                         <tr>
                             <td class="center"><?= $plongee->getPloEtat() ?></td>
-                            <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
+                            <td class="center <?= (date('Y-m-d', strtotime('+1 year',strtotime($plongee->getPloDate()))) < $dateOfToday ? 'red lighten-3 red-text text-darken-4' : '') ?>"><?= dateFormater($plongee->getPloDate()) ?></td>
                             <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
                             <td class="center"><b><?= $plongee->getPloNbPalanquees() ?></b></td>

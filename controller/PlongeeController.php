@@ -2,6 +2,7 @@
 
 require_once('_ControllerClass.php');
 require_once('model/utils/DateFomater.php');
+require_once('model/utils/traitement.php');
 
 class PlongeeController extends _ControllerClass
 {
@@ -70,13 +71,16 @@ class PlongeeController extends _ControllerClass
 
         }
 
+        $today = date('Y-m-d');
+
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
             'searchedPlongees' => $searchedPlongees,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
             'allDirecteur' => $this->personneManager->getAllDirecteur(),
-            'allSecurite' => $this->personneManager->getAllSecurite()
+            'allSecurite' => $this->personneManager->getAllSecurite(),
+            'dateOfToday' => $today
         ]);
     }
 
@@ -463,6 +467,9 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
             'PAL_NUM' => $_GET['pal_num']]);
 
+        if (empty($palanquee))
+            header('location: /plongee');
+
         $plongeurs = $this->plongeurManager->getPlongeurPlongee($_GET['plo_date'],$_GET['plo_mat_mid_soi'],$_GET['pal_num'] );
 
         $plongee = $this->plongeeManager->getOne([
@@ -635,7 +642,7 @@ class PlongeeController extends _ControllerClass
 
     private function deletePal()
     {
-        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']  && $this->verifierDate($_GET['plo_date'])))
             header('location: /plongee');
 
         $palanquee = $this->palanqueeManager->getOne([

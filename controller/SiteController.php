@@ -58,7 +58,7 @@ class SiteController extends _ControllerClass
             'SIT_NUM' => $_GET['sit_num']]);
 
         if (empty($site))
-            header('location: /plongeur');
+            header('location: /site');
 
         if ( isset($_POST['submit']) )
             $this->verificationModif($site);
