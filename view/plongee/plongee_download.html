@@ -4,16 +4,21 @@
         <meta charset="utf-8">
         <title>Plongée_du_<?= $plongee[0]->getPloDate() ?><?= $plongee[0]->getPloMatMidSoiEntier() ?></title>
         <style>
-            body {
-                -webkit-print-color-adjust: exact;
-            }
+            html, body { float: none; }
 
             th {
                 border-radius: 0;
             }
 
             .saut {
-                page-break-after:always
+                display: block !important;
+                page-break-after: always;
+                position: relative;
+            }
+
+            body {
+                -webkit-print-color-adjust: exact;
+                overflow-x: visible !important;
             }
         </style>
     </head>
@@ -68,7 +73,7 @@
             foreach($palanquees as $palanquee):
             $i++ ?>
 
-            <div class="margin-bottom <?= ($i) % 2 || $i == 1 ? 'saut' : '' ?>">
+            <div class="margin-bottom <?= (($i) % 2 != 0) ? 'saut' : '' ?>">
                 <div class="row" style="border: 5px #424242 solid;">
                     <table class="col s12 centered">
                         <tr>
@@ -121,10 +126,5 @@
             </div>
             <?php endforeach; ?>
         </main>
-        <script>
-            setTimeout(function () {
-                document.location.href="<?= (isset($_GET['show']) ? URL.'plongee/show/&plo_date='.$plongee[0]->getPloDate().'&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi() : 'plongee_index.html')?>"
-            }, 1000)
-        </script>
     </body>
 </html>
