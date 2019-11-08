@@ -328,11 +328,15 @@ class PlongeeController extends _ControllerClass
                     'PLO_ETAT'=> "Créee"
                 ]);
 
-                if (empty($this->plongeeManager->getSearchResult(['date' => $date, 'periode'=>$periode]))) {
-                    $this->plongeeManager->update($plongee, true);
-                    header('location: /plongee/show/&plo_date='.$date.'&plo_mat_mid_soi='.$periode.'&page=palanquee');
+                if ($effectifB >= 2) {
+                    if (empty($this->plongeeManager->getSearchResult(['date' => $date, 'periode' => $periode]))) {
+                        $this->plongeeManager->update($plongee, true);
+                        header('location: /plongee/show/&plo_date=' . $date . '&plo_mat_mid_soi=' . $periode . '&page=palanquee');
+                    } else {
+                        $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee : Plongee déjà existante.";
+                    }
                 } else {
-                    $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee : Plongee déjà existante.";
+                    $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee: Effectif bateau trop faible ( Minimum 2 ).";
                 }
             } else
                 $_POST['errorPlongeeAdd'] = "Ajout d'une Plongee: Données manquantes.";
