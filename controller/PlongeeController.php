@@ -143,8 +143,6 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
-
-
     private function edit($value,$base)
     {
         if($value=="Site")
@@ -293,8 +291,11 @@ class PlongeeController extends _ControllerClass
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
                 $effectifB = "0";
-                if ($_POST["effectifB"] != "") {
+                if ($_POST["effectifB"] != "" && formatChaineChiffreCorrect($_POST["effectifB"])) {
                     $effectifB = intval($_POST["effectifB"], 10);
+                }
+                else {
+                    $_POST['errorPlongeeAdd'] = "Format de l'effectif bateau incorrect";
                 }
                 $plongee[] = new Plongee([
                     'PLO_DATE' => $date,
@@ -368,13 +369,28 @@ class PlongeeController extends _ControllerClass
 
                 // Récupère le temps réel depuis le formulaire reçu
                 if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "")
-                    $tempsR = intval($_POST["tempsR"]);
-
+                {
+                    if(formatChaineChiffreCorrect($_POST["tempsR"]))
+                    {
+                        $tempsR = intval($_POST["tempsR"]);
+                    }
+                    else
+                    {
+                        $_POST['errorPalanqueeAdd'] = "format du temps réel incorrect";
+                    }
+                }
 
                 // Récupère la profondeur réel depuis le formulaire reçu
                 if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "")
-                    $profondeurR = intval($_POST["profondeurR"]);
-
+                {
+                    if(formatChaineChiffreCorrect($_POST["profondeurR"]))
+                    {
+                        $profondeurR = intval($_POST["profondeurR"]);
+                    }
+                    else {
+                        $_POST['errorPalanqueeAdd'] = "format de la profondeur réelle incorrecte";
+                    }
+                }
 
                 $palanqueeObj[] = new Palanquee([
                     'PLO_DATE' => $date,
@@ -508,8 +524,22 @@ class PlongeeController extends _ControllerClass
                 $profondeurMax = $_POST["profondeurMax"];
                 $dureeMax = $_POST["DureeMax"];
 
-                $palanquee[0]->setPalProfondeurMax($profondeurMax);
-                $palanquee[0]->setPalDureeMax($dureeMax);
+                if(formatChaineChiffreCorrect($profondeurMax))
+                {
+                    $palanquee[0]->setPalProfondeurMax($profondeurMax);
+                }
+                else
+                {
+                    $_POST['errorPalanqueeEdit'] = "Le format de la profondeur max est invalide";
+                }
+                if(formatChaineChiffreCorrect($dureeMax))
+                {
+                    $palanquee[0]->setPalDureeMax($dureeMax);
+                }
+                else
+                {
+                    $_POST['errorPalanqueeEdit'] = "Le format de la dureeMax est invalide";
+                }
 
                 if (!empty($_POST["HImmersion"])) {
                     $HImmersion = $_POST["HImmersion"];
@@ -521,11 +551,23 @@ class PlongeeController extends _ControllerClass
                 }
                 if (!empty($_POST["ProfondeurReelle"]))  {
                     $ProfondeurReelle = $_POST["ProfondeurReelle"];
-                    $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                    if(formatChaineChiffreCorrect($ProfondeurReelle))
+                    {
+                        $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                    }
+                    else {
+                        $_POST['errorPalanqueeEdit'] = "Format de la profondeur réelle est incorrect";
+                    }
                 }
                 if (!empty($_POST["DureeFond"])) {
                     $DureeFond = $_POST["DureeFond"];
-                    $palanquee[0]->setPalDureeFond($DureeFond);
+                    if(formatChaineChiffreCorrect($DureeFond))
+                    {
+                        $palanquee[0]->setPalDureeFond($DureeFond);
+                    }
+                    else {
+                        $_POST['errorPalanqueeEdit'] = "Format de la durée au fond est incorrect";
+                    }
                 }
 
                 $this->palanqueeManager->update($palanquee);
