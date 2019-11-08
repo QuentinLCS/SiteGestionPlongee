@@ -598,6 +598,9 @@ class PlongeeController extends _ControllerClass
             {
                 $base[0]->setPloEtat("Complete");
             }
+            if ($base[0]->getPloNbPalanquees() < 1) {
+                $base[0]->setPloEtat("Creee");
+            }
             $this->plongeeManager->update($base,false);
             header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
