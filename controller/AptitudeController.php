@@ -112,7 +112,7 @@ class AptitudeController extends _ControllerClass
                 $this->aptitudeManager->update($aptitude, $add);
                header('location: /aptitude');
             } else
-                echo 'Aptitude déjà enregistrée.';
+                $_POST['errorAptAdd'] = 'Aptitude déjà enregistrée.';
         }
     }
 

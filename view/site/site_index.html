@@ -16,6 +16,13 @@
             </div>
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
+
+        <?php if(isset($_POST['errorSiteAdd'])): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+            <?= $_POST['errorSiteAdd'] ?>
+        </p>
+        <?php endif; ?>
+
         <table class="striped">
             <thead>
                 <tr>
