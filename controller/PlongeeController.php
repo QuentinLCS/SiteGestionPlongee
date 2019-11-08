@@ -71,13 +71,16 @@ class PlongeeController extends _ControllerClass
 
         }
 
+        $today = date('Y-m-d');
+
         (new View('plongee/plongee_index'))->generate([
             'allPlongees' => $this->plongeeManager->getAll(),
             'searchedPlongees' => $searchedPlongees,
             'allSite' => $this->siteManager->getAll(),
             'allEmbarcation' => $this->embarcationManager->getAll(),
             'allDirecteur' => $this->personneManager->getAllDirecteur(),
-            'allSecurite' => $this->personneManager->getAllSecurite()
+            'allSecurite' => $this->personneManager->getAllSecurite(),
+            'dateOfToday' => $today
         ]);
     }
 
