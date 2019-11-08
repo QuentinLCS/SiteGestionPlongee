@@ -224,35 +224,28 @@ class PlongeurController extends _ControllerClass
                             ]);
                             if(!$add) {
 
-                                if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0){
+                                if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0)
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstDirecteur('1');
-                                }
-                                else if ($this->plongeurManager->isDirector( $_GET['per_num']) == 1 && !(isset($_POST['directeur']))){
+
+
+                                else if ($this->plongeurManager->isDirector( $_GET['per_num']) == 1 && !(isset($_POST['directeur'])))
                                     $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstDirecteur('0');
-                                }
 
-                                if (isset($_POST['securite']) && $this->plongeurManager->isSecurity( $_GET['per_num'])== 0){
 
+                                if (isset($_POST['securite']) && $this->plongeurManager->isSecurity( $_GET['per_num'])== 0)
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstSecurite('1');
-                                }
-                                else if ($this->plongeurManager->isSecurity( $_GET['per_num']) == 1 && !(isset($_POST['securite']))){
+
+                                else if ($this->plongeurManager->isSecurity( $_GET['per_num']) == 1 && !(isset($_POST['securite'])))
                                     $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstSecurite('0');
-                                }
 
                             }
                             else{
-                                if (isset($_POST['directeur'])) {
+                                if (isset($_POST['directeur']))
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                   // $plongeur[0]->setEstDirecteur('1');
-                                }
-                                if (isset($_POST['securite'])){
+
+                                if (isset($_POST['securite']))
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                  //  $plongeur[0]->setEstSecurite('1');
-                                }
+
                             }
 
                             if ($add) header('location: /plongeur');
