@@ -26,13 +26,13 @@
                         <div class="row">
                             <label class="col s12 margin-bottom">
                                 Profondeur maximum
-                                <input required type="text" id="profondeurMax" name="profondeurMax" value="<?= $palanquee[0]->getPalProfondeurMax() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
+                                <input required type="text" id="profondeurMax" name="profondeurMax" value="<?= $palanquee[0]->getPalProfondeurMax() ?>" <?= ( $plongee[0]->getPloEtat() !='Validée' ? '' : 'disabled') ?>>
                             </label>
                         </div>
                         <div class="row">
                             <label class="col s12 margin-bottom">
                                 Durée maximum
-                                <input required type="text" id="DureeMax" name="DureeMax" value="<?= $palanquee[0]->getPalDureeMax() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
+                                <input required type="text" id="DureeMax" name="DureeMax" value="<?= $palanquee[0]->getPalDureeMax() ?>" <?= ( $plongee[0]->getPloEtat() !='Validée' ? '' : 'disabled') ?>>
                             </label>
                         </div>
                     </div>
@@ -41,23 +41,23 @@
                         <div class="row">
                             <label class="col s12 margin-bottom">
                                 Heure sortie
-                                <input type="time" id="HSortie" name="HSortie" value="<?= $palanquee[0]->getPalHeureSortieEau() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
+                                <input type="time" id="HSortie" name="HSortie" value="<?= $palanquee[0]->getPalHeureSortieEau() ?>" <?= ( $plongee[0]->getPloEtat() !='Validée' ? '' : 'disabled') ?>>
                             </label>
                         </div>
                         <div class="row">
                             <label class="col s12 margin-bottom">
                                 Profondeur réelle
-                                <input type="text" id="ProfondeurReelle" name="ProfondeurReelle" value="<?= $palanquee[0]->getPalProfondeurReelle() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
+                                <input type="text" id="ProfondeurReelle" name="ProfondeurReelle" value="<?= $palanquee[0]->getPalProfondeurReelle() ?>" <?= ( $plongee[0]->getPloEtat() !='Validée' ? '' : 'disabled') ?>>
                             </label>
                         </div>
                         <div class="row">
                             <label class="col s12 margin-bottom">
                                 Durée réelle
-                                <input type="text" id="DureeFond" name="DureeFond" value="<?= $palanquee[0]->getPalDureeFond() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
+                                <input type="text" id="DureeFond" name="DureeFond" value="<?= $palanquee[0]->getPalDureeFond() ?>" <?= ( $plongee[0]->getPloEtat() !='Validée' ? '' : 'disabled') ?>>
                             </label>
                         </div>
                     </div>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                         <button class="btn yellow darken-4 waves-effect waves-light col s12 margin-bottom" name="submit">ENREGISTRER</button>
                     <?php endif; ?>
                 </div>
@@ -74,7 +74,7 @@
                     <?= $_POST['errorPlongeur'] ?>
                 </p>
                 <?php endif; ?>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                 <h5><small>Plongeurs restants pour la palanquée: <?= 5 - count($plongeurs)  ?></small></h5>
                 <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
                     <i class="large material-icons">add</i>
@@ -93,7 +93,7 @@
                     <td><h6>Nom</h6></td>
                     <td><h6>Prénom</h6></td>
                     <td><h6>Aptitudes</h6></td>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                         <td><h6>Gestion</h6></td>
                     <?php endif; ?>
                 </tr>
@@ -104,7 +104,7 @@
                             <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
                             <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
                             <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
-                            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                            <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                                 <td>
                                     <a href="removePlo/&pal_num=<?=$_GET['pal_num']?>&plo_mat_mid_soi=<?=$_GET['plo_mat_mid_soi']?>&plo_date=<?=$_GET['plo_date']?>&per_num=<?=$plongeur->getPerNum()?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
                                         <i class="material-icons white-text">close</i>

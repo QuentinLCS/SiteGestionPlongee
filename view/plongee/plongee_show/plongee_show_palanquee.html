@@ -8,7 +8,7 @@
         <?php endif; ?>
         <br>
         <div class="row center">
-            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+            <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
             <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Nouvelle Palanquée" href="#ajouterPAL">
                 <i class="large material-icons">add</i>
             </a>
@@ -52,7 +52,7 @@
                         <a href="editPal/&pal_num=<?= $palanquee->getPalNum() ?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi() ?>&plo_date=<?= $palanquee->getPloDate() ?>" class="waves-effect waves-light btn yellow accent-4 tooltipped" data-position="top" data-tooltip="Détails de la palanquée">
                             <i class="material-icons white-text">remove_red_eye</i>
                         </a>
-                        <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                        <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                             <a href="deletePal/&pal_num=<?= $palanquee->getPalNum() ?>&plo_mat_mid_soi=<?= $palanquee->getPloMatMidSoi() ?>&plo_date=<?= $palanquee->getPloDate() ?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer la palanquée">
                                 <i class="material-icons white-text">delete</i>
                             </a>
