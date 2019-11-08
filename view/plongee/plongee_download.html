@@ -11,13 +11,14 @@
             }
 
             .saut {
-                display: block;
+                display: block !important;
                 page-break-after: always;
                 position: relative;
             }
 
             body {
                 -webkit-print-color-adjust: exact;
+                overflow-x: visible !important;
             }
         </style>
     </head>
@@ -72,7 +73,7 @@
             foreach($palanquees as $palanquee):
             $i++ ?>
 
-            <div class="margin-bottom <?= ($i) % 2 || $i == 1 ? 'saut' : '' ?>">
+            <div class="margin-bottom <?= (($i) % 2 != 0) ? 'saut' : '' ?>">
                 <div class="row" style="border: 5px #424242 solid;">
                     <table class="col s12 centered">
                         <tr>
