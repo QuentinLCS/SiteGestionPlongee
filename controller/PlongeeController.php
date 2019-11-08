@@ -393,8 +393,6 @@ class PlongeeController extends _ControllerClass
             } else {
                 $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données invalide";
             }
-        } else {
-            $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données manquantes";
         }
     }
 
@@ -472,24 +470,19 @@ class PlongeeController extends _ControllerClass
                             'PLO_MAT_MID_SOI' => $periode
                         ]);
 
-                    if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
-                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
-                    }
-                    elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date,$periode,$numPers)[0]['count(*)'])>1)
-                    {
-                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
-                    }
-                    else {
-                        $this->palanqueeManager->updatePlongeurs($concerner);
-                        $plongee = $this->updateEffectifPlongeur();
-                        if ($this->verifierCompleter($plongee)) {
-                            $plongee[0]->setPloEtat("Complete");
+                        if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
+                            $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
+                        } elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date, $periode, $numPers)[0]['count(*)']) > 1) {
+                            $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
+                        } else {
+                            $this->palanqueeManager->updatePlongeurs($concerner);
+                            $plongee = $this->updateEffectifPlongeur();
+                            if ($this->verifierCompleter($plongee)) {
+                                $plongee[0]->setPloEtat("Complete");
+                            }
+                            $this->plongeeManager->update($plongee);
+                            header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                         }
-                        $this->plongeeManager->update($plongee);
-                        header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
-                    }
-
-
                         /*
                          *
                         $plongeur = $this->personneManager->getOne([
@@ -604,6 +597,9 @@ class PlongeeController extends _ControllerClass
             if($this->verifierCompleter($base))
             {
                 $base[0]->setPloEtat("Complete");
+            }
+            if ($base[0]->getPloNbPalanquees() < 1) {
+                $base[0]->setPloEtat("Creee");
             }
             $this->plongeeManager->update($base,false);
             header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
