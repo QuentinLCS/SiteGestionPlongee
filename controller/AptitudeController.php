@@ -105,7 +105,7 @@ class AptitudeController extends _ControllerClass
 
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
-                if(!empty($_POST['niveau']))
+                if(!empty($_POST['niveau']) && formatChaineChiffreCorrect($_POST['niveau']))
                     $aptitude[0]->setAptNum($num);
                 $aptitude[0]->setAptLibelle($libelle);
                 $this->aptitudeManager->update($aptitude, $add);
