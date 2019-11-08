@@ -51,13 +51,13 @@ class SiteController extends _ControllerClass
     public function edit()
     {
 
-        if (!isset($_GET['sit_num']))
+        if (empty($_GET['sit_num']))
             header('location: /site');
 
         $site = $this->siteManager->getOne([
             'SIT_NUM' => $_GET['sit_num']]);
 
-        if (is_null($site))
+        if (empty($site))
             header('location: /plongeur');
 
         if ( isset($_POST['submit']) )
@@ -130,13 +130,13 @@ class SiteController extends _ControllerClass
     }
 
     public function delete(){
-        if (!isset($_GET['sit_num']))
+        if (empty($_GET['sit_num']))
             header('location: /site');
 
         $site = $this->siteManager->getOne([
             'SIT_NUM' => $_GET['sit_num']]);
 
-        if (is_null($site))
+        if (empty($site))
             header('location: /site');
 
         if ( isset($_POST['submit']) ) {
