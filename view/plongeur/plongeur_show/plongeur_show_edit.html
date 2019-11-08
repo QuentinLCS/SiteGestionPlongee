@@ -1,4 +1,9 @@
 <div class="container">
+    <?php if(isset($_POST['errorPlongeurAdd'])): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+            <?= $_POST['errorPlongeurAdd'] ?>
+        </p>
+    <?php endif; ?>
     <?php
         $button = 'EDITER';
         require_once('view/plongeur/plongeur_xform.html');
