@@ -713,7 +713,7 @@ class PlongeeController extends _ControllerClass
     private function verifierEffectifBateau() {
         $plongeeV = $this->plongeeManager->getSearchResult(['date'=>$_GET['plo_date'],'periode'=>$_GET['plo_mat_mid_soi']]);
 
-        if ( ($plongeeV[0]->getPloEffectifBateau() - 2) > $plongeeV[0]->getPloEffectifPlongeurs() && !formatChaineChiffreCorrect($plongeeV[0]->getPloEffectifBateau())) {
+        if ( ($plongeeV[0]->getPloEffectifBateau() - 2) > $plongeeV[0]->getPloEffectifPlongeurs() && form$plongeeV[0]->getPloEffectifBateau()) {
             return true;
         } else {
             return false;
