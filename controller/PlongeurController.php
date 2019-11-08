@@ -23,9 +23,7 @@ class PlongeurController extends _ControllerClass
         $urlSize = parent::__construct($url);
 
         if ($urlSize > 1)
-            if($url[1] == 'show' && $url[2] == 'showPal')
-                $this->showPal();
-            else if($url[1] == 'show')
+            if($url[1] == 'show')
                 $this->show();
             elseif ($url[1] == 'delete')
                 $this->delete();
@@ -87,6 +85,8 @@ class PlongeurController extends _ControllerClass
 
         $palConcerner = $this->plongeurManager->getPalanqueeConcerner($plongeur);
 
+        $aptitudes = $this->plongeurManager->getAptitudesDebloquees($plongeur);
+
 
 
         $dir  = $this->plongeurManager->isDirector($_GET['per_num']);
@@ -103,24 +103,8 @@ class PlongeurController extends _ControllerClass
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'securite' => $secu,
             'directeur' => $dir,
-            'allPalanquees' => $palConcerner
-        ]);
-    }
-
-    private function showPal(){
-        if (empty($_GET['per_num']) && empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num'])  )
-            header('location: /plongeur');
-
-        $palanquee = $this->palanqueeManager->getOne([
-            'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi'],
-            'PAL_NUM' => $_GET['pal_num']]);
-
-        if(empty($palanquee))
-            header('location: /plongeur');
-
-        (new View('plongeur/plongeur_show/plongeur_show_plongees_show'))->generate([
-            'palanquee' => $palanquee[0]
+            'allPalanquees' => $palConcerner,
+            'aptitudes' => $aptitudes
         ]);
     }
 
@@ -155,14 +139,16 @@ class PlongeurController extends _ControllerClass
                     $this->verification($plongeur, true);
                 }
                 else
-                    echo "le nom ou le prénom n'est pas correct";
+                    $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout du plongeur : le nom ou le prénom n'est pas correct";
 
 
             } else
-                echo 'Tous les champs ne sont pas remplis.';
+                $_POST['errorPlongeurAdd'] = 'Erreur dans l\'ajout du plongeur :  Tous les champs ne sont pas remplis.';
 
         }
     }
+
+
 
     public function delete(){
         if (empty($_GET['per_num']))
@@ -238,47 +224,40 @@ class PlongeurController extends _ControllerClass
                             ]);
                             if(!$add) {
 
-                                if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0){
+                                if (isset($_POST['directeur']) && $this->plongeurManager->isDirector( $_GET['per_num'])==0)
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstDirecteur('1');
-                                }
-                                else if ($this->plongeurManager->isDirector( $_GET['per_num']) == 1 && !(isset($_POST['directeur']))){
+
+
+                                else if ($this->plongeurManager->isDirector( $_GET['per_num']) == 1 && !(isset($_POST['directeur'])))
                                     $this->plongeurManager->removeDirector($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstDirecteur('0');
-                                }
 
-                                if (isset($_POST['securite']) && $this->plongeurManager->isSecurity( $_GET['per_num'])== 0){
 
+                                if (isset($_POST['securite']) && $this->plongeurManager->isSecurity( $_GET['per_num'])== 0)
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstSecurite('1');
-                                }
-                                else if ($this->plongeurManager->isSecurity( $_GET['per_num']) == 1 && !(isset($_POST['securite']))){
+
+                                else if ($this->plongeurManager->isSecurity( $_GET['per_num']) == 1 && !(isset($_POST['securite'])))
                                     $this->plongeurManager->removeSecurite($plongeur[0]->getPerNum());
-                                    $plongeur[0]->setEstSecurite('0');
-                                }
 
                             }
                             else{
-                                if (isset($_POST['directeur'])) {
+                                if (isset($_POST['directeur']))
                                     $this->plongeurManager->addDirector($plongeur[0]->getPerNum());
-                                   // $plongeur[0]->setEstDirecteur('1');
-                                }
-                                if (isset($_POST['securite'])){
+
+                                if (isset($_POST['securite']))
                                     $this->plongeurManager->addSecurite($plongeur[0]->getPerNum());
-                                  //  $plongeur[0]->setEstSecurite('1');
-                                }
+
                             }
 
                             if ($add) header('location: /plongeur');
                             else header('location: /plongeur/show/&per_num='.$_GET['per_num']);
                         }
                         else
-                                echo "le nom ou le prénom n'est pas correct";
+                            $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : le nom ou le prénom n'est pas correct";
 
                     } else
-                        echo 'Personne déjà enregistrée.';
+                        $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : Personne déjà enregistrée.";
                 } else
-                    echo 'Tous les champs ne sont pas remplis.';
+                    $_POST['errorPlongeurAdd'] = "Erreur dans l'ajout d'un plongeur : Tous les champs ne sont pas remplis.";
 
         }
     }

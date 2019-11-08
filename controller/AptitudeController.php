@@ -1,6 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
+require_once('model/utils/traitement.php');
 
 class AptitudeController extends _ControllerClass
 {
@@ -32,6 +33,8 @@ class AptitudeController extends _ControllerClass
 
         $searchedAptitudes = null;
 
+
+
         if ( isset($_POST['search']) ) {
 
             if (!empty($_POST['searchCode']))
@@ -45,6 +48,7 @@ class AptitudeController extends _ControllerClass
 
         }
 
+
         (new View('aptitude/aptitude_index'))->generate([
             'allAptitudes' => $this->aptitudeManager->getAll(),
             'searchedAptitudes' => $searchedAptitudes
@@ -53,13 +57,13 @@ class AptitudeController extends _ControllerClass
 
     public function edit()
     {
-        if (!isset($_GET['apt_code']))
+        if (empty($_GET['apt_code']))
             header('location: /aptitude');
 
         $aptitude = $this->aptitudeManager->getOne([
             'APT_CODE' => $_GET['apt_code']]);
 
-        if (is_null($aptitude))
+        if (empty($aptitude))
             header('location: /aptitude');
 
         if ( isset($_POST['submit']) )
@@ -78,11 +82,16 @@ class AptitudeController extends _ControllerClass
         }
     }
 
+
+
     private function verification($aptitude, $add = false)
     {
         if (!empty($_POST['code']) && !empty($_POST['libelle'])) {
             $code = strtoupper($_POST['code']);
             $libelle = ucfirst($_POST['libelle']);
+
+            if(!empty($_POST['niveau']))
+                $num = $_POST['niveau'];
 
             $aptitudes = $this->aptitudeManager->getAll();
 
@@ -97,9 +106,11 @@ class AptitudeController extends _ControllerClass
 
             if ($i == $nbAptitudes) {
                 $aptitude[0]->setAptCode($code);
+                if(!empty($_POST['niveau']) && !formatChaineChiffreCorrect($_POST['niveau']))
+                    $aptitude[0]->setAptNum($num);
                 $aptitude[0]->setAptLibelle($libelle);
                 $this->aptitudeManager->update($aptitude, $add);
-                header('location: /aptitude');
+               header('location: /aptitude');
             } else
                 echo 'Aptitude déjà enregistrée.';
         }

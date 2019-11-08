@@ -9,6 +9,11 @@
         <div class="container">
             <h4>Modifier une palanquée</h4>
             <form name="modifier" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                <?php if(isset($_POST['errorPalanqueeEdit'])): ?>
+                <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+                    <?= $_POST['errorPalanqueeEdit'] ?>
+                </p>
+                <?php endif; ?>
                 <div class="row">
                     <div class="col s6">
                         <h5>Début de la plongée</h5>
@@ -62,17 +67,18 @@
     <br>
     <div class="white z-depth-4 rounded center">
         <div class="container">
-            <h4>Détails des plongeurs :</h4>
+            <h4>Liste des plongeurs</h4>
             <div class="row">
+                <?php if(isset($_POST['errorPlongeur'])): ?>
+                <p class="red lighten-4 red-text text-darken-4 center" id="form-add-error">
+                    <?= $_POST['errorPlongeur'] ?>
+                </p>
+                <?php endif; ?>
                 <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <h5><small>Plongeurs Restants : <?= 5 - count($plongeurs)  ?></small></h5>
                 <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
                     <i class="large material-icons">add</i>
                 </a>
-                <!--
-                <a class="btn blue darken-4 waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Créer un Plongeur" href="">
-                    <i class="large material-icons">person_add</i>
-                </a>
-                -->
                 <?php require_once('plongee_show_plongeurs/plongee_show_plongeurs_addform.html'); ?>
                 <?php endif; ?>
             </div>
@@ -93,20 +99,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($plongeurs as $plongeur ): ?>
-                <tr>
-                    <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
-                    <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
-                    <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-                        <td>
-                            <a href="removePlo/&pal_num='.$plongeur['PAL_NUM'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi'].'&plo_date='.$_GET['plo_date'].'&per_num='.$plongeur['PER_NUM'].'" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
-                                <i class="material-icons white-text">close</i>
-                            </a>
-                        </td>
-                    <?php endif; ?>
-                </tr>
-                <?php endforeach; ?>
+                    <?php foreach($plongeurs as $plongeur ): ?>
+                        <tr>
+                            <td><?=$plongeur->getPersonne()[0]->getPerNom() ?></td>
+                            <td><?=$plongeur->getPersonne()[0]->getPerPrenom()?></td>
+                            <td><?=$plongeur->getAptitude()[0]->getAptLibelle()?></td>
+                            <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                                <td>
+                                    <a href="removePlo/&pal_num=<?=$_GET['pal_num']?>&plo_mat_mid_soi=<?=$_GET['plo_mat_mid_soi']?>&plo_date=<?=$_GET['plo_date']?>&per_num=<?=$plongeur->getPerNum()?>" class="btn red darken-4 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Supprimer">
+                                        <i class="material-icons white-text">close</i>
+                                    </a>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             <?php endif; ?>

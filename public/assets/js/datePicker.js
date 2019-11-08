@@ -1,10 +1,10 @@
 $(document).ready(function(){
+
     $('.datepicker').datepicker({
         setDefaultDate: true,
         firstDay: 1,
         format: 'yyyy-mm-dd',
         minDate: new Date(2000,1,1),
-        //maxDate: new date(),
         i18n: {
             done: 'Valider',
             cancel: 'Annuler',

@@ -26,8 +26,17 @@ class SiteController extends _ControllerClass
     {
         $this->add();
 
+        $searchedSites = null;
+
+        if (!empty($_POST['searchNom'])) {
+            $search['nom'] = $_POST['searchNom'];
+            $searchedSites = $this->siteManager->getSearchResult($search);
+        }
+
+
         (new View('site/site_index'))->generate([
-            'allSites' => $this->siteManager->getAll()
+            'allSites' => $this->siteManager->getAll(),
+            'searchedSites' => $searchedSites
         ]);
     }
 
@@ -42,14 +51,14 @@ class SiteController extends _ControllerClass
     public function edit()
     {
 
-        if (!isset($_GET['sit_num']))
+        if (empty($_GET['sit_num']))
             header('location: /site');
 
         $site = $this->siteManager->getOne([
             'SIT_NUM' => $_GET['sit_num']]);
 
-        if (is_null($site))
-            header('location: /plongeur');
+        if (empty($site))
+            header('location: /site');
 
         if ( isset($_POST['submit']) )
             $this->verificationModif($site);
@@ -121,13 +130,13 @@ class SiteController extends _ControllerClass
     }
 
     public function delete(){
-        if (!isset($_GET['sit_num']))
+        if (empty($_GET['sit_num']))
             header('location: /site');
 
         $site = $this->siteManager->getOne([
             'SIT_NUM' => $_GET['sit_num']]);
 
-        if (is_null($site))
+        if (empty($site))
             header('location: /site');
 
         if ( isset($_POST['submit']) ) {
