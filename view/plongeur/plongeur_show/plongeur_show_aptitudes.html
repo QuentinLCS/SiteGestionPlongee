@@ -1,5 +1,6 @@
 
 <div class="container">
+    <h4 class="center">Aptitudes validées</h4>
     <table class="centered white z-depth-1 margin-top margin-bottom">
         <thead class="blue-grey darken-4">
         <tr>
@@ -8,13 +9,12 @@
         </tr>
         </thead>
         <tbody>
-        <!--
-        foreach
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        -->
+         <?php foreach($aptitudes as $aptitude): ?>
+            <tr>
+                <td><?= $aptitude['APT_CODE']?></td>
+                <td><?= $aptitude['APT_LIBELLE']?></td>
+            </tr>
+         <?php endforeach; ?>
         </tbody>
     </table>
 </div>

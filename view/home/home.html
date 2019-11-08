@@ -1,5 +1,7 @@
 <?php $this->_title = 'Projet Plongée | Home'; ?>
-
+<?php if($nbCertificatsInvalides['nb'] > 0): ?>
+    <div class="red lighten-3 red-text text-darken-3 center margin-bottom" style="line-height: 50px"><strong>ATTENTION :</strong> Vous avez <?= $nbCertificatsInvalides['nb'] ?> plongeur(s) avec un certificat invalide !</div>
+<?php endif; ?>
 <section class="container">
     <div class="center">
         <div class="row">
@@ -117,8 +119,8 @@
                         <tbody>
                         <?php foreach($allPlongeesFutures as $plongee): ?>
                         <tr>
-                            <td class="center"><?= $plongee->getPloDate() ?></td>
-                            <td class="center"><?= $plongee->getPloMatMidSoi() ?></td>
+                            <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
+                            <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
                             <td class="center"><b><?= $plongee->getPloNbPalanquees() ?></b></td>
                             <td class="center">

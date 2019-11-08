@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col s12">
+        <h5 class="center"><small>Plongeurs restant pour la plongee : <?= (($plongee[0]->getPloEffectifBateau() - 2) - $plongee[0]->getPloEffectifPlongeurs()) ?> </small></h5>
         <?php if(isset($_POST['errorPalanqueeAdd'])): ?>
         <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
             <?= $_POST['errorPalanqueeAdd'] ?>

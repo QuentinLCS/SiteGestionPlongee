@@ -12,14 +12,20 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function getAllDirecteur() {
+    public function getAllDirecteur()
+    {
         return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_DIRECTEUR USING (PER_NUM)', self::$entity);
     }
 
-    public function getAllSecurite() {
+    public function getAllSecurite()
+    {
         return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_SECURITE_DE_SURFACE USING (PER_NUM)', self::$entity);
     }
 
+    public function getCertificatDepasse()
+    {
+        return DataBase::$db->LireDonnees("SELECT count(*) as nb FROM PLO_PERSONNE WHERE DATE_ADD(PER_DATE_CERTIF_MED,INTERVAL 1 YEAR)< (SELECT CURRENT_DATE()) OR PER_DATE_CERTIF_MED = '0000-00-00'");
+    }
 
     public function getSearchResult($search)
     {
@@ -59,7 +65,7 @@ class PersonneManager extends _Model
     public function update($object, $add = false)
     {
         if ($add)
-            DataBase::$db->majDonnees("INSERT INTO ".self::$table." (PER_NOM, PER_PRENOM, PER_DATE_CERTIF_MED) VALUES ('".$object[0]->getPerNom()."', '".$object[0]->getPerPrenom()."', '".$object[0]->getPerDateCertifMed()."')");
+            DataBase::$db->majDonnees('INSERT INTO '.self::$table.' (PER_NOM, PER_PRENOM, PER_DATE_CERTIF_MED) VALUES ("'.$object[0]->getPerNom().'", "'.$object[0]->getPerPrenom().'", "'.$object[0]->getPerDateCertifMed().'")');
         else
             DataBase::$db->majDonnees("UPDATE ".self::$table." SET PER_NOM = '".$object[0]->getPerNom()."', PER_PRENOM = '".$object[0]->getPerPrenom()."', PER_DATE_CERTIF_MED = '".$object[0]->getPerDateCertifMed()."', PER_ACTIVE = '".$object[0]->getPerActive()."' WHERE PER_NUM = '".$object[0]->getPerNum()."'");
     }

@@ -52,7 +52,7 @@
                         </div>
                         <div class="row">
                             <label class="col s12 margin-bottom">
-                                Durée Fond
+                                Durée réelle
                                 <input type="text" id="DureeFond" name="DureeFond" value="<?= $palanquee[0]->getPalDureeFond() ?>" <?= ( $plongee[0]->getPloEtat() !='Validee' ? '' : 'disabled') ?>>
                             </label>
                         </div>
@@ -75,7 +75,7 @@
                 </p>
                 <?php endif; ?>
                 <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
-                <h5><small>Plongeurs Restants : <?= 5 - count($plongeurs)  ?></small></h5>
+                <h5><small>Plongeurs restants pour la palanquée: <?= 5 - count($plongeurs)  ?></small></h5>
                 <a class="btn blue waves-effect modal-trigger waves-light tooltipped" data-position="top" data-tooltip="Ajouter un Plongeur" href="#ajouterPLO">
                     <i class="large material-icons">add</i>
                 </a>

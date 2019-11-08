@@ -24,6 +24,7 @@
         <table class="striped">
             <thead>
                 <tr>
+                    <th class="center">Niveau</th>
                     <th class="center">Code</th>
                     <th class="center">Libelle</th>
                     <th class="center">Gestion</th>
@@ -33,6 +34,7 @@
             <tbody>
             <?php foreach((is_null($searchedAptitudes) ? $allAptitudes : $searchedAptitudes) as $aptitude): ?>
             <tr>
+                <td class="center"><?= $aptitude->getAptNum() ?></td>
                 <td class="center"><?= $aptitude->getAptCode() ?></td>
                 <td class="center"><?= $aptitude->getAptLibelle() ?></td>
                 <td class="center">
