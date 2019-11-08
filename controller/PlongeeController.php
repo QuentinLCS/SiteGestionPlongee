@@ -479,6 +479,13 @@ class PlongeeController extends _ControllerClass
                         } elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date, $periode, $numPers)[0]['count(*)']) > 1) {
                             $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
                         } else {
+                            $plongeur = $this->personneManager->getOne([
+                                'PER_NUM' => $numPers
+                            ]);
+                            if ($plongeur[0]->getPerActive() == 0) {
+                                $plongeur[0]->setPerActive(1);
+                                $this->personneManager->update($plongeur, false);
+                            }
                             $this->palanqueeManager->updatePlongeurs($concerner);
                             $plongee = $this->updateEffectifPlongeur();
                             if ($this->verifierCompleter($plongee)) {
@@ -487,16 +494,6 @@ class PlongeeController extends _ControllerClass
                             $this->plongeeManager->update($plongee);
                             header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                         }
-                        /*
-                         *
-                        $plongeur = $this->personneManager->getOne([
-                            'PER_NUM' => $numPers
-                        ]);
-                        if ($plongeur[0]->getPerActive() == 0) {
-                            $plongeur[0]->setPerActive(1);
-                            $this->personneManager->update($plongeur, false);
-                        }
-                        */
                     } else {
                         $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
                     }
