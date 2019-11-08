@@ -590,7 +590,7 @@ class PlongeeController extends _ControllerClass
 
     private function deletePal()
     {
-        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']  && $this->verifierDate($_GET['plo_date'])))
             header('location: /plongee');
 
         $palanquee = $this->palanqueeManager->getOne([
