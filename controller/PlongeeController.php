@@ -283,9 +283,12 @@ class PlongeeController extends _ControllerClass
         elseif ($value=="EBateau") {
             if(isset($_POST["effectifB"]))
             {
-                $base[0]->setPloEffectifBateau(intval($_POST["effectifB"]));
-                $this->plongeeManager->update($base,false);
-                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                if(formatChaineChiffreCorrect($_POST["effectifB"]))
+                {
+                    $base[0]->setPloEffectifBateau(intval($_POST["effectifB"]));
+                    $this->plongeeManager->update($base,false);
+                    header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                }
             }
         }
     }
