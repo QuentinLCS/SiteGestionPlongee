@@ -6,6 +6,12 @@
 
         </p>
 
+        <?php if(isset($_POST['errorSiteAdd'])): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+            <?= $_POST['errorSiteAdd'] ?>
+        </p>
+        <?php endif; ?>
+
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
                 <label class="col s12 margin-bottom">
