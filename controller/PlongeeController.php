@@ -102,6 +102,7 @@ class PlongeeController extends _ControllerClass
     {
 
         $plongee = $this->verifierPlongee();
+
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
@@ -121,8 +122,13 @@ class PlongeeController extends _ControllerClass
         elseif(isset($_POST['submitDate']))
             $this->edit('date',$plongee);
 
-        $this->addPalanquee();
+        elseif (isset($_POST['submitDirecteur']))
+            $this->edit('dire',$plongee);
 
+        elseif (isset($_POST['submitSurface']))
+            $this->edit('surf',$plongee);
+
+        $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
@@ -132,8 +138,8 @@ class PlongeeController extends _ControllerClass
             'bateau' => $bateau,
             'palanquees' => $palanquee,
             'site' => $site,
-            'directeurPlongeur' => $this->plongeeManager->getDirecteur($plongee),
-            'securiteSurface' => $this->plongeeManager->getSecurite($plongee)
+            'allDirecteur' => $this->personneManager->getAllDirecteur(),
+            'allSecuriteSurface' => $this->personneManager->getAllSecurite()
         ]);
     }
 
@@ -255,6 +261,24 @@ class PlongeeController extends _ControllerClass
                 header('location: /plongee/show/&plo_date='.$_POST['date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
         }
+        elseif ($value=="dire")
+        {
+            if(isset($_POST["selectDirecteur"]))
+            {
+                $base[0]->setDirecteur(intval($_POST["selectDirecteur"]));
+                $this->plongeeManager->update($base,false);
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            }
+        }
+        elseif ($value=="surf")
+        {
+            if(isset($_POST["selectSurface"]))
+            {
+                $base[0]->setSecurite(intval($_POST["selectSurface"]));
+                $this->plongeeManager->update($base,false);
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            }
+        }
     }
 
     private function addPlongee()
@@ -322,6 +346,20 @@ class PlongeeController extends _ControllerClass
                 if (!isset($palNum))
                     $palNum = $i;
 
+            $allPal = $this->palanqueeManager->getPlongeePalanquee($date,$periode);
+            $i = 1;
+            $palNum = null;
+            foreach ( $allPal as $pal ) {
+                if (intval($pal->getPalNum()) != ($i)) {
+                    if (!isset($palNum)) {
+                        $palNum = $i;
+                    }
+                }
+                $i++;
+            }
+            if  (!isset($palNum))
+                $palNum = $i;
+
 
                 // Récupère l'heure d'arrivée depuis le formulaire reçu
                 if (isset($_POST["heureA"]) && $_POST["heureA"] != "")
@@ -356,6 +394,8 @@ class PlongeeController extends _ControllerClass
             } else {
                 $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données invalide";
             }
+        } else {
+            $_POST['errorPalanqueeAdd'] = "Ajout d'une Palanquée : Données manquantes";
         }
     }
 
@@ -433,7 +473,12 @@ class PlongeeController extends _ControllerClass
 
                     if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
                         $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
-                    } else {
+                    }
+                    elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date,$periode,$numPers)[0]['count(*)'])>1)
+                    {
+                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
+                    }
+                    else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
                         $plongee = $this->updateEffectifPlongeur();
                         $this->plongeeManager->update($plongee);
