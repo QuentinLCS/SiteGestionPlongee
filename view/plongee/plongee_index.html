@@ -3,6 +3,10 @@
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h3>Liste des plongées<small>Affichées : <?= count((is_null($searchedPlongees) ? $allPlongees : $searchedPlongees)) ?></small></h3>
+        <a class="btn  blue modal-trigger pulse" href="#ajouter">
+            Ajouter plongée
+        </a>
+
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding margin-top">
             <div class="row">
                 <div class="input-field col m5 s12">
