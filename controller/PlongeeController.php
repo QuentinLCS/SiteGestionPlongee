@@ -597,7 +597,14 @@ class PlongeeController extends _ControllerClass
                     $DureeFond = $_POST["DureeFond"];
                     if(formatChaineChiffreCorrect($DureeFond))
                     {
-                        $palanquee[0]->setPalDureeFond($DureeFond);
+                        if($this->verifierValeur($DureeFond,$dureeMax))
+                        {
+                            $palanquee[0]->setPalDureeFond($DureeFond);
+                        }
+                        else{
+                            $_POST['errorPalanqueeEdit'] = "La durée de fond ne peux pas être supérieur à la durée max";
+                        }
+
                     }
                     else {
                         $_POST['errorPalanqueeEdit'] = "Format de la durée au fond est incorrect";
