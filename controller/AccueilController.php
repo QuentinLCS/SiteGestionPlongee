@@ -55,10 +55,10 @@ class AccueilController extends _ControllerClass
      */
     public function index()
     {
-
         $plongeesFutures = $this->plongeeManager->getPlongeesFutures();
 
         (new View('home/home'))->generate([
+            'nbCertificatsInvalides' => $this->personneManager->getCertificatDepasse()[0],
             'nbActifs' => $this->personneManager->countActifs(),
             'nbPlongeurs' => $this->plongeurManager->countAll(),
             'nbPlongees' => $this->plongeeManager->countAll(),

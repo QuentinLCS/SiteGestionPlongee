@@ -12,14 +12,20 @@ class PersonneManager extends _Model
         return parent::_getAll(self::$table, self::$entity);
     }
 
-    public function getAllDirecteur() {
+    public function getAllDirecteur()
+    {
         return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_DIRECTEUR USING (PER_NUM)', self::$entity);
     }
 
-    public function getAllSecurite() {
+    public function getAllSecurite()
+    {
         return DataBase::$db->LireDonnees('SELECT * FROM '.self::$table.' JOIN PLO_SECURITE_DE_SURFACE USING (PER_NUM)', self::$entity);
     }
 
+    public function getCertificatDepasse()
+    {
+        return DataBase::$db->LireDonnees("SELECT count(*) as nb FROM PLO_PERSONNE WHERE DATE_ADD(PER_DATE_CERTIF_MED,INTERVAL 1 YEAR)< (SELECT CURRENT_DATE()) OR PER_DATE_CERTIF_MED = '0000-00-00'");
+    }
 
     public function getSearchResult($search)
     {
