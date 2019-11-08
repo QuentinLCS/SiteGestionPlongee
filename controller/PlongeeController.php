@@ -217,7 +217,7 @@ class PlongeeController extends _ControllerClass
         }
         elseif ($value=="date")
         {
-            if(isset($_POST['date']) && $this->verifierDate($_POST['date']))
+            if(!empty($_POST['date']) && $this->verifierDate($_POST['date']))
             {
                 $suppPal=$this->palanqueeManager->getOne([
                     'PLO_DATE' => $base[0]->getPloDate(),
@@ -400,7 +400,7 @@ class PlongeeController extends _ControllerClass
     }
 
     public function delete(){
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -408,7 +408,7 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
 
 
-        if (is_null($plongee))
+        if (empty($plongee))
             header('location: /plongee');
 
         if ( isset($_POST['submit']) ){
@@ -646,7 +646,7 @@ class PlongeeController extends _ControllerClass
     }
 
     private function verifierPlongee() {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -654,7 +654,7 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
         ]);
 
-        if(is_null($plongee))
+        if(empty($plongee))
             header('location: /plongee');
 
         return $plongee;
