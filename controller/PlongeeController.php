@@ -316,7 +316,7 @@ class PlongeeController extends _ControllerClass
                 $directeurNum = intval($_POST["directeur"], 10);
                 $securiteNum = intval($_POST["securite"], 10);
                 $effectifB = "0";
-                if ($_POST["effectifB"] != "" && formatChaineChiffreCorrect($_POST["effectifB"])) {
+                if ($_POST["effectifB"] != "" && !formatChaineChiffreCorrect($_POST["effectifB"])) {
                     $effectifB = intval($_POST["effectifB"], 10);
                 }
                 else {
