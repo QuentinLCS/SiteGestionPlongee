@@ -138,8 +138,8 @@ class PlongeeController extends _ControllerClass
             'bateau' => $bateau,
             'palanquees' => $palanquee,
             'site' => $site,
-            'allDirecteur' => $this->personneManager->getAllDirecteur(),
-            'allSecuriteSurface' => $this->personneManager->getAllSecurite()
+            'directeurPlongeur' => $this->plongeeManager->getDirecteur($plongee),
+            'securiteSurface' => $this->plongeeManager->getSecurite($plongee)
         ]);
     }
 
@@ -472,6 +472,8 @@ class PlongeeController extends _ControllerClass
 
                         if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
                             $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
+                        } elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date, $periode, $numPers)[0]['count(*)']) > 1) {
+                            $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
                         } else {
                             $this->palanqueeManager->updatePlongeurs($concerner);
                             $plongee = $this->updateEffectifPlongeur();
@@ -481,21 +483,6 @@ class PlongeeController extends _ControllerClass
                             $this->plongeeManager->update($plongee);
                             header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                         }
-
-                    if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
-                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
-                    }
-                    elseif (intval($this->palanqueeManager->verifierPersonnePalanquee($date,$periode,$numPers)[0]['count(*)'])>1)
-                    {
-                        $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (existe déjà dans une autre palanquée)';
-                    }
-                    else {
-                        $this->palanqueeManager->updatePlongeurs($concerner);
-                        $this->updateEffectifPlongeur();
-                        header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
-                    }
-
-
                         /*
                          *
                         $plongeur = $this->personneManager->getOne([
