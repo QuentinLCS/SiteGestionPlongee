@@ -15,7 +15,7 @@
             <td><?= dateFormater($plongee[0]->getPloDate()) ?></td>
             <td>
                 <?php
-            if($plongee[0]->getPloEtat()!="Validee")
+            if($plongee[0]->getPloEtat()!="Validée")
                 echo '<a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
                 <i class="material-icons white-text">edit</i></a>';
                 ?>
@@ -26,7 +26,7 @@
 
             <td><?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee")
+                <?php if($plongee[0]->getPloEtat()!="Validée")
                 echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
                 <i class="material-icons white-text">edit</i>
             </a>'; ?>
@@ -60,7 +60,7 @@
                         <div class="modal-content">
                             <h4>Modification du site</h4>
                             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                <select name="embar" class="browser-default">
+                                <select name="embar" class="">
                                     <?php
                                 foreach($allEmbarcation as $embar)
                                 {
@@ -75,7 +75,7 @@
                 <?php endif; ?>
             </td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                     <a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'embarcation">
                         <i class="material-icons white-text">edit</i>
                     </a>
@@ -100,7 +100,7 @@
                             <div class="modal-content">
                                 <h4>Modification du site</h4>
                                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                    <select name="siteNum" class="browser-default">
+                                    <select name="siteNum" class="">
                                         <?php
                             foreach($allSite as $site)
                             {
@@ -115,7 +115,7 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                         <a href="#modal2" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du site">
                             <i class="material-icons white-text">edit</i>
                         </a>
@@ -125,33 +125,43 @@
         <?php endif; ?>
 
         <tr>
-            <td>Effectif du bateau</td>
+            <td>Effectif du bateau :</td>
             <td><?=$plongee[0]->getPloEffectifBateau()?></td>
-            <td></td>
+            <td>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
+                    <a href="#modalEBateau" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'effectif Bateau">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                <?php endif; ?>
+            </td>
         </tr>
         <tr>
             <td>Directeur de plongée :</td>
-            <td><?=$plongee[0]->getDirecteur()[0]->getPerNom().' '.$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getDirecteur()[0]->getPerNom()?> <?=$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
             <td>
-                <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
-                    <i class="material-icons white-text">edit</i>
-                </a>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
+                    <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                <?php endif; ?>
             </td>
         </tr>
         <tr>
             <td>Sécurité de surface :</td>
-            <td><?=$plongee[0]->getSecurite()[0]->getPerNom().' '.$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
+            <td><?=$plongee[0]->getSecurite()[0]->getPerNom()?> <?=$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
             <td>
-                <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
-                    <i class="material-icons white-text">edit</i>
-                </a>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
+                    <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                <?php endif; ?>
             </td>
         </tr>
-        <?php if($plongee[0]->getPloEtat()=="Complete"): ?>
+        <?php if($plongee[0]->getPloEtat()=="Complète"): ?>
         <tr>
             <td class="row" colspan="3">
 
-                <a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
+                <a href="validerPlongee/&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&plo_date=<?= $plongee[0]->getPloDate() ?>" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
 
             </td>
         </tr>
@@ -204,6 +214,15 @@
                     <?php endforeach; ?>
                 </select>
                 <button type="submit" value="submit" name="submitSurface" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalEBateau" class="modal">
+        <div class="modal-content">
+            <h3 class="center">Effectif sur le bateau</h3>
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <input type="text" name="effectifB" id="effectifB" >
+                <button type="submit" value="submit" name="submitEBateau" class="waves-effect waves-light btn">Enregistrer</button>
             </form>
         </div>
     </div>

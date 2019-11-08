@@ -105,4 +105,11 @@ class PalanqueeManager extends _Model
         $req="SELECT count(*) FROM PLO_CONCERNER WHERE PLO_DATE='".$objet[0]->getPloDate()."' AND PLO_MAT_MID_SOI='".$objet[0]->getPloMatMidSoi()."' AND PAL_NUM=".$value;
         return DataBase::$db->LireDonnees($req);
     }
+
+    public function verifierPersonnePalanquee($date, $periode,$num)
+    {
+        $req="SELECT count(*) from ".self::$table." JOIN PLO_CONCERNER using(PLO_DATE,PLO_MAT_MID_SOI) 
+        WHERE PLO_DATE='".$date."' AND PLO_MAT_MID_SOI='".$periode."' AND PER_NUM=".$num;
+        return DataBase::$db->LireDonnees($req);
+    }
 }

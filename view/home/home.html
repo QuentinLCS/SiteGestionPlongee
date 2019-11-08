@@ -1,5 +1,7 @@
 <?php $this->_title = 'Projet Plongée | Home'; ?>
-
+<?php if($nbCertificatsInvalides['nb'] > 0): ?>
+<a href="/plongeur"><div class="red lighten-4 red-text text-darken-3 center margin-bottom" style="line-height: 50px"><strong>ATTENTION :</strong> Vous avez <?= $nbCertificatsInvalides['nb'] ?> plongeur(s) avec un certificat invalide !</div></a>
+<?php endif; ?>
 <section class="container">
     <div class="center">
         <div class="row">
@@ -96,7 +98,7 @@
         </div>
         <div class="row">
             <div class="white z-depth-1 col s12">
-                <h3>Liste des plongées<small>Pas encore passées</small></h3>
+                <h3>Liste des plongées<small>En cours de configuration</small></h3>
                 <div class="row">
                     <?php if(empty($allPlongeesFutures)): ?>
                     <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
@@ -110,6 +112,7 @@
                             <th class="center">Période</th>
                             <th class="center">Site</th>
                             <th class="center">Palanquées</th>
+                            <th class="center">État</th>
                             <th class="center">Gestion</th>
                         </tr>
                         </thead>
@@ -117,10 +120,11 @@
                         <tbody>
                         <?php foreach($allPlongeesFutures as $plongee): ?>
                         <tr>
-                            <td class="center"><?= $plongee->getPloDate() ?></td>
-                            <td class="center"><?= $plongee->getPloMatMidSoi() ?></td>
+                            <td class="center"><?= dateFormater($plongee->getPloDate()) ?></td>
+                            <td class="center"><?= $plongee->getPloMatMidSoiEntier() ?></td>
                             <td class="center"><?= $plongee->getSite()[0]->getSitNom() ?></td>
                             <td class="center"><b><?= $plongee->getPloNbPalanquees() ?></b></td>
+                            <td class="center"><b><?=$plongee->getPloEtat()?></b></td>
                             <td class="center">
                                 <a href="plongee/download/&plo_date=<?= $plongee->getPloDate() ?>&plo_mat_mid_soi=<?= $plongee->getPloMatMidSoi() ?>" class="btn green darken-1 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Télécharger la fiche">
                                     <i class="material-icons white-text">file_download</i>

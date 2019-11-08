@@ -5,12 +5,12 @@
     <div class="row">
         <label class="col s6">
             Nom
-            <input type="text" id="nom" name="nom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerNom() : '') ?>" autofocus>
+            <input type="text" id="nom" name="nom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerNom() : (isset($_POST['nom']) ? $_POST['nom'] : '')) ?>" autofocus>
         </label>
 
         <label class="col s6">
             Prénom
-            <input type="text" id="prenom" name="prenom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerPrenom() : '') ?>">
+            <input type="text" id="prenom" name="prenom" value="<?= ($button == 'EDITER' ? $plongeur[0]->getPersonne()[0]->getPerPrenom() : (isset($_POST['prenom']) ? $_POST['prenom'] : '')) ?>">
         </label>
     </div>
 
@@ -20,13 +20,13 @@
             <select name="aptitude" id="aptitude">
                 <?php
                 foreach ($allAptitudes as $aptitude) {
-                    echo '<option value="'. $aptitude->getAptCode() .'" '. (isset($plongeur) ? ($aptitude->getAptCode() == $plongeur[0]->getAptCode() ? 'selected' : '') : '') .'>'. $aptitude->getAptLibelle() .'</option>';
+                    echo '<option value="'. $aptitude->getAptCode() .'" '. (isset($plongeur) ? ($aptitude->getAptCode() == $plongeur[0]->getAptCode() ? 'selected' : '') : (isset($_POST['nom']) ? $_POST['nom'] : '')) .'>'. $aptitude->getAptLibelle() .'</option>';
                 }
                 ?>
             </select>
         </label>
         <label class="col s6 margin-bottom margin-top">
-            <input type="text" class="datepicker" name="certificat" id="certificat" value="<?= (isset($plongeur) ? (!is_null($plongeur[0]->getPersonne()[0]->getPerDateCertifMed()) ? $plongeur[0]->getPersonne()[0]->getPerDateCertifMed() : '') : '') ?>">
+            <input type="text" class="datepicker" name="certificat" id="certificat" value="<?= (isset($plongeur) ? (!is_null($plongeur[0]->getPersonne()[0]->getPerDateCertifMed()) ? $plongeur[0]->getPersonne()[0]->getPerDateCertifMed() : '') : (isset($_POST['certificat']) ? $_POST['certificat'] : '')) ?>">
         </label>
     </div>
 
@@ -54,10 +54,3 @@
 
 <script type="text/javascript" src="../../public/assets/js/personne_entree.js"></script>
 <script type="text/javascript" src="../../public/assets/js/datePicker.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.datepicker').datepicker({
-            maxDate: new Date()
-        });
-    });
-</script>
