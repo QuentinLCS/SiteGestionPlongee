@@ -542,6 +542,7 @@ class PlongeeController extends _ControllerClass
         }
 
         if ( isset($_POST['submit']) ){
+            $erreur=0;
             if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) ) {
 
                 $profondeurMax = $_POST["profondeurMax"];
@@ -553,6 +554,7 @@ class PlongeeController extends _ControllerClass
                 }
                 else
                 {
+                    $erreur=1;
                     $_POST['errorPalanqueeEdit'] = "Le format de la profondeur max est invalide";
                 }
                 if(formatChaineChiffreCorrect($dureeMax))
@@ -561,6 +563,7 @@ class PlongeeController extends _ControllerClass
                 }
                 else
                 {
+                    $erreur=1;
                     $_POST['errorPalanqueeEdit'] = "Le format de la dureeMax est invalide";
                 }
 
@@ -573,6 +576,7 @@ class PlongeeController extends _ControllerClass
                         $palanquee[0]->setPalHeureImmersion($HImmersion);
                     }
                     else{
+                        $erreur=1;
                         $_POST['errorPalanqueeEdit'] = "Les valeurs de l'heure d'immersion et de sortie de l'eau sont incorrectes";
                     }
                 }
@@ -587,9 +591,11 @@ class PlongeeController extends _ControllerClass
                         else
                         {
                             $_POST['errorPalanqueeEdit'] = "La profondeur réelle est supérieur à la profondeur maximum définie";
+                            $erreur=1;
                         }
                     }
                     else {
+                        $erreur=1;
                         $_POST['errorPalanqueeEdit'] = "Format de la profondeur réelle est incorrect";
                     }
                 }
@@ -602,11 +608,13 @@ class PlongeeController extends _ControllerClass
                             $palanquee[0]->setPalDureeFond($DureeFond);
                         }
                         else{
+                            $erreur=1;
                             $_POST['errorPalanqueeEdit'] = "La durée de fond ne peux pas être supérieur à la durée max";
                         }
 
                     }
                     else {
+                        $erreur=1;
                         $_POST['errorPalanqueeEdit'] = "Format de la durée au fond est incorrect";
                     }
                 }
@@ -617,8 +625,10 @@ class PlongeeController extends _ControllerClass
                     $plongee[0]->setPloEtat("Complete");
                 }
                 $this->plongeeManager->update($plongee,false);
-
-                header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                if($erreur!=0)
+                {
+                    header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                }
             }
             else{
                 $_POST['errorPalanqueeEdit'] = "Modification Palanquée : Données Invalide";
