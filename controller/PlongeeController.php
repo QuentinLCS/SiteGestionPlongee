@@ -102,6 +102,7 @@ class PlongeeController extends _ControllerClass
     {
 
         $plongee = $this->verifierPlongee();
+
         $palanquee = $this->palanqueeManager->getPlongeePalanquee($plongee[0]->getPloDate(),$plongee[0]->getPloMatMidSoi());
         $bateau = $this->embarcationManager->getEmbarcationPlongee($plongee[0]->getEmbNum());
         $site = $this->siteManager->getSitePlongee($plongee[0]->getSite()[0]->getSitNum());
@@ -128,7 +129,6 @@ class PlongeeController extends _ControllerClass
             $this->edit('surf',$plongee);
 
         $this->addPalanquee();
-
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
             'plongee' => $plongee,
@@ -217,7 +217,7 @@ class PlongeeController extends _ControllerClass
         }
         elseif ($value=="date")
         {
-            if(isset($_POST['date']) && $this->verifierDate($_POST['date']))
+            if(!empty($_POST['date']) && $this->verifierDate($_POST['date']))
             {
                 $suppPal=$this->palanqueeManager->getOne([
                     'PLO_DATE' => $base[0]->getPloDate(),
@@ -397,7 +397,7 @@ class PlongeeController extends _ControllerClass
     }
 
     public function delete(){
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -405,7 +405,7 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
 
 
-        if (is_null($plongee))
+        if (empty($plongee))
             header('location: /plongee');
 
         if ( isset($_POST['submit']) ){
@@ -668,7 +668,7 @@ class PlongeeController extends _ControllerClass
     }
 
     private function verifierPlongee() {
-        if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']))
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
 
         $plongee = $this->plongeeManager->getOne([
@@ -676,7 +676,7 @@ class PlongeeController extends _ControllerClass
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
         ]);
 
-        if(is_null($plongee))
+        if(empty($plongee))
             header('location: /plongee');
 
         return $plongee;
