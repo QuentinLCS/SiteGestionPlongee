@@ -102,6 +102,7 @@ class PlongeeController extends _ControllerClass
         ], true);
     }
 
+    /** Fonction chargée au chargement de la page concernznt les détails d'une Plongée */
     public function show()
     {
 
@@ -151,7 +152,10 @@ class PlongeeController extends _ControllerClass
     }
 
 
-
+    /** Fonction qui s'occupe de modifier les attributs d'une Plongée
+     * @param $value: Champs quoi doit être modifier
+     * @param $base: La Plongee qui doit être modifier
+     */
     private function edit($value,$base)
     {
         if($value=="Site")
@@ -296,6 +300,7 @@ class PlongeeController extends _ControllerClass
         }
     }
 
+    /** Fonction qui ajoute une Plongee */
     private function addPlongee()
     {
         //Vérifie si le formulaire et bien un formulaire d'ajout de plongée
@@ -334,6 +339,7 @@ class PlongeeController extends _ControllerClass
         }
     }
 
+    /** Fonction qui ajoute une Palanquée */
     public function addPalanquee() {
         if (isset($_POST["submitPAL"]) && isset($_POST["profondeurP"]) && isset($_POST["tempsP"])) {
             if ($_POST["profondeurP"] != "" && $_POST["tempsP"] != "") {
@@ -411,33 +417,9 @@ class PlongeeController extends _ControllerClass
         }
     }
 
-    public function delete(){
-        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
-            header('location: /plongee');
-
-        $plongee = $this->plongeeManager->getOne([
-            'PLO_DATE' => $_GET['plo_date'],
-            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
-
-
-        if (empty($plongee))
-            header('location: /plongee');
-
-        if ( isset($_POST['submit']) ){
-            $this->plongeeManager->delete($plongee);
-            header('location: /plongee');
-        }
-
-        (new View('plongee/plongee_removeform'))->generate([
-            'plongee' => $plongee,
-        ]);
-    }
-
-    private function verification($plongeur)
-    {
-        header('location: /plongee');
-    }
-
+    /** Fonction qui modifie les attributs d'une Palanquée
+     * ainsi que l'ajout de plongeurs associés à celle-ci
+     */
     private function editPal(){
 
         if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']) )
@@ -572,6 +554,30 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
+    /** Fonction qui supprime une Plongée */
+    public function delete(){
+        if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
+            header('location: /plongee');
+
+        $plongee = $this->plongeeManager->getOne([
+            'PLO_DATE' => $_GET['plo_date'],
+            'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']]);
+
+
+        if (empty($plongee))
+            header('location: /plongee');
+
+        if ( isset($_POST['submit']) ){
+            $this->plongeeManager->delete($plongee);
+            header('location: /plongee');
+        }
+
+        (new View('plongee/plongee_removeform'))->generate([
+            'plongee' => $plongee,
+        ]);
+    }
+
+    /** Supprime un Plongeur d'une Palanquée */
     private function removePlo() {
         if (!isset($_GET['plo_date']) || !isset($_GET['plo_mat_mid_soi']) || !isset($_GET['pal_num']) || !isset($_GET['per_num']) )
             header('location: /plongee');
@@ -595,6 +601,7 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
+    /** Supprime une Palanquée */
     private function deletePal()
     {
         if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']) || empty($_GET['pal_num']  && $this->verifierDate($_GET['plo_date'])))
@@ -628,6 +635,7 @@ class PlongeeController extends _ControllerClass
         ]);
     }
 
+    /** Fonction qui met à jour l'effectif des Plongeurs d'une Plongée */
     private function updateEffectifPlongeur()
     {
         $nombrePlongeur=$this->plongeeManager->getEffectifPlongeur($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
@@ -640,6 +648,7 @@ class PlongeeController extends _ControllerClass
         return $plongee;
     }
 
+    /** Fonction qui met à jour l'effectif des Palanquée d'une Plongée */
     private function updateEffectifPalanquee()
     {
         $nombrePalanquee=$this->palanqueeManager->getPlongeurEffecif($_GET['plo_date'],$_GET['plo_mat_mid_soi']);
@@ -652,6 +661,7 @@ class PlongeeController extends _ControllerClass
         $this->plongeeManager->update($plongee,false);
     }
 
+    /** Fonction s'occupe de vérifier si l'effectif de plongeur est bien conforme à l'effectif sur le bateau */
     private function verifierEffectifBateau() {
         $plongeeV = $this->plongeeManager->getSearchResult(['date'=>$_GET['plo_date'],'periode'=>$_GET['plo_mat_mid_soi']]);
 
@@ -662,6 +672,10 @@ class PlongeeController extends _ControllerClass
         }
     }
 
+    /** Fonction qui s'occupe de vérifier si une Plongee peut être dite comme "Complète"
+     * @param $base : Plongee qui doit être vérifiée
+     * @return bool : Si la plongée est complète
+     */
     private function verifierCompleter($base)
     {
         $complete=true;
@@ -688,6 +702,7 @@ class PlongeeController extends _ControllerClass
         return $complete;
     }
 
+    /** Fonction qui vérifie si une Plongée est déjà existante */
     private function verifierPlongee() {
         if (empty($_GET['plo_date']) || empty($_GET['plo_mat_mid_soi']))
             header('location: /plongee');
@@ -703,6 +718,7 @@ class PlongeeController extends _ControllerClass
         return $plongee;
     }
 
+    /** Fonction qui permet de déclarer une Plongee comme "Validée" */
     public function validerPlongee()
     {
         if(isset($_POST['validerPlongee']))
@@ -721,9 +737,7 @@ class PlongeeController extends _ControllerClass
         (new View('plongee/plongee_show/plongee_show_generale/plongee_show_generale_valider'))->generate([]);
     }
 
-    /*
-     * Vérification si le Plongeur n'est pas déjà dans la base pour cette palanquée
-     */
+    /** Vérification si le Plongeur n'est pas déjà dans la base pour cette palanquée */
     private function verifierPlongeurPalanquee() {
         $concerner = [
             'PLO_DATE' => $_GET["plo_date"],
@@ -734,6 +748,10 @@ class PlongeeController extends _ControllerClass
         return empty($this->palanqueeManager->getPlongeurConcerner($concerner));
     }
 
+    /** Fonction qui vérifié si une date possède le bon format
+     * @param $date : La date qui doit être vérifiée
+     * @return bool :  Si elle est conforme
+     */
     function verifierDate($date)
     {
         $modele='#([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))#';
