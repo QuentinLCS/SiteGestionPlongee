@@ -305,7 +305,6 @@ class PlongeeController extends _ControllerClass
                     'PER_NUM_SECU' => $securiteNum,
                     'PLO_EFFECTIF_PLONGEURS' => 0,
                     'PLO_EFFECTIF_BATEAU' => $effectifB,
-                    'PLO_EFFECTIF_BATEAU' => $this->plongeeManager->getEffectifPlongeur($_POST["date"],$_POST["periode"])[0]['count(PLO_CONCERNER.PER_NUM)']+2,
                     'PLO_ETAT'=> "Creee"
                 ]);
 
@@ -450,26 +449,28 @@ class PlongeeController extends _ControllerClass
 
             $base = $this->verifierPlongee();
 
-            if ($this->verifierPlongeurPalanquee()) {
+            if ($this->verifierEffectifBateau()) {
 
-                $nombre = $this->palanqueeManager->getNombreConcerner($base, intval($_GET['pal_num']));
-                if ($nombre[0]['count(*)'] < 5) {
-                    $date = $_GET["plo_date"];
-                    $periode = $_GET["plo_mat_mid_soi"];
-                    $numPal = $_GET['pal_num'];
-                    $numPers = $_POST["plongeur"];
+                if ($this->verifierPlongeurPalanquee()) {
 
-                    $concerner = [
-                        'PLO_DATE' => $date,
-                        'PLO_MAT_MID_SOI' => $periode,
-                        'PAL_NUM' => $numPal,
-                        'PER_NUM' => $numPers
-                    ];
+                    $nombre = $this->palanqueeManager->getNombreConcerner($base, intval($_GET['pal_num']));
+                    if ($nombre[0]['count(*)'] < 5) {
+                        $date = $_GET["plo_date"];
+                        $periode = $_GET["plo_mat_mid_soi"];
+                        $numPal = $_GET['pal_num'];
+                        $numPers = $_POST["plongeur"];
 
-                    $plongee = $this->plongeeManager->getOne([
-                        'PLO_DATE' => $date,
-                        'PLO_MAT_MID_SOI' => $periode
-                    ]);
+                        $concerner = [
+                            'PLO_DATE' => $date,
+                            'PLO_MAT_MID_SOI' => $periode,
+                            'PAL_NUM' => $numPal,
+                            'PER_NUM' => $numPers
+                        ];
+
+                        $plongee = $this->plongeeManager->getOne([
+                            'PLO_DATE' => $date,
+                            'PLO_MAT_MID_SOI' => $periode
+                        ]);
 
                     if (($numPers == $plongee[0]->getDirecteur()[0]->getPerNum()) || ($numPers == $plongee[0]->getSecurite()[0]->getPerNum())) {
                         $_POST['errorPlongeur'] = 'Ce plongeur ne peut être ajouter à la Palanquée. (Directeur/Sécurité de Surface)';
@@ -481,26 +482,32 @@ class PlongeeController extends _ControllerClass
                     else {
                         $this->palanqueeManager->updatePlongeurs($concerner);
                         $plongee = $this->updateEffectifPlongeur();
+                        if ($this->verifierCompleter($plongee)) {
+                            $plongee[0]->setPloEtat("Complete");
+                        }
                         $this->plongeeManager->update($plongee);
                         header('location: /plongee/show/editPal/&pal_num=' . $_GET['pal_num'] . '&plo_date=' . $_GET['plo_date'] . '&plo_mat_mid_soi=' . $_GET['plo_mat_mid_soi']);
                     }
 
 
-                    /*
-                     *
-                    $plongeur = $this->personneManager->getOne([
-                        'PER_NUM' => $numPers
-                    ]);
-                    if ($plongeur[0]->getPerActive() == 0) {
-                        $plongeur[0]->setPerActive(1);
-                        $this->personneManager->update($plongeur, false);
+                        /*
+                         *
+                        $plongeur = $this->personneManager->getOne([
+                            'PER_NUM' => $numPers
+                        ]);
+                        if ($plongeur[0]->getPerActive() == 0) {
+                            $plongeur[0]->setPerActive(1);
+                            $this->personneManager->update($plongeur, false);
+                        }
+                        */
+                    } else {
+                        $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
                     }
-                    */
                 } else {
-                    $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre maximum de plongeurs atteint";
+                    $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Ce Plongeur a déjà été ajouter";
                 }
             } else {
-                $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Ce Plongeur a déjà été ajouter";
+                $_POST['errorPlongeur'] = "Ajout d'un Plongeur : Nombre de maximum plongeurs pour la plongée atteint";
             }
         }
 
@@ -515,7 +522,7 @@ class PlongeeController extends _ControllerClass
 
                 if (!empty($_POST["HImmersion"])) {
                     $HImmersion = $_POST["HImmersion"];
-                    $palanquee[0]->setPalHeureSortieEau($HImmersion);
+                    $palanquee[0]->setPalHeureImmersion($HImmersion);
                 }
                 if (!empty($_POST["HSortie"])) {
                     $HSortie = $_POST["HSortie"];
@@ -531,6 +538,11 @@ class PlongeeController extends _ControllerClass
                 }
 
                 $this->palanqueeManager->update($palanquee);
+                if($this->verifierCompleter($plongee))
+                {
+                    $plongee[0]->setPloEtat("Complete");
+                }
+                $this->plongeeManager->update($plongee,false);
 
                 header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
@@ -562,7 +574,8 @@ class PlongeeController extends _ControllerClass
 
         if ( isset($_POST['removePLONGEUR']) ){
             $this->plongeeManager->deleteConcerner($palanquee);
-            $this->updateEffectifPlongeur();
+            $plongee = $this->updateEffectifPlongeur();
+            $this->plongeeManager->update($plongee);
             header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
         }
 
@@ -608,11 +621,9 @@ class PlongeeController extends _ControllerClass
             'PLO_DATE' => $_GET['plo_date'],
             'PLO_MAT_MID_SOI' => $_GET['plo_mat_mid_soi']
         ]);
-        $plongee[0]->setPloEffectifBateau(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)'])+2);
         $plongee[0]->setPloEffectifPlongeurs(intval($nombrePlongeur[0]['count(PLO_CONCERNER.PER_NUM)']));
         $plongee[0]->setPloEtat("Parametree");
         return $plongee;
-        //$this->plongeeManager->update($plongee,false);
     }
 
     private function updateEffectifPalanquee()
@@ -627,6 +638,16 @@ class PlongeeController extends _ControllerClass
         $this->plongeeManager->update($plongee,false);
     }
 
+    private function verifierEffectifBateau() {
+        $plongeeV = $this->plongeeManager->getSearchResult(['date'=>$_GET['plo_date'],'periode'=>$_GET['plo_mat_mid_soi']]);
+
+        if ( ($plongeeV[0]->getPloEffectifBateau() - 2) > $plongeeV[0]->getPloEffectifPlongeurs()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private function verifierCompleter($base)
     {
         $complete=true;
@@ -637,6 +658,14 @@ class PlongeeController extends _ControllerClass
         foreach ($palanqueeComplete as $pal)
         {
             $palanquee=$this->palanqueeManager->getNombreConcerner($base,$pal->getPalNum());
+            if ($pal->getPalHeureImmersion() == "00:00:00"
+                || $pal->getPalHeureSortieEau() == "00:00:00"
+                || $pal->getPalProfondeurReelle() == ""
+                || $pal->getPalDureeFond() == ""
+                || $pal->getNbPlongeurs() == "")
+            {
+                $complete=false;
+            }
             if(intval($palanquee[0]['count(*)'])<2 || intval($palanquee[0]['count(*)'])>5)
             {
                 $complete = false;

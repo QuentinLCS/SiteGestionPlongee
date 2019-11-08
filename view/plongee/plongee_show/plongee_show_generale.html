@@ -60,7 +60,7 @@
                         <div class="modal-content">
                             <h4>Modification du site</h4>
                             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                <select name="embar" class="browser-default">
+                                <select name="embar" class="">
                                     <?php
                                 foreach($allEmbarcation as $embar)
                                 {
@@ -100,7 +100,7 @@
                             <div class="modal-content">
                                 <h4>Modification du site</h4>
                                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                    <select name="siteNum" class="browser-default">
+                                    <select name="siteNum" class="">
                                         <?php
                             foreach($allSite as $site)
                             {
@@ -125,7 +125,7 @@
         <?php endif; ?>
 
         <tr>
-            <td>Effectif du bateau</td>
+            <td>Effectif du bateau :</td>
             <td><?=$plongee[0]->getPloEffectifBateau()?></td>
             <td></td>
         </tr>
@@ -151,7 +151,7 @@
         <tr>
             <td class="row" colspan="3">
 
-                <a href="validerPlongee/&plo_mat_mid_soi='.$plongee[0]->getPloMatMidSoi().'&plo_date='.$plongee[0]->getPloDate().'" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
+                <a href="validerPlongee/&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&plo_date=<?= $plongee[0]->getPloDate() ?>" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
 
             </td>
         </tr>

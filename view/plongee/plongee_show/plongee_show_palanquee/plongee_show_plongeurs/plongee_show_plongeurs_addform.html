@@ -4,24 +4,23 @@
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="no-padding">
             <div class="row">
                 <div class="input-field">
-                    <select name="plongeur" id="plongeur" class="browser-default">
+                    <select name="plongeur" id="plongeur" class="">
                         <optgroup label="Plongeurs Actifs"></optgroup>
                         <?php
                             foreach ($allActive as $active) {
-                                echo '<option class="'.(date('Y-m-d', strtotime('+1 year',strtotime($active->getPerDateCertifMed()))) < date('Y-m-d') ? 'red-text' : '').'" value="'. $active->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $active->getPerNum()) ? 'selected' : '').' > - '. $active->getPerNom() .' '. $active->getPerPrenom() .'</option>';
+                                echo '<option value="'. $active->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $active->getPerNum()) ? 'selected' : '').' > - '.(date('Y-m-d', strtotime('+1 year',strtotime($active->getPerDateCertifMed()))) < date('Y-m-d') ? '⚠️' : '').'</i> '. $active->getPerNom() .' '. $active->getPerPrenom() .'</option>';
                             }
                         ?>
                         <optgroup label="Plongeurs Inactifs"></optgroup>
                         <?php
                             foreach ($allInactive as $active) {
-                                echo '<option class="'.(date('Y-m-d', strtotime('+1 year',strtotime($active->getPerDateCertifMed()))) < date('Y-m-d') ? 'red-text' : '').'" value="'. $active->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $active->getPerNum()) ? 'selected' : '').' > - '. $active->getPerNom() .' '. $active->getPerPrenom() .'</option>';
-                        }
+                                echo '<option value="'. $active->getPerNum() .'" '.(!isset($_POST['plongeur']) ? '' : ($_POST['plongeur'] == $active->getPerNum()) ? 'selected' : '').' > - '.(date('Y-m-d', strtotime('+1 year',strtotime($active->getPerDateCertifMed()))) < date('Y-m-d') ? '⚠️' : '').'</i> '. $active->getPerNom() .' '. $active->getPerPrenom() .'</option>';                        }
                         ?>
                     </select>
                 </div>
             </div>
             <p>
-                <span class="red-text">ROUGE </span> = Personne ayant un certificat médical invalide
+                ⚠️ = Personne ayant un certificat médical invalide
             </p>
             <button class="btn waves-effect waves-light" name="submitPLONGEUR" id="submitPLONGEUR" value="plongeur">AJOUTER PLONGEUR</button>
         </form>
