@@ -1,6 +1,7 @@
 <?php
 
 require_once('_ControllerClass.php');
+require_once('model/utils/traitement.php');
 
 class AptitudeController extends _ControllerClass
 {
