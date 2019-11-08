@@ -128,6 +128,9 @@ class PlongeeController extends _ControllerClass
         elseif (isset($_POST['submitSurface']))
             $this->edit('surf',$plongee);
 
+        elseif (isset($_POST['submitEBateau']))
+            $this->edit('EBateau',$plongee);
+
         $this->addPalanquee();
 
         (new View('plongee/plongee_show/plongee_show_index'))->generate([
@@ -275,6 +278,14 @@ class PlongeeController extends _ControllerClass
             if(isset($_POST["selectSurface"]))
             {
                 $base[0]->setSecurite(intval($_POST["selectSurface"]));
+                $this->plongeeManager->update($base,false);
+                header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+            }
+        }
+        elseif ($value=="EBateau") {
+            if(isset($_POST["effectifB"]))
+            {
+                $base[0]->setPloEffectifBateau(intval($_POST["effectifB"]));
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }

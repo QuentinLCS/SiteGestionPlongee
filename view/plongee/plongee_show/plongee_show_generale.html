@@ -127,7 +127,13 @@
         <tr>
             <td>Effectif du bateau :</td>
             <td><?=$plongee[0]->getPloEffectifBateau()?></td>
-            <td></td>
+            <td>
+                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <a href="#modalEBateau" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'effectif Bateau">
+                        <i class="material-icons white-text">edit</i>
+                    </a>
+                <?php endif; ?>
+            </td>
         </tr>
         <tr>
             <td>Directeur de plongée :</td>
@@ -208,6 +214,15 @@
                     <?php endforeach; ?>
                 </select>
                 <button type="submit" value="submit" name="submitSurface" class="waves-effect waves-light btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalEBateau" class="modal">
+        <div class="modal-content">
+            <h3 class="center">Effectif sur le bateau</h3>
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                <input type="text" name="effectifB" id="effectifB" >
+                <button type="submit" value="submit" name="submitEBateau" class="waves-effect waves-light btn">Enregistrer</button>
             </form>
         </div>
     </div>
