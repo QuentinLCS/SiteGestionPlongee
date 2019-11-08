@@ -1,4 +1,3 @@
-(penser à faire plein de tests, changement d'url, changement d'html (de type d'input), regex, etc) 
 # ProjetPlongee2A
 
 ## Première Partie : Les formulaires de mise à jour de la base de données PLO
@@ -21,7 +20,7 @@ isolés sont autorisés mais pas au début et à la fin. Les apostrophes sont au
 endroit. Les caractères autorisés sont ceux de l'alphabet français (sans ligature).
 - [x] les prénoms des personnes sont écrits en minuscule sauf les premières lettres de chaque mot, codée en
 majuscule sans accent. Les tirets et espaces isolés sont autorisés mais ni au début, ni à la fin,
-- [ ] les localités suivent les mêmes règles que les noms à 2 exceptions près : les chiffres sont autorisés ; les
+- [x] les localités suivent les mêmes règles que les noms à 2 exceptions près : les chiffres sont autorisés ; les
 doubles tirets sont interdits.
 #### PLO_PLONGEUR, PLO_DIRECTEUR, PLO_SECURITE_DE_SURFACE :
 - [x] Quand on crée une de ces personnes, on écrit également dans la table Personne
@@ -31,9 +30,9 @@ doubles tirets sont interdits.
 
 ## L'application minimale :
 - [x] Proposera des formulaires d'ajout d'information dans la base
-- [ ] Respectera l'intégrité référentielle
-- [ ] Empêchera l'inscription de données absurdes
-- [ ] Ne videra pas un formulaire s'il n'a pas été complété correctement
+- [x] Respectera l'intégrité référentielle
+- [x] Empêchera l'inscription de données absurdes
+- [x] Ne videra pas un formulaire s'il n'a pas été complété correctement
 ##### Plusieurs options peuvent permettre d'améliorer l'application
 - [x] Une page générale proposant tous les ajouts
 - [x] Des menus déroulant d'aide à la saisie
@@ -41,9 +40,8 @@ doubles tirets sont interdits.
 - [x] Des scripts de vérification des données saisies
 - [x] Le calcul automatique des identifiants
 - [x] Amélioration de la présentation par des feuilles de style
-- [ ] Journal des transactions et des éventuelles erreurs
-- [ ] Possibilité de visualiser voire de corriger la base
-- [ ] Identification de l'utilisateur (gestion de la sécurité)
+- [x] Journal des transactions et des éventuelles erreurs
+- [x] Possibilité de visualiser voire de corriger la base
 - [x] Consultations variées des données PLO
 ##### Pour le formulaire personne et par ordre de priorité, il faut être capable
 - [x] d'ajouter +++
@@ -62,7 +60,7 @@ doubles tirets sont interdits.
 #### PLO_PLONGEE
 - [x] La saisie d’une nouvelle plongee doit être la plus simple possible (un seul formulaire)
 - [x] On peut afficher et corriger une plongée
-- [ ] On peut supprimer une plongée mais un message de confirmation est nécessaire pour une plongée de
+- [x] On peut supprimer une plongée mais un message de confirmation est nécessaire pour une plongée de
 moins d’un an
 - [x] On peut créer directement les palanquées après la création d’une plongée
 - [x] Toutes les données sont obligatoires
@@ -70,20 +68,20 @@ moins d’un an
 #### PLO_PALANQUEE et PLO_CONCERNER
 - [x] Pour ajouter une palanquée, il faut sélectionner une plongée
 - [x] On peut compléter une palanquée
-- [ ] On peut valider une palanquée lorsqu’elle est complète
+- [x] On peut valider une palanquée lorsqu’elle est complète
 - [X] Pour une palanquée, on peut avoir 5 plongeurs au maximum
 #### État d’une plongée. Une plongée peut être dans l’état
 - [X] « Créée » : on a créé une plongée
-- [ ] « Paramétrée » : on a saisi toutes les palanquées d’avant la plongée
+- [x] « Paramétrée » : on a saisi toutes les palanquées d’avant la plongée
 - [X] « Complète » ou « validée » : on a complété toutes les palanquées d’après la plongée
-- [ ] « Dépassée » : La plongée a plus d’un an
+- [x] « Dépassée » : La plongée a plus d’un an
  ## Dernière partie : Affichage des données PLO
 > L'objectif est de permettre la visualisation de toutes les informations de la base. Grâce à des menus adaptés et
 aux jointures entre les tables, il sera possible de montrer des informations très complètes.
 
 ##### Par exemple, à partir de la page "personne", on peut accéder...
 - [x] à ses plongées
-- [ ] à ses aptitudes
+- [x] à ses aptitudes
 - [x] à ses fonctions (plongeurs, directeur, sécurité de surface) …
 
 ##### "Plongée" on peut accéder

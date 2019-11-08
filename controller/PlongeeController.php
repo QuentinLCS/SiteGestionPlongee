@@ -293,7 +293,7 @@ class PlongeeController extends _ControllerClass
         elseif ($value=="EBateau") {
             if(isset($_POST["effectifB"]))
             {
-                if(formatChaineChiffreCorrect($_POST["effectifB"]))
+                if(!formatChaineChiffreCorrect($_POST["effectifB"]))
                 {
                     $base[0]->setPloEffectifBateau(intval($_POST["effectifB"]));
                     $this->plongeeManager->update($base,false);
@@ -399,7 +399,7 @@ class PlongeeController extends _ControllerClass
                 // Récupère le temps réel depuis le formulaire reçu
                 if (isset($_POST["tempsR"]) && $_POST["tempsR"] != "")
                 {
-                    if(formatChaineChiffreCorrect($_POST["tempsR"]))
+                    if(!formatChaineChiffreCorrect($_POST["tempsR"]))
                     {
                         $tempsR = intval($_POST["tempsR"]);
                     }
@@ -412,7 +412,7 @@ class PlongeeController extends _ControllerClass
                 // Récupère la profondeur réel depuis le formulaire reçu
                 if (isset($_POST["profondeurR"]) && $_POST["profondeurR"] != "")
                 {
-                    if(formatChaineChiffreCorrect($_POST["profondeurR"]))
+                    if(!formatChaineChiffreCorrect($_POST["profondeurR"]))
                     {
                         $profondeurR = intval($_POST["profondeurR"]);
                     }
@@ -532,7 +532,7 @@ class PlongeeController extends _ControllerClass
                 $profondeurMax = $_POST["profondeurMax"];
                 $dureeMax = $_POST["DureeMax"];
 
-                if(formatChaineChiffreCorrect($profondeurMax))
+                if(!formatChaineChiffreCorrect($profondeurMax))
                 {
                     $palanquee[0]->setPalProfondeurMax($profondeurMax);
                 }
@@ -540,7 +540,7 @@ class PlongeeController extends _ControllerClass
                 {
                     $_POST['errorPalanqueeEdit'] = "Le format de la profondeur max est invalide";
                 }
-                if(formatChaineChiffreCorrect($dureeMax))
+                if(!formatChaineChiffreCorrect($dureeMax))
                 {
                     $palanquee[0]->setPalDureeMax($dureeMax);
                 }
@@ -559,7 +559,7 @@ class PlongeeController extends _ControllerClass
                 }
                 if (!empty($_POST["ProfondeurReelle"]))  {
                     $ProfondeurReelle = $_POST["ProfondeurReelle"];
-                    if(formatChaineChiffreCorrect($ProfondeurReelle))
+                    if(!formatChaineChiffreCorrect($ProfondeurReelle))
                     {
                         $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
                     }
@@ -569,7 +569,7 @@ class PlongeeController extends _ControllerClass
                 }
                 if (!empty($_POST["DureeFond"])) {
                     $DureeFond = $_POST["DureeFond"];
-                    if(formatChaineChiffreCorrect($DureeFond))
+                    if(!formatChaineChiffreCorrect($DureeFond))
                     {
                         $palanquee[0]->setPalDureeFond($DureeFond);
                     }
@@ -713,7 +713,7 @@ class PlongeeController extends _ControllerClass
     private function verifierEffectifBateau() {
         $plongeeV = $this->plongeeManager->getSearchResult(['date'=>$_GET['plo_date'],'periode'=>$_GET['plo_mat_mid_soi']]);
 
-        if ( ($plongeeV[0]->getPloEffectifBateau() - 2) > $plongeeV[0]->getPloEffectifPlongeurs()) {
+        if ( ($plongeeV[0]->getPloEffectifBateau() - 2) > $plongeeV[0]->getPloEffectifPlongeurs() && $plongeeV[0]->getPloEffectifBateau()) {
             return true;
         } else {
             return false;
