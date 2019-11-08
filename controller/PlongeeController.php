@@ -564,19 +564,30 @@ class PlongeeController extends _ControllerClass
                     $_POST['errorPalanqueeEdit'] = "Le format de la dureeMax est invalide";
                 }
 
-                if (!empty($_POST["HImmersion"])) {
-                    $HImmersion = $_POST["HImmersion"];
-                    $palanquee[0]->setPalHeureImmersion($HImmersion);
-                }
-                if (!empty($_POST["HSortie"])) {
-                    $HSortie = $_POST["HSortie"];
-                    $palanquee[0]->setPalHeureSortieEau($HSortie);
+                if (!empty($_POST["HImmersion"]) && !empty($_POST["HSortie"])) {
+                    if($this->verifierHeure($_POST["HImmersion"],$_POST["HSortie"]))
+                    {
+                        $HImmersion = $_POST["HImmersion"];
+                        $HSortie = $_POST["HSortie"];
+                        $palanquee[0]->setPalHeureSortieEau($HSortie);
+                        $palanquee[0]->setPalHeureImmersion($HImmersion);
+                    }
+                    else{
+                        $_POST['errorPalanqueeEdit'] = "Les valeurs de l'heure d'immersion et de sortie de l'eau sont incorrectes";
+                    }
                 }
                 if (!empty($_POST["ProfondeurReelle"]))  {
                     $ProfondeurReelle = $_POST["ProfondeurReelle"];
                     if(formatChaineChiffreCorrect($ProfondeurReelle))
                     {
-                        $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                        if($this->verifierValeur($_POST["ProfondeurReelle"],$profondeurMax))
+                        {
+                            $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                        }
+                        else
+                        {
+                            $_POST['errorPalanqueeEdit'] = "La profondeur réelle est supérieur à la profondeur maximum définie";
+                        }
                     }
                     else {
                         $_POST['errorPalanqueeEdit'] = "Format de la profondeur réelle est incorrect";
@@ -792,6 +803,17 @@ class PlongeeController extends _ControllerClass
             return false;
         }
     }
+    public function verifierHeure($heureD, $heureF)
+    {
+        $val1=explode(":",$heureD);
+        $val2=explode(":",$heureF);
+        return (intval($val1[0])<intval($val2[0]))||intval(($val1[0]<=$val2[0]) && intval($val1[1]<$val2[1]));
+    }
+    public function verifierValeur($val1,$val2)
+    {
+        return intval($val1)<=intval($val2);
+    }
+
 
 }
 
