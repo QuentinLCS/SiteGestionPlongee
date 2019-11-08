@@ -58,9 +58,9 @@
                     <?=$bateau[0]->getEmbNom()?>
                     <div id="modal1" class="modal">
                         <div class="modal-content">
-                            <h4>Modification du site</h4>
-                            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                <select name="embar" class="">
+                            <h4 class="center">Modification du site</h4>
+                            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="row margin-top margin-bottom">
+                                <select name="embar" class="col s12">
                                     <?php
                                 foreach($allEmbarcation as $embar)
                                 {
@@ -68,7 +68,7 @@
                                     }
                                     ?>
                                 </select>
-                                <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitEmbar">Enregistrer</button>
+                                <button type="submit" class="waves-effect waves-light btn margin-top col s12 blue" value="submit" name="submitEmbar">Enregistrer</button>
                             </form>
                         </div>
                     </div>
@@ -98,9 +98,9 @@
                         <?=$site[0]->getSitNom()?>
                         <div id="modal2" class="modal">
                             <div class="modal-content">
-                                <h4>Modification du site</h4>
-                                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                    <select name="siteNum" class="">
+                                <h4 class="center">Modification du site</h4>
+                                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="row margin-top margin-bottom">
+                                    <select name="siteNum" class="col s12">
                                         <?php
                             foreach($allSite as $site)
                             {
@@ -108,7 +108,7 @@
                                         }
                                         ?>
                                     </select>
-                                    <button type="submit" class="waves-effect waves-light btn" value="submit" name="submitSite">Enregistrer</button>
+                                    <button type="submit" class="waves-effect waves-light btn margin-top col s12 blue" value="submit" name="submitSite">Enregistrer</button>
                                 </form>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
     <div id="modalDate" class="modal" style="min-height: 500px">
         <div class="modal-content big-margin-top">
             <h3 class="center">Modifier la date</h3>
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post" class="no-padding row">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post" class="no-padding row margin-top margin-bottom">
                 <input type="text" class="datepicker col s12" name="date" id="dateForm" placeholder="aaaa-mm-jj" value="<?php (!isset($_POST['date']) ? date('Y-m-d') : $_POST['date']) ?>" required><br>
                 <button type="submit" value="submit" name="submitDate" class="waves-effect waves-light btn margin-top col s12 blue">Enregistrer</button>
             </form>
@@ -194,35 +194,35 @@
     <div id="modalDirecteur" class="modal">
         <div class="modal-content">
             <h3 class="center">Directeur de la plongée</h3>
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post" class="row margin-top margin-bottom">
                 <select name="selectDirecteur">
                     <?php foreach($allDirecteur as $directeur): ?>
                         <option value="<?=$directeur->getPerNum()?>"><?=$directeur->getPerNom().' '.$directeur->getPerPrenom()?></option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit" value="submit" name="submitDirecteur" class="waves-effect waves-light btn">Enregistrer</button>
+                <button type="submit" value="submit" name="submitDirecteur" class="waves-effect waves-light btn margin-top col s12 blue">Enregistrer</button>
             </form>
         </div>
     </div>
     <div id="modalSurface" class="modal">
         <div class="modal-content">
             <h3 class="center">Sécurité de la plongée</h3>
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post" class="row margin-top margin-bottom">
                 <select name="selectSurface">
                     <?php foreach($allSecuriteSurface as $securite): ?>
                         <option value="<?=$securite->getPerNum()?>"><?=$securite->getPerNom().' '.$securite->getPerPrenom()?></option>
                     <?php endforeach; ?>
                 </select>
-                <button type="submit" value="submit" name="submitSurface" class="waves-effect waves-light btn">Enregistrer</button>
+                <button type="submit" value="submit" name="submitSurface" class="waves-effect waves-light btn margin-top col s12 blue">Enregistrer</button>
             </form>
         </div>
     </div>
     <div id="modalEBateau" class="modal">
         <div class="modal-content">
             <h3 class="center">Effectif sur le bateau</h3>
-            <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                <input type="text" name="effectifB" id="effectifB" >
-                <button type="submit" value="submit" name="submitEBateau" class="waves-effect waves-light btn">Enregistrer</button>
+            <form action="<?php $_SERVER['PHP_SELF']?>" method="post" class="row margin-top margin-bottom">
+                <input type="text" name="effectifB" id="effectifB" value="<?=$plongee[0]->getPloEffectifBateau()?>">
+                <button type="submit" value="submit" name="submitEBateau" class="waves-effect waves-light btn margin-top col s12 blue">Enregistrer</button>
             </form>
         </div>
     </div>

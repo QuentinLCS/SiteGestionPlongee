@@ -293,7 +293,7 @@ class PlongeeController extends _ControllerClass
         elseif ($value=="EBateau") {
             if(isset($_POST["effectifB"]))
             {
-                if(formatChaineChiffreCorrect($_POST["effectifB"]))
+                if(!formatChaineChiffreCorrect($_POST["effectifB"]))
                 {
                     $base[0]->setPloEffectifBateau(intval($_POST["effectifB"]));
                     $this->plongeeManager->update($base,false);
