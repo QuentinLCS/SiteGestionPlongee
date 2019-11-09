@@ -15,7 +15,7 @@
             <td><?= dateFormater($plongee[0]->getPloDate()) ?></td>
             <td>
                 <?php
-            if($plongee[0]->getPloEtat()!="Validee")
+            if($plongee[0]->getPloEtat()!="Validée")
                 echo '<a href="#modalDate" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la date">
                 <i class="material-icons white-text">edit</i></a>';
                 ?>
@@ -26,7 +26,7 @@
 
             <td><?= $plongee[0]->getPloMatMidSoiEntier() ?></td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee")
+                <?php if($plongee[0]->getPloEtat()!="Validée")
                 echo '<a href="#modalPeriode" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la période">
                 <i class="material-icons white-text">edit</i>
             </a>'; ?>
@@ -75,7 +75,7 @@
                 <?php endif; ?>
             </td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                     <a href="#modal1" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'embarcation">
                         <i class="material-icons white-text">edit</i>
                     </a>
@@ -115,7 +115,7 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                    <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                         <a href="#modal2" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du site">
                             <i class="material-icons white-text">edit</i>
                         </a>
@@ -128,7 +128,7 @@
             <td>Effectif du bateau :</td>
             <td><?=$plongee[0]->getPloEffectifBateau()?></td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                     <a href="#modalEBateau" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de l'effectif Bateau">
                         <i class="material-icons white-text">edit</i>
                     </a>
@@ -139,7 +139,7 @@
             <td>Directeur de plongée :</td>
             <td><?=$plongee[0]->getDirecteur()[0]->getPerNom()?> <?=$plongee[0]->getDirecteur()[0]->getPerPrenom()?></td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                     <a href="#modalDirecteur" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification de la sécurité">
                         <i class="material-icons white-text">edit</i>
                     </a>
@@ -150,14 +150,14 @@
             <td>Sécurité de surface :</td>
             <td><?=$plongee[0]->getSecurite()[0]->getPerNom()?> <?=$plongee[0]->getSecurite()[0]->getPerPrenom()?></td>
             <td>
-                <?php if($plongee[0]->getPloEtat()!="Validee"): ?>
+                <?php if($plongee[0]->getPloEtat()!="Validée"): ?>
                     <a href="#modalSurface" class="waves-effect waves-light btn yellow accent-4 tooltipped right modal-trigger" data-position="top" data-tooltip="Modification du directeur">
                         <i class="material-icons white-text">edit</i>
                     </a>
                 <?php endif; ?>
             </td>
         </tr>
-        <?php if($plongee[0]->getPloEtat()=="Complete"): ?>
+        <?php if($plongee[0]->getPloEtat()=="Complète"): ?>
         <tr>
             <td class="row" colspan="3">
 

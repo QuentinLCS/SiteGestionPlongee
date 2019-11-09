@@ -6,6 +6,10 @@
     <div class="container">
         <h3>Liste des plongeurs<small>Affichés : <?= count((is_null($searchedPlongeurs) ? $allPlongeurs : $searchedPlongeurs)) ?></small></h3>
 
+            <a class="btn  blue modal-trigger pulse" href="#ajouter">
+                Ajouter plongeur
+            </a>
+
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
                 <div class="input-field col xl4 m6 s12">

@@ -34,6 +34,8 @@ class Plongee extends _Entity
 
     private $personneManager;
 
+    private $plongeeManager;
+
     public function __construct(array $data)
     {
         parent::__construct($data);
@@ -41,10 +43,19 @@ class Plongee extends _Entity
         $this->siteManager = new SiteManager();
         $this->personneManager = new PersonneManager();
         $this->embarcationManager = new EmbarcationManager();
+        $this->plongeeManager = new PlongeeManager();
 
         $this->site = $this->siteManager->getOne(['SIT_NUM' => $this->sit_num]);
         $this->directeur = $this->personneManager->getOne(['PER_NUM' => $this->per_num_dir]);
         $this->securite = $this->personneManager->getOne(['PER_NUM' => $this->per_num_secu]);
+
+        if (date('Y-m-d', strtotime('+1 year',strtotime($this->plo_date))) < date('Y-m-d')) {
+            //$this->setPloEtat("Dépassée");
+            $plongee[0] = $this;
+            $this->plongeeManager->delete($plongee);
+        }
+
+
     }
 
     /**
