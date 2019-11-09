@@ -3,6 +3,12 @@
 <section class="white z-depth-4 rounded center">
     <div class="container">
         <h4>Modifier une aptitude</h4>
+
+        <?php if(isset($_POST['errorAptAdd'])): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+            <?= $_POST['errorAptAdd'] ?>
+        </p>
+        <?php endif; ?>
         <?php
             $button = 'EDITER';
             require_once('view/aptitude/aptitude_xform.html');

@@ -8,6 +8,8 @@
         <a class="btn  blue modal-trigger pulse" href="#ajouter">
             Ajouter aptitude
         </a>
+
+
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="row">
                 <div class="input-field col m6 s12">
@@ -24,6 +26,13 @@
             <input type="hidden" value="<?= isset($_POST["focused"]) ? $_POST["focused"] : '' ?>" id="focused" name="focused">
             <button name="search" id="search" class="hiddendiv btn blue waves-effect waves-light"><i class="material-icons">send</i></button>
         </form>
+
+        <?php if(isset($_POST['errorAptAdd'])): ?>
+        <p class="red lighten-4 red-text text-darken-4 center" id="pal-edit-error">
+            <?= $_POST['errorAptAdd'] ?>
+        </p>
+        <?php endif; ?>
+
         <table class="striped">
             <thead>
                 <tr>
