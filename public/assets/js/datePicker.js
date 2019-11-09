@@ -1,10 +1,14 @@
+today = new Date();
+year = today.getUTCFullYear();
+today.setUTCFullYear(year-1);
+
 $(document).ready(function(){
 
     $('.datepicker').datepicker({
         setDefaultDate: true,
         firstDay: 1,
         format: 'yyyy-mm-dd',
-        minDate: new Date(2000,1,1),
+        minDate: today,
         i18n: {
             done: 'Valider',
             cancel: 'Annuler',
