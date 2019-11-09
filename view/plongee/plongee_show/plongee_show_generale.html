@@ -160,9 +160,8 @@
         <?php if($plongee[0]->getPloEtat()=="Complète"): ?>
         <tr>
             <td class="row" colspan="3">
-
+                <p class="center">"VALIDER" une plongée signifie que par la suite, elle ne sera plus modifiable.</p>
                 <a href="validerPlongee/&plo_mat_mid_soi=<?= $plongee[0]->getPloMatMidSoi() ?>&plo_date=<?= $plongee[0]->getPloDate() ?>" class="col s12 waves-effect waves-light btn green darken-4 right"><i class="material-icons right">done</i>Valider</a>
-
             </td>
         </tr>
         <?php endif ?>
