@@ -276,7 +276,7 @@ class PlongeeController extends _ControllerClass
         {
             if(isset($_POST["selectDirecteur"]))
             {
-                $base[0]->setDirecteur(intval($_POST["selectDirecteur"]));
+                $base[0]->setPerNumDir(intval($_POST["selectDirecteur"]));
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
@@ -285,7 +285,7 @@ class PlongeeController extends _ControllerClass
         {
             if(isset($_POST["selectSurface"]))
             {
-                $base[0]->setSecurite(intval($_POST["selectSurface"]));
+                $base[0]->setPerNumSecu(intval($_POST["selectSurface"]));
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
@@ -527,6 +527,7 @@ class PlongeeController extends _ControllerClass
         }
 
         if ( isset($_POST['submit']) ){
+            $erreur=0;
             if(!empty($_POST["profondeurMax"]) && !empty($_POST["DureeMax"]) ) {
 
                 $profondeurMax = $_POST["profondeurMax"];
@@ -538,6 +539,7 @@ class PlongeeController extends _ControllerClass
                 }
                 else
                 {
+                    $erreur=1;
                     $_POST['errorPalanqueeEdit'] = "Le format de la profondeur max est invalide";
                 }
                 if(!formatChaineChiffreCorrect($dureeMax))
@@ -546,24 +548,39 @@ class PlongeeController extends _ControllerClass
                 }
                 else
                 {
+                    $erreur=1;
                     $_POST['errorPalanqueeEdit'] = "Le format de la dureeMax est invalide";
                 }
 
-                if (!empty($_POST["HImmersion"])) {
-                    $HImmersion = $_POST["HImmersion"];
-                    $palanquee[0]->setPalHeureImmersion($HImmersion);
-                }
-                if (!empty($_POST["HSortie"])) {
-                    $HSortie = $_POST["HSortie"];
-                    $palanquee[0]->setPalHeureSortieEau($HSortie);
+                if (!empty($_POST["HImmersion"]) && !empty($_POST["HSortie"])) {
+                    if($this->verifierHeure($_POST["HImmersion"],$_POST["HSortie"]))
+                    {
+                        $HImmersion = $_POST["HImmersion"];
+                        $HSortie = $_POST["HSortie"];
+                        $palanquee[0]->setPalHeureSortieEau($HSortie);
+                        $palanquee[0]->setPalHeureImmersion($HImmersion);
+                    }
+                    else{
+                        $erreur=1;
+                        $_POST['errorPalanqueeEdit'] = "Les valeurs de l'heure d'immersion et de sortie de l'eau sont incorrectes";
+                    }
                 }
                 if (!empty($_POST["ProfondeurReelle"]))  {
                     $ProfondeurReelle = $_POST["ProfondeurReelle"];
                     if(!formatChaineChiffreCorrect($ProfondeurReelle))
                     {
-                        $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                        if($this->verifierValeur($_POST["ProfondeurReelle"],$profondeurMax))
+                        {
+                            $palanquee[0]->setPalProfondeurReelle($ProfondeurReelle);
+                        }
+                        else
+                        {
+                            $_POST['errorPalanqueeEdit'] = "La profondeur réelle est supérieur à la profondeur maximum définie";
+                            $erreur=1;
+                        }
                     }
                     else {
+                        $erreur=1;
                         $_POST['errorPalanqueeEdit'] = "Format de la profondeur réelle est incorrect";
                     }
                 }
@@ -571,9 +588,18 @@ class PlongeeController extends _ControllerClass
                     $DureeFond = $_POST["DureeFond"];
                     if(!formatChaineChiffreCorrect($DureeFond))
                     {
-                        $palanquee[0]->setPalDureeFond($DureeFond);
+                        if($this->verifierValeur($DureeFond,$dureeMax))
+                        {
+                            $palanquee[0]->setPalDureeFond($DureeFond);
+                        }
+                        else{
+                            $erreur=1;
+                            $_POST['errorPalanqueeEdit'] = "La durée de fond ne peux pas être supérieur à la durée max";
+                        }
+
                     }
                     else {
+                        $erreur=1;
                         $_POST['errorPalanqueeEdit'] = "Format de la durée au fond est incorrect";
                     }
                 }
@@ -584,8 +610,10 @@ class PlongeeController extends _ControllerClass
                     $plongee[0]->setPloEtat("Complète");
                 }
                 $this->plongeeManager->update($plongee,false);
-
-                header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                if($erreur!=0)
+                {
+                    header('location: /plongee/show/editPal/&pal_num='.$_GET['pal_num'].'&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
+                }
             }
             else{
                 $_POST['errorPalanqueeEdit'] = "Modification Palanquée : Données Invalide";
@@ -813,6 +841,17 @@ class PlongeeController extends _ControllerClass
             return false;
         }
     }
+    public function verifierHeure($heureD, $heureF)
+    {
+        $val1=explode(":",$heureD);
+        $val2=explode(":",$heureF);
+        return (intval($val1[0])<intval($val2[0]))||intval(($val1[0]<=$val2[0]) && intval($val1[1]<$val2[1]));
+    }
+    public function verifierValeur($val1,$val2)
+    {
+        return intval($val1)<=intval($val2);
+    }
+
 
 }
 
