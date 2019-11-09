@@ -34,7 +34,7 @@
                 <?php endif; ?>
                 <?php if(empty($allPlongees)): ?>
                 <p class="red lighten-4 red-text text-darken-4 center" id="form-error">
-                    Aucun plongeur renseigné pour cette plongée.
+                    Aucune plongée.
                 </p>
                 <?php else: ?>
                     <p><span class="green-text">Validée</span> = Plongée qui n'est plus modifiable</p>
@@ -76,6 +76,11 @@
                         </tbody>
                     </table>
                 <?php endif; ?>
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large blue modal-trigger pulse" href="#ajouter">
+                        <i class="large material-icons">add</i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
