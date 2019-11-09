@@ -26,7 +26,6 @@
         <table class="striped">
             <thead>
                 <tr>
-                    <th class="center">Numéro</th>
                     <th class="center">Nom</th>
                     <th class="center">Localisation</th>
                     <th class="center">Gestion</th>
@@ -36,7 +35,6 @@
             <tbody>
                 <?php foreach((is_null($searchedSites) ? $allSites : $searchedSites) as $site): ?>
                     <tr>
-                        <td class="center"><?= $site->getSitNum() ?></td>
                         <td class="center"><?= $site->getSitNom() ?></td>
                         <td class="center"><?= $site->getSitLocalisation() ?></td>
                         <td class="center">
