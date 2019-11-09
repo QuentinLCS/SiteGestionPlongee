@@ -276,7 +276,7 @@ class PlongeeController extends _ControllerClass
         {
             if(isset($_POST["selectDirecteur"]))
             {
-                $base[0]->setDirecteur(intval($_POST["selectDirecteur"]));
+                $base[0]->setPerNumDir(intval($_POST["selectDirecteur"]));
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
@@ -285,7 +285,7 @@ class PlongeeController extends _ControllerClass
         {
             if(isset($_POST["selectSurface"]))
             {
-                $base[0]->setSecurite(intval($_POST["selectSurface"]));
+                $base[0]->setPerNumSecu(intval($_POST["selectSurface"]));
                 $this->plongeeManager->update($base,false);
                 header('location: /plongee/show/&plo_date='.$_GET['plo_date'].'&plo_mat_mid_soi='.$_GET['plo_mat_mid_soi']);
             }
